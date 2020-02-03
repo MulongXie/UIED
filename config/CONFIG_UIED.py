@@ -9,7 +9,7 @@ class Config:
 
         # *** Frozen ***
         self.THRESHOLD_OBJ_MIN_AREA = 175
-        self.THRESHOLD_OBJ_MIN_PERIMETER = 120
+        self.THRESHOLD_OBJ_MIN_PERIMETER = 70
         self.THRESHOLD_REC_MIN_EVENNESS = 0.66
         self.THRESHOLD_REC_MIN_EVENNESS_STRONG = 0.7
         self.THRESHOLD_REC_MAX_DENT_RATIO = 0.1

@@ -1,8 +1,8 @@
 import time
 
 is_ocr = True
-is_ip = False
-is_merge = False
+is_ip = True
+is_merge = True
 resize_by_height = 600
 
 # set input image path

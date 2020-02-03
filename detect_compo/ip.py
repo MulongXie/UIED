@@ -16,6 +16,7 @@ from config.MODEL_CNN import CNN
 cnn = CNN()
 cnn.load()
 
+
 def processing_block(org, binary, blocks_corner, classifier):
     '''
     :param org: original image
@@ -76,20 +77,20 @@ def processing(org, binary, classifier, inspect_img=False):
     compos_corner, compos_class = det.merge_corner(compos_corner, compos_class)
     if inspect_img:
         compos_corner, compos_class = det.compo_on_img(processing, org, binary, classifier, compos_corner, compos_class)
-
     return compos_boundary, compos_corner, compos_class
 
 
 def compo_detection(input_img_path, output_root, resize_by_height=600, show=False):
     start = time.clock()
-    print("Compo Detection for %s" %input_img_path)
+    print("Compo Detection for %s" % input_img_path)
+    name = input_img_path.split('\\')[-1][:-4]
 
     # *** Step 1 *** pre-processing: read img -> get binary map
     org, grey = pre.read_img(input_img_path, resize_by_height)
     binary_org = pre.preprocess(org)
 
     # *** Step 2 *** block processing: detect block -> detect components in block
-    blocks_corner = blk.block_division(grey)
+    blocks_corner = blk.block_division(grey, write_path=pjoin(output_root, name + '_block.png'))
     compo_in_blk_boundary, compo_in_blk_corner, compo_in_blk_class = processing_block(org, binary_org, blocks_corner, cnn)
 
     # *** Step 3 *** non-block processing: erase blocks from binary -> detect left components
@@ -103,7 +104,6 @@ def compo_detection(input_img_path, output_root, resize_by_height=600, show=Fals
 
     # *** Step 5 *** save results: save text label -> save drawn image
     draw_bounding = draw.draw_bounding_box_class(org, compos_corner, compos_class)
-    name = input_img_path.split('\\')[-1][:-4]
     output_label_path = pjoin(output_root, name + '_ip.json')
     output_drawn_path = pjoin(output_root, name + '_ip.png')
     file.save_corners_json(output_label_path, compos_corner, compos_class)

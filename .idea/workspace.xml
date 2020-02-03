@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec674c14-d769-4dcf-837d-d38d84b15461" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/lib_east/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/nets/resnet_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/lib_east/nets/resnet_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/CONFIG_UIED.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/CONFIG_UIED.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_ip.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/7_ip.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_ip.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/7_ip.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_merged.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/7_merged.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_merged.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/7_merged.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/ip.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/ip.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text_east/ocr_east.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/ocr_east.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_single.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,55 +23,29 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="main_single.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main_single.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ip.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="181">
-                  <caret line="82" column="4" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
-                  <folding>
-                    <element signature="e#0#10#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="ocr_east.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="102">
-                  <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="eval.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/eval.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="133" column="37" selection-start-line="133" selection-start-column="37" selection-end-line="133" selection-end-column="37" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="main_single.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main_single.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ip.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -94,12 +78,16 @@
         <option value="$PROJECT_DIR$/merge.py" />
         <option value="$PROJECT_DIR$/detect_text_east/ocr.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" />
-        <option value="$PROJECT_DIR$/detect_compo/ip.py" />
-        <option value="$PROJECT_DIR$/main_single.py" />
-        <option value="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" />
         <option value="$PROJECT_DIR$/detect_text_east/lib_east/nets/resnet_utils.py" />
         <option value="$PROJECT_DIR$/detect_text_east/lib_east/model.py" />
+        <option value="$PROJECT_DIR$/detect_text_east/ocr_east.py" />
+        <option value="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" />
+        <option value="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" />
+        <option value="$PROJECT_DIR$/detect_compo/ip.py" />
+        <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" />
+        <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" />
+        <option value="$PROJECT_DIR$/config/CONFIG_UIED.py" />
+        <option value="$PROJECT_DIR$/main_single.py" />
       </list>
     </option>
   </component>
@@ -151,6 +139,42 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.main_single">
+    <configuration name="ip" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="UIED" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/detect_compo" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/detect_compo/ip.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="ip_detection" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="UIED" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/detect_compo/lib_ip" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -209,10 +233,14 @@
       <item itemvalue="Python.main_single" />
       <item itemvalue="Python.main" />
       <item itemvalue="Python.test" />
+      <item itemvalue="Python.ip" />
+      <item itemvalue="Python.ip_detection" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main_single" />
+        <item itemvalue="Python.ip_detection" />
+        <item itemvalue="Python.ip" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.main" />
       </list>
@@ -498,13 +526,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="22" column="50" lean-forward="true" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/merge.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="424">
@@ -529,13 +550,6 @@
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -567,27 +581,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_single.py">
+    <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+        <state relative-caret-position="102">
+          <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/eval.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="170" column="33" selection-start-line="170" selection-start-column="33" selection-end-line="170" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="82" column="4" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
+        <state relative-caret-position="302">
+          <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/eval.py">
+    <entry file="file://$PROJECT_DIR$/config/CONFIG_UIED.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="133" column="37" selection-start-line="133" selection-start-column="37" selection-end-line="133" selection-end-column="37" />
+        <state relative-caret-position="119">
+          <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="450" column="97" selection-start-line="450" selection-start-column="97" selection-end-line="450" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="115" column="19" selection-start-line="115" selection-start-column="4" selection-end-line="115" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_detection_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/block_division.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="67" column="33" lean-forward="true" selection-start-line="67" selection-start-column="33" selection-end-line="67" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_single.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
         </state>
       </provider>
     </entry>

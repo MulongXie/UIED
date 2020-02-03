@@ -10,13 +10,7 @@ import lib_ip.ip_draw as draw
 import lib_ip.ip_segment as seg
 
 
-def draw_region(region, broad):
-    color = (rint(0,255), rint(0,255), rint(0,255))
-    for point in region:
-        broad[point[0], point[1]] = color
-
-
-def block_division(grey, show=False):
+def block_division(grey, show=False, write_path=None):
     '''
     :param grey: grey-scale of original image
     :return: corners: list of [(top_left, bottom_right)]
@@ -71,10 +65,12 @@ def block_division(grey, show=False):
                 if not util.boundary_is_rectangle(boundary, 0.66, 0.25):
                     continue
                 blocks.append(boundary)
-                draw_region(region, broad)
+                draw.draw_region(region, broad)
     if show:
         cv2.imshow('broad', broad)
         cv2.waitKey()
+    if write_path is not None:
+        cv2.imwrite(write_path, broad)
 
     blocks_corner = det.get_corner(blocks)
     return blocks_corner

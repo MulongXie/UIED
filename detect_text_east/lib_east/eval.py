@@ -168,7 +168,7 @@ def main(resize_by_height=600):
                 boxes[:, :, 1] /= ratio_h
 
             duration = time.time() - start_time
-            print('[timing] {}'.format(duration))
+            print('[timing] {:.3f}'.format(duration))
 
             # save to file
             if boxes is not None:

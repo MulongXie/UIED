@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
+from random import randint as rint
 from config.CONFIG_UIED import Config
+
 
 C = Config()
 
@@ -100,3 +102,22 @@ def draw_boundary(boundaries, shape, show=False):
     return board
 
 
+def draw_region(region, broad, show=False):
+    color = (rint(0,255), rint(0,255), rint(0,255))
+    for point in region:
+        broad[point[0], point[1]] = color
+
+    if show:
+        cv2.imshow('region', broad)
+        cv2.waitKey()
+    return broad
+
+
+def draw_region_bin(region, broad, show=False):
+    for point in region:
+        broad[point[0], point[1]] = 255
+
+    if show:
+        cv2.imshow('region', broad)
+        cv2.waitKey()
+    return broad
