@@ -82,7 +82,7 @@ def processing(org, binary, classifier, inspect_img=False):
 
 def compo_detection(input_img_path, output_root, resize_by_height=600, show=False):
     start = time.clock()
-    print("Compo Detection Starts for %s" %input_img_path)
+    print("Compo Detection for %s" %input_img_path)
 
     # *** Step 1 *** pre-processing: read img -> get binary map
     org, grey = pre.read_img(input_img_path, resize_by_height)
@@ -103,9 +103,9 @@ def compo_detection(input_img_path, output_root, resize_by_height=600, show=Fals
 
     # *** Step 5 *** save results: save text label -> save drawn image
     draw_bounding = draw.draw_bounding_box_class(org, compos_corner, compos_class)
-    name = input_img_path.split('/')[-1][:-4]
-    output_label_path = pjoin(output_root, 'ip.json')
-    output_drawn_path = pjoin(output_root, 'ip.png')
+    name = input_img_path.split('\\')[-1][:-4]
+    output_label_path = pjoin(output_root, name + '_ip.json')
+    output_drawn_path = pjoin(output_root, name + '_ip.png')
     file.save_corners_json(output_label_path, compos_corner, compos_class)
     cv2.imwrite(output_drawn_path, draw_bounding)
 

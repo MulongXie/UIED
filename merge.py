@@ -172,9 +172,10 @@ def refine_text(org, corners_text, max_line_gap, min_word_length):
     return corners_text_refine
 
 
-def incorporate(img_path, labels_root, resize_by_height=600, is_clip=False, clip_path=None):
-    compo_path = pjoin(labels_root, 'ip.json')
-    text_path = pjoin(labels_root, 'ocr.txt')
+def incorporate(img_path, label_text, labels_compo, label_merge, resize_by_height=600, is_clip=False, clip_path=None):
+    name = img_path.split('\\')[-1][:-4]
+    compo_path = pjoin(labels_compo, name + '_ip.json')
+    text_path = pjoin(label_text, name + '_ocr.txt')
 
     img, _ = pre.read_img(img_path, resize_by_height)
     compo_f = open(compo_path, 'r')
@@ -195,12 +196,12 @@ def incorporate(img_path, labels_root, resize_by_height=600, is_clip=False, clip
     corners_compo_new, compos_class_new = nms(img, corners_compo, compos_class, corners_text)
     board = draw_bounding_box_class(img, corners_compo_new, compos_class_new)
 
-    output_path_label = pjoin(labels_root, 'merged.txt')
-    output_path_img = pjoin(labels_root, 'merged.png')
+    output_path_label = pjoin(label_merge, name + '_merged.txt')
+    output_path_img = pjoin(label_merge, name + '_merged.png')
     save_label_txt(img_path, corners_compo_new, compos_class_new, output_path_label)
     cv2.imwrite(output_path_img, board)
 
-    print('*** Merge Complete and Save to', output_path_img, '***')
+    print('Merge Complete and Save to', output_path_img)
 
     if is_clip:
         save_clipping(img, corners_compo_new, compos_class_new, compo_index, clip_path)

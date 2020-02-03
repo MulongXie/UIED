@@ -11,10 +11,10 @@ PATH_OUTPUT_ROOT = 'data/output/'
 
 start = time.clock()
 if is_ctpn:
-    import ocr as ocr
+    import ocr
     ocr.ctpn(PATH_IMG_INPUT, PATH_OUTPUT_ROOT, resize_by_height)
 if is_uied:
-    import ip as ip
+    import ip
     ip.compo_detection(PATH_IMG_INPUT, PATH_OUTPUT_ROOT, resize_by_height)
 if is_merge:
     import merge

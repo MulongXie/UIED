@@ -59,7 +59,7 @@ def draw_boxes(img, boxes, scale, output_path_label, output_path_img):
 
 def ctpn(input_path_img, output_root, resize_by_height=600):
     start = time.clock()
-    print(('CTPN for {:s}'.format(input_path_img)))
+    print(('Text Detection for {:s}'.format(input_path_img)))
     img, _ = pre.read_img(input_path_img, resize_by_height)
     img, scale = resize_im(img, scale=TextLineCfg.SCALE, max_scale=TextLineCfg.MAX_SCALE)
     blobs, im_scales = _get_blobs(img, None)
@@ -76,9 +76,10 @@ def ctpn(input_path_img, output_root, resize_by_height=600):
     textdetector = TextDetector()
     boxes = textdetector.detect(boxes, scores[:, np.newaxis], img.shape[:2])
 
-    name = input_path_img.split('/')[-1][:-4]
-    output_path_label = os.path.join(output_root, 'ocr.txt')
-    output_path_img = os.path.join(output_root, 'ocr.png')
+    name = input_path_img.split('\\')[-1][:-4]
+    output_path_label = os.path.join(output_root, name + '_ocr.txt')
+    output_path_img = os.path.join(output_root, name + '_ocr.png')
+
     draw_boxes(img, boxes, scale, output_path_label, output_path_img)
     print('OCR Complete in %.3f s' %(time.clock() - start))
     # sess.close()
