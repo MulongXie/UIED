@@ -5,7 +5,9 @@
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/config" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/detect_compo" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/detect_text" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/detect_text_east" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/detect_text_ctpn" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_text" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

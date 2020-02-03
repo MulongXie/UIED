@@ -2,19 +2,80 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec674c14-d769-4dcf-837d-d38d84b15461" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/UIED.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UIED.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/CONFIG.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/CONFIG.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/merged.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/merged.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/ip.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/ip.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text/ocr.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text/ocr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/.idea/ocr.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/ctpn/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/ctpn/demo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/ctpn/demo_pb.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/ctpn/generate_pb.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/ctpn/text.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/ctpn/train_net.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/datasets/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/datasets/factory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/datasets/imdb.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/datasets/pascal_voc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/fast_rcnn/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/fast_rcnn/bbox_transform.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/fast_rcnn/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/fast_rcnn/nms_wrapper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/fast_rcnn/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/fast_rcnn/train.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/networks/VGGnet_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/networks/VGGnet_train.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/networks/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/networks/factory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/networks/network.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/prepare_training_data/ToVoc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/prepare_training_data/split_label.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/roi_data_layer/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/roi_data_layer/layer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/roi_data_layer/minibatch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/roi_data_layer/roidb.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/rpn_msr/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/rpn_msr/anchor_target_layer_tf.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/rpn_msr/generate_anchors.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/rpn_msr/proposal_layer_tf.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/text_connector/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/text_connector/detectors.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/text_connector/other.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/text_connector/text_connect_cfg.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/text_connector/text_proposal_connector.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/text_connector/text_proposal_connector_oriented.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/text_connector/text_proposal_graph_builder.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/bbox.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/bbox.cp35-win_amd64.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/bbox.pyx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/blob.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/boxes_grid.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/build/lib.win-amd64-3.5/lib/utils/bbox.cp35-win_amd64.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/build/lib.win-amd64-3.5/lib/utils/cython_nms.cp35-win_amd64.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/bbox.cp35-win_amd64.exp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/bbox.cp35-win_amd64.lib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/bbox.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/cython_nms.cp35-win_amd64.exp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/cython_nms.cp35-win_amd64.lib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/cython_nms.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/cython_nms.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/cython_nms.cp35-win_amd64.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/cython_nms.pyx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/gpu_nms.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/gpu_nms.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/gpu_nms.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/gpu_nms.pyx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/make.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/nms_kernel.cu" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/setup_new.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/lib_ctpn/utils/timer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/ocr.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_select.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_single.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,26 +88,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="ocr.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/detect_text/ocr.py">
+          <file leaf-file-name="main_single.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/main_single.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-225">
-                  <caret line="61" column="26" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
-                  <folding>
-                    <element signature="e#0#37#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/main.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="438">
-                  <caret line="48" column="44" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
-                  <folding>
-                    <element signature="e#0#11#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="272">
+                  <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
                 </state>
               </provider>
             </entry>
@@ -54,45 +100,21 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="main_single.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main_single.py">
+        <leaf>
+          <file leaf-file-name="ocr_east.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret column="11" lean-forward="true" selection-start-column="11" selection-end-column="11" />
+                <state relative-caret-position="102">
+                  <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="merge.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/merge.py">
+          <file leaf-file-name="eval.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/eval.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="489">
-                  <caret line="203" column="11" selection-start-line="203" selection-start-column="11" selection-end-line="203" selection-end-column="11" />
-                  <folding>
-                    <element signature="e#0#11#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ip.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-75">
-                  <caret line="84" column="33" selection-start-line="84" selection-start-column="33" selection-end-line="84" selection-end-column="33" />
-                  <folding>
-                    <element signature="e#0#10#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="CONFIG.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/config/CONFIG.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="238">
-                  <caret line="18" column="53" lean-forward="true" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
+                <state relative-caret-position="510">
+                  <caret line="196" column="4" selection-start-line="196" selection-start-column="4" selection-end-line="196" selection-end-column="4" />
                 </state>
               </provider>
             </entry>
@@ -101,11 +123,20 @@
       </split-second>
     </splitter>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>GRADIENT</find>
       <find>UIED</find>
       <find>/</find>
+      <find>print</find>
+      <find>load</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -116,12 +147,16 @@
       <list>
         <option value="$PROJECT_DIR$/ip.py" />
         <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_preprocessing.py" />
-        <option value="$PROJECT_DIR$/main_single.py" />
         <option value="$PROJECT_DIR$/config/CONFIG.py" />
         <option value="$PROJECT_DIR$/detect_text/ocr.py" />
-        <option value="$PROJECT_DIR$/merge.py" />
-        <option value="$PROJECT_DIR$/detect_compo/ip.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/merge.py" />
+        <option value="$PROJECT_DIR$/detect_text_east/ocr.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" />
+        <option value="$PROJECT_DIR$/main_single.py" />
+        <option value="$PROJECT_DIR$/detect_compo/ip.py" />
+        <option value="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" />
       </list>
     </option>
   </component>
@@ -148,11 +183,6 @@
             <path>
               <item name="UIED" type="b2602c69:ProjectViewProjectNode" />
               <item name="UIED" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UIED" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UIED" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -162,7 +192,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Research-ReverselyGeneratingWebCode/code/WORKPLACE/UIED-RICO" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../fork/EAST" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -177,7 +207,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.main_single">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -214,14 +244,34 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="UIED" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list>
       <item itemvalue="Python.main_single" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.main_single" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -240,9 +290,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-7" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13119073" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09747102" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32570806" />
@@ -260,6 +309,25 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32570806" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09747102" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39978212" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -356,13 +424,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Anaconda/Lib/site-packages/tensorflow/python/client/session.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="685" selection-start-line="685" selection-end-line="685" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_preprocessing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -412,31 +473,83 @@
     <entry file="file://$PROJECT_DIR$/config/CONFIG.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="18" column="53" lean-forward="true" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
+          <caret line="18" column="53" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_single.py">
+    <entry file="file://$PROJECT_DIR$/main_select.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-228">
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Anaconda/Lib/site-packages/tensorflow/python/client/session.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="685" column="50" lean-forward="true" selection-start-line="685" selection-start-column="50" selection-end-line="685" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ocr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="11" lean-forward="true" selection-start-column="11" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/detect_text/ocr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-225">
-          <caret line="61" column="26" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+        <state relative-caret-position="190">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/detect_text_east/ocr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="44" lean-forward="true" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="22" column="50" lean-forward="true" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/merge.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="203" column="11" selection-start-line="203" selection-start-column="11" selection-end-line="203" selection-end-column="11" />
+        <state relative-caret-position="424">
+          <caret line="130" column="20" lean-forward="true" selection-start-line="130" selection-start-column="20" selection-end-line="130" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" lean-forward="true" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="25" column="41" lean-forward="true" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -445,21 +558,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-75">
-          <caret line="84" column="33" selection-start-line="84" selection-start-column="33" selection-end-line="84" selection-end-column="33" />
+        <state relative-caret-position="181">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="8" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/main_single.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="48" column="44" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="272">
+          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/eval.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="196" column="4" selection-start-line="196" selection-start-column="4" selection-end-line="196" selection-end-column="4" />
         </state>
       </provider>
     </entry>
