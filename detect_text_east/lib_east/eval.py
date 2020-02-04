@@ -158,7 +158,7 @@ def predict(sess, f_score, f_geometry, input_images, resize_by_height):
         boxes[:, :, 1] /= ratio_h
 
     duration = time.time() - start_time
-    print('[timing] {:.3f}'.format(duration))
+    # print('[timing] {:.3f}'.format(duration))
 
     # save to file
     if boxes is not None:

@@ -109,7 +109,7 @@ def compo_detection(input_img_path, output_root, resize_by_height=600, show=Fals
     file.save_corners_json(output_label_path, compos_corner, compos_class)
     cv2.imwrite(output_drawn_path, draw_bounding)
 
-    print("Compo Detection Completed in %.3f s" % (time.clock() - start))
+    print("[Compo Detection Completed in %.3f s]" % (time.clock() - start))
 
     if show:
         cv2.imshow('broad', draw_bounding)

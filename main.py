@@ -3,7 +3,7 @@ from os.path import join as pjoin, exists
 import time
 
 import ocr_east as ocr
-# import ip
+import ip
 import merge
 
 from CONFIG import Config
@@ -36,8 +36,8 @@ for input_path_img in input_paths_img:
 
     if is_ocr:
         ocr.east(input_path_img, C.ROOT_CTPN, resize_by_height)
-    # if is_ip:
-    #     ip.compo_detection(input_path_img, C.ROOT_IP, resize_by_height)
+    if is_ip:
+        ip.compo_detection(input_path_img, C.ROOT_IP, resize_by_height)
     if is_merge:
         merge.incorporate(input_path_img, C.ROOT_CTPN, C.ROOT_IP, C.ROOT_MERGE, resize_by_height, is_clip)
 

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec674c14-d769-4dcf-837d-d38d84b15461" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/detect_text_east/lib_east/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/ip.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/ip.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/eval - Copy.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/detect_text_east/ocr_east.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/ocr_east.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -22,8 +22,8 @@
           <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="401">
-                  <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+                <state relative-caret-position="469">
+                  <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
@@ -31,13 +31,25 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ocr_east.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="ocr_east.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="10" selection-start-line="10" selection-end-line="10" />
+                <state relative-caret-position="187">
+                  <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ip.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="149">
+                  <caret line="35" column="64" lean-forward="true" selection-start-line="35" selection-start-column="64" selection-end-line="35" selection-end-column="64" />
+                  <folding>
+                    <element signature="e#0#10#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -50,32 +62,11 @@
           <file leaf-file-name="eval.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/eval.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="317">
-                  <caret line="200" column="39" selection-start-line="200" selection-start-column="39" selection-end-line="200" selection-end-column="39" />
+                <state relative-caret-position="595">
+                  <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/test.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="285">
-                  <caret line="217" lean-forward="true" selection-start-line="217" selection-end-line="217" />
-                  <folding>
-                    <element signature="e#0#10#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="eval - Copy.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/eval - Copy.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret column="9" lean-forward="true" selection-start-column="9" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
@@ -118,15 +109,15 @@
         <option value="$PROJECT_DIR$/detect_text_east/lib_east/nets/resnet_utils.py" />
         <option value="$PROJECT_DIR$/detect_text_east/lib_east/model.py" />
         <option value="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" />
-        <option value="$PROJECT_DIR$/detect_compo/ip.py" />
         <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" />
         <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" />
         <option value="$PROJECT_DIR$/config/CONFIG_UIED.py" />
         <option value="$PROJECT_DIR$/main_single.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/detect_text_east/lib_east/test.py" />
-        <option value="$PROJECT_DIR$/detect_text_east/ocr_east.py" />
+        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" />
+        <option value="$PROJECT_DIR$/detect_text_east/ocr_east.py" />
+        <option value="$PROJECT_DIR$/detect_compo/ip.py" />
       </list>
     </option>
   </component>
@@ -154,12 +145,6 @@
               <item name="UIED" type="b2602c69:ProjectViewProjectNode" />
               <item name="UIED" type="462c0819:PsiDirectoryNode" />
               <item name="detect_text_east" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UIED" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UIED" type="462c0819:PsiDirectoryNode" />
-              <item name="detect_text_east" type="462c0819:PsiDirectoryNode" />
-              <item name="lib_east" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -307,10 +292,10 @@
   <component name="ToolWindowManager">
     <frame x="1912" y="-7" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09747102" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09747102" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32570806" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32570806" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -584,16 +569,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="98" selection-start-line="98" selection-end-line="98" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/CONFIG_UIED.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -656,16 +631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/eval - Copy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -690,20 +655,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
+    <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/eval.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="595">
+          <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/eval.py">
+    <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="200" column="39" selection-start-line="200" selection-start-column="39" selection-end-line="200" selection-end-column="39" />
+        <state relative-caret-position="187">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="35" column="64" lean-forward="true" selection-start-line="35" selection-start-column="64" selection-end-line="35" selection-end-column="64" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
