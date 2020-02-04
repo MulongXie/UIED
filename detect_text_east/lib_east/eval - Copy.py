@@ -97,7 +97,7 @@ def detect(score_map, geo_map, timer, score_map_thresh=0.8, box_thresh=0.1, nms_
     xy_text = xy_text[np.argsort(xy_text[:, 0])]
     # restore
     start = time.time()
-    text_box_restored = restore_rectangle(xy_text[:, ::-1] * 4, geo_map[xy_text[:, 0], xy_text[:, 1], :])  # N*4*2
+    text_box_restored = restore_rectangle(xy_text[:, ::-1]*4, geo_map[xy_text[:, 0], xy_text[:, 1], :]) # N*4*2
     # print('{} text boxes before nms'.format(text_box_restored.shape[0]))
     boxes = np.zeros((text_box_restored.shape[0], 9), dtype=np.float32)
     boxes[:, :8] = text_box_restored.reshape((-1, 8))
@@ -124,94 +124,92 @@ def detect(score_map, geo_map, timer, score_map_thresh=0.8, box_thresh=0.1, nms_
 
 def sort_poly(p):
     min_axis = np.argmin(np.sum(p, axis=1))
-    p = p[[min_axis, (min_axis + 1) % 4, (min_axis + 2) % 4, (min_axis + 3) % 4]]
+    p = p[[min_axis, (min_axis+1)%4, (min_axis+2)%4, (min_axis+3)%4]]
     if abs(p[0, 0] - p[1, 0]) > abs(p[0, 1] - p[1, 1]):
         return p
     else:
         return p[[0, 3, 2, 1]]
 
 
-def predict(sess, f_score, f_geometry, input_images, resize_by_height):
-    img_path = FLAGS.test_data_path
-    # print(img_path)
-    # im = cv2.imread(img_path)[:, :, ::-1]
-
-    import lib_ip.ip_preprocessing as pre
-    im, _ = pre.read_img(img_path, resize_by_height)
-    im = im[:, :, ::-1]
-
-    start_time = time.time()
-    im_resized, (ratio_h, ratio_w) = resize_image(im)
-
-    timer = {'net': 0, 'restore': 0, 'nms': 0}
-    start = time.time()
-    score, geometry = sess.run([f_score, f_geometry], feed_dict={input_images: [im_resized]})
-    timer['net'] = time.time() - start
-
-    boxes, timer = detect(score_map=score, geo_map=geometry, timer=timer)
-    # print('{} : net {:.0f}ms, restore {:.0f}ms, nms {:.0f}ms'.format(
-    #     img_path, timer['net']*1000, timer['restore']*1000, timer['nms']*1000))
-
-    if boxes is not None:
-        boxes = boxes[:, :8].reshape((-1, 4, 2))
-        boxes[:, :, 0] /= ratio_w
-        boxes[:, :, 1] /= ratio_h
-
-    duration = time.time() - start_time
-    print('[timing] {:.3f}'.format(duration))
-
-    # save to file
-    if boxes is not None:
-        res_file = os.path.join(
-            FLAGS.output_dir,
-            '{}_ocr.txt'.format(
-                os.path.basename(img_path).split('.')[0]))
-
-        with open(res_file, 'w') as f:
-            for box in boxes:
-                # to avoid submitting errors
-                box = sort_poly(box.astype(np.int32))
-                if np.linalg.norm(box[0] - box[1]) < 5 or np.linalg.norm(box[3] - box[0]) < 5:
-                    continue
-                f.write('{},{},{},{}\r\n'.format(
-                    box[0, 0], box[0, 1], box[2, 0], box[2, 1]
-                ))
-                # cv2.polylines(im[:, :, ::-1], [box.astype(np.int32).reshape((-1, 1, 2))], True, color=(255, 255, 0), thickness=1)
-                cv2.rectangle(im[:, :, ::-1], (box[0][0], box[0][1]), (box[2][0], box[2][1]), (0, 0, 255), 3)
-
-    if not FLAGS.no_write_images:
-        img_path = os.path.join(FLAGS.output_dir, os.path.basename(img_path)[:-4] + '_ocr.png')
-        cv2.imwrite(img_path, im[:, :, ::-1])
-
-
-def load():
+def main(resize_by_height=600):
     import os
     os.environ['CUDA_VISIBLE_DEVICES'] = FLAGS.gpu_list
 
+
+    try:
+        os.makedirs(FLAGS.output_dir)
+    except OSError as e:
+        if e.errno != 17:
+            raise
+
     with tf.get_default_graph().as_default():
         input_images = tf.placeholder(tf.float32, shape=[None, None, None, 3], name='input_images')
-        try:
-            global_step = tf.get_variable('global_step', [], initializer=tf.constant_initializer(0), trainable=False)
-        except ValueError:
-            tf.get_variable_scope().reuse_variables()
-            global_step = tf.get_variable('global_step', [], initializer=tf.constant_initializer(0), trainable=False)
+        global_step = tf.get_variable('global_step', [], initializer=tf.constant_initializer(0), trainable=False)
 
         f_score, f_geometry = model.model(input_images, is_training=False)
 
         variable_averages = tf.train.ExponentialMovingAverage(0.997, global_step)
         saver = tf.train.Saver(variable_averages.variables_to_restore())
 
-        sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True))
-        ckpt_state = tf.train.get_checkpoint_state(FLAGS.checkpoint_path)
-        model_path = os.path.join(FLAGS.checkpoint_path, os.path.basename(ckpt_state.model_checkpoint_path))
-        # print('Restore from {}'.format(model_path))
-        saver.restore(sess, model_path)
+        with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
+            ckpt_state = tf.train.get_checkpoint_state(FLAGS.checkpoint_path)
+            model_path = os.path.join(FLAGS.checkpoint_path, os.path.basename(ckpt_state.model_checkpoint_path))
+            # print('Restore from {}'.format(model_path))
+            saver.restore(sess, model_path)
 
-    return sess, f_score, f_geometry, input_images
+            img_path = FLAGS.test_data_path
+            # print(img_path)
+            # im = cv2.imread(img_path)[:, :, ::-1]
+
+            import lib_ip.ip_preprocessing as pre
+            im, _ = pre.read_img(img_path, resize_by_height)
+            im = im[:, :, ::-1]
+
+            start_time = time.time()
+            im_resized, (ratio_h, ratio_w) = resize_image(im)
+
+            timer = {'net': 0, 'restore': 0, 'nms': 0}
+            start = time.time()
+            score, geometry = sess.run([f_score, f_geometry], feed_dict={input_images: [im_resized]})
+            timer['net'] = time.time() - start
+
+            boxes, timer = detect(score_map=score, geo_map=geometry, timer=timer)
+            # print('{} : net {:.0f}ms, restore {:.0f}ms, nms {:.0f}ms'.format(
+            #     img_path, timer['net']*1000, timer['restore']*1000, timer['nms']*1000))
+
+            if boxes is not None:
+                boxes = boxes[:, :8].reshape((-1, 4, 2))
+                boxes[:, :, 0] /= ratio_w
+                boxes[:, :, 1] /= ratio_h
+
+            duration = time.time() - start_time
+            print('[timing] {:.3f}'.format(duration))
+
+            # save to file
+            if boxes is not None:
+                res_file = os.path.join(
+                    FLAGS.output_dir,
+                    '{}_ocr.txt'.format(
+                        os.path.basename(img_path).split('.')[0]))
+
+                with open(res_file, 'w') as f:
+                    for box in boxes:
+                        # to avoid submitting errors
+                        box = sort_poly(box.astype(np.int32))
+                        if np.linalg.norm(box[0] - box[1]) < 5 or np.linalg.norm(box[3]-box[0]) < 5:
+                            continue
+                        f.write('{},{},{},{}\r\n'.format(
+                            box[0, 0], box[0, 1], box[2, 0], box[2, 1]
+                        ))
+                        # cv2.polylines(im[:, :, ::-1], [box.astype(np.int32).reshape((-1, 1, 2))], True, color=(255, 255, 0), thickness=1)
+                        cv2.rectangle(im[:, :, ::-1], (box[0][0], box[0][1]), (box[2][0], box[2][1]), (0,0,255), 3)
+
+            if not FLAGS.no_write_images:
+                img_path = os.path.join(FLAGS.output_dir, os.path.basename(img_path)[:-4] + '_ocr.png')
+                cv2.imwrite(img_path, im[:, :, ::-1])
 
 
-def run(input_img_path, output_label_path, resize_by_height,
-        sess, f_score, f_geometry, input_images):
+def run(input_img_path, output_label_path, resize_by_height):
     # tf.app.flags.DEFINE_string('test_data_path', input_img_path, '')
     # tf.app.flags.DEFINE_string('gpu_list', '0', '')
     # tf.app.flags.DEFINE_string('checkpoint_path', 'E:/Mulong/Model/East/east_icdar2015_resnet_v1_50_rbox', '')
@@ -220,4 +218,4 @@ def run(input_img_path, output_label_path, resize_by_height,
     # tf.app.run(main)
 
     FLAGS.renew_path(input_img_path, output_label_path)
-    predict(sess, f_score, f_geometry, input_images, resize_by_height)
+    main(resize_by_height)
