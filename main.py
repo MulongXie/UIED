@@ -22,7 +22,7 @@ resize_by_height = 600
 input_paths_img = glob.glob(pjoin(C.ROOT_INPUT, '*.jpg'))
 input_paths_img = sorted(input_paths_img, key=lambda x: int(x.split('\\')[-1][:-4]))  # sorted by index
 # set the range of target inputs' indices
-start_index = 0
+start_index = 24
 end_index = 50
 for input_path_img in input_paths_img:
     index = input_path_img.split('\\')[-1][:-4]

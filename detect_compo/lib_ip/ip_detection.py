@@ -156,7 +156,7 @@ def compo_on_img(processing, org, binary, clf,
 
         # only leave non-img elements
         for i in range(len(compos_corner_new)):
-            ((col_min_new, row_min_new), (col_max_new, row_max_new)) = compos_corner[i]
+            ((col_min_new, row_min_new), (col_max_new, row_max_new)) = compos_corner_new[i]
             area_new = (col_max_new - col_min_new) * (row_max_new - row_min_new)
             if compos_class_new[i] != 'img' and area_new / area < 0.8:
                 compos_corner.append(compos_corner_new[i])
