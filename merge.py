@@ -83,6 +83,7 @@ def nms(org, corners_compo_old, compos_class_old, corner_text):
         #     continue
 
         a = corners_compo_old[i]
+        # broad = draw_bounding_box(org, [a], show=True)
         noise = False
         area_a = (a[2] - a[0]) * (a[3] - a[1])
         area_text = 0
@@ -103,6 +104,9 @@ def nms(org, corners_compo_old, compos_class_old, corner_text):
             ioa = inter / area_a
             iob = inter / area_b
 
+            # print(ioa, iob)
+            # draw_bounding_box(broad, [b], color=(255,0,0), line=2, show=True)
+
             if compos_class_old[i] == 'img':
                 # sum up all text area in a img
                 # if iob > 0.8:
@@ -116,8 +120,9 @@ def nms(org, corners_compo_old, compos_class_old, corner_text):
                 if ioa > 0.8:
                     noise = True
                     break
+        # print(area_text / area_a)
         # check if img is text paragraph
-        if compos_class_old[i] == 'img' and area_text / area_a > 0.8:
+        if compos_class_old[i] == 'img' and area_text / area_a > 0.4:
             noise = True
 
         if not noise:
