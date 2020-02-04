@@ -7,7 +7,8 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def draw_bounding_box_class(org, corners, classes, color_map=C.COLOR, line=3, draw_text=False, show=False):
+def draw_bounding_box_class(org, corners, classes, color_map=C.COLOR, line=3,
+                            draw_text=False, show=False, write_path=None):
     """
     Draw bounding box of components with their classes on the original image
     :param org: original image
@@ -30,6 +31,8 @@ def draw_bounding_box_class(org, corners, classes, color_map=C.COLOR, line=3, dr
     if show:
         cv2.imshow('a', board)
         cv2.waitKey(0)
+    if write_path is not None:
+        cv2.imwrite(write_path, board)
     return board
 
 

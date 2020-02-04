@@ -80,14 +80,14 @@ def processing(org, binary, classifier, inspect_img=False):
     return compos_boundary, compos_corner, compos_class
 
 
-def compo_detection(input_img_path, output_root, resize_by_height=600, show=False):
+def compo_detection(input_img_path, output_root, resize_by_height=600):
     start = time.clock()
     print("Compo Detection for %s" % input_img_path)
     name = input_img_path.split('\\')[-1][:-4]
 
     # *** Step 1 *** pre-processing: read img -> get binary map
     org, grey = pre.read_img(input_img_path, resize_by_height)
-    binary_org = pre.preprocess(org)
+    binary_org = pre.preprocess(org, write_path=pjoin(output_root, name + '_binary.png'))
 
     # *** Step 2 *** block processing: detect block -> detect components in block
     blocks_corner = blk.block_division(grey, write_path=pjoin(output_root, name + '_block.png'))
@@ -98,19 +98,12 @@ def compo_detection(input_img_path, output_root, resize_by_height=600, show=Fals
     compo_non_blk_boundary, compo_non_blk_corner, compo_non_blk_class = processing(org, binary_non_block, cnn, True)
 
     # *** Step 4 *** merge results
-    compos_boundary = compo_in_blk_boundary + compo_non_blk_boundary
+    # compos_boundary = compo_in_blk_boundary + compo_non_blk_boundary
     compos_corner = compo_in_blk_corner + compo_non_blk_corner
     compos_class = compo_in_blk_class + compo_non_blk_class
 
     # *** Step 5 *** save results: save text label -> save drawn image
-    draw_bounding = draw.draw_bounding_box_class(org, compos_corner, compos_class)
-    output_label_path = pjoin(output_root, name + '_ip.json')
-    output_drawn_path = pjoin(output_root, name + '_ip.png')
-    file.save_corners_json(output_label_path, compos_corner, compos_class)
-    cv2.imwrite(output_drawn_path, draw_bounding)
+    draw.draw_bounding_box_class(org, compos_corner, compos_class, write_path=pjoin(output_root, name + '_ip.png'))
+    file.save_corners_json(pjoin(output_root, name + '_ip.json'), compos_corner, compos_class)
 
     print("[Compo Detection Completed in %.3f s]" % (time.clock() - start))
-
-    if show:
-        cv2.imshow('broad', draw_bounding)
-        cv2.waitKey()

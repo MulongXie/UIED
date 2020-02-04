@@ -6,7 +6,7 @@ is_merge = True
 resize_by_height = 600
 
 # set input image path
-PATH_IMG_INPUT = 'data\\input\\12.jpg'
+PATH_IMG_INPUT = 'data\\input\\0.jpg'
 PATH_OUTPUT_ROOT = 'data\\output'
 
 start = time.clock()
