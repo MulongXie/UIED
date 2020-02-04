@@ -63,13 +63,14 @@ def block_erase(binary, blocks_corner, show=False, pad=2):
     return binary
 
 
-def block_rm_top_bar(blocks_corner, org_shape):
+def block_rm_top_bar(blocks_corner, org_shape, org):
     blocks_corner_new = []
     for block in blocks_corner:
         ((column_min, row_min), (column_max, row_max)) = block
         if column_min < 5 and row_min < 5 and\
                 org_shape[1] - row_max < 5 and column_max < 100:
-            blocks_corner_new.append(block)
+            continue
+        blocks_corner_new.append(block)
 
     return blocks_corner_new
 
@@ -139,5 +140,5 @@ def block_division(grey, show=False, write_path=None):
         cv2.imwrite(write_path, broad)
 
     blocks_corner = det.get_corner(blocks)
-    blocks_corner = block_rm_top_bar(blocks_corner, grey.shape)
+    blocks_corner = block_rm_top_bar(blocks_corner, grey.shape, grey)
     return blocks_corner
