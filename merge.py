@@ -166,6 +166,9 @@ def refine_text(org, corners_text, max_line_gap, min_word_length):
         row_min = max(row_min - pad, 0)
         row_max = min(row_max + pad, org.shape[0])
 
+        if row_max <= row_min or col_max <= col_min:
+            continue
+
         clip = org[row_min:row_max, col_min:col_max]
         clip_bin = pre.preprocess(clip)
         refine(clip_bin)

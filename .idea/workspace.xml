@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec674c14-d769-4dcf-837d-d38d84b15461" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/config/CONFIG.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/CONFIG.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_block.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_ip.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_ip.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_merged.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_merged.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_ocr.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/7_ocr.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_single.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/merge.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,8 +26,8 @@
           <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="129">
-                  <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+                <state relative-caret-position="316">
+                  <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
@@ -28,14 +35,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="merge.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/merge.py">
+          <file leaf-file-name="main_single.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main_single.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="190">
-                  <caret line="169" selection-start-line="169" selection-end-line="169" />
-                  <folding>
-                    <element signature="e#0#11#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="153">
+                  <caret line="9" column="33" lean-forward="true" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
                 </state>
               </provider>
             </entry>
@@ -43,41 +47,11 @@
           <file leaf-file-name="ocr_east.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
-                  <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+                <state relative-caret-position="102">
+                  <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ip_preprocessing.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_preprocessing.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="190">
-                  <caret line="28" selection-start-line="28" selection-end-line="28" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ip.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
-                  <caret line="40" column="25" lean-forward="true" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-                  <folding>
-                    <element signature="e#0#10#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="CONFIG.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/config/CONFIG.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="425">
-                  <caret line="35" column="34" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
                 </state>
               </provider>
             </entry>
@@ -129,7 +103,6 @@
         <option value="$PROJECT_DIR$/ip.py" />
         <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_preprocessing.py" />
         <option value="$PROJECT_DIR$/detect_text/ocr.py" />
-        <option value="$PROJECT_DIR$/merge.py" />
         <option value="$PROJECT_DIR$/detect_text_east/ocr.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/detect_text_east/lib_east/nets/resnet_utils.py" />
@@ -138,13 +111,14 @@
         <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" />
         <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" />
         <option value="$PROJECT_DIR$/config/CONFIG_UIED.py" />
-        <option value="$PROJECT_DIR$/main_single.py" />
         <option value="$PROJECT_DIR$/detect_text_east/lib_east/test.py" />
         <option value="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" />
         <option value="$PROJECT_DIR$/detect_text_east/ocr_east.py" />
         <option value="$PROJECT_DIR$/detect_compo/ip.py" />
         <option value="$PROJECT_DIR$/config/CONFIG.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/main_single.py" />
+        <option value="$PROJECT_DIR$/merge.py" />
       </list>
     </option>
   </component>
@@ -168,11 +142,6 @@
               <item name="UIED" type="b2602c69:ProjectViewProjectNode" />
               <item name="UIED" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="UIED" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UIED" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -195,7 +164,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.main_single">
     <configuration name="ip" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -295,8 +264,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.main_single" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.ip_detection" />
         <item itemvalue="Python.ip" />
         <item itemvalue="Python.test" />
@@ -318,6 +287,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-7" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09747102" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -613,13 +583,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_single.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/detect_text_east/lib_east/model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -661,16 +624,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="40" column="25" lean-forward="true" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/CONFIG_UIED.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -685,16 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_preprocessing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -702,10 +645,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="82" column="4" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_single.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="33" lean-forward="true" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/merge.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="169" selection-start-line="169" selection-end-line="169" />
+        <state relative-caret-position="173">
+          <caret line="161" column="26" lean-forward="true" selection-start-line="161" selection-start-column="26" selection-end-line="161" selection-end-column="26" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -714,8 +684,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+        <state relative-caret-position="316">
+          <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
