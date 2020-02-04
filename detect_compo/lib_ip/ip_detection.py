@@ -143,6 +143,8 @@ def compo_on_img(processing, org, binary, clf,
         row_min = max(row_min - pad, 0)
         row_max = min(row_max + pad, org.shape[0])
         area = (col_max - col_min) * (row_max - row_min)
+        if area < 600:
+            continue
 
         clip_org = org[row_min:row_max, col_min:col_max]
         clip_bin_inv = pre.reverse_binary(binary[row_min:row_max, col_min:col_max])
@@ -474,15 +476,21 @@ def boundary_detection(binary,
             if binary[i, j] == 255 and mark[i, j] == 0:
                 # get connected area
                 area = util.boundary_bfs_connected_area(binary, i, j, mark)
+
+                # print(len(area))
+                # draw.draw_region_bin(area, np.zeros(binary.shape, dtype=np.uint8), True)
                 # ignore small area
-                if len(area) < min_obj_area:
+                if len(area) < 20:
                     continue
 
                 # calculate the boundary of the connected area
                 boundary = util.boundary_get_boundary(area)
                 # ignore small area
                 perimeter = np.sum([len(b) for b in boundary])
-                if perimeter < min_obj_perimeter:
+
+                # print(perimeter)
+                # draw.draw_boundary([boundary], binary.shape, True)
+                if perimeter < 20:
                     continue
                 # check if it is line by checking the length of edges
                 if util.boundary_is_line(boundary, line_thickness):
