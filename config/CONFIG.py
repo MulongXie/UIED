@@ -21,7 +21,7 @@ class Config:
         # *** Frozen ***
         self.ROOT_IMG_ORG = pjoin(self.ROOT_INPUT, "org")
         self.ROOT_IP = pjoin(self.ROOT_OUTPUT, "ip")
-        self.ROOT_CTPN = pjoin(self.ROOT_OUTPUT, "ctpn")
+        self.ROOT_OCR = pjoin(self.ROOT_OUTPUT, "ocr")
         self.ROOT_MERGE = pjoin(self.ROOT_OUTPUT, "merge")
         self.ROOT_IMG_COMPONENT = pjoin(self.ROOT_OUTPUT, "components")
         self.COLOR = {'block': (0, 255, 0), 'img': (0, 0, 255), 'icon': (255, 166, 166), 'input': (255, 166, 0),
@@ -32,8 +32,8 @@ class Config:
     def build_output_folders(self, is_clip):
         if not os.path.exists(self.ROOT_IP):
             os.mkdir(self.ROOT_IP)
-        if not os.path.exists(self.ROOT_CTPN):
-            os.mkdir(self.ROOT_CTPN)
+        if not os.path.exists(self.ROOT_OCR):
+            os.mkdir(self.ROOT_OCR)
         if not os.path.exists(self.ROOT_MERGE):
             os.mkdir(self.ROOT_MERGE)
         if is_clip and not os.path.exists(self.ROOT_IMG_COMPONENT):
