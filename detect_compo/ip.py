@@ -42,6 +42,7 @@ def processing_block(org, binary, blocks_corner, classifier):
     for i in range(len(blocks_corner)):
         # *** Substep 1.1 *** pre-processing: get block information -> binarization
         block_corner = blocks_corner[i]
+        if blk.block_is_top_bar(blocks_corner[i], org.shape): continue
         block_clip_org = blocks_clip_org[i]
         block_clip_bin = blocks_clip_bin[i]
 
