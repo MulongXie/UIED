@@ -11,7 +11,8 @@ It comprises two major parts:
 * Code generation
   * DOM tree construction
   * HTML + CSS generation
-<br>UIED is the first part
+  
+UIED is the first part
    
 ## File structure
 *config/*
