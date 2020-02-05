@@ -25,8 +25,8 @@ input_paths_img = [pjoin(C.ROOT_INPUT, img['file_name'].split('/')[-1]) for img 
 input_paths_img = sorted(input_paths_img, key=lambda x: int(x.split('\\')[-1][:-4]))  # sorted by index
 print(input_paths_img)
 # set the range of target inputs' indices
-start_index = 0
-end_index = 50
+start_index = 358
+end_index = 10000
 for input_path_img in input_paths_img:
     index = input_path_img.split('\\')[-1][:-4]
     if int(index) < start_index:

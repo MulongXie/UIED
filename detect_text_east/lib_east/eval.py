@@ -161,13 +161,13 @@ def predict(sess, f_score, f_geometry, input_images, resize_by_height):
     # print('[timing] {:.3f}'.format(duration))
 
     # save to file
-    if boxes is not None:
-        res_file = os.path.join(
-            FLAGS.output_dir,
-            '{}_ocr.txt'.format(
-                os.path.basename(img_path).split('.')[0]))
+    res_file = os.path.join(
+        FLAGS.output_dir,
+        '{}_ocr.txt'.format(
+            os.path.basename(img_path).split('.')[0]))
 
-        with open(res_file, 'w') as f:
+    with open(res_file, 'w') as f:
+        if boxes is not None:
             for box in boxes:
                 # to avoid submitting errors
                 box = sort_poly(box.astype(np.int32))
