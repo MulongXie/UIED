@@ -16,7 +16,7 @@ UIED is the first part
    
 ## File structure
 *config/*
-* Set path of the CNN training result (UI components classification) and CTPN training result (text recognition) 
+* Set path of the CNN training result (UI components classification) and OCR training result (text recognition) 
 * Set parameter for graphical components detection 
 
 *ctpn/*
