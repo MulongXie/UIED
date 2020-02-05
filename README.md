@@ -1,4 +1,5 @@
 # UI2CODE - A Computer Vision Based Reverse Engineering of Graphical User Interface
+# UIED - UI element detection part of UI2CODE, exclusively design for mobile UI
 
 ## What is it?
 
@@ -7,10 +8,11 @@ UI2CODE is a system converting the GUI image into cooresponding front-end code t
 It comprises two major parts: 
 * UI components detection: localize and classify all UI elements on the given image
   * Graphical components detection 
-  * Text recognition through CTPN 
+  * Text recognition through OCR 
 * Code generation
   * DOM tree construction
   * HTML + CSS generation
+# UIED is the first part
    
 ## File structure
 *config/*
