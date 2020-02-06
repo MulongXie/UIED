@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 from glob import glob
 from os.path import join as pjoin
+from tqdm import tqdm
 
 class_map = ['button', 'input', 'select', 'search', 'list', 'img', 'block', 'text', 'icon']
 
@@ -138,8 +139,9 @@ def eval(detection, ground_truth, org_root, show=True):
                 return True
         return False
 
+    amount = len(detection)
     TP, FP, FN = 0, 0, 0
-    for image_id in detection:
+    for i, image_id in enumerate(detection):
         img = cv2.imread(pjoin(org_root, image_id + '.jpg'))
         d_compos = detection[image_id]
         gt_compos = ground_truth[image_id]
@@ -155,7 +157,8 @@ def eval(detection, ground_truth, org_root, show=True):
 
         precesion = TP / (TP+FP)
         recall = TP / (TP+FN)
-        print('TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (TP, FP, FN, precesion, recall))
+        print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f'
+              % (i, amount, TP, FP, FN, precesion, recall))
 
 
 gt = load_ground_truth('data/instances_test.json')
