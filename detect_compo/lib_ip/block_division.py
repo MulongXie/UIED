@@ -63,10 +63,14 @@ def block_erase(binary, blocks_corner, show=False, pad=2):
     return binary
 
 
-def block_is_top_bar(block, org_shape):
+def block_is_top_or_bottom_bar(block, org_shape):
+    height, width = org_shape
     ((column_min, row_min), (column_max, row_max)) = block
-    if column_min < 5 and row_min < 5 and\
-            org_shape[1] - column_max < 5 and row_max < 100:
+    if column_min < 5 and row_min < 5 and \
+            width - column_max < 5 and row_max < 100:
+        return True
+    if column_min < 5 and height - row_min < 200 and \
+            width - column_max < 5 and height - row_max < 5:
         return True
     return False
 
