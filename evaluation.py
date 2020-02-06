@@ -88,7 +88,6 @@ def load_ground_truth(annotation_file):
     data = json.load(open(annotation_file, 'r'))
     images = data['images']
     annots = data['annotations']
-
     compos = {}
     for annot in annots:
         img_name, size = get_img_by_id(annot['image_id'])
@@ -101,7 +100,6 @@ def load_ground_truth(annotation_file):
 
 
 def eval(detection, ground_truth, org_root, show=True):
-
     def match(org, d_bbox, gt_bboxes, matched):
         '''
         :param matched: mark if the ground truth component is matched
@@ -143,11 +141,10 @@ def eval(detection, ground_truth, org_root, show=True):
     TP, FP, FN = 0, 0, 0
     for image_id in detection:
         img = cv2.imread(pjoin(org_root, image_id + '.jpg'))
-
         d_compos = detection[image_id]
         gt_compos = ground_truth[image_id]
         d_compos['bboxes'] = resize_label(d_compos['bboxes'], 600, gt_compos['size'][0])
-
+        # mark matched bboxes
         matched = np.ones(len(gt_compos['bboxes']), dtype=int)
         for d_bbox in d_compos['bboxes']:
             if match(img, d_bbox, gt_compos['bboxes'], matched):
