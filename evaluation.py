@@ -1,6 +1,8 @@
 import json
 import numpy as np
 import cv2
+from glob import glob
+from os.path import join as pjoin
 
 class_map = ['button', 'input', 'select', 'search', 'list', 'img', 'block', 'text', 'icon']
 
@@ -35,33 +37,41 @@ def draw_bounding_box(org, corners, color=(0, 255, 0), line=2, show=False):
     return board
 
 
-def read_detect_result(file_name):
-    '''
-    :return: {list of [[col_min, row_min, col_max, row_max]], list of [class id]
-    '''
+def load_detect_result(input_root):
+    def read_label(file_name):
+        '''
+        :return: {list of [[col_min, row_min, col_max, row_max]], list of [class id]
+        '''
 
-    def is_bottom_or_top(bbox):
-        if bbox[1] < 100 and (bbox[1] + bbox[3]) < 100 or\
-                bbox[1] > 500 and (bbox[1] + bbox[3]) > 500:
-            return True
-        return False
+        def is_bottom_or_top(bbox):
+            if bbox[1] < 100 and (bbox[1] + bbox[3]) < 100 or \
+                    bbox[1] > 500 and (bbox[1] + bbox[3]) > 500:
+                return True
+            return False
 
-    file = open(file_name, 'r')
-    bboxes = []
-    categories = []
-    for l in file.readlines():
-        labels = l.split()[1:]
-        for label in labels:
-            label = label.split(',')
-            bbox = [int(b) for b in label[:-1]]
-            if not is_bottom_or_top(bbox):
-                bboxes.append(bbox)
-                categories.append(class_map[int(label[-1])])
+        file = open(file_name, 'r')
+        bboxes = []
+        categories = []
+        for l in file.readlines():
+            labels = l.split()[1:]
+            for label in labels:
+                label = label.split(',')
+                bbox = [int(b) for b in label[:-1]]
+                if not is_bottom_or_top(bbox):
+                    bboxes.append(bbox)
+                    categories.append(class_map[int(label[-1])])
+        index = file_name.split('\\')[-1].split('_')[0]
+        return index, {'bboxes': bboxes, 'categories': categories}
 
-    return {file_name.split('_')[0]: {'bboxes':bboxes, 'categories':categories}}
+    compos = {}
+    label_paths = glob(pjoin(input_root, '*.txt'))
+    for label_path in label_paths:
+        index, bboxes = read_label(label_path)
+        compos[index] = bboxes
+    return compos
 
 
-def read_ground_truth():
+def load_ground_truth(annotation_file):
     def get_img_by_id(img_id):
         for image in images:
             if image['id'] == img_id:
@@ -75,7 +85,7 @@ def read_ground_truth():
         bbox = [int(b) for b in bbox]
         return [bbox[0], bbox[1], bbox[0] + bbox[2], bbox[1] + bbox[3]]
 
-    data = json.load(open('instances_test.json', 'r'))
+    data = json.load(open(annotation_file, 'r'))
     images = data['images']
     annots = data['annotations']
 
@@ -90,7 +100,7 @@ def read_ground_truth():
     return compos
 
 
-def eval(detection, ground_truth):
+def eval(detection, ground_truth, org_root, show=True):
 
     def match(org, d_bbox, gt_bboxes, matched):
         '''
@@ -113,15 +123,15 @@ def eval(detection, ground_truth):
             w = max(0, col_max - col_min)
             h = max(0, row_max - row_min)
             area_inter = w * h
-
+            if area_inter == 0:
+                continue
             iod = area_inter / area_d
             iou = area_inter / (area_d + area_gt - area_inter)
 
-            print(iod, iou)
-            draw_bounding_box(broad, [gt_bbox], color=(0, 255, 0), show=True)
+            if show:
+                print(iod, iou)
+                draw_bounding_box(broad, [gt_bbox], color=(0, 255, 0), show=True)
 
-            if area_inter == 0:
-                continue
             # the interaction is d itself, so d is contained in gt, considered as correct detection
             if iod == area_d and area_d / area_gt > 0.1:
                 matched[i] = 0
@@ -131,13 +141,14 @@ def eval(detection, ground_truth):
         return False
 
     TP, FP, FN = 0, 0, 0
-    for image in detection:
-        d_compos = detection[image]
-        gt_compos = ground_truth[image]
+    for image_id in detection:
+        img = cv2.imread(pjoin(org_root, image_id + '.jpg'))
+
+        d_compos = detection[image_id]
+        gt_compos = ground_truth[image_id]
         d_compos['bboxes'] = resize_label(d_compos['bboxes'], 600, gt_compos['size'][0])
 
         matched = np.ones(len(gt_compos['bboxes']), dtype=int)
-        img = cv2.imread(image + '.jpg')
         for d_bbox in d_compos['bboxes']:
             if match(img, d_bbox, gt_compos['bboxes'], matched):
                 TP += 1
@@ -145,12 +156,12 @@ def eval(detection, ground_truth):
                 FP += 1
         FN += sum(matched)
 
-    print(TP, FP, FN)
-    precesion = TP / (TP+FP)
-    recall = TP / (TP+FN)
-    print('Precesion:%.3f, Recall:%.3f' % (precesion, recall))
+        print(TP, FP, FN)
+        precesion = TP / (TP+FP)
+        recall = TP / (TP+FN)
+        print('Precesion:%.3f, Recall:%.3f' % (precesion, recall))
 
 
-gt = read_ground_truth()
-detect = read_detect_result('472_merged.txt')
-eval(detect, gt)
+gt = load_ground_truth('data/instances_test.json')
+detect = load_detect_result('E:\\Mulong\\Result\\rico\\merge')
+eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined')
