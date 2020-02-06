@@ -23,10 +23,9 @@ resize_by_height = 600
 data = json.load(open('data/instances_test.json', 'r'))
 input_paths_img = [pjoin(C.ROOT_INPUT, img['file_name'].split('/')[-1]) for img in data['images']]
 input_paths_img = sorted(input_paths_img, key=lambda x: int(x.split('\\')[-1][:-4]))  # sorted by index
-print(input_paths_img)
 # set the range of target inputs' indices
-start_index = 358
-end_index = 10000
+start_index = 56032
+end_index = 100000
 for input_path_img in input_paths_img:
     index = input_path_img.split('\\')[-1][:-4]
     if int(index) < start_index:
@@ -44,4 +43,5 @@ for input_path_img in input_paths_img:
     if is_merge:
         merge.incorporate(input_path_img, C.ROOT_OCR, C.ROOT_IP, C.ROOT_MERGE, resize_by_height, is_clip)
 
-    print('*** Total Time Taken:%.3f s ***\n' % (time.clock() - start))
+    print('*** Total Time Taken:%.3f s ***' % (time.clock() - start))
+    print(time.ctime(), '\n')
