@@ -114,7 +114,7 @@ def eval(detection, ground_truth, org_root, show=True):
         for i, gt_bbox in enumerate(gt_bboxes):
             if matched[i] == 0:
                 continue
-            area_gt = (gt_bbox[2] - gt_bbox[0]) * (gt_bbox[3] - gt_bbox[0])
+            area_gt = (gt_bbox[2] - gt_bbox[0]) * (gt_bbox[3] - gt_bbox[1])
             col_min = max(d_bbox[0], gt_bbox[0])
             row_min = max(d_bbox[1], gt_bbox[1])
             col_max = min(d_bbox[2], gt_bbox[2])
@@ -129,7 +129,7 @@ def eval(detection, ground_truth, org_root, show=True):
             iou = area_inter / (area_d + area_gt - area_inter)
 
             if show:
-                print(iod, iou)
+                print("IoDetection: %.3f, IoU: %.3f" % (iod, iou))
                 draw_bounding_box(broad, [gt_bbox], color=(0, 255, 0), show=True)
 
             # the interaction is d itself, so d is contained in gt, considered as correct detection
