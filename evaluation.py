@@ -110,7 +110,7 @@ def eval(detection, ground_truth, org_root, show=True):
         :return: Boolean: if IOU large enough or detected box is contained by ground truth
         '''
         area_d = (d_bbox[2] - d_bbox[0]) * (d_bbox[3] - d_bbox[1])
-        broad = draw_bounding_box(org, [d_bbox], color=(0, 0, 255), show=True)
+        broad = draw_bounding_box(org, [d_bbox], color=(0, 0, 255))
         for i, gt_bbox in enumerate(gt_bboxes):
             if matched[i] == 0:
                 continue
@@ -156,12 +156,11 @@ def eval(detection, ground_truth, org_root, show=True):
                 FP += 1
         FN += sum(matched)
 
-        print(TP, FP, FN)
         precesion = TP / (TP+FP)
         recall = TP / (TP+FN)
-        print('Precesion:%.3f, Recall:%.3f' % (precesion, recall))
+        print('TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (TP, FP, FN, precesion, recall))
 
 
 gt = load_ground_truth('data/instances_test.json')
 detect = load_detect_result('E:\\Mulong\\Result\\rico\\merge')
-eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined')
+eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False)
