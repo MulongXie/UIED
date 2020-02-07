@@ -38,7 +38,7 @@ def draw_bounding_box(org, corners, color=(0, 255, 0), line=2, show=False):
     return board
 
 
-def load_detect_result(input_root):
+def load_detect_result_txt(input_root):
     def read_label(file_name):
         '''
         :return: {list of [[col_min, row_min, col_max, row_max]], list of [class id]
@@ -66,13 +66,43 @@ def load_detect_result(input_root):
 
     compos = {}
     label_paths = glob(pjoin(input_root, '*.txt'))
+    print('Loading %d detection results' % len(label_paths))
     for label_path in label_paths:
         index, bboxes = read_label(label_path)
         compos[index] = bboxes
     return compos
 
 
-def load_ground_truth(annotation_file):
+def load_detect_result_json(reslut_file, gt_file):
+    def get_img_by_id(img_id):
+        for image in images:
+            if image['id'] == img_id:
+                return image['file_name'].split('/')[-1][:-4], (image['height'], image['width'])
+
+    def cvt_bbox(bbox):
+        '''
+        :param bbox: [x,y,width,height]
+        :return: [col_min, row_min, col_max, row_max]
+        '''
+        bbox = [int(b) for b in bbox]
+        return [bbox[0], bbox[1], bbox[0] + bbox[2], bbox[1] + bbox[3]]
+
+    data = json.load(open(gt_file, 'r'))
+    images = data['images']
+    compos = {}
+    annots = json.load(open(reslut_file, 'r'))
+    print('Loading %d detection results' % len(annots))
+    for annot in tqdm(annots):
+        img_name, size = get_img_by_id(annot['image_id'])
+        if img_name not in compos:
+            compos[img_name] = {'bboxes': [cvt_bbox(annot['bbox'])], 'categories': [annot['category_id']], 'size': size}
+        else:
+            compos[img_name]['bboxes'].append(cvt_bbox(annot['bbox']))
+            compos[img_name]['categories'].append(annot['category_id'])
+    return compos
+
+
+def load_ground_truth_json(annotation_file):
     def get_img_by_id(img_id):
         for image in images:
             if image['id'] == img_id:
@@ -90,6 +120,7 @@ def load_ground_truth(annotation_file):
     images = data['images']
     annots = data['annotations']
     compos = {}
+    print('Loading %d ground truth' % len(annots))
     for annot in annots:
         img_name, size = get_img_by_id(annot['image_id'])
         if img_name not in compos:
@@ -161,6 +192,7 @@ def eval(detection, ground_truth, org_root, show=True):
               % (i, amount, TP, FP, FN, precesion, recall))
 
 
-gt = load_ground_truth('data/instances_test.json')
-detect = load_detect_result('E:\\Mulong\\Result\\rico\\merge')
-eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False)
+# detect = load_detect_result_txt('E:\\Mulong\\Result\\rico\\merge')
+detect = load_detect_result_json('E:\Temp\detections_val_results.json', 'E:/Mulong/Datasets/rico/instances_val.json')
+gt = load_ground_truth_json('E:/Mulong/Datasets/rico/instances_val.json')
+eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=True)
