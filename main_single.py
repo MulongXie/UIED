@@ -2,8 +2,8 @@ import time
 
 is_ocr = False
 is_ip = True
-is_merge = True
-resize_by_height = 600
+is_merge = False
+resize_by_height = 800
 
 # set input image path
 PATH_IMG_INPUT = 'data\\input\\1.jpg'

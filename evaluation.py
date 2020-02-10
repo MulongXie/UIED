@@ -67,7 +67,7 @@ def load_detect_result_txt(input_root):
     compos = {}
     label_paths = glob(pjoin(input_root, '*.txt'))
     print('Loading %d detection results' % len(label_paths))
-    for label_path in label_paths:
+    for label_path in tqdm(label_paths):
         index, bboxes = read_label(label_path)
         compos[index] = bboxes
     return compos
@@ -121,7 +121,7 @@ def load_ground_truth_json(annotation_file):
     annots = data['annotations']
     compos = {}
     print('Loading %d ground truth' % len(annots))
-    for annot in annots:
+    for annot in tqdm(annots):
         img_name, size = get_img_by_id(annot['image_id'])
         if img_name not in compos:
             compos[img_name] = {'bboxes': [cvt_bbox(annot['bbox'])], 'categories': [annot['category_id']], 'size':size}
@@ -172,9 +172,10 @@ def eval(detection, ground_truth, org_root, show=True):
 
     amount = len(detection)
     TP, FP, FN = 0, 0, 0
-    for i, image_id in enumerate(detection):
-        img = cv2.imread(pjoin(org_root, image_id + '.jpg'))
+    for i, image_id in enumerate(tqdm(detection)):
         d_compos = detection[image_id]
+        image_id = image_id.split('.')[0]
+        img = cv2.imread(pjoin(org_root, image_id + '.jpg'))
         gt_compos = ground_truth[image_id]
         d_compos['bboxes'] = resize_label(d_compos['bboxes'], 600, gt_compos['size'][0])
         # mark matched bboxes
@@ -186,13 +187,14 @@ def eval(detection, ground_truth, org_root, show=True):
                 FP += 1
         FN += sum(matched)
 
-        precesion = TP / (TP+FP)
-        recall = TP / (TP+FN)
-        print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f'
-              % (i, amount, TP, FP, FN, precesion, recall))
+        if i % 100 == 0:
+            precesion = TP / (TP+FP)
+            recall = TP / (TP+FN)
+            print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f'
+                  % (i, amount, TP, FP, FN, precesion, recall))
 
 
-# detect = load_detect_result_txt('E:\\Mulong\\Result\\rico\\merge')
-detect = load_detect_result_json('E:\Temp\detections_val_results.json', 'E:/Mulong/Datasets/rico/instances_val.json')
-gt = load_ground_truth_json('E:/Mulong/Datasets/rico/instances_val.json')
-eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=True)
+detect = load_detect_result_txt('E:\\Mulong\\Result\\rico_remaui')
+# detect = load_detect_result_json('E:\Temp\detections_val_results.json', 'E:/Mulong/Datasets/rico/instances_val.json')
+gt = load_ground_truth_json('E:/Mulong/Datasets/rico/instances_test.json')
+eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False)
