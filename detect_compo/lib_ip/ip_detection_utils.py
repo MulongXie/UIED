@@ -86,7 +86,7 @@ def boundary_is_line(boundary, min_line_thickness):
 # @boundary: [border_up, border_bottom, border_left, border_right]
 # -> up, bottom: (column_index, min/max row border)
 # -> left, right: (row_index, min/max column border) detect range of each row
-def boundary_is_rectangle(boundary, min_rec_evenness, max_dent_ratio):
+def boundary_is_rectangle(boundary, min_rec_evenness, max_dent_ratio, org_shape=None, show=False):
     dent_direction = [1, -1, 1, -1]  # direction for convex
 
     flat = 0
@@ -104,7 +104,7 @@ def boundary_is_rectangle(boundary, min_rec_evenness, max_dent_ratio):
         # -> up, bottom: (column_index, min/max row border)
         # -> left, right: (row_index, min/max column border) detect range of each row
         abnm = 0
-        for i in range(len(border) - 1):
+        for i in range(3, len(border) - 1):
             # calculate gradient
             difference = border[i][1] - border[i + 1][1]
             # the degree of surface changing
@@ -115,7 +115,7 @@ def boundary_is_rectangle(boundary, min_rec_evenness, max_dent_ratio):
 
             # print(border[i][1], i / len(border), depth, (dent_direction[n] * difference) / adj_side )
             # if the change of the surface is too large, count it as part of abnormal change
-            if abs(depth) / adj_side > 0.5:
+            if abs(depth) / adj_side > 0.3:
                 abnm += 1    # count the size of the abnm
                 # if the abnm is too big, the shape should not be a rectangle
                 if abnm / len(border) > 0.1:
@@ -131,12 +131,15 @@ def boundary_is_rectangle(boundary, min_rec_evenness, max_dent_ratio):
                 continue
 
             # if the surface is not changing to a pit and the gradient is zero, then count it as flat
-            if abs(difference) == 0:
+            if abs(depth) < 7:
                 flat += 1
-
+            # print(depth, adj_side, abnm)
         # if the pit is too big, the shape should not be a rectangle
         if pit / len(border) > max_dent_ratio:
             return False
+        # print()
+    # print(flat / parameter, '\n')
+    # draw.draw_boundary([boundary], org_shape, show=True)
     # ignore text and irregular shape
     if (flat / parameter) < min_rec_evenness:
         return False
@@ -251,6 +254,17 @@ def corner_cvt_relative_position(corners, col_min_base, row_min_base):
         rlt_corners.append(((col_min, row_min), (col_max, row_max)))
 
     return rlt_corners
+
+
+def corner_merge_two_corners(corner_a, corner_b):
+    ((col_min_a, row_min_a), (col_max_a, row_max_a)) = corner_a
+    ((col_min_b, row_min_b), (col_max_b, row_max_b)) = corner_b
+
+    col_min = min(col_min_a, col_min_b)
+    col_max = max(col_max_a, col_max_b)
+    row_min = min(row_min_a, row_min_b)
+    row_max = max(row_max_a, row_max_b)
+    return (col_min, row_min), (col_max, row_max)
 
 
 def line_check_perpendicular(lines_h, lines_v, max_thickness):

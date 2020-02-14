@@ -14,6 +14,9 @@ def read_img(path, resize_height=None):
 
     try:
         img = cv2.imread(path)
+        if img is None:
+            print("*** Image does not exist ***")
+            return None, None
         if resize_height is not None:
             img = resize_by_height(img)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -55,13 +58,13 @@ def reverse_binary(bin):
     return bin
 
 
-def preprocess(org, grad_min=C.THRESHOLD_MIN_GRADIENT, write_path=None):
+def preprocess(org, grad_min=C.THRESHOLD_PRE_GRADIENT, show=False, write_path=None):
     grey = cv2.cvtColor(org, cv2.COLOR_BGR2GRAY)
     grad = gray_to_gradient(grey)        # get RoI with high gradient
     binary = grad_to_binary(grad, grad_min)   # enhance the RoI
-    # morph = cv2.morphologyEx(binary, cv2.MORPH_ERODE, (1, 1))
-    morph = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, (5, 5))   # remove noises
-    # morph = cv2.morphologyEx(morph, cv2.MORPH_DILATE, (3, 3))
+    morph = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, (3, 3))  # remove noises
     if write_path is not None:
         cv2.imwrite(write_path, morph)
+    if show:
+        cv2.imshow('binary', morph)
     return morph
