@@ -1,140 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec674c14-d769-4dcf-837d-d38d84b15461" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/UIED.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/CONFIG.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/CONFIG.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/CONFIG_UIED.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/CONFIG_UIED.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_preprocessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/.idea/ocr.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/ctpn/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/ctpn/demo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/ctpn/demo_pb.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/ctpn/generate_pb.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/ctpn/text.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/ctpn/train_net.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/datasets/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/datasets/factory.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/datasets/imdb.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/datasets/pascal_voc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/fast_rcnn/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/fast_rcnn/bbox_transform.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/fast_rcnn/config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/fast_rcnn/nms_wrapper.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/fast_rcnn/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/fast_rcnn/train.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/networks/VGGnet_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/networks/VGGnet_train.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/networks/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/networks/factory.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/networks/network.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/prepare_training_data/ToVoc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/prepare_training_data/split_label.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/roi_data_layer/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/roi_data_layer/layer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/roi_data_layer/minibatch.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/roi_data_layer/roidb.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/rpn_msr/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/rpn_msr/anchor_target_layer_tf.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/rpn_msr/generate_anchors.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/rpn_msr/proposal_layer_tf.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/text_connector/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/text_connector/detectors.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/text_connector/other.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/text_connector/text_connect_cfg.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/text_connector/text_proposal_connector.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/text_connector/text_proposal_connector_oriented.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/text_connector/text_proposal_graph_builder.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/bbox.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/bbox.cp35-win_amd64.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/bbox.pyx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/blob.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/boxes_grid.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/build/lib.win-amd64-3.5/lib/utils/bbox.cp35-win_amd64.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/build/lib.win-amd64-3.5/lib/utils/cython_nms.cp35-win_amd64.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/bbox.cp35-win_amd64.exp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/bbox.cp35-win_amd64.lib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/bbox.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/cython_nms.cp35-win_amd64.exp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/cython_nms.cp35-win_amd64.lib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/build/temp.win-amd64-3.5/Release/cython_nms.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/cython_nms.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/cython_nms.cp35-win_amd64.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/cython_nms.pyx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/gpu_nms.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/gpu_nms.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/gpu_nms.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/gpu_nms.pyx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/make.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/nms_kernel.cu" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/setup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/setup_new.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/lib_ctpn/utils/timer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_ctpn/ocr_ctpn.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/data/output/1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/data/output/drawn1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/data_util.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/deploy.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/icdar.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/.ycm_extra_conf.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/__main__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/adaptor.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/adaptor.exp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/adaptor.lib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/adaptor.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/clipper.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/clipper/clipper.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/clipper/clipper.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/attr.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/buffer_info.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/cast.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/chrono.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/class_support.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/common.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/complex.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/descr.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/eigen.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/embed.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/eval.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/functional.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/numpy.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/operators.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/options.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/pybind11.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/pytypes.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/stl.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/stl_bind.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/typeid.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/lanms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/locality_aware_nms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/nets/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/nets/resnet_utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/nets/resnet_v1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/ocr_east.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_select.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_single.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge.py" beforeDir="false" />
-    </list>
+    <list default="true" id="ec674c14-d769-4dcf-837d-d38d84b15461" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -144,23 +11,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main_select_multipro.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/main_select_multipro.py">
+      <file leaf-file-name="main_single.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main_single.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#22#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="187">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CONFIG_UIED.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/CONFIG_UIED.py">
+      <file leaf-file-name="ip_region_proposal.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/detect_compo/ip_region_proposal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="45" lean-forward="true" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+            <state relative-caret-position="277">
+              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -228,6 +95,7 @@
         <option value="$PROJECT_DIR$/evaluation.py" />
         <option value="$PROJECT_DIR$/main_single.py" />
         <option value="$PROJECT_DIR$/main_select_multipro.py" />
+        <option value="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" />
       </list>
     </option>
   </component>
@@ -250,11 +118,6 @@
             <path>
               <item name="UIED" type="b2602c69:ProjectViewProjectNode" />
               <item name="UIED" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UIED" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UIED" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="UIED" type="b2602c69:ProjectViewProjectNode" />
@@ -414,10 +277,10 @@
     <frame x="-1032" y="-215" width="1040" height="1256" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21157685" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.21157685" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.42039356" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.42039356" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -461,7 +324,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/detect_text/lib_ctpn/fast_rcnn/config.py" />
     <entry file="file://$PROJECT_DIR$/detect_text/ocr.py" />
     <entry file="file://$PROJECT_DIR$/merge.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -634,13 +496,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="631">
-          <caret line="64" column="58" lean-forward="true" selection-start-line="64" selection-start-column="58" selection-end-line="64" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/detect_text_east/ocr_east.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -679,13 +534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_single.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -719,10 +567,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_select_multipro.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+        <state relative-caret-position="272">
+          <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/ip.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="64" column="58" lean-forward="true" selection-start-line="64" selection-start-column="58" selection-end-line="64" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_single.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/ip_region_proposal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>

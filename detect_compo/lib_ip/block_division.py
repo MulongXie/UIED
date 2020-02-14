@@ -70,10 +70,10 @@ def block_is_compo(corner, org, max_compo_scale=C.THRESHOLD_COMPO_MAX_SCALE):
     width = corner[1][0] - corner[0][0]
     height = corner[1][1] - corner[0][1]
 
-    # print(height, height / column, max_compo_scale[0], height / column > max_compo_scale[0])
+    # print(height, height / row, max_compo_scale[0], height / row > max_compo_scale[0])
     # draw.draw_bounding_box(org, [corner], show=True)
     # ignore atomic components
-    if height / column > max_compo_scale[0] or width / column > max_compo_scale[1]:
+    if height / row > max_compo_scale[0] or width / column > max_compo_scale[1]:
         return False
     return True
 
