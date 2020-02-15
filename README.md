@@ -46,5 +46,5 @@ To test the your own image(s):
 
 ## Demo
 GUI element detection result for web screenshot
-
+ 
 ![UI Components detection result](https://github.com/MulongXie/UI2CODE/blob/master/demo/uied.png)
