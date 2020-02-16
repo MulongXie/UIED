@@ -48,7 +48,7 @@ def processing(org, binary):
     return compos_corner
 
 
-def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, classifier=None):
+def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, classifier=None, show=False):
     start = time.clock()
     name = input_img_path.split('\\')[-1][:-4]
     ip_root = pjoin(output_root, "ip")
@@ -77,13 +77,13 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, cl
     compos_corner = det.merge_intersected_corner(compos_corner, org.shape)
     if classifier is not None:
         compos_class = classifier.predict(seg.clipping(org, compos_corner))
-        draw.draw_bounding_box_class(org, compos_corner, compos_class, show=True, write_path=pjoin(cls_root, name + '.png'))
-        file.save_corners_json(pjoin(ip_root, name + '.json'), compos_corner, compos_class)
+        draw.draw_bounding_box_class(org, compos_corner, compos_class, show=show, write_path=pjoin(cls_root, name + '.png'))
+        file.save_corners_json(pjoin(cls_root, name + '.json'), compos_corner, compos_class)
     compos_corner = det.merge_text(compos_corner, org.shape)
     compos_corner = det.merge_intersected_corner(compos_corner, org.shape)
 
     # *** Step 6 *** save results: save text label -> save drawn image
-    draw.draw_bounding_box(org, compos_corner, show=True, write_path=pjoin(ip_root, name + '_ip.png'))
+    draw.draw_bounding_box(org, compos_corner, show=show, write_path=pjoin(ip_root, name + '_ip.png'))
     file.save_corners_json(pjoin(ip_root, name + '_ip.json'), compos_corner, np.full(len(compos_corner), '0'))
 
     print("[Compo Detection Completed in %.3f s] %d %s\n" % (time.clock() - start, num, input_img_path))

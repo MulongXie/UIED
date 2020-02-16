@@ -11,7 +11,7 @@ cfg = Config()
 
 
 class ResClassifier():
-    def __init__(self):
+    def __init__(self, is_load=True):
         self.data = None
         self.model = None
 
@@ -19,6 +19,8 @@ class ResClassifier():
         self.class_number = cfg.class_number
         self.class_map = cfg.class_map
         self.MODEL_PATH = cfg.MODEL_PATH
+        if is_load:
+            self.load()
 
     def build_model(self, epoch_num, is_compile=True):
         base_model = ResNet50(include_top=False, weights='imagenet', input_shape=self.image_shape)
