@@ -45,23 +45,31 @@ class ResClassifier():
         self.model = load_model(self.MODEL_PATH)
         print('Model Loaded From', self.MODEL_PATH)
 
-    def read_img(self, img_path):
-        image = cv2.imread(img_path)
+    def preprocess_img(self, image):
         image = cv2.resize(image, self.image_shape[:2])
         x = (image / 255).astype('float32')
         x = np.array([x])
         return x
 
-    def predict(self, img_path, load=True):
+    def predict(self, imgs, load=False, show=False):
         """
         :type img_path: list of img path
         """
+        class_names = []
         if load:
             self.load()
-        for path in img_path:
-            X = self.read_img(path)
+        if self.model is None:
+            print("*** No model loaded ***")
+            return
+        for img in imgs:
+            X = self.preprocess_img(img)
             Y = self.class_map[np.argmax(self.model.predict(X))]
-            print(Y)
+            class_names.append(Y)
+            if show:
+                print(Y)
+                cv2.imshow('element', img)
+                cv2.waitKey()
+        return class_names
 
     def evaluate(self, data, load=True):
         if load:

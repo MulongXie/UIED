@@ -102,7 +102,7 @@ def eval(detection, ground_truth, img_root, show=True):
                 broad = draw_bounding_box(org, [d_bbox], color=(0, 0, 255))
                 draw_bounding_box(broad, [gt_bbox], color=(0, 255, 0), show=True)
 
-            if iou > 0.9 or iod > 0.9:
+            if iou >= 0.9 or iod > 0.8:
                 matched[i] = 0
                 return True
         return False
