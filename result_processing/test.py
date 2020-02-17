@@ -4,6 +4,7 @@ import cv2
 from glob import glob
 from os.path import join as pjoin
 from tqdm import tqdm
+from math import sqrt
 
 
 def resize_label(bboxes, d_height, gt_height, bias=0):
@@ -20,7 +21,7 @@ def draw_bounding_box(org, corners, color=(0, 255, 0), line=2, show=False):
     for i in range(len(corners)):
         board = cv2.rectangle(board, (corners[i][0], corners[i][1]), (corners[i][2], corners[i][3]), color, line)
     if show:
-        cv2.imshow('a', cv2.resize(board, (500, 1000)))
+        cv2.imshow('a', cv2.resize(board, (300, 600)))
         cv2.waitKey(0)
     return board
 
@@ -80,7 +81,7 @@ def load_ground_truth_json(gt_file):
 
 
 def eval(detection, ground_truth, img_root, show=True):
-    def match(org, d_bbox, gt_bboxes, matched):
+    def match(d_bbox, gt_bboxes, matched):
         '''
         :param matched: mark if the ground truth component is matched
         :param d_bbox: [col_min, row_min, col_max, row_max]
@@ -89,9 +90,11 @@ def eval(detection, ground_truth, img_root, show=True):
         '''
         area_d = (d_bbox[2] - d_bbox[0]) * (d_bbox[3] - d_bbox[1])
         for i, gt_bbox in enumerate(gt_bboxes):
+            gt_w = (gt_bbox[2] - gt_bbox[0])
+            gt_h = (gt_bbox[3] - gt_bbox[1])
             if matched[i] == 0:
                 continue
-            area_gt = (gt_bbox[2] - gt_bbox[0]) * (gt_bbox[3] - gt_bbox[1])
+            area_gt = gt_w * gt_h
             col_min = max(d_bbox[0], gt_bbox[0])
             row_min = max(d_bbox[1], gt_bbox[1])
             col_max = min(d_bbox[2], gt_bbox[2])
@@ -105,12 +108,19 @@ def eval(detection, ground_truth, img_root, show=True):
             iod = area_inter / area_d
             iou = area_inter / (area_d + area_gt - area_inter)
 
-            # if show:
-            #     print("IoDetection: %.3f, IoU: %.3f" % (iod, iou))
-            #     broad = draw_bounding_box(org, [d_bbox], color=(0, 0, 255))
-            #     draw_bounding_box(broad, [gt_bbox], color=(0, 255, 0), show=True)
+            center_gt = (int((gt_bbox[2] + gt_bbox[0])/2), int((gt_bbox[3] + gt_bbox[1])/2))
+            center_det = (int((d_bbox[2] + d_bbox[0])/2), int((d_bbox[3] + d_bbox[1])/2))
+            distance = sqrt(pow(center_gt[0]-center_det[0], 2) + pow(center_gt[1]-center_det[1], 2))
 
-            if iou >= 0.9 or iod == 1:
+            if show:
+                cv2.circle(img, center_det, 5, (0,0,255), -1)
+                cv2.circle(img, center_gt, 5, (0,255,0), -1)
+                print("IoDetection: %.3f, IoU: %.3f" % (iod, iou))
+                print("Distance of centers: %.3f, Width of gt: %d, Ratio: %.3f" % (distance, gt_w, distance/gt_w))
+                broad = draw_bounding_box(img, [d_bbox], color=(0, 0, 255), line=2)
+                draw_bounding_box(broad, [gt_bbox], color=(0, 255, 0), show=True, line=2)
+
+            if iou >= 0.9 or distance / gt_w < 0.1:
                 matched[i] = 0
                 return True
         return False
@@ -124,7 +134,7 @@ def eval(detection, ground_truth, img_root, show=True):
         d_compos['bboxes'] = resize_label(d_compos['bboxes'], 800, gt_compos['size'][0])
         matched = np.ones(len(gt_compos['bboxes']), dtype=int)
         for d_bbox in d_compos['bboxes']:
-            if match(img, d_bbox, gt_compos['bboxes'], matched):
+            if match(d_bbox, gt_compos['bboxes'], matched):
                 TP += 1
             else:
                 FP += 1
@@ -148,4 +158,4 @@ def eval(detection, ground_truth, img_root, show=True):
 
 detect = load_detect_result_json('E:\\Mulong\\Result\\rico2\\ip')
 gt = load_ground_truth_json('E:/Mulong/Datasets/rico/instances_val_notext.json')
-eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False)
+eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=True)
