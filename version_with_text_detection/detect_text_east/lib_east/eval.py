@@ -131,13 +131,14 @@ def sort_poly(p):
         return p[[0, 3, 2, 1]]
 
 
-def predict(sess, f_score, f_geometry, input_images, resize_by_height):
+def predict(sess, f_score, f_geometry, input_images, resize_by_height, show=False):
     img_path = FLAGS.test_data_path
     # print(img_path)
     # im = cv2.imread(img_path)[:, :, ::-1]
 
-    import lib_ip.ip_preprocessing as pre
-    im, _ = pre.read_img(img_path, resize_by_height)
+    # import lib_ip.ip_preprocessing as pre
+    # im, _ = pre.read_img(img_path, resize_by_height)
+    im = cv2.imread(img_path)
     im = im[:, :, ::-1]
 
     start_time = time.time()
@@ -182,6 +183,10 @@ def predict(sess, f_score, f_geometry, input_images, resize_by_height):
     if not FLAGS.no_write_images:
         img_path = os.path.join(FLAGS.output_dir, os.path.basename(img_path)[:-4] + '_ocr.png')
         cv2.imwrite(img_path, im[:, :, ::-1])
+    
+    if show:
+        cv2.imshow('east', im[:, :, ::-1])
+        cv2.waitKey()
 
 
 def load():
@@ -211,7 +216,7 @@ def load():
 
 
 def run(input_img_path, output_label_path, resize_by_height,
-        sess, f_score, f_geometry, input_images):
+        sess, f_score, f_geometry, input_images, show=False):
     # tf.app.flags.DEFINE_string('test_data_path', input_img_path, '')
     # tf.app.flags.DEFINE_string('gpu_list', '0', '')
     # tf.app.flags.DEFINE_string('checkpoint_path', 'E:/Mulong/Model/East/east_icdar2015_resnet_v1_50_rbox', '')
@@ -220,4 +225,4 @@ def run(input_img_path, output_label_path, resize_by_height,
     # tf.app.run(main)
 
     FLAGS.renew_path(input_img_path, output_label_path)
-    predict(sess, f_score, f_geometry, input_images, resize_by_height)
+    predict(sess, f_score, f_geometry, input_images, resize_by_height, show=show)
