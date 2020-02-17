@@ -6,7 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/detect_compo" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/resnet" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.6" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">

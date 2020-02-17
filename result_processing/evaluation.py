@@ -104,13 +104,11 @@ def eval(detection, ground_truth, img_root, show=True):
                 continue
             iod = area_inter / area_d
             iou = area_inter / (area_d + area_gt - area_inter)
-
             # if show:
-            #     print("IoDetection: %.3f, IoU: %.3f" % (iod, iou))
-            #     broad = draw_bounding_box(org, [d_bbox], color=(0, 0, 255))
-            #     draw_bounding_box(broad, [gt_bbox], color=(0, 255, 0), show=True)
+            #     cv2.putText(org, (str(round(iou, 2)) + ',' + str(round(iod, 2))), (d_bbox[0], d_bbox[1]),
+            #                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
-            if iou >= 0.9 or iod == 1:
+            if iou > 0.9 or iod == 1:
                 matched[i] = 0
                 return True
         return False
@@ -133,12 +131,10 @@ def eval(detection, ground_truth, img_root, show=True):
         precesion = TP / (TP+FP)
         recall = TP / (TP+FN)
         if show:
-            print("Number of gt boxes: %d, Number of detected boxes: %d" % (
-            len(gt_compos['bboxes']), len(d_compos['bboxes'])))
-
-            broad = draw_bounding_box(img,  d_compos['bboxes'], color=(0, 0, 255), line=3)
-            draw_bounding_box(broad, gt_compos['bboxes'], color=(0, 255, 0), show=True, line=2)
+            print(image_id + '.jpg')
             print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (i, amount, TP, FP, FN, precesion, recall))
+            broad = draw_bounding_box(img,  d_compos['bboxes'], color=(255, 0, 0), line=3)
+            draw_bounding_box(broad, gt_compos['bboxes'], color=(0, 0, 255), show=True, line=2)
 
         if i % 200 == 0:
             print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (i, amount, TP, FP, FN, precesion, recall))
@@ -146,6 +142,6 @@ def eval(detection, ground_truth, img_root, show=True):
     # print("Average precision:%.4f; Average recall:%.3f" % (sum(pres)/len(pres), sum(recalls)/len(recalls)))
 
 
-detect = load_detect_result_json('E:\\Mulong\\Result\\rico2\\ip')
+detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_new_uied\\ip')
 gt = load_ground_truth_json('E:/Mulong/Datasets/rico/instances_val_notext.json')
 eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False)
