@@ -4,12 +4,27 @@ import math
 import os
 import numpy as np
 import tensorflow as tf
+import json
 
 import lib_east.locality_aware_nms as nms_locality
 import lib_east.lanms as lanms
 
 import lib_east.model as model
 from lib_east.icdar import restore_rectangle
+
+
+def save_corners_json(file_path, corners, new=True):
+    if not new:
+        f_in = open(file_path, 'r')
+        components = json.load(f_in)
+    else:
+        components = {'compos': []}
+
+    for i in range(len(corners)):
+        c = {}
+        (c['column_min'], c['row_min'], c['column_max'], c['row_max']) = corners[i]
+        components['compos'].append(c)
+    json.dump(components,  open(file_path, 'w'))
 
 
 class FLAG:
@@ -164,21 +179,20 @@ def predict(sess, f_score, f_geometry, input_images, resize_by_height, show=Fals
     # save to file
     res_file = os.path.join(
         FLAGS.output_dir,
-        '{}_ocr.txt'.format(
+        '{}_ocr.json'.format(
             os.path.basename(img_path).split('.')[0]))
 
-    with open(res_file, 'w') as f:
-        if boxes is not None:
-            for box in boxes:
-                # to avoid submitting errors
-                box = sort_poly(box.astype(np.int32))
-                if np.linalg.norm(box[0] - box[1]) < 5 or np.linalg.norm(box[3] - box[0]) < 5:
-                    continue
-                f.write('{},{},{},{}\r\n'.format(
-                    box[0, 0], box[0, 1], box[2, 0], box[2, 1]
-                ))
-                # cv2.polylines(im[:, :, ::-1], [box.astype(np.int32).reshape((-1, 1, 2))], True, color=(255, 255, 0), thickness=1)
-                cv2.rectangle(im[:, :, ::-1], (box[0][0], box[0][1]), (box[2][0], box[2][1]), (0, 0, 255), 3)
+    corners = []
+    for box in boxes:
+        # to avoid submitting errors
+        box = sort_poly(box.astype(np.int32))
+        if np.linalg.norm(box[0] - box[1]) < 5 or np.linalg.norm(box[3] - box[0]) < 5:
+            continue
+        corners.append([int(box[0, 0]), int(box[0, 1]), int(box[2, 0]), int(box[2, 1])])
+        # cv2.polylines(im[:, :, ::-1], [box.astype(np.int32).reshape((-1, 1, 2))], True, color=(255, 255, 0), thickness=1)
+        cv2.rectangle(im[:, :, ::-1], (box[0][0], box[0][1]), (box[2][0], box[2][1]), (0, 0, 255), 3)
+
+    save_corners_json(res_file, corners)
 
     if not FLAGS.no_write_images:
         img_path = os.path.join(FLAGS.output_dir, os.path.basename(img_path)[:-4] + '_ocr.png')
