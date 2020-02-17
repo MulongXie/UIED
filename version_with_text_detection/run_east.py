@@ -15,5 +15,13 @@ data = json.load(open('E:\\Mulong\\Datasets\\rico\\instances_val_notext.json', '
 input_paths_img = [pjoin(ROOT_INPUT, img['file_name'].split('/')[-1]) for img in data['images']]
 input_paths_img = sorted(input_paths_img, key=lambda x: int(x.split('\\')[-1][:-4]))  # sorted by index
 
-for input_path_img in input_paths_img:
+start_index = 10780
+end_index = 100000
+for i, input_path_img in enumerate(input_paths_img):
+    print(i, '/', len(input_paths_img))
+    index = input_path_img.split('\\')[-1][:-4]
+    if int(index) < start_index:
+        continue
+    if int(index) > end_index:
+        break
     ocr.east(input_path_img, ROOT_OUTPUT, resize_by_height=None, show=False)
