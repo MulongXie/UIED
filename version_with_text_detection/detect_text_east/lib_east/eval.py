@@ -27,13 +27,63 @@ def save_corners_json(file_path, corners, new=True):
     json.dump(components,  open(file_path, 'w'))
 
 
+def draw_bounding_box(org, corners, color=(0, 255, 0), line=2, show=False):
+    board = org.copy()
+    for i in range(len(corners)):
+        board = cv2.rectangle(board, (corners[i][0], corners[i][1]), (corners[i][2], corners[i][3]), color, line)
+    if show:
+        cv2.imshow('a', cv2.resize(board, (500, 1000)))
+        cv2.waitKey(0)
+    return board
+
+
+def merge_text(corners, max_word_gad=30):
+    def is_text_line(corner_a, corner_b):
+        (col_min_a, row_min_a, col_max_a, row_max_a) = corner_a
+        (col_min_b, row_min_b, col_max_b, row_max_b) = corner_b
+        # on the same line
+        if abs(row_min_a - row_min_b) < max_word_gad and abs(row_max_a - row_max_b) < max_word_gad:
+            # close distance
+            if abs(col_min_b - col_max_a) < max_word_gad or abs(col_min_a - col_max_b) < max_word_gad:
+                return True
+        return False
+
+    def corner_merge_two_corners(corner_a, corner_b):
+        (col_min_a, row_min_a, col_max_a, row_max_a) = corner_a
+        (col_min_b, row_min_b, col_max_b, row_max_b) = corner_b
+
+        col_min = min(col_min_a, col_min_b)
+        col_max = max(col_max_a, col_max_b)
+        row_min = min(row_min_a, row_min_b)
+        row_max = max(row_max_a, row_max_b)
+        return col_min, row_min, col_max, row_max
+
+    changed = False
+    new_corners = []
+    for i in range(len(corners)):
+        merged = False
+        for j in range(len(new_corners)):
+            if is_text_line(corners[i], new_corners[j]):
+                new_corners[j] = corner_merge_two_corners(corners[i], new_corners[j])
+                merged = True
+                changed = True
+                break
+        if not merged:
+            new_corners.append(corners[i])
+
+    if not changed:
+        return corners
+    else:
+        return merge_text(new_corners)
+
+
 class FLAG:
     def __init__(self, input_img_path=None, output_label_path=None):
         self.test_data_path = input_img_path
         self.gpu_list = '0'
         self.checkpoint_path = 'E:/Mulong/Model/East/east_icdar2015_resnet_v1_50_rbox'
         self.output_dir = output_label_path
-        self.no_write_images = False
+        self.no_write_images = True
 
     def renew_path(self, input_img_path, output_label_path):
         self.test_data_path = input_img_path
@@ -190,8 +240,9 @@ def predict(sess, f_score, f_geometry, input_images, resize_by_height, show=Fals
             continue
         corners.append([int(box[0, 0]), int(box[0, 1]), int(box[2, 0]), int(box[2, 1])])
         # cv2.polylines(im[:, :, ::-1], [box.astype(np.int32).reshape((-1, 1, 2))], True, color=(255, 255, 0), thickness=1)
-        cv2.rectangle(im[:, :, ::-1], (box[0][0], box[0][1]), (box[2][0], box[2][1]), (0, 0, 255), 3)
+        # cv2.rectangle(im[:, :, ::-1], (box[0][0], box[0][1]), (box[2][0], box[2][1]), (0, 0, 255), 3)
 
+    corners = merge_text(corners)
     save_corners_json(res_file, corners)
 
     if not FLAGS.no_write_images:
@@ -199,7 +250,8 @@ def predict(sess, f_score, f_geometry, input_images, resize_by_height, show=Fals
         cv2.imwrite(img_path, im[:, :, ::-1])
     
     if show:
-        cv2.imshow('east', im[:, :, ::-1])
+        broad = draw_bounding_box(im[:, :, ::-1], corners)
+        cv2.imshow('east', cv2.resize(broad, (500, 1000)))
         cv2.waitKey()
 
 

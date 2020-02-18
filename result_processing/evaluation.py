@@ -133,6 +133,7 @@ def eval(detection, ground_truth, img_root, show=True):
         if show:
             print(image_id + '.jpg')
             print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (i, amount, TP, FP, FN, precesion, recall))
+            cv2.imshow('org', cv2.resize(img, (500, 1000)))
             broad = draw_bounding_box(img,  d_compos['bboxes'], color=(255, 0, 0), line=3)
             draw_bounding_box(broad, gt_compos['bboxes'], color=(0, 0, 255), show=True, line=2)
 
@@ -144,4 +145,4 @@ def eval(detection, ground_truth, img_root, show=True):
 
 detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_new_uied\\ip')
 gt = load_ground_truth_json('E:/Mulong/Datasets/rico/instances_val_notext.json')
-eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False)
+eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=True)
