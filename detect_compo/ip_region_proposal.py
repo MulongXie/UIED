@@ -14,9 +14,9 @@ import lib_ip.block_division as blk
 from config.CONFIG_UIED import Config
 
 
-def processing_block(org, binary, blocks_corner):
+def processing_block(org, binary, blocks_corner, compo_pad):
     # get binary map for each block
-    blocks_clip_bin = seg.clipping(binary, blocks_corner, shrink=0)
+    blocks_clip_bin = seg.clipping(binary, blocks_corner, pad=compo_pad)
 
     all_compos_corner = []
     for i in range(len(blocks_corner)):
@@ -31,7 +31,7 @@ def processing_block(org, binary, blocks_corner):
         det.line_removal(block_clip_bin)
 
         # *** Substep 1.2 *** object extraction: extract components boundary -> get bounding box corner
-        compos_boundary = det.boundary_detection(block_clip_bin, show=True)
+        compos_boundary = det.boundary_detection(block_clip_bin)
         compos_corner = det.get_corner(compos_boundary)
         compos_corner = util.corner_cvt_relative_position(compos_corner, block_corner[0][0], block_corner[0][1])
         all_compos_corner += compos_corner
@@ -48,7 +48,8 @@ def processing(org, binary):
     return compos_corner
 
 
-def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, classifier=None, show=False):
+def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, compo_pad=4,
+                    classifier=None, show=False):
     start = time.clock()
     name = input_img_path.split('\\')[-1][:-4]
     ip_root = file.build_directory(pjoin(output_root, "ip"))
@@ -60,10 +61,10 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, cl
 
     # *** Step 2 *** block processing: detect block -> detect components in block
     blocks_corner = blk.block_division(grey, write_path=pjoin(ip_root, name + '_block.png'))
-    compo_in_blk_corner = processing_block(org, binary_org, blocks_corner)
+    compo_in_blk_corner = processing_block(org, binary_org, blocks_corner, compo_pad)
 
     # *** Step 3 *** non-block processing: erase blocks from binary -> detect left components
-    binary_non_block = blk.block_erase(binary_org, blocks_corner, pad=2)
+    binary_non_block = blk.block_erase(binary_org, blocks_corner, pad=compo_pad, show=True)
     compo_non_blk_corner = processing(org, binary_non_block)
 
     # *** Step 4 *** results refinement: remove top and bottom compos -> merge words into line
