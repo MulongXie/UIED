@@ -64,7 +64,7 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, co
     compo_in_blk_corner = processing_block(org, binary_org, blocks_corner, compo_pad)
 
     # *** Step 3 *** non-block processing: erase blocks from binary -> detect left components
-    binary_non_block = blk.block_erase(binary_org, blocks_corner, pad=compo_pad, show=True)
+    binary_non_block = blk.block_erase(binary_org, blocks_corner, pad=compo_pad)
     compo_non_blk_corner = processing(org, binary_non_block)
 
     # *** Step 4 *** results refinement: remove top and bottom compos -> merge words into line

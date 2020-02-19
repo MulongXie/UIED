@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4069649-920d-465f-ac6b-bac85007c2bb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/807_all.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/807_all.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/807_block.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/807_block.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/807_ip.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/807_ip.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_segment.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_segment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_single.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,8 +43,8 @@
           <file leaf-file-name="ip_region_proposal.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/detect_compo/ip_region_proposal.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="408">
-                  <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
+                <state relative-caret-position="309">
+                  <caret line="66" column="79" selection-start-line="66" selection-start-column="79" selection-end-line="66" selection-end-column="79" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                   </folding>
@@ -722,16 +715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_single.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_segment.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -741,10 +724,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/detect_compo/ip_region_proposal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
+        <state relative-caret-position="309">
+          <caret line="66" column="79" selection-start-line="66" selection-start-column="79" selection-end-line="66" selection-end-column="79" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_single.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
