@@ -81,8 +81,6 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
         compos_class = classifier.predict(seg.clipping(org, compos_corner))
         draw.draw_bounding_box_class(org, compos_corner, compos_class, show=show, write_path=pjoin(cls_root, name + '.png'))
         file.save_corners_json(pjoin(cls_root, name + '.json'), compos_corner, compos_class)
-    compos_corner = det.merge_text(compos_corner, org.shape)
-    compos_corner = det.merge_intersected_corner(compos_corner, org.shape)
 
     # *** Step 6 *** save results: save text label -> save drawn image
     draw.draw_bounding_box(org, compos_corner, show=show, write_path=pjoin(ip_root, name + '_ip.png'))
