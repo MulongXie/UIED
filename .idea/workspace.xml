@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4069649-920d-465f-ac6b-bac85007c2bb" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ip/75_all.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/75_all.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ip/75_block.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/75_block.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ip/75_ip.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/75_ip.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ip/75_ip.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/75_ip.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_single.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,7 +26,7 @@
             <entry file="file://$PROJECT_DIR$/main_single.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="272">
-                  <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+                  <caret line="16" lean-forward="true" selection-start-line="6" selection-start-column="56" selection-end-line="6" selection-end-column="59" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -30,8 +37,8 @@
           <file leaf-file-name="block_division.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/block_division.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="430">
-                  <caret line="63" column="21" lean-forward="true" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
+                <state relative-caret-position="192">
+                  <caret line="41" column="58" lean-forward="true" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
                 </state>
               </provider>
             </entry>
@@ -40,11 +47,11 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="ip_region_proposal.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="ip_region_proposal.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/detect_compo/ip_region_proposal.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="309">
-                  <caret line="66" column="79" selection-start-line="66" selection-start-column="79" selection-end-line="66" selection-end-column="79" />
+                <state relative-caret-position="408">
+                  <caret line="81" column="54" lean-forward="true" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                   </folding>
@@ -52,11 +59,20 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ip_detection.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="ip_segment.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_segment.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="192">
+                  <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ip_detection.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="243">
-                  <caret line="406" column="32" selection-start-line="406" selection-start-column="32" selection-end-line="406" selection-end-column="32" />
+                <state relative-caret-position="126">
+                  <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
                 </state>
               </provider>
             </entry>
@@ -64,8 +80,8 @@
           <file leaf-file-name="ip_detection_utils.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_detection_utils.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="277">
-                  <caret line="68" column="76" selection-start-line="68" selection-start-column="76" selection-end-line="68" selection-end-column="76" />
+                <state relative-caret-position="-12">
+                  <caret line="257" lean-forward="true" selection-start-line="257" selection-end-line="257" />
                 </state>
               </provider>
             </entry>
@@ -80,6 +96,11 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>corner_padding</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -98,12 +119,13 @@
         <option value="$PROJECT_DIR$/main_select_multipro.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/main_select_classification.py" />
-        <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection_utils.py" />
-        <option value="$PROJECT_DIR$/main_single.py" />
         <option value="$PROJECT_DIR$/config/CONFIG_UIED.py" />
-        <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" />
         <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_segment.py" />
+        <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection_utils.py" />
+        <option value="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" />
+        <option value="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" />
         <option value="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" />
+        <option value="$PROJECT_DIR$/main_single.py" />
       </list>
     </option>
   </component>
@@ -172,6 +194,24 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.main_single">
+    <configuration name="block_division" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="UIED" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/detect_compo/lib_ip" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="ip_detection" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -208,7 +248,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="main_select_multipro" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ip_region_proposal" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -216,11 +256,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/detect_compo" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_select_multipro.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -244,38 +284,20 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="UIED" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <list>
       <item itemvalue="Python.main_single" />
-      <item itemvalue="Python.test" />
-      <item itemvalue="Python.main_select_multipro" />
       <item itemvalue="Python.ip_detection" />
       <item itemvalue="Python.ip_detection_utils" />
+      <item itemvalue="Python.block_division" />
+      <item itemvalue="Python.ip_region_proposal" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main_single" />
+        <item itemvalue="Python.ip_region_proposal" />
+        <item itemvalue="Python.block_division" />
         <item itemvalue="Python.ip_detection_utils" />
         <item itemvalue="Python.ip_detection" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.main_select_multipro" />
       </list>
     </recent_temporary>
   </component>
@@ -294,7 +316,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-7" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.085353" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -687,13 +708,6 @@
     <entry file="file://$PROJECT_DIR$/data/output/ip/807_block.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_detection_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="68" column="76" selection-start-line="68" selection-start-column="76" selection-end-line="68" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/CONFIG_UIED.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -701,41 +715,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py">
+    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_detection_utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="406" column="32" selection-start-line="406" selection-start-column="32" selection-end-line="406" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/block_division.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="63" column="21" lean-forward="true" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
+        <state relative-caret-position="-12">
+          <caret line="257" lean-forward="true" selection-start-line="257" selection-end-line="257" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_segment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+        <state relative-caret-position="192">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/detect_compo/ip_region_proposal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="66" column="79" selection-start-line="66" selection-start-column="79" selection-end-line="66" selection-end-column="79" />
+        <state relative-caret-position="408">
+          <caret line="81" column="54" lean-forward="true" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_compo/lib_ip/block_division.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="41" column="58" lean-forward="true" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main_single.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <caret line="16" lean-forward="true" selection-start-line="6" selection-start-column="56" selection-end-line="6" selection-end-column="59" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>

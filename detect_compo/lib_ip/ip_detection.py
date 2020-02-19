@@ -9,6 +9,19 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
+def corner_padding(img, corners, pad):
+    row, col = img.shape[:2]
+    corners_new = []
+    for corner in corners:
+        ((column_min, row_min), (column_max, row_max)) = corner
+        column_min = max(column_min - pad, 0)
+        column_max = min(column_max + pad, col)
+        row_min = max(row_min - pad, 0)
+        row_max = min(row_max + pad, row)
+        corners_new.append(((column_min, row_min), (column_max, row_max)))
+    return corners_new
+
+
 def get_corner(boundaries):
     """
     Get the top left and bottom right points of boundary
