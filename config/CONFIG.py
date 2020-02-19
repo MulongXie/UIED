@@ -16,7 +16,7 @@ class Config:
 
         # setting data flow paths
         self.ROOT_INPUT = "E:\\Mulong\\Datasets\\rico\\combined"
-        self.ROOT_OUTPUT = "E:\\Mulong\\Result\\rico2"
+        self.ROOT_OUTPUT = "E:\\Mulong\\Result\\rico\\rico_new_uied_cls"
 
         # *** Frozen ***
         self.ROOT_IMG_ORG = pjoin(self.ROOT_INPUT, "org")
@@ -24,17 +24,18 @@ class Config:
         self.ROOT_OCR = pjoin(self.ROOT_OUTPUT, "ocr")
         self.ROOT_MERGE = pjoin(self.ROOT_OUTPUT, "merge")
         self.ROOT_IMG_COMPONENT = pjoin(self.ROOT_OUTPUT, "components")
-        self.COLOR = {'block': (0, 255, 0), 'img': (0, 0, 255), 'icon': (255, 166, 166), 'input': (255, 166, 0),
-                      'text': (77, 77, 255), 'search': (255, 0, 166), 'list': (166, 0, 255), 'select': (166, 166, 166),
-                      'button': (0, 166, 255)}
-        self.class_index = {'button':0, 'input':1, 'select':2, 'search':3, 'list':4, 'img':5, 'block':6, 'text':7, 'icon':8}
+        self.COLOR = {'Button': (0, 255, 0), 'CheckBox': (0, 0, 255), 'Chronometer': (255, 166, 166),
+                      'EditText': (255, 166, 0),
+                      'ImageButton': (77, 77, 255), 'ImageView': (255, 0, 166), 'ProgressBar': (166, 0, 255),
+                      'RadioButton': (166, 166, 166),
+                      'RatingBar': (0, 166, 255), 'SeekBar': (0, 166, 10), 'Spinner': (50, 21, 255),
+                      'Switch': (80, 166, 66), 'ToggleButton': (0, 66, 80), 'VideoView': (88, 66, 0),
+                      'TextView': (169, 255, 0)}
 
-    def build_output_folders(self, is_clip):
+    def build_output_folders(self):
         if not os.path.exists(self.ROOT_IP):
             os.mkdir(self.ROOT_IP)
         if not os.path.exists(self.ROOT_OCR):
             os.mkdir(self.ROOT_OCR)
         if not os.path.exists(self.ROOT_MERGE):
             os.mkdir(self.ROOT_MERGE)
-        if is_clip and not os.path.exists(self.ROOT_IMG_COMPONENT):
-            os.mkdir(self.ROOT_IMG_COMPONENT)

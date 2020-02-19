@@ -71,11 +71,7 @@ def save_clipping(org, output_root, corners, compo_classes, compo_index):
         cv2.imwrite(pjoin(compo_path, str(compo_index[compo_classes[i]]) + '.png'), clip)
 
 
-def time_start():
-    return time.clock()
-
-
-def timer_end(start):
-    now = time.clock()
-    print('Time Taken:%.3f s\n' % (now - start))
-    return now
+def build_directory(directory):
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+    return directory

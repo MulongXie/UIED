@@ -51,8 +51,8 @@ def processing(org, binary):
 def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, classifier=None, show=False):
     start = time.clock()
     name = input_img_path.split('\\')[-1][:-4]
-    ip_root = pjoin(output_root, "ip")
-    cls_root = pjoin(output_root, "cls")
+    ip_root = file.build_directory(pjoin(output_root, "ip"))
+    cls_root = file.build_directory(pjoin(output_root, "cls"))
 
     # *** Step 1 *** pre-processing: read img -> get binary map
     org, grey = pre.read_img(input_img_path, resize_by_height)
