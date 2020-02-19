@@ -68,14 +68,14 @@ def boundary_is_line(boundary, min_line_thickness):
     for i in range(len(boundary[0])):
         if abs(boundary[1][i][1] - boundary[0][i][1]) <= min_line_thickness:
             slim += 1
-    if slim / len(boundary[0]) > 0.8:
+    if slim / len(boundary[0]) > 0.93:
         return True
     # vertically
     slim = 0
     for i in range(len(boundary[2])):
         if abs(boundary[2][i][1] - boundary[3][i][1]) <= min_line_thickness:
             slim += 1
-    if slim / len(boundary[2]) > 0.8:
+    if slim / len(boundary[2]) > 0.93:
         return True
 
     return False

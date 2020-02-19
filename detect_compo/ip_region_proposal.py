@@ -31,7 +31,7 @@ def processing_block(org, binary, blocks_corner):
         det.line_removal(block_clip_bin)
 
         # *** Substep 1.2 *** object extraction: extract components boundary -> get bounding box corner
-        compos_boundary = det.boundary_detection(block_clip_bin)
+        compos_boundary = det.boundary_detection(block_clip_bin, show=True)
         compos_corner = det.get_corner(compos_boundary)
         compos_corner = util.corner_cvt_relative_position(compos_corner, block_corner[0][0], block_corner[0][1])
         all_compos_corner += compos_corner
