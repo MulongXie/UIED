@@ -39,3 +39,4 @@ if __name__ == '__main__':
         if int(index) > end_index:
             break
         ip.compo_detection(input_path_img, output_root, num, resize_by_height=resize_by_height, classifier=classifier)
+        num += 1
