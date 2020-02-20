@@ -4,7 +4,7 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def read_img(path, resize_height=None):
+def read_img(path, resize_height=None, kernel_size=None):
 
     def resize_by_height(org):
         w_h_ratio = org.shape[1] / org.shape[0]
@@ -14,6 +14,8 @@ def read_img(path, resize_height=None):
 
     try:
         img = cv2.imread(path)
+        if kernel_size is not None:
+            img = cv2.medianBlur(img, kernel_size)
         if img is None:
             print("*** Image does not exist ***")
             return None, None
