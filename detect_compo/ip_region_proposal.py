@@ -41,7 +41,7 @@ def processing_block(org, binary, blocks_corner, block_pad):
 
 def processing(org, binary):
     # *** Substep 2.1 *** pre-processing: remove conglutinated line
-    det.line_removal(binary, show=True)
+    det.line_removal(binary, show=False)
 
     # *** Substep 2.2 *** object extraction: extract components boundary -> get bounding box corner
     compos_boundary = det.boundary_detection(binary)
@@ -73,7 +73,6 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
     compos_corner = det.rm_top_or_bottom_corners(compos_corner, org.shape)
     file.save_corners_json(pjoin(ip_root, name + '_all.json'), compos_corner + blocks_corner,
                            list(np.full(len(compos_corner), 'compo')) + list(np.full(len(compos_corner), 'block')))
-    draw.draw_bounding_box(org, compos_corner + blocks_corner, show=True, write_path=pjoin(ip_root, name + '_all.png'))
 
     # *** Step 5 *** post-processing: merge components -> classification (opt)
     compos_corner = det.merge_text(compos_corner, org.shape)
