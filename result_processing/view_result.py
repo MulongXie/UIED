@@ -9,7 +9,7 @@ import CONFIG
 cfg = CONFIG.Config()
 
 
-def draw_bounding_box(img, corners, classes, resize_height=800,  color_map=cfg.COLOR, line=2, show=False, write_path=None):
+def draw_bounding_box(img, corners, classes, resize_height=800, color_map=cfg.COLOR, line=2, show=False, write_path=None):
     def resize_by_height(org):
         w_h_ratio = org.shape[1] / org.shape[0]
         resize_w = resize_height * w_h_ratio
@@ -31,12 +31,20 @@ def draw_bounding_box(img, corners, classes, resize_height=800,  color_map=cfg.C
 
 def view_detect_result_json(reslut_file_root, img_file_root, classifier=None, show=True):
     result_files = glob(pjoin(reslut_file_root, '*.json'))
-    compos_reform = {}
+    result_files = sorted(result_files, key=lambda x: int(x.split('\\')[-1].split('_')[0]))
     print('Loading %d detection results' % len(result_files))
     for reslut_file in result_files:
-        img_name = reslut_file.split('\\')[-1].split('_')[0]
-        org = cv2.imread(pjoin(img_file_root, img_name + '.jpg'))
-        print(img_name)
+        start_index = 0
+        end_index = 100000
+        index = reslut_file.split('\\')[-1].split('_')[0]
+
+        if int(index) < start_index:
+            continue
+        if int(index) > end_index:
+            break
+
+        org = cv2.imread(pjoin(img_file_root, index + '.jpg'))
+        print(index)
         compos = json.load(open(reslut_file, 'r'))['compos']
         bboxes = []
         for compo in compos:
@@ -45,11 +53,10 @@ def view_detect_result_json(reslut_file_root, img_file_root, classifier=None, sh
         if classifier is not None:
             classes = classifier.predict(seg.clipping(org, bboxes))
         else:
-            classes = np.zeros(len(bboxes))
+            classes = np.full(len(bboxes), 'ImageView')
 
         if show:
             draw_bounding_box(org, bboxes, classes, show=True)
-    return compos_reform
 
 
 is_clf = True
