@@ -2,11 +2,14 @@ import json
 from glob import glob
 from os.path import join as pjoin
 import cv2
+import numpy as np
 
-color_map = {'block':(0,255,0), 'compo':(0,0,255), '0':(0,255,0), '1':(0,0,255)}
+import lib_ip.ip_segment as seg
+import CONFIG
+cfg = CONFIG.Config()
 
 
-def draw_bounding_box(img, corners, classes, resize_height=800,  color_map=color_map, line=2, show=False, write_path=None):
+def draw_bounding_box(img, corners, classes, resize_height=800,  color_map=cfg.COLOR, line=2, show=False, write_path=None):
     def resize_by_height(org):
         w_h_ratio = org.shape[1] / org.shape[0]
         resize_w = resize_height * w_h_ratio
@@ -16,8 +19,8 @@ def draw_bounding_box(img, corners, classes, resize_height=800,  color_map=color
     board = resize_by_height(img)
     for i in range(len(corners)):
         board = cv2.rectangle(board, corners[i][0], corners[i][1], color_map[classes[i]], line)
-        # board = cv2.putText(board, classes[i], (corners[i][0][0]+5, corners[i][0][1]+20),
-        #                     cv2.FONT_HERSHEY_SIMPLEX, 0.8, color_map[classes[i]], 2)
+        board = cv2.putText(board, classes[i], (corners[i][0][0]+5, corners[i][0][1]+20),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.3, color_map[classes[i]], 2)
     if show:
         cv2.imshow('all', board)
         cv2.waitKey(0)
@@ -26,24 +29,36 @@ def draw_bounding_box(img, corners, classes, resize_height=800,  color_map=color
     return board
 
 
-def view_detect_result_json(reslut_file_root, img_file_root, show=True):
+def view_detect_result_json(reslut_file_root, img_file_root, classifier=None, show=True):
     result_files = glob(pjoin(reslut_file_root, '*.json'))
     compos_reform = {}
     print('Loading %d detection results' % len(result_files))
     for reslut_file in result_files:
         img_name = reslut_file.split('\\')[-1].split('_')[0]
+        org = cv2.imread(pjoin(img_file_root, img_name + '.jpg'))
         print(img_name)
         compos = json.load(open(reslut_file, 'r'))['compos']
-        corners = []
-        class_names = []
+        bboxes = []
         for compo in compos:
-            corners.append([(compo['column_min'], compo['row_min']), (compo['column_max'], compo['row_max'])])
-            class_names.append(compo['class'])
+            bboxes.append([(compo['column_min'], compo['row_min']), (compo['column_max'], compo['row_max'])])
+
+        if classifier is not None:
+            classes = classifier.predict(seg.clipping(org, bboxes))
+        else:
+            classes = np.zeros(len(bboxes))
 
         if show:
-            img = cv2.imread(pjoin(img_file_root, img_name + '.jpg'))
-            draw_bounding_box(img, corners, class_names, show=True)
+            draw_bounding_box(org, bboxes, classes, show=True)
     return compos_reform
 
 
-view_detect_result_json('E:\\Mulong\\Result\\rico\\rico_new_uied\\all_corners', "E:\\Mulong\\Datasets\\rico\\combined")
+is_clf = True
+if is_clf:
+    from Resnet import ResClassifier
+    classifier = ResClassifier()
+else:
+    classifier = None
+
+view_detect_result_json('E:\\Mulong\\Result\\rico\\rico_new_uied\\all_corners',
+                        "E:\\Mulong\\Datasets\\rico\\combined",
+                        classifier=classifier)
