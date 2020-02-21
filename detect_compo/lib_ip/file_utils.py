@@ -34,10 +34,8 @@ def save_corners_json(file_path, corners, compo_classes, new=True):
     f_out = open(file_path, 'w')
 
     for i in range(len(corners)):
-        (up_left, bottom_right) = corners[i]
         c = {'id': i, 'class': compo_classes[i]}
-        (c['column_min'], c['row_min']) = up_left
-        (c['column_max'], c['row_max']) = bottom_right
+        (c['column_min'], c['row_min']), (c['column_max'], c['row_max']) = corners[i]
         c['width'] = c['column_max'] - c['column_min']
         c['height'] = c['row_max'] - c['row_min']
         components['compos'].append(c)

@@ -34,8 +34,8 @@ def get_corner(boundaries):
     """
     corners = []
     for boundary in boundaries:
-        top_left = (min(boundary[0][0][0], boundary[1][-1][0]), min(boundary[2][0][0], boundary[3][-1][0]))
-        bottom_right = (max(boundary[0][0][0], boundary[1][-1][0]), max(boundary[2][0][0], boundary[3][-1][0]))
+        top_left = (int(min(boundary[0][0][0], boundary[1][-1][0])), int(min(boundary[2][0][0], boundary[3][-1][0])))
+        bottom_right = (int(max(boundary[0][0][0], boundary[1][-1][0])), int(max(boundary[2][0][0], boundary[3][-1][0])))
         corner = (top_left, bottom_right)
         corners.append(corner)
     return corners

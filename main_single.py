@@ -15,4 +15,4 @@ if is_clf:
 
 ip.compo_detection(PATH_IMG_INPUT, PATH_OUTPUT_ROOT,
                    resize_by_height=resize_by_height, classifier=classifier,
-                   show=True, write_img=False)
+                   show=False, write_img=False)
