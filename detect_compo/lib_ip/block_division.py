@@ -90,24 +90,24 @@ def block_division(grey, show=False, write_path=None,
                         -> top_left: (column_min, row_min)
                         -> bottom_right: (column_max, row_max)
     '''
-    # def flood_fill_bfs(img, x_start, y_start, mark):
-    #     def neighbor(x, y):
-    #         for i in range(x - 1, x + 2):
-    #             if i < 0 or i >= img.shape[0]: continue
-    #             for j in range(y - 1, y + 2):
-    #                 if j < 0 or j >= img.shape[1]: continue
-    #                 if mark[i, j] == 0 and abs(img[i, j] - img[x, y]) < grad_thresh:
-    #                     stack.append([i, j])
-    #                     mark[i, j] = 255
-    #
-    #     stack = [[x_start, y_start]]  # points waiting for inspection
-    #     region = [[x_start, y_start]]  # points of this connected region
-    #     mark[x_start, y_start] = 255  # drawing broad
-    #     while len(stack) > 0:
-    #         point = stack.pop()
-    #         region.append(point)
-    #         neighbor(point[0], point[1])
-    #     return region
+    def flood_fill_bfs(img, x_start, y_start, mark):
+        def neighbor(x, y):
+            for i in range(x - 1, x + 2):
+                if i < 0 or i >= img.shape[0]: continue
+                for j in range(y - 1, y + 2):
+                    if j < 0 or j >= img.shape[1]: continue
+                    if mark[i, j] == 0 and abs(img[i, j] - img[x, y]) < grad_thresh:
+                        stack.append([i, j])
+                        mark[i, j] = 255
+
+        stack = [[x_start, y_start]]  # points waiting for inspection
+        region = [[x_start, y_start]]  # points of this connected region
+        mark[x_start, y_start] = 255  # drawing broad
+        while len(stack) > 0:
+            point = stack.pop()
+            region.append(point)
+            neighbor(point[0], point[1])
+        return region
 
     blocks_corner = []
     mask = np.zeros((grey.shape[0]+2, grey.shape[1]+2), dtype=np.uint8)

@@ -73,7 +73,7 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
     compos_corner = det.rm_top_or_bottom_corners(compos_corner, org.shape)
     file.save_corners_json(pjoin(ip_root, name + '_all.json'), compos_corner + blocks_corner,
                            list(np.full(len(compos_corner), 'compo')) + list(np.full(len(compos_corner), 'block')))
-    draw.draw_bounding_box(org, compos_corner, show=True)
+    draw.draw_bounding_box(org, compos_corner, show=False)
 
     # *** Step 5 *** post-processing: merge components -> classification (opt)
     compos_corner = det.merge_text(compos_corner, org.shape)
