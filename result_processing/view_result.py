@@ -66,6 +66,6 @@ if is_clf:
 else:
     classifier = None
 
-view_detect_result_json('E:\\Mulong\\Result\\rico\\rico_new_uied\\all_corners',
+view_detect_result_json('E:\\Mulong\\Result\\rico\\rico_new_uied\\ip',
                         "E:\\Mulong\\Datasets\\rico\\combined",
                         classifier=classifier)
