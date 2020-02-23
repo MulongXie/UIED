@@ -7,7 +7,9 @@ resize_by_height = 800
 PATH_IMG_INPUT = 'E:\\Mulong\\Datasets\\rico\\combined\\9122.jpg'
 PATH_OUTPUT_ROOT = 'data\\output'
 
-is_clf = True
+is_clf = False
+is_ocr = True
+
 classifier = None
 if is_clf:
     from Resnet import ResClassifier
@@ -15,4 +17,8 @@ if is_clf:
 
 ip.compo_detection(PATH_IMG_INPUT, PATH_OUTPUT_ROOT,
                    resize_by_height=resize_by_height, classifier=classifier,
-                   show=True, write_img=True)
+                   show=False, write_img=True)
+
+if is_ocr:
+    import ocr_east as ocr
+    ocr.east(PATH_IMG_INPUT, PATH_OUTPUT_ROOT, resize_by_height)
