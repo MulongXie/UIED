@@ -61,7 +61,7 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
     binary_org = pre.preprocess(org, write_path=pjoin(ip_root, name + '_binary.png') if write_img else None)
 
     # *** Step 2 *** block processing: detect block -> detect components in block
-    blocks_corner = blk.block_division(grey, write_path=pjoin(ip_root, name + '_block.png') if write_img else None)
+    blocks_corner = blk.block_division(grey, show=show, write_path=pjoin(ip_root, name + '_block.png') if write_img else None)
     compo_in_blk_corner = processing_block(org, binary_org, blocks_corner, block_pad)
 
     # *** Step 3 *** non-block processing: erase blocks from binary -> detect left components
@@ -73,7 +73,7 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
     compos_corner = det.rm_top_or_bottom_corners(compos_corner, org.shape)
     file.save_corners_json(pjoin(ip_root, name + '_all.json'), compos_corner + blocks_corner,
                            list(np.full(len(compos_corner), 'compo')) + list(np.full(len(compos_corner), 'block')))
-    draw.draw_bounding_box(org, compos_corner, show=False)
+    draw.draw_bounding_box(org, compos_corner, show=show)
 
     # *** Step 5 *** post-processing: merge components -> classification (opt)
     compos_corner = det.merge_text(compos_corner, org.shape)

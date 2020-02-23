@@ -16,15 +16,15 @@ if __name__ == '__main__':
     output_root = C.ROOT_OUTPUT
 
     # set input root directory and sort all images by their indices
-    data = json.load(open('E:\\Mulong\\Datasets\\rico\\instances_val_notext.json', 'r'))
+    data = json.load(open('E:\\Mulong\\Datasets\\rico\\instances_test_org.json', 'r'))
     input_paths_img = [pjoin(input_root, img['file_name'].split('/')[-1]) for img in data['images']]
     input_paths_img = sorted(input_paths_img, key=lambda x: int(x.split('\\')[-1][:-4]))  # sorted by index
 
     # concurrently running on multiple processors
-    pool = multiprocessing.Pool(processes=1)
+    pool = multiprocessing.Pool(processes=3)
     # set the range of target inputs' indices
     num = 0
-    start_index = 0
+    start_index = 12045
     end_index = 100000
     for input_path_img in input_paths_img:
         index = input_path_img.split('\\')[-1][:-4]

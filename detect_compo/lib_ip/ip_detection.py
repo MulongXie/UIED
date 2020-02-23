@@ -489,7 +489,7 @@ def boundary_detection(binary,
                 if perimeter < min_obj_perimeter:
                     continue
                 # check if it is line by checking the length of edges
-                if util.boundary_is_line(boundary, line_thickness):
+                if len(region) > min_obj_area * 10 and util.boundary_is_line(boundary, line_thickness):
                     continue
                 boundary_all.append(boundary)
 
@@ -504,6 +504,7 @@ def boundary_detection(binary,
                     print('Area:%d, Perimeter:%d' % (len(region), perimeter))
                     draw.draw_boundary(boundary_all, binary.shape, show=True)
 
+    # draw.draw_boundary(boundary_all, binary.shape, show=True)
     if rec_detect:
         return boundary_rec, boundary_nonrec
     else:
