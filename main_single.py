@@ -7,7 +7,7 @@ resize_by_height = 800
 PATH_IMG_INPUT = 'E:\\Mulong\\Datasets\\rico\\combined\\9122.jpg'
 PATH_OUTPUT_ROOT = 'data\\output'
 
-is_clf = False
+is_clf = True
 classifier = None
 if is_clf:
     from Resnet import ResClassifier
