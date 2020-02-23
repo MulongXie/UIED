@@ -13,6 +13,15 @@ import lib_east.model as model
 from lib_east.icdar import restore_rectangle
 
 
+def resize_label(bboxes, gt_height, d_height, bias=0):
+    bboxes_new = []
+    scale = gt_height/d_height
+    for bbox in bboxes:
+        bbox = [int(b * scale + bias) for b in bbox]
+        bboxes_new.append(bbox)
+    return bboxes_new
+
+
 def save_corners_json(file_path, corners, new=True):
     if not new:
         f_in = open(file_path, 'r')
@@ -24,7 +33,7 @@ def save_corners_json(file_path, corners, new=True):
         c = {}
         (c['column_min'], c['row_min'], c['column_max'], c['row_max']) = corners[i]
         components['compos'].append(c)
-    json.dump(components,  open(file_path, 'w'))
+    json.dump(components,  open(file_path, 'w'), indent=4)
 
 
 def draw_bounding_box(org, corners, color=(0, 0, 255), line=2, show=False):
@@ -229,7 +238,7 @@ def predict(sess, f_score, f_geometry, input_images, resize_by_height, show=Fals
     # save to file
     res_file = os.path.join(
         FLAGS.output_dir,
-        '{}_ocr.json'.format(
+        '{}.json'.format(
             os.path.basename(img_path).split('.')[0]))
 
     corners = []
@@ -243,10 +252,13 @@ def predict(sess, f_score, f_geometry, input_images, resize_by_height, show=Fals
         # cv2.rectangle(im[:, :, ::-1], (box[0][0], box[0][1]), (box[2][0], box[2][1]), (0, 0, 255), 3)
 
     corners = merge_text(corners)
+    if resize_by_height is not None:
+        corners = resize_label(corners, resize_by_height, im.shape[0])
+        im = cv2.resize(im, (int(resize_by_height/im.shape[0] * im.shape[1]), resize_by_height))
     save_corners_json(res_file, corners)
 
     if not FLAGS.no_write_images:
-        img_path = os.path.join(FLAGS.output_dir, os.path.basename(img_path)[:-4] + '_ocr.png')
+        img_path = os.path.join(FLAGS.output_dir, os.path.basename(img_path)[:-4] + '.png')
         cv2.imwrite(img_path, im[:, :, ::-1])
     
     if show:
@@ -282,7 +294,7 @@ def load():
 
 
 def run(input_img_path, output_label_path, resize_by_height,
-        sess, f_score, f_geometry, input_images, show=False):
+        sess, f_score, f_geometry, input_images, show=False, write_img=False):
     # tf.app.flags.DEFINE_string('test_data_path', input_img_path, '')
     # tf.app.flags.DEFINE_string('gpu_list', '0', '')
     # tf.app.flags.DEFINE_string('checkpoint_path', 'E:/Mulong/Model/East/east_icdar2015_resnet_v1_50_rbox', '')
@@ -291,4 +303,5 @@ def run(input_img_path, output_label_path, resize_by_height,
     # tf.app.run(main)
 
     FLAGS.renew_path(input_img_path, output_label_path)
+    FLAGS.no_write_images = not write_img
     predict(sess, f_score, f_geometry, input_images, resize_by_height, show=show)
