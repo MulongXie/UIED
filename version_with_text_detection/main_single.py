@@ -20,5 +20,5 @@ if is_ip:
     ip.compo_detection(PATH_IMG_INPUT, PATH_OUTPUT_ROOT, resize_by_height)
 if is_merge:
     import merge
-    merge.incorporate(PATH_IMG_INPUT, PATH_OUTPUT_ROOT, PATH_OUTPUT_ROOT, PATH_OUTPUT_ROOT, resize_by_height)
+    merge.incorporate(PATH_IMG_INPUT, PATH_OUTPUT_ROOT, resize_by_height)
 print('Time Taken:%.3f s\n' % (time.clock() - start))

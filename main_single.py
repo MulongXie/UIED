@@ -7,18 +7,27 @@ resize_by_height = 800
 PATH_IMG_INPUT = 'E:\\Mulong\\Datasets\\rico\\combined\\9122.jpg'
 PATH_OUTPUT_ROOT = 'data\\output'
 
+is_ip = True
 is_clf = False
-is_ocr = True
-
-classifier = None
-if is_clf:
-    from Resnet import ResClassifier
-    classifier = ResClassifier()
-
-ip.compo_detection(PATH_IMG_INPUT, PATH_OUTPUT_ROOT,
-                   resize_by_height=resize_by_height, classifier=classifier,
-                   show=False, write_img=True)
+is_ocr = False
+is_merge = False
 
 if is_ocr:
     import ocr_east as ocr
-    ocr.east(PATH_IMG_INPUT, PATH_OUTPUT_ROOT, resize_by_height)
+    ocr.east(PATH_IMG_INPUT, PATH_OUTPUT_ROOT,
+             resize_by_height=resize_by_height, show=True, write_img=True)
+
+if is_ip:
+    # Turn on classification
+    if is_clf:
+        from Resnet import ResClassifier
+        classifier = ResClassifier()
+    else:
+        classifier = None
+    ip.compo_detection(PATH_IMG_INPUT, PATH_OUTPUT_ROOT, classifier=classifier,
+                       resize_by_height=resize_by_height, show=False, write_img=True)
+
+if is_merge:
+    import merge
+    merge.incorporate(PATH_IMG_INPUT, PATH_OUTPUT_ROOT,
+                      resize_by_height=resize_by_height, show=True, write_img=True)
