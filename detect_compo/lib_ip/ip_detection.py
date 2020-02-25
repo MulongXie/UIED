@@ -488,8 +488,8 @@ def boundary_detection(binary,
                 # print('Area:%d' % (len(region)))
                 # draw.draw_boundary([boundary], binary.shape, show=False)
                 # check if it is line by checking the length of edges
-                # if len(region) > min_obj_area * 10 and util.boundary_is_line(boundary, line_thickness):
-                #     continue
+                if len(region) > min_obj_area * 10 and util.boundary_is_line(boundary, line_thickness):
+                    continue
                 boundary_all.append(boundary)
 
                 if rec_detect:
