@@ -147,6 +147,6 @@ def eval(detection, ground_truth, img_root, show=True):
     # print("Average precision:%.4f; Average recall:%.3f" % (sum(pres)/len(pres), sum(recalls)/len(recalls)))
 
 
-detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_xianyu')
+detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_xianyu\\rico_xianyu_background')
 gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_test_org.json', no_text=False)
 eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False)

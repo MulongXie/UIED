@@ -4,11 +4,11 @@ import time
 resize_by_height = 800
 
 # set input image path
-PATH_IMG_INPUT = 'E:\\Mulong\\Datasets\\rico\\combined\\9122.jpg'
+PATH_IMG_INPUT = 'E:\\Mulong\\Datasets\\rico\\combined\\61.jpg'
 PATH_OUTPUT_ROOT = 'data\\output'
 
 is_ip = True
-is_clf = False
+is_clf = True
 is_ocr = False
 is_merge = False
 
@@ -25,7 +25,7 @@ if is_ip:
     else:
         classifier = None
     ip.compo_detection(PATH_IMG_INPUT, PATH_OUTPUT_ROOT, classifier=classifier,
-                       resize_by_height=resize_by_height, show=False, write_img=True)
+                       resize_by_height=resize_by_height, show=True, write_img=True)
 
 if is_merge:
     import merge

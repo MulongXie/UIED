@@ -23,8 +23,8 @@ def draw_bounding_box_class(org, corners, classes, color_map=C.COLOR, line=2,
     """
     board = org.copy()
     for i in range(len(corners)):
-        if not draw_text and classes[i] == 'text':
-            continue
+        # if not draw_text and classes[i] == 'text':
+        #     continue
         board = cv2.rectangle(board, corners[i][0], corners[i][1], color_map[classes[i]], line)
         board = cv2.putText(board, classes[i], (corners[i][0][0]+5, corners[i][0][1]+20),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.8, color_map[classes[i]], 2)

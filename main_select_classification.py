@@ -16,7 +16,7 @@ if __name__ == '__main__':
     output_root = C.ROOT_OUTPUT
 
     # set input root directory and sort all images by their indices
-    data = json.load(open('E:\\Mulong\\Datasets\\rico\\instances_val_notext.json', 'r'))
+    data = json.load(open('E:\\Mulong\\Datasets\\rico\\instances_test_org.json', 'r'))
     input_paths_img = [pjoin(input_root, img['file_name'].split('/')[-1]) for img in data['images']]
     input_paths_img = sorted(input_paths_img, key=lambda x: int(x.split('\\')[-1][:-4]))  # sorted by index
 
