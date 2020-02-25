@@ -8,35 +8,9 @@ import lib_ip.ip_detection_utils as util
 import lib_ip.ip_detection as det
 import lib_ip.ip_draw as draw
 import lib_ip.ip_segment as seg
+from lib_ip.Block import Block
 from config.CONFIG_UIED import Config
 C = Config()
-
-
-def block_rectify(block_corner, components_corner):
-    '''
-    correct the coordinates of compos to the holistic image
-    :param block_corner: corners of blocks
-                        (top_left, bottom_right)
-                        -> top_left: (column_min, row_min)
-                        -> bottom_right: (column_max, row_max)
-    :param components_corner: list of corners of components needed to be corrected
-                        [(top_left, bottom_right)]
-                        -> top_left: (column_min, row_min)
-                        -> bottom_right: (column_max, row_max)
-    :return:
-    '''
-    bias = block_corner[0]
-    compos_corner_new = []
-    for compo in components_corner:
-        # column
-        col_min = compo[0][0] + bias[0]
-        col_max = compo[1][0] + bias[0]
-        # row
-        row_min = compo[0][1] + bias[1]
-        row_max = compo[1][1] + bias[1]
-        compos_corner_new.append(((col_min, row_min), (col_max, row_max)))
-
-    return compos_corner_new
 
 
 def block_erase(binary, blocks_corner, show=False, pad=0):
@@ -51,7 +25,7 @@ def block_erase(binary, blocks_corner, show=False, pad=0):
 
     bin_org = binary.copy()
     for block in blocks_corner:
-        ((column_min, row_min), (column_max, row_max)) = block
+        (column_min, row_min, column_max, row_max) = block.put_bbox()
         column_min = max(column_min - pad, 0)
         column_max = min(column_max + pad, binary.shape[1])
         row_min = max(row_min - pad, 0)
@@ -63,19 +37,6 @@ def block_erase(binary, blocks_corner, show=False, pad=0):
         cv2.imshow('after', binary)
         cv2.waitKey()
     return binary
-
-
-def block_is_compo(corner, org, max_compo_scale=C.THRESHOLD_COMPO_MAX_SCALE):
-    row, column = org.shape[:2]
-    width = corner[1][0] - corner[0][0]
-    height = corner[1][1] - corner[0][1]
-
-    # print(height, height / row, max_compo_scale[0], height / row > max_compo_scale[0])
-    # draw.draw_bounding_box(org, [corner], show=True)
-    # ignore atomic components
-    if height / row > max_compo_scale[0] or width / column > max_compo_scale[1]:
-        return False
-    return True
 
 
 def block_division(grey, show=False, write_path=None,
@@ -90,26 +51,7 @@ def block_division(grey, show=False, write_path=None,
                         -> top_left: (column_min, row_min)
                         -> bottom_right: (column_max, row_max)
     '''
-    def flood_fill_bfs(img, x_start, y_start, mark):
-        def neighbor(x, y):
-            for i in range(x - 1, x + 2):
-                if i < 0 or i >= img.shape[0]: continue
-                for j in range(y - 1, y + 2):
-                    if j < 0 or j >= img.shape[1]: continue
-                    if mark[i, j] == 0 and abs(img[i, j] - img[x, y]) < grad_thresh:
-                        stack.append([i, j])
-                        mark[i, j] = 255
-
-        stack = [[x_start, y_start]]  # points waiting for inspection
-        region = [[x_start, y_start]]  # points of this connected region
-        mark[x_start, y_start] = 255  # drawing broad
-        while len(stack) > 0:
-            point = stack.pop()
-            region.append(point)
-            neighbor(point[0], point[1])
-        return region
-
-    blocks_corner = []
+    blocks = []
     mask = np.zeros((grey.shape[0]+2, grey.shape[1]+2), dtype=np.uint8)
     broad = np.zeros((grey.shape[0], grey.shape[1], 3), dtype=np.uint8)
 
@@ -129,24 +71,21 @@ def block_division(grey, show=False, write_path=None,
                 # ignore small regions
                 if len(region) < 500:
                     continue
+                block = Block(region)
                 # get the boundary of this region
-                boundary = util.boundary_get_boundary(region)
                 # ignore lines
-                if util.boundary_is_line(boundary, line_thickness):
+                if block.compo_is_line(line_thickness):
                     continue
                 # ignore non-rectangle as blocks must be rectangular
-                if not util.boundary_is_rectangle(boundary, min_rec_evenness, max_dent_ratio, grey.shape):
+                if not block.compo_is_rectangle(min_rec_evenness, max_dent_ratio):
                     continue
-                block_corner = det.get_corner([boundary])[0]
-                width = block_corner[1][0] - block_corner[0][0]
-                height = block_corner[1][1] - block_corner[0][1]
-                if height/row < min_block_height_ratio:
+                if block.height/row < min_block_height_ratio:
                     continue
-                blocks_corner.append(block_corner)
+                blocks.append(block)
                 draw.draw_region(region, broad)
     if show:
         cv2.imshow('block', broad)
         cv2.waitKey()
     if write_path is not None:
         cv2.imwrite(write_path, broad)
-    return blocks_corner
+    return blocks

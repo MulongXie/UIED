@@ -25,22 +25,22 @@ def save_corners(file_path, corners, compo_name, clear=True):
     df.to_csv(file_path)
 
 
-def save_corners_json(file_path, corners, compo_classes, new=True):
+def save_corners_json(file_path, compos, new=True):
     if not new:
         f_in = open(file_path, 'r')
-        components = json.load(f_in)
+        output = json.load(f_in)
     else:
-        components = {'compos': []}
+        output = {'compos': []}
     f_out = open(file_path, 'w')
 
-    for i in range(len(corners)):
-        c = {'id': i, 'class': compo_classes[i]}
-        (c['column_min'], c['row_min']), (c['column_max'], c['row_max']) = corners[i]
-        c['width'] = c['column_max'] - c['column_min']
-        c['height'] = c['row_max'] - c['row_min']
-        components['compos'].append(c)
+    for compo in compos:
+        c = {'category': compo.category}
+        (c['column_min'], c['row_min'], c['column_max'], c['row_max']) = compo.put_bbox()
+        c['width'] = compo.width
+        c['height'] = compo.height
+        output['compos'].append(c)
 
-    json.dump(components, f_out, indent=4)
+    json.dump(output, f_out, indent=4)
 
 
 def save_clipping(org, output_root, corners, compo_classes, compo_index):

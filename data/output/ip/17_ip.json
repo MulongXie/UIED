@@ -1,0 +1,175 @@
+{
+    "compos": [
+        {
+            "column_max": 382,
+            "width": 23,
+            "column_min": 30,
+            "height": 17,
+            "row_max": 167,
+            "row_min": 144,
+            "category": "Text"
+        },
+        {
+            "column_max": 152,
+            "width": 61,
+            "column_min": 29,
+            "height": 17,
+            "row_max": 187,
+            "row_min": 167,
+            "category": "Text"
+        },
+        {
+            "column_max": 402,
+            "width": 74,
+            "column_min": 36,
+            "height": 17,
+            "row_max": 232,
+            "row_min": 211,
+            "category": "Text"
+        },
+        {
+            "column_max": 381,
+            "width": 27,
+            "column_min": 30,
+            "height": 17,
+            "row_max": 254,
+            "row_min": 233,
+            "category": "Text"
+        },
+        {
+            "column_max": 389,
+            "width": 57,
+            "column_min": 30,
+            "height": 18,
+            "row_max": 277,
+            "row_min": 256,
+            "category": "Text"
+        },
+        {
+            "column_max": 326,
+            "width": 53,
+            "column_min": 30,
+            "height": 17,
+            "row_max": 300,
+            "row_min": 278,
+            "category": "Text"
+        },
+        {
+            "column_max": 416,
+            "width": 383,
+            "column_min": 34,
+            "height": 23,
+            "row_max": 343,
+            "row_min": 321,
+            "category": "Text"
+        },
+        {
+            "column_max": 396,
+            "width": 26,
+            "column_min": 36,
+            "height": 17,
+            "row_max": 387,
+            "row_min": 367,
+            "category": "Text"
+        },
+        {
+            "column_max": 389,
+            "width": 15,
+            "column_min": 30,
+            "height": 18,
+            "row_max": 410,
+            "row_min": 388,
+            "category": "Text"
+        },
+        {
+            "column_max": 369,
+            "width": 67,
+            "column_min": 30,
+            "height": 17,
+            "row_max": 430,
+            "row_min": 411,
+            "category": "Text"
+        },
+        {
+            "column_max": 403,
+            "width": 84,
+            "column_min": 29,
+            "height": 18,
+            "row_max": 450,
+            "row_min": 433,
+            "category": "Text"
+        },
+        {
+            "column_max": 399,
+            "width": 49,
+            "column_min": 30,
+            "height": 20,
+            "row_max": 476,
+            "row_min": 454,
+            "category": "Text"
+        },
+        {
+            "column_max": 392,
+            "width": 67,
+            "column_min": 30,
+            "height": 17,
+            "row_max": 497,
+            "row_min": 477,
+            "category": "Text"
+        },
+        {
+            "column_max": 419,
+            "width": 33,
+            "column_min": 30,
+            "height": 18,
+            "row_max": 520,
+            "row_min": 500,
+            "category": "Text"
+        },
+        {
+            "column_max": 167,
+            "width": 67,
+            "column_min": 33,
+            "height": 20,
+            "row_max": 563,
+            "row_min": 543,
+            "category": "Text"
+        },
+        {
+            "column_max": 252,
+            "width": 43,
+            "column_min": 34,
+            "height": 17,
+            "row_max": 587,
+            "row_min": 567,
+            "category": "Text"
+        },
+        {
+            "column_max": 311,
+            "width": 278,
+            "column_min": 34,
+            "height": 22,
+            "row_max": 609,
+            "row_min": 588,
+            "category": "Text"
+        },
+        {
+            "column_max": 420,
+            "width": 392,
+            "column_min": 29,
+            "height": 52,
+            "row_max": 705,
+            "row_min": 654,
+            "category": "Non-Text"
+        },
+        {
+            "column_max": 448,
+            "width": 449,
+            "column_min": 0,
+            "height": 96,
+            "row_max": 135,
+            "row_min": 40,
+            "category": "Non-Text"
+        }
+    ]
+}

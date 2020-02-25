@@ -8,7 +8,7 @@ PATH_IMG_INPUT = 'E:\\Mulong\\Datasets\\rico\\combined\\17.jpg'
 PATH_OUTPUT_ROOT = 'data\\output'
 
 is_ip = True
-is_clf = False
+is_clf = True
 is_ocr = False
 is_merge = False
 

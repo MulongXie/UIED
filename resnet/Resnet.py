@@ -53,25 +53,23 @@ class ResClassifier():
         x = np.array([x])
         return x
 
-    def predict(self, imgs, load=False, show=False):
+    def predict(self, imgs, compos, load=False, show=False):
         """
         :type img_path: list of img path
         """
-        class_names = []
         if load:
             self.load()
         if self.model is None:
             print("*** No model loaded ***")
             return
-        for img in imgs:
-            X = self.preprocess_img(img)
+        for i in range(len(imgs)):
+            X = self.preprocess_img(imgs[i])
             Y = self.class_map[np.argmax(self.model.predict(X))]
-            class_names.append(Y)
+            compos[i].category = Y
             if show:
                 print(Y)
-                cv2.imshow('element', img)
+                cv2.imshow('element', imgs[i])
                 cv2.waitKey()
-        return class_names
 
     def evaluate(self, data, load=True):
         if load:

@@ -25,7 +25,7 @@ def draw_bounding_box(org, corners, color=(0, 255, 0), line=2, show=False):
     return board
 
 
-def load_detect_result_json(reslut_file_root, shrink=0):
+def load_detect_result_json(reslut_file_root, shrink=3):
     def is_bottom_or_top(corner):
         column_min, row_min, column_max, row_max = corner
         if row_max < 36 or row_min > 725:
@@ -149,5 +149,5 @@ def eval(detection, ground_truth, img_root, show=True):
 
 # detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_xianyu\\rico_xianyu_background')
 detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied\\ip')
-gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_val_org.json', no_text=False)
+gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_val.json', no_text=False)
 eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=True)

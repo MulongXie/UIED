@@ -3,6 +3,8 @@ import cv2
 from collections import Counter
 
 import lib_ip.ip_draw as draw
+from config.CONFIG_UIED import Config
+C = Config()
 
 
 # detect object(connected region)
@@ -25,246 +27,6 @@ def boundary_bfs_connected_area(img, x, y, mark):
         area.append(point)
         neighbor(img, point[0], point[1], mark, stack)
     return area
-
-
-# get the bounding boundary of an object(region)
-# @boundary: [top, bottom, left, right]
-# -> up, bottom: (column_index, min/max row border)
-# -> left, right: (row_index, min/max column border) detect range of each row
-def boundary_get_boundary(area):
-    border_up, border_bottom, border_left, border_right = {}, {}, {}, {}
-    for point in area:
-        # point: (row_index, column_index)
-        # up, bottom: (column_index, min/max row border) detect range of each column
-        if point[1] not in border_up or border_up[point[1]] > point[0]:
-            border_up[point[1]] = point[0]
-        if point[1] not in border_bottom or border_bottom[point[1]] < point[0]:
-            border_bottom[point[1]] = point[0]
-        # left, right: (row_index, min/max column border) detect range of each row
-        if point[0] not in border_left or border_left[point[0]] > point[1]:
-            border_left[point[0]] = point[1]
-        if point[0] not in border_right or border_right[point[0]] < point[1]:
-            border_right[point[0]] = point[1]
-
-    boundary = [border_up, border_bottom, border_left, border_right]
-    # descending sort
-    for i in range(len(boundary)):
-        boundary[i] = [[k, boundary[i][k]] for k in boundary[i].keys()]
-        boundary[i] = sorted(boundary[i], key=lambda x: x[0])
-    return boundary
-
-
-def boundary_is_line(boundary, min_line_thickness):
-    """
-    If this object is line by checking its boundary
-    :param boundary: boundary: [border_top, border_bottom, border_left, border_right]
-                                -> top, bottom: list of (column_index, min/max row border)
-                                -> left, right: list of (row_index, min/max column border) detect range of each row
-    :param min_line_thickness:
-    :return: Boolean
-    """
-    # horizontally
-    slim = 0
-    for i in range(len(boundary[0])):
-        if abs(boundary[1][i][1] - boundary[0][i][1]) <= min_line_thickness:
-            slim += 1
-    if slim / len(boundary[0]) > 0.93:
-        return True
-    # vertically
-    slim = 0
-    for i in range(len(boundary[2])):
-        if abs(boundary[2][i][1] - boundary[3][i][1]) <= min_line_thickness:
-            slim += 1
-    if slim / len(boundary[2]) > 0.93:
-        return True
-
-    return False
-
-
-# i. detect if an object is rectangle by evenness of each border
-# ii. add dent detection
-# @boundary: [border_up, border_bottom, border_left, border_right]
-# -> up, bottom: (column_index, min/max row border)
-# -> left, right: (row_index, min/max column border) detect range of each row
-def boundary_is_rectangle(boundary, min_rec_evenness, max_dent_ratio, org_shape=None, show=False):
-    dent_direction = [1, -1, 1, -1]  # direction for convex
-
-    flat = 0
-    parameter = 0
-    for n, border in enumerate(boundary):
-        parameter += len(border)
-        # dent detection
-        pit = 0  # length of pit
-        depth = 0  # the degree of surface changing
-        if n <= 1:
-            adj_side = max(len(boundary[2]), len(boundary[3]))  # get maximum length of adjacent side
-        else:
-            adj_side = max(len(boundary[0]), len(boundary[1]))
-
-        # -> up, bottom: (column_index, min/max row border)
-        # -> left, right: (row_index, min/max column border) detect range of each row
-        abnm = 0
-        for i in range(3, len(border) - 1):
-            # calculate gradient
-            difference = border[i][1] - border[i + 1][1]
-            # the degree of surface changing
-            depth += difference
-            # ignore noise at the start of each direction
-            if i / len(border) < 0.08 and (dent_direction[n] * difference) / adj_side > 0.5:
-                depth = 0  # reset
-
-            # print(border[i][1], i / len(border), depth, (dent_direction[n] * difference) / adj_side )
-            # if the change of the surface is too large, count it as part of abnormal change
-            if abs(depth) / adj_side > 0.3:
-                abnm += 1    # count the size of the abnm
-                # if the abnm is too big, the shape should not be a rectangle
-                if abnm / len(border) > 0.1:
-                    return False
-                continue
-            else:
-                # reset the abnm if the depth back to normal
-                abnm = 0
-
-            # if sunken and the surface changing is large, then counted as pit
-            if dent_direction[n] * depth < 0 and abs(depth) / adj_side > 0.15:
-                pit += 1
-                continue
-
-            # if the surface is not changing to a pit and the gradient is zero, then count it as flat
-            if abs(depth) < 7:
-                flat += 1
-            # print(depth, adj_side, abnm)
-        # if the pit is too big, the shape should not be a rectangle
-        if pit / len(border) > max_dent_ratio:
-            return False
-        # print()
-    # print(flat / parameter, '\n')
-    # draw.draw_boundary([boundary], org_shape, show=True)
-    # ignore text and irregular shape
-    if (flat / parameter) < min_rec_evenness:
-        return False
-    return True
-
-
-# @corners: [(top_left, bottom_right)]
-# -> top_left: (column_min, row_min)
-# -> bottom_right: (column_max, row_max)
-def corner_relation(corner_a, corner_b):
-    """
-    :return: -1 : a in b
-             0  : a, b are not intersected
-             1  : b in a
-             2  : a, b are identical or intersected
-    """
-    (up_left_a, bottom_right_a) = corner_a
-    (y_min_a, x_min_a) = up_left_a
-    (y_max_a, x_max_a) = bottom_right_a
-    (up_left_b, bottom_right_b) = corner_b
-    (y_min_b, x_min_b) = up_left_b
-    (y_max_b, x_max_b) = bottom_right_b
-
-    # if a is in b
-    if y_min_a > y_min_b and x_min_a > x_min_b and y_max_a < y_max_b and x_max_a < x_max_b:
-        return -1
-    # if b is in a
-    elif y_min_a < y_min_b and x_min_a < x_min_b and y_max_a > y_max_b and x_max_a > x_max_b:
-        return 1
-    # a and b are non-intersect
-    elif (y_min_a > y_max_b or x_min_a > x_max_b) or (y_min_b > y_max_a or x_min_b > x_max_a):
-        return 0
-    # intersection
-    else:
-        return 2
-
-
-def corner_relation_nms(corner_a, corner_b, min_selected_IoU):
-    '''
-    Calculate the relation between two rectangles by nms
-    IoU = Intersection / Union
-          0  : Not intersected
-          0~1: Overlapped
-          1  : Identical
-    :return:-2 : b in a and IoU above the threshold
-            -1 : a in b
-             0 : a, b are not intersected
-             1 : b in a
-             2 : a in b and IoU above the threshold
-             3 : intersected but no containing relation
-    '''
-    ((col_min_a, row_min_a), (col_max_a, row_max_a)) = corner_a
-    ((col_min_b, row_min_b), (col_max_b, row_max_b)) = corner_b
-
-    # get the intersected area
-    col_min_s = max(col_min_a, col_min_b)
-    row_min_s = max(row_min_a, row_min_b)
-    col_max_s = min(col_max_a, col_max_b)
-    row_max_s = min(row_max_a, row_max_b)
-    w = np.maximum(0, col_max_s - col_min_s)
-    h = np.maximum(0, row_max_s - row_min_s)
-    inter = w * h
-    area_a = (col_max_a - col_min_a) * (row_max_a - row_min_a)
-    area_b = (col_max_b - col_min_b) * (row_max_b - row_min_b)
-    iou = inter / (area_a + area_b - inter)
-
-    # not intersected with each other
-    if iou == 0:
-        return 0
-    # overlapped too much with each other
-    if iou > 0.6:
-        # a in b
-        if inter == area_a:
-            return -2
-        # b in a
-        if inter == area_b:
-            return 2
-    # intersected and containing relation
-    if min_selected_IoU < iou <= 0.6:
-        # a in b
-        if inter == area_a:
-            return -1
-        # b in a
-        if inter == area_b:
-            return 1
-    # containing but too small
-    if iou <= min_selected_IoU:
-        # a in b
-        if inter == area_a:
-            return -3
-        # b in a
-        if inter == area_b:
-            return 3
-
-    # intersected but no containing relation
-    return 4
-
-
-def corner_cvt_relative_position(corners, col_min_base, row_min_base):
-    """
-    get the relative position of corners in the entire image
-    """
-    rlt_corners = []
-    for corner in corners:
-        (top_left, bottom_right) = corner
-        (col_min, row_min) = top_left
-        (col_max, row_max) = bottom_right
-        col_min += col_min_base
-        col_max += col_min_base
-        row_min += row_min_base
-        row_max += row_min_base
-        rlt_corners.append(((col_min, row_min), (col_max, row_max)))
-
-    return rlt_corners
-
-
-def corner_merge_two_corners(corner_a, corner_b):
-    ((col_min_a, row_min_a), (col_max_a, row_max_a)) = corner_a
-    ((col_min_b, row_min_b), (col_max_b, row_max_b)) = corner_b
-
-    col_min = min(col_min_a, col_min_b)
-    col_max = max(col_max_a, col_max_b)
-    row_min = min(row_min_a, row_min_b)
-    row_max = max(row_max_a, row_max_b)
-    return (col_min, row_min), (col_max, row_max)
 
 
 def line_check_perpendicular(lines_h, lines_v, max_thickness):
@@ -428,3 +190,272 @@ def clipping_by_line(boundary, boundary_rec, lines):
 
                 boundary_rec.append([b_top, b_bottom, b_left, b_right])
                 r1 = line[1]
+
+
+# remove imgs that contain text
+def rm_text(org, corners, compo_class,
+            max_text_height=C.THRESHOLD_TEXT_MAX_HEIGHT, max_text_width=C.THRESHOLD_TEXT_MAX_WIDTH,
+            ocr_padding=C.OCR_PADDING, ocr_min_word_area=C.OCR_MIN_WORD_AREA, show=False):
+    """
+    Remove area that full of text
+    :param org: original image
+    :param corners: [(top_left, bottom_right)]
+                    -> top_left: (column_min, row_min)
+                    -> bottom_right: (column_max, row_max)
+    :param compo_class: classes of corners
+    :param max_text_height: Too large to be text
+    :param max_text_width: Too large to be text
+    :param ocr_padding: Padding for clipping
+    :param ocr_min_word_area: If too text area ratio is too large
+    :param show: Show or not
+    :return: corners without text objects
+    """
+    new_corners = []
+    new_class = []
+    for i in range(len(corners)):
+        corner = corners[i]
+        (top_left, bottom_right) = corner
+        (col_min, row_min) = top_left
+        (col_max, row_max) = bottom_right
+        height = row_max - row_min
+        width = col_max - col_min
+        # highly likely to be block or img if too large
+        if height > max_text_height and width > max_text_width:
+            new_corners.append(corner)
+            new_class.append(compo_class[i])
+        else:
+            row_min = row_min - ocr_padding if row_min - ocr_padding >= 0 else 0
+            row_max = row_max + ocr_padding if row_max + ocr_padding < org.shape[0] else org.shape[0]
+            col_min = col_min - ocr_padding if col_min - ocr_padding >= 0 else 0
+            col_max = col_max + ocr_padding if col_max + ocr_padding < org.shape[1] else org.shape[1]
+            # check if this area is text
+            clip = org[row_min: row_max, col_min: col_max]
+            if not ocr.is_text(clip, ocr_min_word_area, show=show):
+                new_corners.append(corner)
+                new_class.append(compo_class[i])
+    return new_corners, new_class
+
+
+def rm_img_in_compo(corners_img, corners_compo):
+    """
+    Remove imgs in component
+    """
+    corners_img_new = []
+    for img in corners_img:
+        is_nested = False
+        for compo in corners_compo:
+            if util.corner_relation(img, compo) == -1:
+                is_nested = True
+                break
+        if not is_nested:
+            corners_img_new.append(img)
+    return corners_img_new
+
+
+def block_or_compo(org, binary, corners,
+                   max_thickness=C.THRESHOLD_BLOCK_MAX_BORDER_THICKNESS, max_block_cross_points=C.THRESHOLD_BLOCK_MAX_CROSS_POINT,
+                   min_compo_w_h_ratio=C.THRESHOLD_UICOMPO_MIN_W_H_RATIO, max_compo_w_h_ratio=C.THRESHOLD_UICOMPO_MAX_W_H_RATIO,
+                   min_block_edge=C.THRESHOLD_BLOCK_MIN_EDGE_LENGTH):
+    """
+    Check if the objects are img components or just block
+    :param org: Original image
+    :param binary:  Binary image from pre-processing
+    :param corners: [(top_left, bottom_right)]
+                    -> top_left: (column_min, row_min)
+                    -> bottom_right: (column_max, row_max)
+    :param max_thickness: The max thickness of border of blocks
+    :param max_block_cross_points: Ratio of point of interaction
+    :return: corners of blocks and imgs
+    """
+    blocks = []
+    imgs = []
+    compos = []
+    for corner in corners:
+        (top_left, bottom_right) = corner
+        (col_min, row_min) = top_left
+        (col_max, row_max) = bottom_right
+        height = row_max - row_min
+        width = col_max - col_min
+
+        block = False
+        vacancy = [0, 0, 0, 0]
+        for i in range(1, max_thickness):
+            try:
+                # top to bottom
+                if vacancy[0] == 0 and (col_max - col_min - 2 * i) is not 0 and (
+                        np.sum(binary[row_min + i, col_min + i: col_max - i]) / 255) / (col_max - col_min - 2 * i) <= max_block_cross_points:
+                    vacancy[0] = 1
+                # bottom to top
+                if vacancy[1] == 0 and (col_max - col_min - 2 * i) is not 0 and (
+                        np.sum(binary[row_max - i, col_min + i: col_max - i]) / 255) / (col_max - col_min - 2 * i) <= max_block_cross_points:
+                    vacancy[1] = 1
+                # left to right
+                if vacancy[2] == 0 and (row_max - row_min - 2 * i) is not 0 and (
+                        np.sum(binary[row_min + i: row_max - i, col_min + i]) / 255) / (row_max - row_min - 2 * i) <= max_block_cross_points:
+                    vacancy[2] = 1
+                # right to left
+                if vacancy[3] == 0 and (row_max - row_min - 2 * i) is not 0 and (
+                        np.sum(binary[row_min + i: row_max - i, col_max - i]) / 255) / (row_max - row_min - 2 * i) <= max_block_cross_points:
+                    vacancy[3] = 1
+                if np.sum(vacancy) == 4:
+                    block = True
+            except:
+                pass
+
+        # too big to be UI components
+        if block:
+            if height > min_block_edge and width > min_block_edge:
+                blocks.append(corner)
+            else:
+                if min_compo_w_h_ratio < width / height < max_compo_w_h_ratio:
+                    compos.append(corner)
+        # filter out small objects
+        else:
+            if height > min_block_edge:
+                imgs.append(corner)
+            else:
+                if min_compo_w_h_ratio < width / height < max_compo_w_h_ratio:
+                    compos.append(corner)
+    return blocks, imgs, compos
+
+
+def compo_on_img(processing, org, binary, clf,
+                 compos_corner, compos_class):
+    """
+    Detect potential UI components inner img;
+    Only leave non-img
+    """
+    pad = 2
+    for i in range(len(compos_corner)):
+        if compos_class[i] != 'img':
+            continue
+        ((col_min, row_min), (col_max, row_max)) = compos_corner[i]
+        col_min = max(col_min - pad, 0)
+        col_max = min(col_max + pad, org.shape[1])
+        row_min = max(row_min - pad, 0)
+        row_max = min(row_max + pad, org.shape[0])
+        area = (col_max - col_min) * (row_max - row_min)
+        if area < 600:
+            continue
+
+        clip_org = org[row_min:row_max, col_min:col_max]
+        clip_bin_inv = pre.reverse_binary(binary[row_min:row_max, col_min:col_max])
+
+        compos_boundary_new, compos_corner_new, compos_class_new = processing(clip_org, clip_bin_inv, clf)
+        compos_corner_new = util.corner_cvt_relative_position(compos_corner_new, col_min, row_min)
+
+        assert len(compos_corner_new) == len(compos_class_new)
+
+        # only leave non-img elements
+        for i in range(len(compos_corner_new)):
+            ((col_min_new, row_min_new), (col_max_new, row_max_new)) = compos_corner_new[i]
+            area_new = (col_max_new - col_min_new) * (row_max_new - row_min_new)
+            if compos_class_new[i] != 'img' and area_new / area < 0.8:
+                compos_corner.append(compos_corner_new[i])
+                compos_class.append(compos_class_new[i])
+
+    return compos_corner, compos_class
+
+
+def strip_img(corners_compo, compos_class, corners_img):
+    """
+    Separate img from other compos
+    :return: compos without img
+    """
+    corners_compo_withuot_img = []
+    compo_class_withuot_img = []
+    for i in range(len(compos_class)):
+        if compos_class[i] == 'img':
+            corners_img.append(corners_compo[i])
+        else:
+            corners_compo_withuot_img.append(corners_compo[i])
+            compo_class_withuot_img.append(compos_class[i])
+    return corners_compo_withuot_img, compo_class_withuot_img
+
+
+def merge_corner(corners, compos_class, min_selected_IoU=C.THRESHOLD_MIN_IOU, is_merge_nested_same=True):
+    """
+    Calculate the Intersection over Overlap (IoU) and merge corners according to the value of IoU
+    :param is_merge_nested_same: if true, merge the nested corners with same class whatever the IoU is
+    :param corners: corners: [(top_left, bottom_right)]
+                            -> top_left: (column_min, row_min)
+                            -> bottom_right: (column_max, row_max)
+    :return: new corners
+    """
+    new_corners = []
+    new_class = []
+    for i in range(len(corners)):
+        is_intersected = False
+        for j in range(len(new_corners)):
+            r = util.corner_relation_nms(corners[i], new_corners[j], min_selected_IoU)
+            # r = util.corner_relation(corners[i], new_corners[j])
+            if is_merge_nested_same:
+                if compos_class[i] == new_class[j]:
+                    # if corners[i] is in new_corners[j], ignore corners[i]
+                    if r == -1:
+                        is_intersected = True
+                        break
+                    # if new_corners[j] is in corners[i], replace new_corners[j] with corners[i]
+                    elif r == 1:
+                        is_intersected = True
+                        new_corners[j] = corners[i]
+
+            # if above IoU threshold, and corners[i] is in new_corners[j], ignore corners[i]
+            if r == -2:
+                is_intersected = True
+                break
+            # if above IoU threshold, and new_corners[j] is in corners[i], replace new_corners[j] with corners[i]
+            elif r == 2:
+                is_intersected = True
+                new_corners[j] = corners[i]
+                new_class[j] = compos_class[i]
+
+            # containing and too small
+            elif r == -3:
+                is_intersected = True
+                break
+            elif r == 3:
+                is_intersected = True
+                new_corners[j] = corners[i]
+
+            # if [i] and [j] are overlapped but no containing relation, merge corners when same class
+            elif r == 4:
+                is_intersected = True
+                if compos_class[i] == new_class[j]:
+                    new_corners[j] = util.corner_merge_two_corners(corners[i], new_corners[j])
+
+        if not is_intersected:
+            new_corners.append(corners[i])
+            new_class.append(compos_class[i])
+    return new_corners, new_class
+
+
+def select_corner(corners, compos_class, class_name):
+    """
+    Select corners in given compo type
+    """
+    corners_wanted = []
+    for i in range(len(compos_class)):
+        if compos_class[i] == class_name:
+            corners_wanted.append(corners[i])
+    return corners_wanted
+
+
+def flood_fill_bfs(img, x_start, y_start, mark, grad_thresh):
+    def neighbor(x, y):
+        for i in range(x - 1, x + 2):
+            if i < 0 or i >= img.shape[0]: continue
+            for j in range(y - 1, y + 2):
+                if j < 0 or j >= img.shape[1]: continue
+                if mark[i, j] == 0 and abs(img[i, j] - img[x, y]) < grad_thresh:
+                    stack.append([i, j])
+                    mark[i, j] = 255
+
+    stack = [[x_start, y_start]]  # points waiting for inspection
+    region = [[x_start, y_start]]  # points of this connected region
+    mark[x_start, y_start] = 255  # drawing broad
+    while len(stack) > 0:
+        point = stack.pop()
+        region.append(point)
+        neighbor(point[0], point[1])
+    return region

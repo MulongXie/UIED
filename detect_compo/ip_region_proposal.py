@@ -11,42 +11,41 @@ import lib_ip.file_utils as file
 import lib_ip.ocr_classify_text as ocr
 import lib_ip.ip_detection_utils as util
 import lib_ip.block_division as blk
+import lib_ip.Component as Compo
 from config.CONFIG_UIED import Config
+C = Config()
 
 
-def processing_block(org, binary, blocks_corner, block_pad=0):
+def processing_block(org, binary, blocks):
     # get binary map for each block
-    blocks_corner = det.corner_padding(org, blocks_corner, block_pad)
-    blocks_clip_bin = seg.clipping(binary, blocks_corner)
-
-    all_compos_corner = []
-    for i in range(len(blocks_corner)):
+    blocks_clip_bin = seg.clipping(binary, blocks)
+    image_shape = org.shape
+    uicompos_all = []
+    for i in range(len(blocks)):
         # *** Substep 1.1 *** pre-processing: get valid block -> binarization -> remove conglutinated line
-        block_corner = blocks_corner[i]
+        block = blocks[i]
         block_clip_bin = blocks_clip_bin[i]
-        if det.is_top_or_bottom_bar(blocks_corner[i], org):
+        if block.block_is_top_or_bottom_bar(image_shape, C.THRESHOLD_TOP_BOTTOM_BAR):
             continue
-        if blk.block_is_compo(block_corner, org):
-            all_compos_corner.append(block_corner)
+        if block.block_is_uicompo(image_shape, C.THRESHOLD_COMPO_MAX_SCALE):
+            uicompos_all.append(block)
             continue
         # det.line_removal(block_clip_bin, show=True)
 
         # *** Substep 1.2 *** object extraction: extract components boundary -> get bounding box corner
-        compos_boundary = det.boundary_detection(block_clip_bin)
-        compos_corner = det.get_corner(compos_boundary)
-        compos_corner = util.corner_cvt_relative_position(compos_corner, block_corner[0][0], block_corner[0][1])
-        all_compos_corner += compos_corner
-    return all_compos_corner
+        uicompos = det.component_detection(block_clip_bin)
+        uicompos = Compo.cvt_compos_relative_pos(uicompos, block.bbox.col_min, block.bbox.row_min)
+        uicompos_all += uicompos
+    return uicompos_all
 
 
 def processing(org, binary):
     # *** Substep 2.1 *** pre-processing: remove conglutinated line
-    det.line_removal(binary)
+    det.rm_line(binary)
 
     # *** Substep 2.2 *** object extraction: extract components boundary -> get bounding box corner
-    compos_boundary = det.boundary_detection(binary)
-    compos_corner = det.get_corner(compos_boundary)
-    return compos_corner
+    uicompos = det.component_detection(binary)
+    return uicompos
 
 
 def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, block_pad=4,
@@ -61,30 +60,29 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
     binary_org = pre.preprocess(org, show=show, write_path=pjoin(ip_root, name + '_binary.png') if write_img else None)
 
     # *** Step 2 *** block processing: detect block -> detect components in block
-    blocks_corner = blk.block_division(grey, show=show, write_path=pjoin(ip_root, name + '_block.png') if write_img else None)
-    compo_in_blk_corner = processing_block(org, binary_org, blocks_corner)
+    blocks = blk.block_division(grey, show=show, write_path=pjoin(ip_root, name + '_block.png') if write_img else None)
+    uicompos_in_blk = processing_block(org, binary_org, blocks)
 
     # *** Step 3 *** non-block processing: erase blocks from binary -> detect left components
-    binary_non_block = blk.block_erase(binary_org, blocks_corner, pad=block_pad)
-    compo_non_blk_corner = processing(org, binary_non_block)
+    binary_non_block = blk.block_erase(binary_org, blocks, pad=block_pad)
+    uicompos_not_in_blk = processing(org, binary_non_block)
 
     # *** Step 4 *** results refinement: remove top and bottom compos -> merge words into line
-    compos_corner = compo_in_blk_corner + compo_non_blk_corner
-    compos_corner = det.rm_top_or_bottom_corners(compos_corner, org.shape)
-    file.save_corners_json(pjoin(ip_root, name + '_all.json'), compos_corner + blocks_corner,
-                           list(np.full(len(compos_corner), 'compo')) + list(np.full(len(compos_corner), 'block')))
-    draw.draw_bounding_box(org, compos_corner, show=show)
+    uicompos = uicompos_in_blk + uicompos_not_in_blk
+    uicompos = det.rm_top_or_bottom_corners(uicompos, org.shape)
+    file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos + blocks)
+    draw.draw_bounding_box(org, uicompos, show=show)
 
     # *** Step 5 *** post-processing: merge components -> classification (opt)
     if classifier is not None:
-        compos_class = classifier.predict(seg.clipping(org, compos_corner))
-        draw.draw_bounding_box_class(org, compos_corner, compos_class, show=show, write_path=pjoin(cls_root, name + '.png'))
-        file.save_corners_json(pjoin(cls_root, name + '.json'), compos_corner, compos_class)
-    compos_corner = det.merge_text(compos_corner, org.shape)
-    compos_corner = det.merge_intersected_corner(compos_corner, org.shape)
+        classifier.predict(seg.clipping(org, uicompos), uicompos)
+        draw.draw_bounding_box_class(org, uicompos, show=show, write_path=pjoin(cls_root, name + '.png'))
+        file.save_corners_json(pjoin(cls_root, name + '.json'), uicompos)
+    uicompos = det.merge_text(uicompos, org.shape)
+    uicompos = det.merge_intersected_corner(uicompos, org.shape)
 
     # *** Step 6 *** save results: save text label -> save drawn image
-    draw.draw_bounding_box(org, compos_corner, show=show, write_path=pjoin(ip_root, name + '_ip.png'))
-    file.save_corners_json(pjoin(ip_root, name + '_ip.json'), compos_corner, np.full(len(compos_corner), '0'))
+    draw.draw_bounding_box(org, uicompos, show=show, write_path=pjoin(ip_root, name + '_ip.png'))
+    file.save_corners_json(pjoin(ip_root, name + '_ip.json'), uicompos)
 
     print("[Compo Detection Completed in %.3f s] %d %s\n" % (time.clock() - start, num, input_img_path))
