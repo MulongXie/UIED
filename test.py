@@ -27,12 +27,12 @@ def get_contour(org, binary):
     return board
 
 
-img_file = 'E:\\Mulong\\Datasets\\rico\\combined\\669.jpg'
+img_file = 'E:\\Mulong\\Datasets\\rico\\combined\\17.jpg'
 resize_height = 800
 
 cv2.namedWindow('control')
 cv2.createTrackbar('resize_height', 'control', 800, 1600, nothing)
-cv2.createTrackbar('grad_min', 'control', 0, 255, nothing)
+cv2.createTrackbar('grad_min', 'control', 4, 255, nothing)
 cv2.createTrackbar('c1', 'control', 1, 1000, nothing)
 cv2.createTrackbar('c2', 'control', 1, 1000, nothing)
 
@@ -47,7 +47,7 @@ while 1:
     # org = cv2.medianBlur(org, 3)
     # org = cv2.GaussianBlur(org, (3,3), 0)
     binary = pre.preprocess(org, grad_min)
-    canny = cv2.Canny(grey, c1, c2)
+    # canny = cv2.Canny(grey, c1, c2)
     # hie, contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     # b_contour = get_contour(org, binary)
     # c_contour = get_contour(org, canny)
@@ -60,5 +60,5 @@ while 1:
     # cv2.imshow('b_cnt', b_contour)
     cv2.imshow('org', org)
     cv2.imshow('bin', binary)
-    cv2.imshow('canny', canny)
+    # cv2.imshow('canny', canny)
     cv2.waitKey(10)

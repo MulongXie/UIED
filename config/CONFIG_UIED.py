@@ -2,7 +2,7 @@ class Config:
 
     def __init__(self):
         # Adjustable
-        self.THRESHOLD_PRE_GRADIENT = 4             # dribbble:4 rico:4 web:1
+        self.THRESHOLD_PRE_GRADIENT = 8             # dribbble:4 rico:4 web:1
         self.THRESHOLD_OBJ_MIN_AREA = 30
         self.THRESHOLD_OBJ_MIN_PERIMETER = 0
         self.THRESHOLD_BLOCK_GRADIENT = 8
@@ -13,7 +13,7 @@ class Config:
         self.THRESHOLD_LINE_THICKNESS = 8
         self.THRESHOLD_LINE_MIN_LENGTH = 0.9
         self.THRESHOLD_COMPO_MAX_SCALE = (0.1, 0.95)  # (80/800, 422.5/450) maximum height and width ratio for a atomic compo (button)
-        self.THRESHOLD_TEXT_MAX_WORD_GAP = 10
+        self.THRESHOLD_TEXT_MAX_WORD_GAP = 15
         self.THRESHOLD_TEXT_MAX_HEIGHT = 0.04  # 40/800 maximum height of text
         self.THRESHOLD_TOP_BOTTOM_BAR = (0.045, 0.94)  # (36/800, 752/800) height ratio of top and bottom bar
         self.THRESHOLD_BLOCK_MIN_HEIGHT = 0.03  # 24/800

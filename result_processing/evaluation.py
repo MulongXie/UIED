@@ -36,7 +36,7 @@ def load_detect_result_json(reslut_file_root, shrink=0):
     compos_reform = {}
     print('Loading %d detection results' % len(result_files))
     for reslut_file in tqdm(result_files):
-        img_name = reslut_file.split('\\')[-1].split('.')[0]
+        img_name = reslut_file.split('\\')[-1].split('_')[0]
         compos = json.load(open(reslut_file, 'r'))['compos']
         for compo in compos:
             if is_bottom_or_top((compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max'])):
@@ -147,6 +147,7 @@ def eval(detection, ground_truth, img_root, show=True):
     # print("Average precision:%.4f; Average recall:%.3f" % (sum(pres)/len(pres), sum(recalls)/len(recalls)))
 
 
-detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_xianyu\\rico_xianyu_background')
-gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_test_org.json', no_text=False)
-eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False)
+# detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_xianyu\\rico_xianyu_background')
+detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied\\ip')
+gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_val_org.json', no_text=False)
+eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=True)

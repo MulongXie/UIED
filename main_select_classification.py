@@ -21,7 +21,7 @@ if __name__ == '__main__':
     input_paths_img = sorted(input_paths_img, key=lambda x: int(x.split('\\')[-1][:-4]))  # sorted by index
 
     # switch of the classification func
-    is_clf = True
+    is_clf = False
     if is_clf:
         from Resnet import ResClassifier
         classifier = ResClassifier()
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     # set the range of target inputs' indices
     num = 0
-    start_index = 0
+    start_index = 669
     end_index = 100000
     for input_path_img in input_paths_img:
         index = input_path_img.split('\\')[-1][:-4]

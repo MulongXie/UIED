@@ -465,8 +465,8 @@ def boundary_detection(binary,
     boundary_nonrec = []
     row, column = binary.shape[0], binary.shape[1]
 
-    for i in range(0, row, 10):
-        for j in range(0, column, 10):
+    for i in range(0, row, 5):
+        for j in range(i%2, column, 2):
             if binary[i, j] == 255 and mask[i, j] == 0:
                 # get connected area
                 # region = util.boundary_bfs_connected_area(binary, i, j, mask)
@@ -483,14 +483,13 @@ def boundary_detection(binary,
                 # calculate the boundary of the connected area
                 boundary = util.boundary_get_boundary(region)
                 # ignore small area
-                perimeter = np.sum([len(b) for b in boundary])
-                # print('Area:%d, Perimeter:%d' % (len(area), perimeter))
-                # draw.draw_boundary([boundary], binary.shape, show=True)
-                if perimeter < min_obj_perimeter:
+                if len(boundary[0]) <= 3 or len(boundary[2]) <= 3:
                     continue
+                # print('Area:%d' % (len(region)))
+                # draw.draw_boundary([boundary], binary.shape, show=False)
                 # check if it is line by checking the length of edges
-                if len(region) > min_obj_area * 10 and util.boundary_is_line(boundary, line_thickness):
-                    continue
+                # if len(region) > min_obj_area * 10 and util.boundary_is_line(boundary, line_thickness):
+                #     continue
                 boundary_all.append(boundary)
 
                 if rec_detect:
@@ -501,7 +500,7 @@ def boundary_detection(binary,
                         boundary_nonrec.append(boundary)
 
                 if show:
-                    print('Area:%d, Perimeter:%d' % (len(region), perimeter))
+                    print('Area:%d' % (len(region)))
                     draw.draw_boundary(boundary_all, binary.shape, show=True)
 
     # draw.draw_boundary(boundary_all, binary.shape, show=True)

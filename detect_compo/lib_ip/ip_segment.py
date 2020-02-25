@@ -20,7 +20,7 @@ def segment_img(org, segment_size, output_path, overlap=100):
         bottom = bottom + segment_size - overlap if bottom + segment_size - overlap <= height else height
 
 
-def clipping(img, corners, pad=0):
+def clipping(img, corners, pad=0, show=False):
     """
     :param adjust: shrink(negative) or expand(positive) the bounding box
     :param img: original image
@@ -37,4 +37,7 @@ def clipping(img, corners, pad=0):
         row_max = min(row_max + pad, img.shape[0])
         clip = img[row_min:row_max, column_min:column_max]
         clips.append(clip)
+        if show:
+            cv2.imshow('clipping', clip)
+            cv2.waitKey()
     return clips

@@ -63,6 +63,13 @@ def boundary_is_line(boundary, min_line_thickness):
     :param min_line_thickness:
     :return: Boolean
     """
+    # width = len(boundary[0])
+    # height = len(boundary[2])
+    # if width <= 3 or height <= 3:
+    #     return True
+    # ratio = width / height if width > height else height / width
+    # if ratio < 3:
+    #     return False
     # horizontally
     slim = 0
     for i in range(len(boundary[0])):
