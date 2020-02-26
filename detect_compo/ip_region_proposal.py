@@ -16,7 +16,7 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def processing_block(org, binary, blocks):
+def processing_block(org, binary, blocks, block_pad):
     # get binary map for each block
     blocks_clip_bin = seg.clipping(binary, blocks)
     image_shape = org.shape
@@ -31,6 +31,8 @@ def processing_block(org, binary, blocks):
             uicompos_all.append(block)
             continue
         # det.line_removal(block_clip_bin, show=True)
+        for i in block.children:
+            blocks[i].block_erase_from_bin(binary, block_pad)
 
         # *** Substep 1.2 *** object extraction: extract components boundary -> get bounding box corner
         uicompos = det.component_detection(block_clip_bin)
@@ -39,7 +41,7 @@ def processing_block(org, binary, blocks):
     return uicompos_all
 
 
-def processing(org, binary):
+def processing_uicompo(org, binary):
     # *** Substep 2.1 *** pre-processing: remove conglutinated line
     det.rm_line(binary)
 
@@ -61,14 +63,15 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
 
     # *** Step 2 *** block processing: detect block -> detect components in block
     blocks = blk.block_division(grey, show=show, write_path=pjoin(ip_root, name + '_block.png') if write_img else None)
-    uicompos_in_blk = processing_block(org, binary_org, blocks)
+    blk.block_hierarchy(blocks)
+    uicompos_in_blk = processing_block(org, binary_org, blocks, block_pad)
 
     # *** Step 3 *** non-block processing: erase blocks from binary -> detect left components
-    binary_non_block = blk.block_erase(binary_org, blocks, pad=block_pad)
-    uicompos_not_in_blk = processing(org, binary_non_block)
+    binary_non_block = blk.block_bin_erase_all_blk(binary_org, blocks, block_pad)
+    uicompos_not_in_blk = processing_uicompo(org, binary_non_block)
+    uicompos = uicompos_in_blk + uicompos_not_in_blk
 
     # *** Step 4 *** results refinement: remove top and bottom compos -> merge words into line
-    uicompos = uicompos_in_blk + uicompos_not_in_blk
     uicompos = det.rm_top_or_bottom_corners(uicompos, org.shape)
     file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos + blocks)
     draw.draw_bounding_box(org, uicompos, show=show)

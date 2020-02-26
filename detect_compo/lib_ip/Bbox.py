@@ -37,7 +37,7 @@ class Bbox:
         else:
             return 2
 
-    def corner_relation_nms(self, bbox_b, min_selected_IoU):
+    def bbox_relation_nms(self, bbox_b, min_selected_IoU):
         '''
         Calculate the relation between two rectangles by nms
         IoU = Intersection / Union

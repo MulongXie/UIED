@@ -9,6 +9,7 @@ from lib_ip.Component import Component
 class Block(Component):
     def __init__(self, region):
         super().__init__(region)
+        self.category = 'block'
         self.parent = None
         self.children = []
         self.uicompo_ = None
@@ -42,4 +43,10 @@ class Block(Component):
             return True
         return False
 
-
+    def block_erase_from_bin(self, binary, pad):
+        (column_min, row_min, column_max, row_max) = self.put_bbox()
+        column_min = max(column_min - pad, 0)
+        column_max = min(column_max + pad, binary.shape[1])
+        row_min = max(row_min - pad, 0)
+        row_max = min(row_max + pad, binary.shape[0])
+        cv2.rectangle(binary, (column_min, row_min), (column_max, row_max), (0), -1)

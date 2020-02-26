@@ -13,7 +13,18 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def block_erase(binary, blocks_corner, show=False, pad=0):
+def block_hierarchy(blocks):
+    for i in range(len(blocks) - 1):
+        for j in range(i + 1, len(blocks)):
+            relation = blocks[i].compo_relation(blocks[j])
+            if relation == -1:
+                blocks[j].children.append(i)
+            if relation == 1:
+                blocks[i].children.append(j)
+    return
+
+
+def block_bin_erase_all_blk(binary, blocks, pad=0, show=False):
     '''
     erase the block parts from the binary map
     :param binary: binary map of original image
@@ -24,14 +35,8 @@ def block_erase(binary, blocks_corner, show=False, pad=0):
     '''
 
     bin_org = binary.copy()
-    for block in blocks_corner:
-        (column_min, row_min, column_max, row_max) = block.put_bbox()
-        column_min = max(column_min - pad, 0)
-        column_max = min(column_max + pad, binary.shape[1])
-        row_min = max(row_min - pad, 0)
-        row_max = min(row_max + pad, binary.shape[0])
-        cv2.rectangle(binary, (column_min, row_min), (column_max, row_max), (0), -1)
-
+    for block in blocks:
+        block.block_erase_from_bin(binary, pad)
     if show:
         cv2.imshow('before', bin_org)
         cv2.imshow('after', binary)
