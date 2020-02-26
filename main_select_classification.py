@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     # set the range of target inputs' indices
     num = 0
-    start_index = 669
+    start_index = 671
     end_index = 100000
     for input_path_img in input_paths_img:
         index = input_path_img.split('\\')[-1][:-4]

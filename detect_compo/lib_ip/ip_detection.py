@@ -43,7 +43,8 @@ def merge_intersected_corner(compos, org_shape, max_compo_scale=C.THRESHOLD_COMP
         for j in range(len(new_compos)):
             if compos[j].height / row > max_compo_scale[0]:
                 continue
-            if is_intersected(compos[i], new_compos[j]):
+            relation = compos[i].compo_relation(compos[j])
+            if relation == 2:
                 new_compos[j].compo_merge(compos[i])
                 merged = True
                 changed = True
@@ -75,13 +76,14 @@ def merge_text(compos, org_shape, max_word_gad=C.THRESHOLD_TEXT_MAX_WORD_GAP, ma
         merged = False
         height = compos[i].height
         # ignore non-text
-        if height / row > max_word_height_ratio\
-                or compos[i].category != 'Text':
+        # if height / row > max_word_height_ratio\
+        #         or compos[i].category != 'Text':
+        if height > 26:
             new_compos.append(compos[i])
             continue
         for j in range(len(new_compos)):
-            if compos[j].category != 'Text':
-                continue
+            # if compos[j].category != 'Text':
+            #     continue
             if is_text_line(compos[i], new_compos[j]):
                 new_compos[j].compo_merge(compos[i])
                 merged = True

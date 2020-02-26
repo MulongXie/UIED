@@ -74,7 +74,8 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
         file.save_corners_json(pjoin(cls_root, name + '.json'), uicompos)
 
     uicompos = det.merge_text(uicompos, org.shape)
-    # uicompos = det.merge_intersected_corner(uicompos, org.shape)
+    draw.draw_bounding_box(org, uicompos, show=show)
+    uicompos = det.merge_intersected_corner(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show, write_path=pjoin(ip_root, name + '_ip.png'))
     file.save_corners_json(pjoin(ip_root, name + '_ip.json'), uicompos)
 
