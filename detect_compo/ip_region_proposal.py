@@ -41,15 +41,6 @@ def processing_block(org, binary, blocks, block_pad):
     return uicompos_all
 
 
-def processing_uicompo(org, binary):
-    # *** Substep 2.1 *** pre-processing: remove conglutinated line
-    det.rm_line(binary)
-
-    # *** Substep 2.2 *** object extraction: extract components boundary -> get bounding box corner
-    uicompos = det.component_detection(binary)
-    return uicompos
-
-
 def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, block_pad=4,
                     classifier=None, show=False, write_img=True):
     start = time.clock()
@@ -59,16 +50,17 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
 
     # *** Step 1 *** pre-processing: read img -> get binary map
     org, grey = pre.read_img(input_img_path, resize_by_height)
-    binary_org = pre.preprocess(org, show=show, write_path=pjoin(ip_root, name + '_binary.png') if write_img else None)
+    binary = pre.preprocess(org, show=show, write_path=pjoin(ip_root, name + '_binary.png') if write_img else None)
 
     # *** Step 2 *** block processing: detect block -> detect components in block
     blocks = blk.block_division(grey, show=show, write_path=pjoin(ip_root, name + '_block.png') if write_img else None)
     blk.block_hierarchy(blocks)
-    uicompos_in_blk = processing_block(org, binary_org, blocks, block_pad)
+    uicompos_in_blk = processing_block(org, binary, blocks, block_pad)
 
     # *** Step 3 *** non-block processing: erase blocks from binary -> detect left components
-    binary_non_block = blk.block_bin_erase_all_blk(binary_org, blocks, block_pad)
-    uicompos_not_in_blk = processing_uicompo(org, binary_non_block)
+    det.rm_line(binary)
+    blk.block_bin_erase_all_blk(binary, blocks, block_pad)
+    uicompos_not_in_blk = det.component_detection(binary)
     uicompos = uicompos_in_blk + uicompos_not_in_blk
 
     # *** Step 4 *** results refinement: remove top and bottom compos -> merge words into line

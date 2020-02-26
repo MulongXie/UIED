@@ -41,7 +41,6 @@ def block_bin_erase_all_blk(binary, blocks, pad=0, show=False):
         cv2.imshow('before', bin_org)
         cv2.imshow('after', binary)
         cv2.waitKey()
-    return binary
 
 
 def block_division(grey, show=False, write_path=None,
