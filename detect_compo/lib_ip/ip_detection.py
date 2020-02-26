@@ -75,10 +75,13 @@ def merge_text(compos, org_shape, max_word_gad=C.THRESHOLD_TEXT_MAX_WORD_GAP, ma
         merged = False
         height = compos[i].height
         # ignore non-text
-        if height / row > max_word_height_ratio:
+        if height / row > max_word_height_ratio\
+                or compos[i].category != 'Text':
             new_compos.append(compos[i])
             continue
         for j in range(len(new_compos)):
+            if compos[j].category != 'Text':
+                continue
             if is_text_line(compos[i], new_compos[j]):
                 new_compos[j].compo_merge(compos[i])
                 merged = True
