@@ -17,26 +17,25 @@ C = Config()
 
 
 def processing_block(org, binary, blocks, block_pad):
-    # get binary map for each block
-    blocks_clip_bin = seg.clipping(binary, blocks)
     image_shape = org.shape
     uicompos_all = []
-    for i in range(len(blocks)):
-        # *** Substep 1.1 *** pre-processing: get valid block -> binarization -> remove conglutinated line
-        block = blocks[i]
-        block_clip_bin = blocks_clip_bin[i]
+    for block in blocks:
+        # *** Step 2.1 *** check: examine if the block is valid layout block
         if block.block_is_top_or_bottom_bar(image_shape, C.THRESHOLD_TOP_BOTTOM_BAR):
             continue
         if block.block_is_uicompo(image_shape, C.THRESHOLD_COMPO_MAX_SCALE):
             uicompos_all.append(block)
-            continue
-        # det.line_removal(block_clip_bin, show=True)
-        for i in block.children:
-            blocks[i].block_erase_from_bin(binary, block_pad)
 
-        # *** Substep 1.2 *** object extraction: extract components boundary -> get bounding box corner
+        # *** Step 2.2 *** binary map processing: erase children block -> clipping -> remove lines(opt)
+        binary_copy = binary.copy()
+        for i in block.children:
+            blocks[i].block_erase_from_bin(binary_copy, block_pad)
+        block_clip_bin = block.block_clipping(binary_copy)
+        # det.line_removal(block_clip_bin, show=True)
+
+        # *** Step 2.3 *** component extraction: detect components in block binmap -> convert position to relative
         uicompos = det.component_detection(block_clip_bin)
-        uicompos = Compo.cvt_compos_relative_pos(uicompos, block.bbox.col_min, block.bbox.row_min)
+        Compo.cvt_compos_relative_pos(uicompos, block.bbox.col_min, block.bbox.row_min)
         uicompos_all += uicompos
     return uicompos_all
 
@@ -52,12 +51,12 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
     org, grey = pre.read_img(input_img_path, resize_by_height)
     binary = pre.preprocess(org, show=show, write_path=pjoin(ip_root, name + '_binary.png') if write_img else None)
 
-    # *** Step 2 *** block processing: detect block -> detect components in block
+    # *** Step 2 *** block processing: detect block -> calculate hierarchy -> detect components in block
     blocks = blk.block_division(grey, show=show, write_path=pjoin(ip_root, name + '_block.png') if write_img else None)
     blk.block_hierarchy(blocks)
     uicompos_in_blk = processing_block(org, binary, blocks, block_pad)
 
-    # *** Step 3 *** non-block processing: erase blocks from binary -> detect left components
+    # *** Step 3 *** non-block part processing: remove lines -> erase blocks from binary -> detect left components
     det.rm_line(binary)
     blk.block_bin_erase_all_blk(binary, blocks, block_pad)
     uicompos_not_in_blk = det.component_detection(binary)

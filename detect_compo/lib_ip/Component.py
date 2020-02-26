@@ -2,11 +2,8 @@ from lib_ip.Bbox import Bbox
 
 
 def cvt_compos_relative_pos(compos, col_min_base, row_min_base):
-    new_compos = []
     for compo in compos:
         compo.compo_relative_position(col_min_base, row_min_base)
-        new_compos.append(compo)
-    return new_compos
 
 
 class Component:
