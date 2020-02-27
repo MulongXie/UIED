@@ -14,7 +14,8 @@ class Config:
 
         # cnn 2 classes
         self.DATA_PATH = "E:\Mulong\Datasets\dataset_webpage\Components3"
-        self.MODEL_PATH = 'E:/Mulong/Model/rico_compos/cnn1-text.h5'
+        # self.MODEL_PATH = 'E:/Mulong/Model/rico_compos/cnn1-text.h5'
+        self.MODEL_PATH = 'E:/Mulong/Model/rico_compos/cnn2-textview.h5'
         self.class_map = ['Text', 'Non-Text']
 
         self.image_shape = (32, 32, 3)
