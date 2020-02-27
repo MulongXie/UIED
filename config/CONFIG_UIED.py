@@ -2,7 +2,7 @@ class Config:
 
     def __init__(self):
         # Adjustable
-        self.THRESHOLD_PRE_GRADIENT = 8             # dribbble:4 rico:4 web:1
+        self.THRESHOLD_PRE_GRADIENT = 4             # dribbble:4 rico:4 web:1
         self.THRESHOLD_OBJ_MIN_AREA = 30
         self.THRESHOLD_OBJ_MIN_PERIMETER = 0
         self.THRESHOLD_BLOCK_GRADIENT = 8
@@ -32,6 +32,9 @@ class Config:
         self.THRESHOLD_BLOCK_MIN_EDGE_LENGTH = 210   # dribbble:68 rico:210 web:70
         self.THRESHOLD_UICOMPO_MAX_W_H_RATIO = 10   # dribbble:10 rico:10 web:22
 
+        self.CLASS_MAP = {'0':'Button', '1':'CheckBox', '2':'Chronometer', '3':'EditText', '4':'ImageButton', '5':'ImageView',
+               '6':'ProgressBar', '7':'RadioButton', '8':'RatingBar', '9':'SeekBar', '10':'Spinner', '11':'Switch',
+               '12':'ToggleButton', '13':'VideoView', '14':'TextView'}
         self.COLOR = {'Button': (0, 255, 0), 'CheckBox': (0, 0, 255), 'Chronometer': (255, 166, 166),
                       'EditText': (255, 166, 0),
                       'ImageButton': (77, 77, 255), 'ImageView': (255, 0, 166), 'ProgressBar': (166, 0, 255),
