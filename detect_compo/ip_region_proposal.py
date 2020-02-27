@@ -64,8 +64,8 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
 
     # *** Step 4 *** results refinement: remove top and bottom compos -> merge words into line
     uicompos = det.rm_top_or_bottom_corners(uicompos, org.shape)
-    file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos + blocks)
     draw.draw_bounding_box(org, uicompos, show=show)
+    file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos + blocks)
 
     # *** Step 5 *** post-processing: merge components -> classification (opt)
     if classifier is not None:
@@ -78,5 +78,10 @@ def compo_detection(input_img_path, output_root, num=0, resize_by_height=600, bl
     uicompos = det.merge_intersected_corner(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show, write_path=pjoin(ip_root, name + '_ip.png'))
     file.save_corners_json(pjoin(ip_root, name + '_ip.json'), uicompos)
+
+    if classifier is not None:
+        classifier.predict(seg.clipping(org, uicompos), uicompos)
+        draw.draw_bounding_box_class(org, uicompos, show=show, write_path=pjoin(cls_root, name + '.png'))
+        file.save_corners_json(pjoin(cls_root, name + '.json'), uicompos)
 
     print("[Compo Detection Completed in %.3f s] %d %s\n" % (time.clock() - start, num, input_img_path))
