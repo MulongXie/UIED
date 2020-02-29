@@ -58,6 +58,7 @@ def block_division(grey, show=False, write_path=None,
     blocks = []
     mask = np.zeros((grey.shape[0]+2, grey.shape[1]+2), dtype=np.uint8)
     broad = np.zeros((grey.shape[0], grey.shape[1], 3), dtype=np.uint8)
+    # broad_all = broad.copy()
 
     row, column = grey.shape[0], grey.shape[1]
     for x in range(0, row, 10):
@@ -75,19 +76,21 @@ def block_division(grey, show=False, write_path=None,
                 # ignore small regions
                 if len(region) < 500:
                     continue
-                block = Block(region)
+                block = Block(region, grey.shape)
                 # get the boundary of this region
                 # ignore lines
                 if block.compo_is_line(line_thickness):
                     continue
+                # draw.draw_region(region, broad_all)
                 # ignore non-rectangle as blocks must be rectangular
                 if not block.compo_is_rectangle(min_rec_evenness, max_dent_ratio):
                     continue
-                if block.height/row < min_block_height_ratio:
-                    continue
+                # if block.height/row < min_block_height_ratio:
+                #     continue
                 blocks.append(block)
                 draw.draw_region(region, broad)
     if show:
+        # cv2.imshow('flood-fill all', broad_all)
         cv2.imshow('block', broad)
         cv2.waitKey()
     if write_path is not None:

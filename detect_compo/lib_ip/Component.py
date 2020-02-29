@@ -1,4 +1,5 @@
 from lib_ip.Bbox import Bbox
+import lib_ip.ip_draw as draw
 
 
 def cvt_compos_relative_pos(compos, col_min_base, row_min_base):
@@ -7,7 +8,7 @@ def cvt_compos_relative_pos(compos, col_min_base, row_min_base):
 
 
 class Component:
-    def __init__(self, region):
+    def __init__(self, region, image_shape):
         self.region = region
         self.boundary = self.compo_get_boundary()
         self.bbox = self.compo_get_bbox()
@@ -15,6 +16,7 @@ class Component:
         self.region_area = len(region)
         self.width = len(self.boundary[0])
         self.height = len(self.boundary[2])
+        self.image_shape = image_shape
         self.area = self.width * self.height
         self.category = None
 
@@ -116,7 +118,7 @@ class Component:
                     continue
 
                 # if the surface is not changing to a pit and the gradient is zero, then count it as flat
-                if abs(depth) < 7:
+                if abs(depth) / adj_side < 0.015:
                     flat += 1
                 # print(depth, adj_side, abnm)
             # if the pit is too big, the shape should not be a rectangle
@@ -125,7 +127,7 @@ class Component:
                 return False
             # print()
         # print(flat / parameter, '\n')
-        # draw.draw_boundary([boundary], org_shape, show=True)
+        # draw.draw_boundary([self], self.image_shape, show=True)
         # ignore text and irregular shape
         if (flat / parameter) < min_rec_evenness:
             self.rect_ = False

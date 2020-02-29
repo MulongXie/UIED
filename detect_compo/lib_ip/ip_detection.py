@@ -192,7 +192,7 @@ def component_detection(binary,
                 # ignore small area
                 if len(region) < min_obj_area:
                     continue
-                component = Component(region)
+                component = Component(region, binary.shape)
                 # calculate the boundary of the connected area
                 # ignore small area
                 if component.width <= 3 or component.height <= 3:
