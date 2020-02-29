@@ -10,7 +10,7 @@ import cv2
 # cfg = Config()
 
 
-class CNN():
+class CNN:
     def __init__(self, classifier_type, is_load=True):
         '''
         :param classifier_type: 'Text' or 'Noise' or 'Elements'
@@ -23,7 +23,7 @@ class CNN():
         self.image_shape = (32,32,3)
         self.class_number = None
         self.class_map = None
-        self.MODEL_PATH = None
+        self.model_path = None
         self.classifier_type = classifier_type
         if is_load:
             self.load(classifier_type)
@@ -46,24 +46,27 @@ class CNN():
     def train(self, data, epoch_num=30):
         self.data = data
         self.build_model(epoch_num)
-        self.model.save(self.MODEL_PATH)
-        print("Trained model is saved to", self.MODEL_PATH)
+        self.model.save(self.model_path)
+        print("Trained model is saved to", self.model_path)
 
     def load(self, classifier_type):
         if classifier_type == 'Text':
-            self.MODEL_PATH = 'E:/Mulong/Model/rico_compos/cnn2-textview.h5'
+            self.model_path = 'E:/Mulong/Model/rico_compos/cnn2-textview.h5'
             self.class_map = ['Text', 'Non-Text']
         elif classifier_type == 'Noise':
-            self.MODEL_PATH = 'E:/Mulong/Model/rico_compos/cnn1-noise.h5'
+            self.model_path = 'E:/Mulong/Model/rico_compos/cnn1-noise.h5'
             self.class_map = ['Noise', 'Non-Noise']
         elif classifier_type == 'Elements':
-            self.MODEL_PATH = 'E:/Mulong/Model/rico_compos/resnet-ele14-19.h5'
+            self.model_path = 'E:/Mulong/Model/rico_compos/resnet-ele14-19.h5'
             self.class_map = ['Button', 'CheckBox', 'Chronometer', 'EditText', 'ImageButton', 'ImageView',
                               'ProgressBar', 'RadioButton', 'RatingBar', 'SeekBar', 'Spinner', 'Switch',
                               'ToggleButton', 'VideoView', 'TextView']  # ele-14
+        elif classifier_type == 'Image':
+            self.model_path = 'E:/Mulong/Model/rico_compos/cnn-image-1.h5'
+            self.class_map = ['Image', 'Non-Image']
         self.class_number = len(self.class_map)
-        self.model = load_model(self.MODEL_PATH)
-        print('Model Loaded From', self.MODEL_PATH)
+        self.model = load_model(self.model_path)
+        print('Model Loaded From', self.model_path)
 
     def preprocess_img(self, image):
         image = cv2.resize(image, self.image_shape[:2])
