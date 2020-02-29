@@ -27,7 +27,7 @@ def get_contour(org, binary):
     return board
 
 
-img_file = 'E:\\Mulong\\Datasets\\rico\\combined\\245.jpg'
+img_file = 'E:\\Mulong\\Datasets\\rico\\combined\\22292.jpg'
 resize_height = 800
 
 cv2.namedWindow('control')
@@ -46,18 +46,19 @@ while 1:
     org, grey = pre.read_img(img_file, resize_height)
     # org = cv2.medianBlur(org, 3)
     # org = cv2.GaussianBlur(org, (3,3), 0)
-    binary = pre.preprocess(org, grad_min)
+    binary = pre.binarization(org, grad_min)
+    binary_r = pre.reverse_binary(binary)
     canny = cv2.Canny(grey, c1, c2)
     hie, contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    b_contour = get_contour(org, binary)
-    c_contour = get_contour(org, canny)
-    b_contour = cv2.hconcat([b_contour, c_contour])
-    binary = cv2.hconcat([binary, canny])
+    # b_contour = get_contour(org, binary)
+    # c_contour = get_contour(org, canny)
+    # b_contour = cv2.hconcat([b_contour, c_contour])
+    binary = cv2.hconcat([binary, binary_r, canny])
 
     # cv2.imshow('before', binary)
     # binary = cv2.medianBlur(binary, 3)
 
-    cv2.imshow('b_cnt', b_contour)
+    # cv2.imshow('b_cnt', b_contour)
     cv2.imshow('org', org)
     cv2.imshow('bin', binary)
     # cv2.imshow('canny', canny)

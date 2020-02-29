@@ -51,14 +51,3 @@ class Block(Component):
         row_max = min(row_max + pad, binary.shape[0])
         cv2.rectangle(binary, (column_min, row_min), (column_max, row_max), (0), -1)
 
-    def block_clipping(self, img, pad=0, show=False):
-        (column_min, row_min, column_max, row_max) = self.put_bbox()
-        column_min = max(column_min - pad, 0)
-        column_max = min(column_max + pad, img.shape[1])
-        row_min = max(row_min - pad, 0)
-        row_max = min(row_max + pad, img.shape[0])
-        clip = img[row_min:row_max, column_min:column_max]
-        if show:
-            cv2.imshow('clipping', clip)
-            cv2.waitKey()
-        return clip

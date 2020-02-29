@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/detect_compo" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/detect_text_east" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/resnet" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/cnn" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

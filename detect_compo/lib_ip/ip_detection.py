@@ -6,6 +6,7 @@ import lib_ip.ip_preprocessing as pre
 import lib_ip.ip_detection_utils as util
 import lib_ip.ocr_classify_text as ocr
 from lib_ip.Component import Component
+import lib_ip.Component as Compo
 from config.CONFIG_UIED import Config
 C = Config()
 
@@ -152,6 +153,51 @@ def rm_line(binary,
         cv2.waitKey()
 
 
+def rm_noise_in_large_img(compos, binary,
+                      max_compo_scale=C.THRESHOLD_COMPO_MAX_SCALE):
+    row, column = binary.shape[:2]
+    remain = np.full(len(compos), True)
+    new_compos = []
+    for compo in compos:
+        if compo.category == 'Image' and compo.height / row > max_compo_scale[0]:
+            for i in compo.contain:
+                remain[i] = False
+    for i in range(len(remain)):
+        if remain[i]:
+            new_compos.append(compos[i])
+    return new_compos
+
+
+def detect_compos_in_img(compos, binary, org):
+    compos_new = []
+    for compo in compos:
+        if compo.category == 'Image':
+            compo.compo_update_bbox_area()
+            org_clip = compo.compo_clipping(org)
+            bin_clip = pre.binarization(org_clip, grad_min=16)
+            bin_clip = pre.reverse_binary(bin_clip)
+
+            print(compo.bbox_area, bin_clip.shape)
+            cv2.imshow('bin_r', bin_clip)
+            cv2.waitKey()
+
+            compos_rec, compos_nonrec = component_detection(bin_clip, rec_detect=True)
+            for compo_rec in compos_rec:
+                compo_rec.compo_relative_position(compo.bbox.col_min, compo.bbox.row_min)
+                print(compo_rec.bbox_area, compo.bbox_area, compo_rec.bbox_area / compo.bbox_area)
+                if compo_rec.bbox_area / compo.bbox_area < 0.8 and compo_rec.bbox.height > 20 and compo_rec.bbox.width > 20:
+                    compos_new.append(compo_rec)
+                    draw.draw_bounding_box(org, [compo_rec], show=True)
+
+            # compos_inner = component_detection(bin_clip, rec_detect=False)
+            # for compo_inner in compos_inner:
+            #     compo_inner.compo_relative_position(compo.bbox.col_min, compo.bbox.row_min)
+            #     draw.draw_bounding_box(org, [compo_inner], show=True)
+            #     if compo_inner.bbox_area / compo.bbox_area < 0.8:
+            #         compos_new.append(compo_inner)
+    compos += compos_new
+
+
 # take the binary image as input
 # calculate the connected regions -> get the bounding boundaries of them -> check if those regions are rectangles
 # return all boundaries and boundaries of rectangles
@@ -200,15 +246,17 @@ def component_detection(binary,
                 # print('Area:%d' % (len(region)))
                 # draw.draw_boundary([component], binary.shape, show=True)
                 # check if it is line by checking the length of edges
-                if component.area > min_obj_area * 10 and component.compo_is_line(line_thickness):
+                if component.area > min_obj_area * 5 and component.compo_is_line(line_thickness):
                     continue
                 compos_all.append(component)
 
                 if rec_detect:
                     # rectangle check
                     if component.compo_is_rectangle(min_rec_evenness, max_dent_ratio):
+                        component.rect_ = True
                         compos_rec.append(component)
                     else:
+                        component.rect_ = False
                         compos_nonrec.append(component)
 
                 if show:

@@ -1,10 +1,22 @@
 from lib_ip.Bbox import Bbox
 import lib_ip.ip_draw as draw
 
+import cv2
+
 
 def cvt_compos_relative_pos(compos, col_min_base, row_min_base):
     for compo in compos:
         compo.compo_relative_position(col_min_base, row_min_base)
+
+
+def compos_containment(compos):
+    for i in range(len(compos) - 1):
+        for j in range(i + 1, len(compos)):
+            relation = compos[i].compo_relation(compos[j])
+            if relation == -1:
+                compos[j].contain.append(i)
+            if relation == 1:
+                compos[i].contain.append(j)
 
 
 class Component:
@@ -12,19 +24,25 @@ class Component:
         self.region = region
         self.boundary = self.compo_get_boundary()
         self.bbox = self.compo_get_bbox()
+        self.bbox_area = self.bbox.box_area
 
         self.region_area = len(region)
         self.width = len(self.boundary[0])
         self.height = len(self.boundary[2])
         self.image_shape = image_shape
         self.area = self.width * self.height
+
         self.category = None
+        self.contain = []
 
         self.rect_ = None
         self.line_ = None
 
     def put_bbox(self):
         return self.bbox.put_bbox()
+
+    def compo_update_bbox_area(self):
+        self.bbox_area = self.bbox.bbox_cal_area()
 
     def compo_get_boundary(self):
         '''
@@ -174,7 +192,7 @@ class Component:
                  1  : b in a
                  2  : a, b are identical or intersected
         """
-        return self.bbox.bbox_relation(compo_b.bbox)
+        return self.bbox.bbox_relation_nms(compo_b.bbox)
 
     def compo_relative_position(self, col_min_base, row_min_base):
         '''
@@ -184,3 +202,15 @@ class Component:
 
     def compo_merge(self, compo_b):
         self.bbox = self.bbox.bbox_merge(compo_b.bbox)
+
+    def compo_clipping(self, img, pad=0, show=False):
+        (column_min, row_min, column_max, row_max) = self.put_bbox()
+        column_min = max(column_min - pad, 0)
+        column_max = min(column_max + pad, img.shape[1])
+        row_min = max(row_min - pad, 0)
+        row_max = min(row_max + pad, img.shape[0])
+        clip = img[row_min:row_max, column_min:column_max]
+        if show:
+            cv2.imshow('clipping', clip)
+            cv2.waitKey()
+        return clip

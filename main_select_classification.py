@@ -21,16 +21,16 @@ if __name__ == '__main__':
     input_paths_img = sorted(input_paths_img, key=lambda x: int(x.split('\\')[-1][:-4]))  # sorted by index
 
     # switch of the classification func
-    is_clf = False
+    is_clf = True
     if is_clf:
-        from Resnet import ResClassifier
-        classifier = ResClassifier()
+        from CNN import CNN
+        classifier = CNN('Image')
     else:
         classifier = None
 
     # set the range of target inputs' indices
-    num = 3479
-    start_index = 66
+    num = 1006
+    start_index = 22292
     end_index = 100000
     for input_path_img in input_paths_img:
         index = input_path_img.split('\\')[-1][:-4]
@@ -38,6 +38,6 @@ if __name__ == '__main__':
             continue
         if int(index) > end_index:
             break
-        ip.compo_detection(input_path_img, output_root, num, show=True,
-                           resize_by_height=resize_by_height, classifier=classifier)
+        ip.compo_detection(input_path_img, output_root, num,
+                           show=False, resize_by_height=resize_by_height, classifier=classifier)
         num += 1
