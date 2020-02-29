@@ -105,6 +105,8 @@ class Component:
                     abnm += 1  # count the size of the abnm
                     # if the abnm is too big, the shape should not be a rectangle
                     if abnm / len(border) > 0.1:
+                        # print('abnms', abnm, abnm / len(border))
+                        # draw.draw_boundary([self], self.image_shape, show=True)
                         self.rect_ = False
                         return False
                     continue
@@ -123,6 +125,8 @@ class Component:
                 # print(depth, adj_side, abnm)
             # if the pit is too big, the shape should not be a rectangle
             if pit / len(border) > max_dent_ratio:
+                # print('pit', pit, pit / len(border))
+                # draw.draw_boundary([self], self.image_shape, show=True)
                 self.rect_ = False
                 return False
             # print()
