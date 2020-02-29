@@ -130,9 +130,9 @@ def rm_line(binary,
                 line_length += 1
             else:
                 line_cut += 1
-                if line_cut >= 5:
-                    if j > width * (1 - min_line_length_ratio):
-                        break
+                # if line_cut >= 5:
+                #     if j > width * (1 - min_line_length_ratio):
+                #         break
 
         if line_length / width > min_line_length_ratio:
             gap = 0
