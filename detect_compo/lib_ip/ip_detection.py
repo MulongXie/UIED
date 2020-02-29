@@ -198,7 +198,7 @@ def component_detection(binary,
                 if component.width <= 3 or component.height <= 3:
                     continue
                 # print('Area:%d' % (len(region)))
-                # draw.draw_boundary([boundary], binary.shape, show=False)
+                # draw.draw_boundary([component], binary.shape, show=True)
                 # check if it is line by checking the length of edges
                 if component.area > min_obj_area * 10 and component.compo_is_line(line_thickness):
                     continue
