@@ -52,11 +52,14 @@ def grad_to_binary(grad, min):
     return bin
 
 
-def reverse_binary(bin):
+def reverse_binary(bin, show=False):
     """
     Reverse the input binary image
     """
     r, bin = cv2.threshold(bin, 1, 255, cv2.THRESH_BINARY_INV)
+    if show:
+        cv2.imshow('binary_rev', bin)
+        cv2.waitKey()
     return bin
 
 
@@ -69,4 +72,5 @@ def binarization(org, grad_min=C.THRESHOLD_PRE_GRADIENT, show=False, write_path=
         cv2.imwrite(write_path, morph)
     if show:
         cv2.imshow('binary', morph)
+        cv2.waitKey()
     return morph

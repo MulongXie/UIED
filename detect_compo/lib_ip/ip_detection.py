@@ -175,11 +175,7 @@ def detect_compos_in_img(compos, binary, org):
             compo.compo_update_bbox_area()
             org_clip = compo.compo_clipping(org)
             bin_clip = pre.binarization(org_clip, grad_min=16)
-            bin_clip = pre.reverse_binary(bin_clip)
-
-            print(compo.bbox_area, bin_clip.shape)
-            cv2.imshow('bin_r', bin_clip)
-            cv2.waitKey()
+            bin_clip = pre.reverse_binary(bin_clip, show=False)
 
             compos_rec, compos_nonrec = component_detection(bin_clip, rec_detect=True)
             for compo_rec in compos_rec:
@@ -187,7 +183,7 @@ def detect_compos_in_img(compos, binary, org):
                 print(compo_rec.bbox_area, compo.bbox_area, compo_rec.bbox_area / compo.bbox_area)
                 if compo_rec.bbox_area / compo.bbox_area < 0.8 and compo_rec.bbox.height > 20 and compo_rec.bbox.width > 20:
                     compos_new.append(compo_rec)
-                    draw.draw_bounding_box(org, [compo_rec], show=True)
+                    # draw.draw_bounding_box(org, [compo_rec], show=True)
 
             # compos_inner = component_detection(bin_clip, rec_detect=False)
             # for compo_inner in compos_inner:
