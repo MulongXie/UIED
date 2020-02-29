@@ -41,7 +41,7 @@ def save_corners_json(file_path, corners, compo_classes, new=True):
     f_out = open(file_path, 'w')
 
     for i in range(len(corners)):
-        c = {'class': compo_classes[i], 'column_min': corners[i][0], 'row_min': corners[i][1],
+        c = {'category': compo_classes[i], 'column_min': corners[i][0], 'row_min': corners[i][1],
              'column_max': corners[i][2], 'row_max': corners[i][3]}
         components['compos'].append(c)
 
@@ -103,7 +103,7 @@ def nms(org, corners_compo_old, compos_class_old, corner_text):
             compos_class_refine.append('TextView')
         else:
             corners_compo_refine.append(corners_compo_old[i])
-            compos_class_refine.append(compos_class_old[i])
+            compos_class_refine.append('NonText')
 
     return corners_compo_refine, compos_class_refine
 
@@ -153,11 +153,38 @@ def refine_text(org, corners_text, max_line_gap, min_word_length):
     return corners_text_refine
 
 
-def incorporate(img_path, output_root, resize_by_height=None, show=False, write_img=True):
+def refine_corner(corners, shrink):
+    corner_new = []
+    for corner in corners:
+        (col_min, row_min, col_max, row_max) = corner
+        corner_new.append((col_min + shrink, row_min + shrink, col_max - shrink, row_max - shrink))
+    return corner_new
+
+
+def resize_label(bboxes, target_height, org_height, bias=0):
+    bboxes_new = []
+    scale = target_height/org_height
+    for bbox in bboxes:
+        bbox = [int(b * scale + bias) for b in bbox]
+        bboxes_new.append(bbox)
+    return bboxes_new
+
+
+def resize_img_by_height(org, resize_height):
+    if resize_height is None:
+        return org
+    w_h_ratio = org.shape[1] / org.shape[0]
+    resize_w = resize_height * w_h_ratio
+    rezs = cv2.resize(org, (int(resize_w), int(resize_height)))
+    return rezs
+
+
+def incorporate(img_path, compo_root, text_root, output_root, resize_by_height=None, show=False, write_img=False):
+
     name = img_path.split('\\')[-1][:-4]
-    compo_f = pjoin(output_root, 'cls', name + '.json')
-    text_f = pjoin(output_root, 'ocr', name + '.json')
-    img, _ = pre.read_img(img_path, resize_by_height)
+    compo_f = pjoin(compo_root, name + '_ip.json')
+    text_f = pjoin(text_root, name + '.json')
+    org = cv2.imread(img_path)
 
     compos = json.load(open(compo_f, 'r'))
     texts = json.load(open(text_f, 'r'))
@@ -166,21 +193,25 @@ def incorporate(img_path, output_root, resize_by_height=None, show=False, write_
     bbox_text = []
     for compo in compos['compos']:
         bbox_compos.append([compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']])
-        class_compos.append(compo['class'])
+        class_compos.append(compo['category'])
     for text in texts['compos']:
         bbox_text.append([text['column_min'], text['row_min'], text['column_max'], text['row_max']])
 
-    draw_bounding_box_class(img, bbox_compos, class_compos, show=True)
-    bbox_text = refine_text(img, bbox_text, 20, 10)
-    corners_compo_new, compos_class_new = nms(img, bbox_compos, class_compos, bbox_text)
-    board = draw_bounding_box_class(img, corners_compo_new, compos_class_new)
+    bbox_text = refine_text(org, bbox_text, 20, 10)
+    bbox_text = resize_label(bbox_text, 800, org.shape[0])
 
-    output_path = pjoin(output_root, 'merge')
-    save_corners_json(pjoin(output_path, name + '.json'), bbox_compos, class_compos)
+    org_resize = resize_img_by_height(org, resize_by_height)
+    draw_bounding_box(org_resize, bbox_compos, show=show)
+    draw_bounding_box(org_resize, bbox_text, show=show)
+    corners_compo_new, compos_class_new = nms(org_resize, bbox_compos, class_compos, bbox_text)
+    corners_compo_new = refine_corner(corners_compo_new, shrink=3)
+    board = draw_bounding_box_class(org_resize, corners_compo_new, compos_class_new)
+
+    save_corners_json(pjoin(output_root, name + '.json'), corners_compo_new, compos_class_new)
     if write_img:
-        cv2.imwrite(pjoin(output_path, name + '.png'), board)
+        cv2.imwrite(pjoin(output_root, name + '.png'), board)
     if show:
         cv2.imshow('merge', board)
         cv2.waitKey()
 
-    print('Merge Complete and Save to', output_path)
+    print('Merge Complete and Save to', pjoin(output_root, name + '.json'))
