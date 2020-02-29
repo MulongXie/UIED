@@ -30,7 +30,7 @@ class Config:
                       'RadioButton': (166, 166, 166),
                       'RatingBar': (0, 166, 255), 'SeekBar': (0, 166, 10), 'Spinner': (50, 21, 255),
                       'Switch': (80, 166, 66), 'ToggleButton': (0, 66, 80), 'VideoView': (88, 66, 0),
-                      'TextView': (169, 255, 0)}
+                      'TextView': (169, 255, 0), 'NonText': (0,0,255)}
 
     def build_output_folders(self):
         if not os.path.exists(self.ROOT_IP):
