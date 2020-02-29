@@ -3,7 +3,7 @@ class Config:
     def __init__(self):
         # Adjustable
         self.THRESHOLD_PRE_GRADIENT = 4             # dribbble:4 rico:4 web:1
-        self.THRESHOLD_OBJ_MIN_AREA = 30
+        self.THRESHOLD_OBJ_MIN_AREA = 55            # bottom line 55 of small circle
         self.THRESHOLD_OBJ_MIN_PERIMETER = 0
         self.THRESHOLD_BLOCK_GRADIENT = 8
 
