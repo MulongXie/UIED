@@ -42,4 +42,9 @@ class Config:
                       'RatingBar': (0, 166, 255), 'SeekBar': (0, 166, 10), 'Spinner': (50, 21, 255),
                       'Switch': (80, 166, 66), 'ToggleButton': (0, 66, 80), 'VideoView': (88, 66, 0),
                       'TextView': (169, 255, 0),
-                      'Text':(169, 255, 0), 'Non-Text':(255, 0, 166)}
+
+                      'Text':(169, 255, 0), 'Non-Text':(255, 0, 166),
+
+                      'Noise':(6,6,255), 'Non-Noise': (6,255,6),
+
+                      'Image':(6,255,6), 'Non-Image':(6,6,255)}
