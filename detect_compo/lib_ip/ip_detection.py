@@ -177,10 +177,9 @@ def detect_compos_in_img(compos, binary, org):
             bin_clip = pre.binarization(org_clip, grad_min=16)
             bin_clip = pre.reverse_binary(bin_clip, show=False)
 
-            compos_rec, compos_nonrec = component_detection(bin_clip, rec_detect=True)
+            compos_rec, compos_nonrec = component_detection(bin_clip, step_h=10, step_v=10, rec_detect=True)
             for compo_rec in compos_rec:
                 compo_rec.compo_relative_position(compo.bbox.col_min, compo.bbox.row_min)
-                print(compo_rec.bbox_area, compo.bbox_area, compo_rec.bbox_area / compo.bbox_area)
                 if compo_rec.bbox_area / compo.bbox_area < 0.8 and compo_rec.bbox.height > 20 and compo_rec.bbox.width > 20:
                     compos_new.append(compo_rec)
                     # draw.draw_bounding_box(org, [compo_rec], show=True)
@@ -198,11 +197,12 @@ def detect_compos_in_img(compos, binary, org):
 # calculate the connected regions -> get the bounding boundaries of them -> check if those regions are rectangles
 # return all boundaries and boundaries of rectangles
 def component_detection(binary,
-                       min_obj_area=C.THRESHOLD_OBJ_MIN_AREA,
-                       line_thickness=C.THRESHOLD_LINE_THICKNESS,
-                       min_rec_evenness=C.THRESHOLD_REC_MIN_EVENNESS,
-                       max_dent_ratio=C.THRESHOLD_REC_MAX_DENT_RATIO,
-                       rec_detect=False, show=False):
+                        min_obj_area=C.THRESHOLD_OBJ_MIN_AREA,
+                        line_thickness=C.THRESHOLD_LINE_THICKNESS,
+                        min_rec_evenness=C.THRESHOLD_REC_MIN_EVENNESS,
+                        max_dent_ratio=C.THRESHOLD_REC_MAX_DENT_RATIO,
+                        step_h = 5, step_v = 2,
+                        rec_detect=False, show=False):
     """
     :param binary: Binary image from pre-processing
     :param min_obj_area: If not pass then ignore the small object
@@ -219,8 +219,8 @@ def component_detection(binary,
     compos_rec = []
     compos_nonrec = []
     row, column = binary.shape[0], binary.shape[1]
-    for i in range(0, row, 5):
-        for j in range(i % 2, column, 2):
+    for i in range(0, row, step_h):
+        for j in range(i % 2, column, step_v):
             if binary[i, j] == 255 and mask[i, j] == 0:
                 # get connected area
                 # region = util.boundary_bfs_connected_area(binary, i, j, mask)

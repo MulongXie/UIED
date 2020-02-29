@@ -92,7 +92,7 @@ def block_division(grey, show=False, write_path=None,
     if show:
         # cv2.imshow('flood-fill all', broad_all)
         cv2.imshow('block', broad)
-        cv2.waitKey()
+        # cv2.waitKey()
     if write_path is not None:
         cv2.imwrite(write_path, broad)
     return blocks

@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+
+import lib_ip.block_division as blk
 import lib_ip.ip_preprocessing as pre
 import lib_ip.ip_detection as det
 
@@ -27,12 +29,13 @@ def get_contour(org, binary):
     return board
 
 
-img_file = 'E:\\Mulong\\Datasets\\rico\\combined\\22292.jpg'
+img_file = 'E:\\Mulong\\Datasets\\rico\\combined\\2759.jpg'
 resize_height = 800
 
 cv2.namedWindow('control')
 cv2.createTrackbar('resize_height', 'control', 800, 1600, nothing)
 cv2.createTrackbar('grad_min', 'control', 4, 255, nothing)
+cv2.createTrackbar('grad_min_blk', 'control', 8, 255, nothing)
 cv2.createTrackbar('c1', 'control', 1, 1000, nothing)
 cv2.createTrackbar('c2', 'control', 1, 1000, nothing)
 
@@ -40,6 +43,7 @@ cv2.createTrackbar('c2', 'control', 1, 1000, nothing)
 while 1:
     resize_height = cv2.getTrackbarPos('resize_height', 'control')
     grad_min = cv2.getTrackbarPos('grad_min', 'control')
+    grad_min_blk = cv2.getTrackbarPos('grad_min_blk', 'control')
     c1 = cv2.getTrackbarPos('c1', 'control')
     c2 = cv2.getTrackbarPos('c2', 'control')
 
@@ -55,11 +59,10 @@ while 1:
     # b_contour = cv2.hconcat([b_contour, c_contour])
     binary = cv2.hconcat([binary, binary_r, canny])
 
-    # cv2.imshow('before', binary)
-    # binary = cv2.medianBlur(binary, 3)
+    # blk.block_division(grey, grad_thresh=grad_min_blk, show=True)
 
     # cv2.imshow('b_cnt', b_contour)
     cv2.imshow('org', org)
     cv2.imshow('bin', binary)
     # cv2.imshow('canny', canny)
-    cv2.waitKey(10)
+    cv2.waitKey(100)
