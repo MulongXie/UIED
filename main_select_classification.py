@@ -21,16 +21,18 @@ if __name__ == '__main__':
     input_paths_img = sorted(input_paths_img, key=lambda x: int(x.split('\\')[-1][:-4]))  # sorted by index
 
     # switch of the classification func
-    is_clf = True
+    is_clf = False
     if is_clf:
+        classifier = {}
         from CNN import CNN
-        classifier = CNN('Image')
+        classifier['Image'] = CNN('Image')
+        classifier['Elements'] = CNN('Elements')
     else:
         classifier = None
 
     # set the range of target inputs' indices
     num = 1006
-    start_index = 22292
+    start_index = 66
     end_index = 100000
     for input_path_img in input_paths_img:
         index = input_path_img.split('\\')[-1][:-4]
@@ -39,5 +41,5 @@ if __name__ == '__main__':
         if int(index) > end_index:
             break
         ip.compo_detection(input_path_img, output_root, num,
-                           show=False, resize_by_height=resize_by_height, classifier=classifier)
+                           show=True, resize_by_height=resize_by_height, classifier=classifier)
         num += 1

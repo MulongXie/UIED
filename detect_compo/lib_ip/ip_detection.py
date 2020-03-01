@@ -12,38 +12,17 @@ C = Config()
 
 
 def merge_intersected_corner(compos, org_shape, max_compo_scale=C.THRESHOLD_COMPO_MAX_SCALE):
-    def is_intersected(compo_a, compo_b):
-        (col_min_a, row_min_a, col_max_a, row_max_a) = compo_a.put_bbox()
-        (col_min_b, row_min_b, col_max_b, row_max_b) = compo_b.put_bbox()
-        area_a = compo_a.area
-        area_b = compo_b.area
-
-        # get the intersected area
-        col_min_s = max(col_min_a, col_min_b)
-        row_min_s = max(row_min_a, row_min_b)
-        col_max_s = min(col_max_a, col_max_b)
-        row_max_s = min(row_max_a, row_max_b)
-        w = max(0, col_max_s - col_min_s)
-        h = max(0, row_max_s - row_min_s)
-        inter = w * h
-        # intersected but not containing
-        if inter == 0 and inter != area_a and inter != area_b:
-            return False
-        # very closed
-        return True
-
     changed = False
     new_compos= []
     row, col = org_shape[:2]
     for i in range(len(compos)):
         merged = False
-        height = compos[i].height
-        if height / row > max_compo_scale[0]:
-            new_compos.append(compos[i])
-            continue
+        # if compos[i].height / row > max_compo_scale[0]:
+        #     new_compos.append(compos[i])
+        #     continue
         for j in range(len(new_compos)):
-            if compos[j].height / row > max_compo_scale[0]:
-                continue
+            # if compos[j].height / row > max_compo_scale[0]:
+            #     continue
             relation = compos[i].compo_relation(compos[j])
             if relation == 2:
                 new_compos[j].compo_merge(compos[i])

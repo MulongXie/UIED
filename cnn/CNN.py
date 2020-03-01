@@ -51,16 +51,17 @@ class CNN:
 
     def load(self, classifier_type):
         if classifier_type == 'Text':
-            self.model_path = 'E:/Mulong/Model/rico_compos/cnn2-textview.h5'
+            self.model_path = 'E:/Mulong/Model/rico_compos/cnn-textview-2.h5'
             self.class_map = ['Text', 'Non-Text']
         elif classifier_type == 'Noise':
-            self.model_path = 'E:/Mulong/Model/rico_compos/cnn1-noise.h5'
+            self.model_path = 'E:/Mulong/Model/rico_compos/cnn-noise-1.h5'
             self.class_map = ['Noise', 'Non-Noise']
         elif classifier_type == 'Elements':
             self.model_path = 'E:/Mulong/Model/rico_compos/resnet-ele14-19.h5'
             self.class_map = ['Button', 'CheckBox', 'Chronometer', 'EditText', 'ImageButton', 'ImageView',
                               'ProgressBar', 'RadioButton', 'RatingBar', 'SeekBar', 'Spinner', 'Switch',
                               'ToggleButton', 'VideoView', 'TextView']  # ele-14
+            self.image_shape = (64, 64, 3)
         elif classifier_type == 'Image':
             self.model_path = 'E:/Mulong/Model/rico_compos/cnn-image-1.h5'
             self.class_map = ['Image', 'Non-Image']
