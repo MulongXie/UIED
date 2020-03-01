@@ -46,7 +46,6 @@ def compo_detection(input_img_path, output_root,
     start = time.clock()
     name = input_img_path.split('\\')[-1][:-4]
     ip_root = file.build_directory(pjoin(output_root, "ip"))
-    cls_root = file.build_directory(pjoin(output_root, "cls"))
 
     # *** Step 1 *** pre-processing: read img -> get binary map
     org, grey = pre.read_img(input_img_path, resize_by_height)
@@ -67,27 +66,26 @@ def compo_detection(input_img_path, output_root,
     # *** Step 4 *** results refinement: remove top and bottom compos -> merge words into line
     uicompos = det.rm_top_or_bottom_corners(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show)
-    file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos + blocks)
     uicompos = det.merge_text(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show)
     uicompos = det.merge_intersected_corner(uicompos, org.shape)
     Compo.compos_containment(uicompos)
-    draw.draw_bounding_box(org, uicompos, show=show, write_path=pjoin(ip_root, name + '_ip.png'))
-    file.save_corners_json(pjoin(ip_root, name + '_ip.json'), uicompos)
+    draw.draw_bounding_box(org, uicompos, show=show, write_path=pjoin(ip_root, name + '_ip.png') if write_img else None)
 
     # *** Step 5 *** Image Inspection: recognize image -> remove noise in image -> binarize with larger threshold and reverse -> rectangular compo detection
     if classifier is not None:
         classifier['Image'].predict(seg.clipping(org, uicompos), uicompos)
-        draw.draw_bounding_box_class(org, uicompos, show=show, write_path=pjoin(cls_root, name + '.png'))
+        draw.draw_bounding_box_class(org, uicompos, show=show)
         uicompos = det.rm_noise_in_large_img(uicompos, binary_org)
-        draw.draw_bounding_box_class(org, uicompos, show=show, write_path=pjoin(cls_root, name + '.png'))
+        draw.draw_bounding_box_class(org, uicompos, show=show)
         det.detect_compos_in_img(uicompos, binary, org)
-        draw.draw_bounding_box(org, uicompos, show=show, write_path=pjoin(cls_root, name + '.png'))
+        draw.draw_bounding_box(org, uicompos, show=show)
 
     # *** Step 6 *** element classification: all category classification
     if classifier is not None:
         classifier['Elements'].predict(seg.clipping(org, uicompos), uicompos)
-        draw.draw_bounding_box_class(org, uicompos, show=show, write_path=pjoin(cls_root, name + '.png'))
-        file.save_corners_json(pjoin(cls_root, name + '.json'), uicompos)
+        draw.draw_bounding_box_class(org, uicompos, show=show, write_path=pjoin(ip_root, name + '_cls.png'))
 
-    print("[Compo Detection Completed in %.3f s] %d %s\n" % (time.clock() - start, num, input_img_path))
+    file.save_corners_json(pjoin(ip_root, name + '.json'), uicompos)
+
+    print("[Compo Detection Completed in %.3f s] %d %s" % (time.clock() - start, num, input_img_path))

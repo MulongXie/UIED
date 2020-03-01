@@ -20,19 +20,22 @@ if __name__ == '__main__':
     input_paths_img = [pjoin(input_root, img['file_name'].split('/')[-1]) for img in data['images']]
     input_paths_img = sorted(input_paths_img, key=lambda x: int(x.split('\\')[-1][:-4]))  # sorted by index
 
-    # switch of the classification func
-    is_clf = False
-    if is_clf:
-        classifier = {}
-        from CNN import CNN
-        classifier['Image'] = CNN('Image')
-        classifier['Elements'] = CNN('Elements')
-    else:
-        classifier = None
+    is_ip = True
+    is_ocr = False
+    is_merge = True
 
+    # switch of the classification func
+    classifier = None
+    if is_ip:
+        is_clf = True
+        if is_clf:
+            classifier = {}
+            from CNN import CNN
+            classifier['Image'] = CNN('Image')
+            classifier['Elements'] = CNN('Elements')
     # set the range of target inputs' indices
     num = 1006
-    start_index = 66
+    start_index = 668
     end_index = 100000
     for input_path_img in input_paths_img:
         index = input_path_img.split('\\')[-1][:-4]
@@ -40,6 +43,18 @@ if __name__ == '__main__':
             continue
         if int(index) > end_index:
             break
-        ip.compo_detection(input_path_img, output_root, num,
-                           show=True, resize_by_height=resize_by_height, classifier=classifier)
+
+        if is_ocr:
+            import ocr_east as ocr
+            ocr.east(input_path_img, output_root, resize_by_height=None, show=False, write_img=False)
+
+        if is_ip:
+            ip.compo_detection(input_path_img, output_root, num, resize_by_height=resize_by_height, show=False, classifier=classifier)
+
+        if is_merge:
+            import merge
+            compo_path = pjoin(output_root, 'ip', str(index) + '.json')
+            ocr_path = pjoin(output_root, 'ocr', str(index) + '.json')
+            merge.incorporate(input_path_img, compo_path, ocr_path, output_root, resize_by_height=resize_by_height, show=False)
+
         num += 1

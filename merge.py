@@ -103,7 +103,7 @@ def nms(org, corners_compo_old, compos_class_old, corner_text):
             compos_class_refine.append('TextView')
         else:
             corners_compo_refine.append(corners_compo_old[i])
-            compos_class_refine.append('NonText')
+            compos_class_refine.append(compos_class_old[i])
 
     return corners_compo_refine, compos_class_refine
 
@@ -148,7 +148,7 @@ def refine_text(org, corners_text, max_line_gap, min_word_length):
             continue
 
         clip = org[row_min:row_max, col_min:col_max]
-        clip_bin = pre.preprocess(clip)
+        clip_bin = pre.binarization(clip)
         refine(clip_bin)
     return corners_text_refine
 
@@ -179,15 +179,13 @@ def resize_img_by_height(org, resize_height):
     return rezs
 
 
-def incorporate(img_path, compo_root, text_root, output_root, resize_by_height=None, show=False, write_img=False):
+def incorporate(img_path, compo_path, text_path, output_root, resize_by_height=None, show=False, write_img=False):
 
     name = img_path.split('\\')[-1][:-4]
-    compo_f = pjoin(compo_root, name + '_ip.json')
-    text_f = pjoin(text_root, name + '.json')
     org = cv2.imread(img_path)
 
-    compos = json.load(open(compo_f, 'r'))
-    texts = json.load(open(text_f, 'r'))
+    compos = json.load(open(compo_path, 'r'))
+    texts = json.load(open(text_path, 'r'))
     bbox_compos = []
     class_compos = []
     bbox_text = []
@@ -198,20 +196,20 @@ def incorporate(img_path, compo_root, text_root, output_root, resize_by_height=N
         bbox_text.append([text['column_min'], text['row_min'], text['column_max'], text['row_max']])
 
     bbox_text = refine_text(org, bbox_text, 20, 10)
-    bbox_text = resize_label(bbox_text, 800, org.shape[0])
+    bbox_text = resize_label(bbox_text, resize_by_height, org.shape[0])
 
     org_resize = resize_img_by_height(org, resize_by_height)
-    draw_bounding_box(org_resize, bbox_compos, show=show)
+    draw_bounding_box_class(org_resize, bbox_compos, class_compos, show=show)
     draw_bounding_box(org_resize, bbox_text, show=show)
     corners_compo_new, compos_class_new = nms(org_resize, bbox_compos, class_compos, bbox_text)
-    corners_compo_new = refine_corner(corners_compo_new, shrink=3)
+    corners_compo_new = refine_corner(corners_compo_new, shrink=0)
     board = draw_bounding_box_class(org_resize, corners_compo_new, compos_class_new)
 
-    save_corners_json(pjoin(output_root, name + '.json'), corners_compo_new, compos_class_new)
+    save_corners_json(pjoin(output_root, 'merge', name + '.json'), corners_compo_new, compos_class_new)
     if write_img:
-        cv2.imwrite(pjoin(output_root, name + '.png'), board)
+        cv2.imwrite(pjoin(output_root, 'merge', name + '.png'), board)
     if show:
         cv2.imshow('merge', board)
         cv2.waitKey()
 
-    print('Merge Complete and Save to', pjoin(output_root, name + '.json'))
+    print('Merge Complete and Save to', pjoin(output_root, 'merge', name + '.json'), '\n')

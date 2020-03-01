@@ -5,7 +5,7 @@ import json
 from tqdm import tqdm
 from os.path import join as pjoin, exists
 
-from detect_text_east import merge_file
+import merge
 
 
 input_root = 'E:\\Mulong\\Datasets\\rico\\combined'
@@ -28,4 +28,4 @@ for input_path_img in input_paths_img:
     if int(index) > end_index:
         break
 
-    merge_file.incorporate(input_path_img, compo_root, text_root, output_root, resize_by_height=800, show=False)
+    merge.incorporate(input_path_img, compo_root, text_root, output_root, resize_by_height=800, show=False)

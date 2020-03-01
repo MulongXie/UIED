@@ -1,5 +1,4 @@
 import ip_region_proposal as ip
-import time
 
 resize_by_height = 800
 

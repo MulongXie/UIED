@@ -85,5 +85,5 @@ def view_gt_single(gt, img_root, img_id):
 
 
 gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_test.json', no_text=False)
-view_gt_all(gt, 'E:\\Mulong\\Datasets\\rico\\combined')
-# view_gt_single(gt, 'E:\\Mulong\\Datasets\\rico\\combined', 2748)
+# view_gt_all(gt, 'E:\\Mulong\\Datasets\\rico\\combined')
+view_gt_single(gt, 'E:\\Mulong\\Datasets\\rico\\combined', 670)
