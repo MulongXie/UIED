@@ -135,7 +135,7 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
 
     amount = len(detection)
     TP, FP, FN = 0, 0, 0
-    pres, recalls = [], []
+    pres, recalls, f1s = [], [], []
     for i, image_id in enumerate(detection):
         TP_this, FP_this, FN_this = 0, 0, 0
         img = cv2.imread(pjoin(img_root, image_id + '.jpg'))
@@ -162,12 +162,14 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
         try:
             pre_this = TP_this / (TP_this + FP_this)
             recall_this = TP_this / (TP_this + FN_this)
+            f1_this = 2 * (pre_this * recall_this) / (pre_this + recall_this)
         except:
             print('empty')
             continue
 
         pres.append(pre_this)
         recalls.append(recall_this)
+        f1s.append(f1_this)
         if show:
             print(image_id + '.jpg')
             print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (
@@ -177,14 +179,15 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
             draw_bounding_box(broad, gt_compos['bboxes'], color=(0, 0, 255), show=True, line=2)
 
         if i % 200 == 0:
-            precesion = TP / (TP + FP)
+            precision = TP / (TP + FP)
             recall = TP / (TP + FN)
+            f1 = 2 * (precision * recall) / (precision + recall)
             print(
-                '[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (i, amount, TP, FP, FN, precesion, recall))
+                '[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f, F1:%.3f' % (i, amount, TP, FP, FN, precision, recall, f1))
 
-    precesion = TP / (TP + FP)
+    precision = TP / (TP + FP)
     recall = TP / (TP + FN)
-    print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (i, amount, TP, FP, FN, precesion, recall))
+    print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f, F1:%.3f' % (i, amount, TP, FP, FN, precision, recall, f1))
     # print("Average precision:%.4f; Average recall:%.3f" % (sum(pres)/len(pres), sum(recalls)/len(recalls)))
 
     return pres, recalls
@@ -197,4 +200,4 @@ only_text = False
 detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\merge')
 # detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\merge', no_text=no_text, only_text=only_text)
 gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_test.json')
-eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False, no_text=no_text, only_text=only_text)
+eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=True, no_text=no_text, only_text=only_text)
