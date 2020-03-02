@@ -78,7 +78,7 @@ def compo_detection(input_img_path, output_root,
         draw.draw_bounding_box_class(org, uicompos, show=show)
         uicompos = det.rm_noise_in_large_img(uicompos, binary_org)
         draw.draw_bounding_box_class(org, uicompos, show=show)
-        det.detect_compos_in_img(uicompos, binary, org)
+        det.detect_compos_in_img(uicompos, binary_org, org)
         draw.draw_bounding_box(org, uicompos, show=show)
 
     # *** Step 6 *** element classification: all category classification
@@ -89,3 +89,5 @@ def compo_detection(input_img_path, output_root,
     file.save_corners_json(pjoin(ip_root, name + '.json'), uicompos)
 
     print("[Compo Detection Completed in %.3f s] %d %s" % (time.clock() - start, num, input_img_path))
+    # Record run time
+    open('time.txt', 'a').write(str(round(time.clock() - start, 3)) + '\n')

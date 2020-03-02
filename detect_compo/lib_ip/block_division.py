@@ -44,6 +44,7 @@ def block_bin_erase_all_blk(binary, blocks, pad=0, show=False):
 
 
 def block_division(grey, show=False, write_path=None,
+                   step_h=10, step_v=10,
                    grad_thresh=C.THRESHOLD_BLOCK_GRADIENT,
                    line_thickness=C.THRESHOLD_LINE_THICKNESS,
                    min_rec_evenness=C.THRESHOLD_REC_MIN_EVENNESS,
@@ -61,8 +62,8 @@ def block_division(grey, show=False, write_path=None,
     # broad_all = broad.copy()
 
     row, column = grey.shape[0], grey.shape[1]
-    for x in range(0, row, 10):
-        for y in range(0, column, 10):
+    for x in range(0, row, step_h):
+        for y in range(0, column, step_v):
             if mask[x, y] == 0:
                 # region = flood_fill_bfs(grey, x, y, mask)
 
@@ -92,7 +93,7 @@ def block_division(grey, show=False, write_path=None,
     if show:
         # cv2.imshow('flood-fill all', broad_all)
         cv2.imshow('block', broad)
-        # cv2.waitKey()
+        cv2.waitKey()
     if write_path is not None:
         cv2.imwrite(write_path, broad)
     return blocks
