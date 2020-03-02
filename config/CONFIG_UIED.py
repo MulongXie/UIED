@@ -5,7 +5,7 @@ class Config:
         self.THRESHOLD_PRE_GRADIENT = 4             # dribbble:4 rico:4 web:1
         self.THRESHOLD_OBJ_MIN_AREA = 55            # bottom line 55 of small circle
         self.THRESHOLD_OBJ_MIN_PERIMETER = 0
-        self.THRESHOLD_BLOCK_GRADIENT = 8
+        self.THRESHOLD_BLOCK_GRADIENT = 5
 
         # *** Frozen ***
         self.THRESHOLD_REC_MIN_EVENNESS = 0.7
@@ -47,4 +47,4 @@ class Config:
 
                       'Noise':(6,6,255), 'Non-Noise': (6,255,6),
 
-                      'Image':(6,255,6), 'Non-Image':(6,6,255)}
+                      'Image':(255,6,6), 'Non-Image':(6,6,255)}
