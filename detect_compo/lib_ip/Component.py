@@ -87,7 +87,7 @@ class Component:
         bbox = Bbox(col_min, row_min, col_max, row_max)
         return bbox
 
-    def compo_is_rectangle(self, min_rec_evenness, max_dent_ratio):
+    def compo_is_rectangle(self, min_rec_evenness, max_dent_ratio, test=False):
         '''
         detect if an object is rectangle by evenness and dent of each border
         '''
@@ -108,7 +108,7 @@ class Component:
             # -> up, bottom: (column_index, min/max row border)
             # -> left, right: (row_index, min/max column border) detect range of each row
             abnm = 0
-            for i in range(int(3 + len(border) * 0.05), len(border) - 1):
+            for i in range(int(3 + len(border) * 0.02), len(border) - 1):
                 # calculate gradient
                 difference = border[i][1] - border[i + 1][1]
                 # the degree of surface changing
@@ -123,8 +123,9 @@ class Component:
                     abnm += 1  # count the size of the abnm
                     # if the abnm is too big, the shape should not be a rectangle
                     if abnm / len(border) > 0.1:
-                        # print('abnms', abnm, abnm / len(border))
-                        # draw.draw_boundary([self], self.image_shape, show=True)
+                        if test:
+                            print('abnms', abnm, abnm / len(border))
+                            draw.draw_boundary([self], self.image_shape, show=True)
                         self.rect_ = False
                         return False
                     continue
@@ -138,18 +139,20 @@ class Component:
                     continue
 
                 # if the surface is not changing to a pit and the gradient is zero, then count it as flat
-                if abs(depth) / adj_side < 0.015:
+                if abs(depth) < 6:
                     flat += 1
-                # print(depth, adj_side, flat)
+                if test:
+                    print(depth, adj_side, flat)
             # if the pit is too big, the shape should not be a rectangle
             if pit / len(border) > max_dent_ratio:
-                # print('pit', pit, pit / len(border))
-                # draw.draw_boundary([self], self.image_shape, show=True)
+                if test:
+                    print('pit', pit, pit / len(border))
+                    draw.draw_boundary([self], self.image_shape, show=True)
                 self.rect_ = False
                 return False
-            # print()
-        # print(flat / parameter, '\n')
-        # draw.draw_boundary([self], self.image_shape, show=True)
+        if test:
+            print(flat / parameter, '\n')
+            draw.draw_boundary([self], self.image_shape, show=True)
         # ignore text and irregular shape
         if (flat / parameter) < min_rec_evenness:
             self.rect_ = False
