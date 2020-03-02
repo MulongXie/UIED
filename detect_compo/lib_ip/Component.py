@@ -139,7 +139,7 @@ class Component:
                     continue
 
                 # if the surface is not changing to a pit and the gradient is zero, then count it as flat
-                if abs(depth) < 6:
+                if abs(depth) < 6 + adj_side * 0.015:
                     flat += 1
                 if test:
                     print(depth, adj_side, flat)
