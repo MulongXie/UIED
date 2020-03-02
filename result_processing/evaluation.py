@@ -25,7 +25,7 @@ def draw_bounding_box(org, corners, color=(0, 255, 0), line=2, show=False):
     return board
 
 
-def load_detect_result_json(reslut_file_root, no_text=False, only_text=False, shrink=0):
+def load_detect_result_json(reslut_file_root, shrink=0):
     def is_bottom_or_top(corner):
         column_min, row_min, column_max, row_max = corner
         if row_max < 36 or row_min > 725:
@@ -39,10 +39,6 @@ def load_detect_result_json(reslut_file_root, no_text=False, only_text=False, sh
         img_name = reslut_file.split('\\')[-1].split('.')[0]
         compos = json.load(open(reslut_file, 'r'))['compos']
         for compo in compos:
-            if only_text and compo['category'] != 'TextView':
-                continue
-            if no_text and compo['category'] == 'TextView':
-                continue
             if is_bottom_or_top((compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max'])):
                 continue
             if img_name not in compos_reform:
@@ -54,7 +50,7 @@ def load_detect_result_json(reslut_file_root, no_text=False, only_text=False, sh
     return compos_reform
 
 
-def load_ground_truth_json(gt_file, no_text=True, only_text=False):
+def load_ground_truth_json(gt_file):
     def get_img_by_id(img_id):
         for image in images:
             if image['id'] == img_id:
@@ -75,14 +71,6 @@ def load_ground_truth_json(gt_file, no_text=True, only_text=False):
     print('Loading %d ground truth' % len(annots))
     for annot in tqdm(annots):
         img_name, size = get_img_by_id(annot['image_id'])
-        if only_text and int(annot['category_id']) != 14:
-            if img_name not in compos:
-                compos[img_name] = {'bboxes': [], 'categories': [], 'size': size}
-            continue
-        if no_text and int(annot['category_id']) == 14:
-            if img_name not in compos:
-                compos[img_name] = {'bboxes': [], 'categories': [], 'size': size}
-            continue
         if img_name not in compos:
             compos[img_name] = {'bboxes': [cvt_bbox(annot['bbox'])], 'categories': [annot['category_id']], 'size':size}
         else:
@@ -91,7 +79,28 @@ def load_ground_truth_json(gt_file, no_text=True, only_text=False):
     return compos
 
 
-def eval(detection, ground_truth, img_root, show=True):
+def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=False):
+
+    def compo_filter(compos, flag):
+        if not no_text and not only_text:
+            return compos
+        compos_new = {'bboxes':[], 'categories':[]}
+        for k, category in enumerate(compos['categories']):
+            if only_text:
+                if flag == 'det' and category != 'TextView':
+                    continue
+                if flag == 'gt' and int(category) != 14:
+                    continue
+            elif no_text:
+                if flag == 'det' and category == 'TextView':
+                    continue
+                if flag == 'gt' and int(category) == 14:
+                    continue
+
+            compos_new['bboxes'].append(compos['bboxes'][k])
+            compos_new['categories'].append(category)
+        return compos_new
+
     def match(org, d_bbox, gt_bboxes, matched):
         '''
         :param matched: mark if the ground truth component is matched
@@ -133,7 +142,13 @@ def eval(detection, ground_truth, img_root, show=True):
         img = cv2.imread(pjoin(img_root, image_id + '.jpg'))
         d_compos = detection[image_id]
         gt_compos = ground_truth[image_id]
-        d_compos['bboxes'] = resize_label(d_compos['bboxes'], 800, gt_compos['size'][0])
+
+        org_height = gt_compos['size'][0]
+
+        d_compos = compo_filter(d_compos, 'det')
+        gt_compos = compo_filter(gt_compos, 'gt')
+
+        d_compos['bboxes'] = resize_label(d_compos['bboxes'], 800, org_height)
         matched = np.ones(len(gt_compos['bboxes']), dtype=int)
         for d_bbox in d_compos['bboxes']:
             if match(img, d_bbox, gt_compos['bboxes'], matched):
@@ -175,7 +190,7 @@ no_text = False
 only_text = False
 
 # detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\ip')
-detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\merge', no_text=no_text, only_text=only_text)
+detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\merge')
 # detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\merge', no_text=no_text, only_text=only_text)
-gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_test.json', no_text=no_text, only_text=only_text)
-eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False)
+gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_test.json')
+eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False, no_text=no_text, only_text=only_text)
