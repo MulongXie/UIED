@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 def resize_label(bboxes, d_height, gt_height, bias=0):
     bboxes_new = []
-    scale = gt_height/d_height
+    scale = gt_height / d_height
     for bbox in bboxes:
         bbox = [int(b * scale + bias) for b in bbox]
         bboxes_new.append(bbox)
@@ -72,7 +72,7 @@ def load_ground_truth_json(gt_file):
     for annot in tqdm(annots):
         img_name, size = get_img_by_id(annot['image_id'])
         if img_name not in compos:
-            compos[img_name] = {'bboxes': [cvt_bbox(annot['bbox'])], 'categories': [annot['category_id']], 'size':size}
+            compos[img_name] = {'bboxes': [cvt_bbox(annot['bbox'])], 'categories': [annot['category_id']], 'size': size}
         else:
             compos[img_name]['bboxes'].append(cvt_bbox(annot['bbox']))
             compos[img_name]['categories'].append(annot['category_id'])
@@ -80,11 +80,10 @@ def load_ground_truth_json(gt_file):
 
 
 def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=False):
-
     def compo_filter(compos, flag):
         if not no_text and not only_text:
             return compos
-        compos_new = {'bboxes':[], 'categories':[]}
+        compos_new = {'bboxes': [], 'categories': []}
         for k, category in enumerate(compos['categories']):
             if only_text:
                 if flag == 'det' and category != 'TextView':
@@ -160,14 +159,19 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
         FN += sum(matched)
         FN_this = sum(matched)
 
-        pre_this = TP_this / (TP_this + FP_this)
-        recall_this = TP_this / (TP_this + FN_this)
+        try:
+            pre_this = TP_this / (TP_this + FP_this)
+            recall_this = TP_this / (TP_this + FN_this)
+        except:
+            print('empty')
+            continue
+
         pres.append(pre_this)
         recalls.append(recall_this)
         if show:
             print(image_id + '.jpg')
             print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (
-            i, amount, TP_this, FP_this, FN_this, pre_this, recall_this))
+                i, amount, TP_this, FP_this, FN_this, pre_this, recall_this))
             cv2.imshow('org', cv2.resize(img, (500, 1000)))
             broad = draw_bounding_box(img, d_compos['bboxes'], color=(255, 0, 0), line=3)
             draw_bounding_box(broad, gt_compos['bboxes'], color=(0, 0, 255), show=True, line=2)
@@ -186,7 +190,7 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
     return pres, recalls
 
 
-no_text = False
+no_text = True
 only_text = False
 
 # detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\ip')
