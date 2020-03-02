@@ -100,33 +100,51 @@ def rm_line(binary,
     gap = 0
     broad = np.zeros(binary.shape[:2], dtype=np.uint8)
 
+    line_length = 0
+    start, end = -1, -1
     for i, row in enumerate(binary):
-        line_length = 0
-        line_cut = 0
-        for j, point in enumerate(row):
-            broad[i][j] = point
-            if point != 0:
-                line_cut = 0
-                line_length += 1
-            else:
-                line_cut += 1
-                # if line_cut >= 5:
-                #     if j > width * (1 - min_line_length_ratio):
-                #         break
+        # line_cut = 0
+        # for j, point in enumerate(row):
+        #     if point != 0:
+        #         line_cut = 0
+        #         line_length += 1
+        #     else:
+        #         line_cut += 1
+        #         if line_cut >= 5:
+        #             if j > width * (1 - min_line_length_ratio):
+        #                 break
 
-        if line_length / width > min_line_length_ratio:
+        if (sum(row) / 255) / width > min_line_length_ratio:
+            # print(gap, start, end)
+            # broad[i] = binary[i]
+            # cv2.imshow('line', broad)
+            # cv2.waitKey()
             gap = 0
-            thickness += 1
-        elif (sum(row) / 255) / width < 0.5:
-            gap += 1
-            if thickness > 0:
-                # line ends
-                if thickness <= max_line_thickness:
-                    # erase line part if line is detected
-                    binary[i - thickness: i] = 0
-                    thickness = 0
-                if gap >= max_line_thickness:
-                    thickness = 0
+            if start == -1:
+                start = i
+            line_length = max(line_length, sum(row) / 255)
+        else:
+            if (sum(row) / 255) / width < 0.3:
+                gap += 1
+                if start != -1 and end == -1:
+                    end = i
+                if 0 < end - start < max_line_thickness < gap:
+                    # print(line_length / width, end - start, (sum(row) / 255) / width,
+                    #       (sum(binary[i - thickness]) / 255) / width)
+                    # broad[start: end] = binary[start: end]
+                    # cv2.imshow('line', broad)
+                    # cv2.waitKey()
+                    binary[start: end] = 0
+                    start, end = -1, -1
+            else:
+                if 0 < end - start < max_line_thickness < gap:
+                    # print(line_length / width, end - start, (sum(row) / 255) / width,
+                    #       (sum(binary[i - thickness]) / 255) / width)
+                    # broad[start: end] = binary[start: end]
+                    # cv2.imshow('line', broad)
+                    # cv2.waitKey()
+                    binary[start: end] = 0
+                start, end = -1, -1
     if show:
         cv2.imshow('no-line', binary)
         cv2.waitKey()
@@ -147,16 +165,18 @@ def rm_noise_in_large_img(compos, binary,
     return new_compos
 
 
-def detect_compos_in_img(compos, binary, org):
+def detect_compos_in_img(compos, binary, org, max_compo_scale=C.THRESHOLD_COMPO_MAX_SCALE, show=False):
     compos_new = []
+    row, column = binary.shape[:2]
     for compo in compos:
-        if compo.category == 'Image':
+        if compo.category == 'Image' and compo.height / row > max_compo_scale[0]:
             compo.compo_update_bbox_area()
-            org_clip = compo.compo_clipping(org)
-            bin_clip = pre.binarization(org_clip, grad_min=16)
-            bin_clip = pre.reverse_binary(bin_clip, show=False)
+            # org_clip = compo.compo_clipping(org)
+            # bin_clip = pre.binarization(org_clip, show=show)
+            bin_clip = compo.compo_clipping(binary)
+            bin_clip = pre.reverse_binary(bin_clip, show=show)
 
-            compos_rec, compos_nonrec = component_detection(bin_clip, step_h=10, step_v=10, rec_detect=True)
+            compos_rec, compos_nonrec = component_detection(bin_clip, test=False, step_h=10, step_v=10, rec_detect=True)
             for compo_rec in compos_rec:
                 compo_rec.compo_relative_position(compo.bbox.col_min, compo.bbox.row_min)
                 if compo_rec.bbox_area / compo.bbox_area < 0.8 and compo_rec.bbox.height > 20 and compo_rec.bbox.width > 20:
@@ -181,7 +201,7 @@ def component_detection(binary,
                         min_rec_evenness=C.THRESHOLD_REC_MIN_EVENNESS,
                         max_dent_ratio=C.THRESHOLD_REC_MAX_DENT_RATIO,
                         step_h = 5, step_v = 2,
-                        rec_detect=False, show=False):
+                        rec_detect=False, show=False, test=False):
     """
     :param binary: Binary image from pre-processing
     :param min_obj_area: If not pass then ignore the small object
@@ -227,7 +247,7 @@ def component_detection(binary,
 
                 if rec_detect:
                     # rectangle check
-                    if component.compo_is_rectangle(min_rec_evenness, max_dent_ratio):
+                    if component.compo_is_rectangle(min_rec_evenness, max_dent_ratio, test=test):
                         component.rect_ = True
                         compos_rec.append(component)
                     else:
