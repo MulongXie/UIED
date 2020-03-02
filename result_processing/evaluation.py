@@ -161,5 +161,6 @@ only_text = False
 
 # detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\ip')
 detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\merge', no_text=no_text, only_text=only_text)
+# detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\merge', no_text=no_text, only_text=only_text)
 gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_test.json', no_text=no_text, only_text=only_text)
 eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False)

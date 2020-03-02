@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     is_ip = True
     is_ocr = False
-    is_merge = True
+    is_merge = False
 
     # switch of the classification func
     classifier = None
@@ -34,8 +34,8 @@ if __name__ == '__main__':
             classifier['Image'] = CNN('Image')
             classifier['Elements'] = CNN('Elements')
     # set the range of target inputs' indices
-    num = 1006
-    start_index = 668
+    num = 1092
+    start_index = 2759
     end_index = 100000
     for input_path_img in input_paths_img:
         index = input_path_img.split('\\')[-1][:-4]
@@ -55,6 +55,6 @@ if __name__ == '__main__':
             import merge
             compo_path = pjoin(output_root, 'ip', str(index) + '.json')
             ocr_path = pjoin(output_root, 'ocr', str(index) + '.json')
-            merge.incorporate(input_path_img, compo_path, ocr_path, output_root, resize_by_height=resize_by_height, show=False)
+            merge.incorporate(input_path_img, compo_path, ocr_path, output_root, resize_by_height=resize_by_height, show=True)
 
         num += 1

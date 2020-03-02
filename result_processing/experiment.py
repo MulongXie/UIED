@@ -35,7 +35,7 @@ resize_height = 800
 cv2.namedWindow('control')
 cv2.createTrackbar('resize_height', 'control', 800, 1600, nothing)
 cv2.createTrackbar('grad_min', 'control', 4, 255, nothing)
-cv2.createTrackbar('grad_min_blk', 'control', 8, 255, nothing)
+cv2.createTrackbar('grad_min_blk', 'control', 5, 255, nothing)
 cv2.createTrackbar('c1', 'control', 1, 1000, nothing)
 cv2.createTrackbar('c2', 'control', 1, 1000, nothing)
 
@@ -50,19 +50,23 @@ while 1:
     org, grey = pre.read_img(img_file, resize_height)
     # org = cv2.medianBlur(org, 3)
     # org = cv2.GaussianBlur(org, (3,3), 0)
+
     binary = pre.binarization(org, grad_min)
     binary_r = pre.reverse_binary(binary)
-    canny = cv2.Canny(grey, c1, c2)
-    hie, contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # blk.block_division(grey, grad_thresh=grad_min_blk, step_v=10, step_h=10, show=True)
+    cv2.imshow('bijn', binary)
+    cv2.imshow('r', binary_r)
+    cv2.waitKey(10)
+
+    # canny = cv2.Canny(grey, c1, c2)
+    # hie, contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     # b_contour = get_contour(org, binary)
     # c_contour = get_contour(org, canny)
+
     # b_contour = cv2.hconcat([b_contour, c_contour])
-    binary = cv2.hconcat([binary, binary_r, canny])
+    # binary = cv2.hconcat([binary, binary_r, canny])
 
-    # blk.block_division(grey, grad_thresh=grad_min_blk, show=True)
-
+    # cv2.imshow('org', org)
     # cv2.imshow('b_cnt', b_contour)
-    cv2.imshow('org', org)
-    cv2.imshow('bin', binary)
+    # cv2.imshow('bin', binary)
     # cv2.imshow('canny', canny)
-    cv2.waitKey(100)

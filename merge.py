@@ -3,9 +3,11 @@ import cv2
 import numpy as np
 from os.path import join as pjoin
 import os
+import time
 
 import lib_ip.ip_preprocessing as pre
 import lib_ip.file_utils as file
+import lib_ip.ip_detection as det
 from config.CONFIG import Config
 C = Config()
 
@@ -212,4 +214,5 @@ def incorporate(img_path, compo_path, text_path, output_root, resize_by_height=N
         cv2.imshow('merge', board)
         cv2.waitKey()
 
-    print('Merge Complete and Save to', pjoin(output_root, 'merge', name + '.json'), '\n')
+    print('Merge Complete and Save to', pjoin(output_root, 'merge', name + '.json'))
+    print(time.ctime(), '\n')
