@@ -65,7 +65,6 @@ def compo_detection(input_img_path, output_root,
 
     # *** Step 4 *** results refinement: remove top and bottom compos -> merge words into line
     uicompos = det.rm_top_or_bottom_corners(uicompos, org.shape)
-    draw.draw_bounding_box(org, uicompos, show=show)
     uicompos = det.merge_text(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show)
     uicompos = det.merge_intersected_corner(uicompos, org.shape)

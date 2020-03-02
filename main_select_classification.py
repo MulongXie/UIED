@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     is_ip = True
     is_ocr = False
-    is_merge = False
+    is_merge = True
 
     # switch of the classification func
     classifier = None
@@ -49,7 +49,7 @@ if __name__ == '__main__':
             ocr.east(input_path_img, output_root, resize_by_height=None, show=False, write_img=False)
 
         if is_ip:
-            ip.compo_detection(input_path_img, output_root, num, resize_by_height=resize_by_height, show=False, classifier=classifier)
+            ip.compo_detection(input_path_img, output_root, num, resize_by_height=resize_by_height, show=True, classifier=classifier)
 
         if is_merge:
             import merge

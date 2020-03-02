@@ -7,7 +7,7 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def draw_bounding_box_class(org, components, color_map=C.COLOR, line=2, show=False, write_path=None):
+def draw_bounding_box_class(org, components, color_map=C.COLOR, line=2, show=False, write_path=None, name='board'):
     """
     Draw bounding box of components with their classes on the original image
     :param org: original image
@@ -26,14 +26,14 @@ def draw_bounding_box_class(org, components, color_map=C.COLOR, line=2, show=Fal
         board = cv2.rectangle(board, (bbox[0], bbox[1]), (bbox[2], bbox[3]), color_map[compo.category], line)
         board = cv2.putText(board, compo.category, (bbox[0]+5, bbox[1]+20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color_map[compo.category], 2)
     if show:
-        cv2.imshow('a', board)
+        cv2.imshow(name, board)
         cv2.waitKey(0)
     if write_path is not None:
         cv2.imwrite(write_path, board)
     return board
 
 
-def draw_bounding_box(org, components, color=(0, 255, 0), line=2, show=False, write_path=None):
+def draw_bounding_box(org, components, color=(0, 255, 0), line=2, show=False, write_path=None, name='board'):
     """
     Draw bounding box of components on the original image
     :param org: original image
@@ -50,7 +50,7 @@ def draw_bounding_box(org, components, color=(0, 255, 0), line=2, show=False, wr
         bbox = compo.put_bbox()
         board = cv2.rectangle(board, (bbox[0], bbox[1]), (bbox[2], bbox[3]), color, line)
     if show:
-        cv2.imshow('a', board)
+        cv2.imshow(name, board)
         cv2.waitKey(0)
     if write_path is not None:
         cv2.imwrite(write_path, board)
