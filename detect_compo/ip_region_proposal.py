@@ -65,6 +65,7 @@ def compo_detection(input_img_path, output_root,
 
     # *** Step 4 *** results refinement: remove top and bottom compos -> merge words into line
     uicompos = det.rm_top_or_bottom_corners(uicompos, org.shape)
+    file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos)
     uicompos = det.merge_text(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show)
     uicompos = det.merge_intersected_corner(uicompos, org.shape)
@@ -90,3 +91,5 @@ def compo_detection(input_img_path, output_root,
     print("[Compo Detection Completed in %.3f s] %d %s" % (time.clock() - start, num, input_img_path))
     # Record run time
     open('time.txt', 'a').write(str(round(time.clock() - start, 3)) + '\n')
+    if show:
+        cv2.destroyAllWindows()
