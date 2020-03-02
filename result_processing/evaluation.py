@@ -127,7 +127,9 @@ def eval(detection, ground_truth, img_root, show=True):
 
     amount = len(detection)
     TP, FP, FN = 0, 0, 0
+    pres, recalls = [], []
     for i, image_id in enumerate(detection):
+        TP_this, FP_this, FN_this = 0, 0, 0
         img = cv2.imread(pjoin(img_root, image_id + '.jpg'))
         d_compos = detection[image_id]
         gt_compos = ground_truth[image_id]
@@ -136,24 +138,37 @@ def eval(detection, ground_truth, img_root, show=True):
         for d_bbox in d_compos['bboxes']:
             if match(img, d_bbox, gt_compos['bboxes'], matched):
                 TP += 1
+                TP_this += 1
             else:
                 FP += 1
+                FP_this += 1
         FN += sum(matched)
+        FN_this = sum(matched)
 
-        precesion = TP / (TP+FP)
-        recall = TP / (TP+FN)
+        pre_this = TP_this / (TP_this + FP_this)
+        recall_this = TP_this / (TP_this + FN_this)
+        pres.append(pre_this)
+        recalls.append(recall_this)
         if show:
             print(image_id + '.jpg')
-            print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (i, amount, TP, FP, FN, precesion, recall))
+            print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (
+            i, amount, TP_this, FP_this, FN_this, pre_this, recall_this))
             cv2.imshow('org', cv2.resize(img, (500, 1000)))
-            broad = draw_bounding_box(img,  d_compos['bboxes'], color=(255, 0, 0), line=3)
+            broad = draw_bounding_box(img, d_compos['bboxes'], color=(255, 0, 0), line=3)
             draw_bounding_box(broad, gt_compos['bboxes'], color=(0, 0, 255), show=True, line=2)
 
         if i % 200 == 0:
-            print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (i, amount, TP, FP, FN, precesion, recall))
+            precesion = TP / (TP + FP)
+            recall = TP / (TP + FN)
+            print(
+                '[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (i, amount, TP, FP, FN, precesion, recall))
 
+    precesion = TP / (TP + FP)
+    recall = TP / (TP + FN)
     print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (i, amount, TP, FP, FN, precesion, recall))
     # print("Average precision:%.4f; Average recall:%.3f" % (sum(pres)/len(pres), sum(recalls)/len(recalls)))
+
+    return pres, recalls
 
 
 no_text = False
