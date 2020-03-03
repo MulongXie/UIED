@@ -10,6 +10,7 @@ def cvt_compos_relative_pos(compos, col_min_base, row_min_base):
 
 
 def compos_containment(compos):
+    compos_update(compos)
     for i in range(len(compos) - 1):
         for j in range(i + 1, len(compos)):
             relation = compos[i].compo_relation(compos[j])
@@ -17,6 +18,11 @@ def compos_containment(compos):
                 compos[j].contain.append(i)
             if relation == 1:
                 compos[i].contain.append(j)
+
+
+def compos_update(compos):
+    for compo in compos:
+        compo.compo_update()
 
 
 class Component:
@@ -37,6 +43,12 @@ class Component:
 
         self.rect_ = None
         self.line_ = None
+
+    def compo_update(self):
+        self.width = self.bbox.width
+        self.height = self.bbox.height
+        self.bbox_area = self.bbox.box_area
+        self.area = self.width * self.height
 
     def put_bbox(self):
         return self.bbox.put_bbox()

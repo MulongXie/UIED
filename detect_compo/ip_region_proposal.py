@@ -76,7 +76,7 @@ def compo_detection(input_img_path, output_root,
     if classifier is not None:
         classifier['Image'].predict(seg.clipping(org, uicompos), uicompos)
         draw.draw_bounding_box_class(org, uicompos, show=show)
-        uicompos = det.rm_noise_in_large_img(uicompos, binary_org)
+        uicompos = det.rm_noise_in_large_img(uicompos, org)
         draw.draw_bounding_box_class(org, uicompos, show=show)
         det.detect_compos_in_img(uicompos, binary_org, org)
         draw.draw_bounding_box(org, uicompos, show=show)

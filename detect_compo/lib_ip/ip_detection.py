@@ -32,6 +32,7 @@ def merge_intersected_corner(compos, org_shape, max_compo_scale=C.THRESHOLD_COMP
         if not merged:
             new_compos.append(compos[i])
 
+    Compo.compos_update(compos)
     if not changed:
         return compos
     else:
@@ -150,9 +151,9 @@ def rm_line(binary,
         cv2.waitKey()
 
 
-def rm_noise_in_large_img(compos, binary,
+def rm_noise_in_large_img(compos, org,
                       max_compo_scale=C.THRESHOLD_COMPO_MAX_SCALE):
-    row, column = binary.shape[:2]
+    row, column = org.shape[:2]
     remain = np.full(len(compos), True)
     new_compos = []
     for compo in compos:
@@ -238,8 +239,9 @@ def component_detection(binary,
                 # ignore small area
                 if component.width <= 3 or component.height <= 3:
                     continue
-                # print('Area:%d' % (len(region)))
-                # draw.draw_boundary([component], binary.shape, show=True)
+                if test:
+                    print('Area:%d' % (len(region)))
+                    draw.draw_boundary([component], binary.shape, show=True)
                 # check if it is line by checking the length of edges
                 if component.area > min_obj_area * 5 and component.compo_is_line(line_thickness):
                     continue
@@ -247,7 +249,7 @@ def component_detection(binary,
 
                 if rec_detect:
                     # rectangle check
-                    if component.compo_is_rectangle(min_rec_evenness, max_dent_ratio, test=test):
+                    if component.compo_is_rectangle(min_rec_evenness, max_dent_ratio):
                         component.rect_ = True
                         compos_rec.append(component)
                     else:
