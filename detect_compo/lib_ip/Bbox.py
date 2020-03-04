@@ -42,7 +42,7 @@ class Bbox:
         else:
             return 2
 
-    def bbox_relation_nms(self, bbox_b):
+    def bbox_relation_nms(self, bbox_b, bias=1):
         '''
         Calculate the relation between two rectangles by nms
        :return: -1 : a in b
@@ -54,10 +54,10 @@ class Bbox:
         col_min_b, row_min_b, col_max_b, row_max_b = bbox_b.put_bbox()
 
         # get the intersected area
-        col_min_s = max(col_min_a, col_min_b)
-        row_min_s = max(row_min_a, row_min_b)
-        col_max_s = min(col_max_a, col_max_b)
-        row_max_s = min(row_max_a, row_max_b)
+        col_min_s = max(col_min_a - bias, col_min_b - bias)
+        row_min_s = max(row_min_a - bias, row_min_b - bias)
+        col_max_s = min(col_max_a + bias, col_max_b + bias)
+        row_max_s = min(row_max_a + bias, row_max_b + bias)
         w = np.maximum(0, col_max_s - col_min_s)
         h = np.maximum(0, row_max_s - row_min_s)
         inter = w * h

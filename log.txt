@@ -1,0 +1,12 @@
+4/3/2020
+
+1. Merge compos close to each other
+358.jpg (two close elements)
+# Add bias in bbox merge
+
+2. Adjust rectangle detection
+358.jpg (too loose) 2759.jpg (too tight)
+# if abs(depth) < 6 + adj_side * 0.015: -> if abs(depth) < 1 + adj_side * 0.015:
+
+2. Fix line removal
+809.jpg
