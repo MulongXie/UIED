@@ -16,7 +16,7 @@ def resize_label(bboxes, d_height, gt_height, bias=0):
 
 
 def draw_bounding_box(org, corners, color=(0, 255, 0), line=2, show=False):
-    board = org.copy()
+    board = cv2.resize(org, (608, 1024))
     for i in range(len(corners)):
         board = cv2.rectangle(board, (corners[i][0], corners[i][1]), (corners[i][2], corners[i][3]), color, line)
     if show:
@@ -25,7 +25,7 @@ def draw_bounding_box(org, corners, color=(0, 255, 0), line=2, show=False):
     return board
 
 
-def load_detect_result_json(reslut_file_root, shrink=0):
+def load_detect_result_json(reslut_file_root, shrink=3):
     def is_bottom_or_top(corner):
         column_min, row_min, column_max, row_max = corner
         if row_max < 36 or row_min > 725:
@@ -44,10 +44,14 @@ def load_detect_result_json(reslut_file_root, shrink=0):
             if is_bottom_or_top((compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max'])):
                 continue
             if img_name not in compos_reform:
-                compos_reform[img_name] = {'bboxes': [[compo['column_min'] + shrink, compo['row_min'] + shrink, compo['column_max'] - shrink, compo['row_max'] - shrink]],
+                compos_reform[img_name] = {'bboxes': [
+                    [compo['column_min'] + shrink, compo['row_min'] + shrink, compo['column_max'] - shrink,
+                     compo['row_max'] - shrink]],
                                            'categories': [compo['category']]}
             else:
-                compos_reform[img_name]['bboxes'].append([compo['column_min'] + shrink, compo['row_min'] + shrink, compo['column_max'] - shrink, compo['row_max'] - shrink])
+                compos_reform[img_name]['bboxes'].append(
+                    [compo['column_min'] + shrink, compo['row_min'] + shrink, compo['column_max'] - shrink,
+                     compo['row_max'] - shrink])
                 compos_reform[img_name]['categories'].append(compo['category'])
     return compos_reform
 
@@ -110,6 +114,7 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
         :return: Boolean: if IOU large enough or detected box is contained by ground truth
         '''
         area_d = (d_bbox[2] - d_bbox[0]) * (d_bbox[3] - d_bbox[1])
+        size = -1
         for i, gt_bbox in enumerate(gt_bboxes):
             if matched[i] == 0:
                 continue
@@ -131,15 +136,19 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
             #                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
             if iou > 0.9 or iod == 1:
+                if (gt_bbox[2] - gt_bbox[0]) < 64:
+                    size = 0
+                elif 64 < (gt_bbox[2] - gt_bbox[0]) < 128:
+                    size = 1
+                elif (gt_bbox[2] - gt_bbox[0]) > 128:
+                    size = 2
                 matched[i] = 0
-                return True
-        return False
+                return True, size
+        return False, size
 
     amount = len(detection)
-    TP, FP, FN = 0, 0, 0
-    pres, recalls, f1s = [], [], []
+    TP, FP, FN = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     for i, image_id in enumerate(detection):
-        TP_this, FP_this, FN_this = 0, 0, 0
         img = cv2.imread(pjoin(img_root, image_id + '.jpg'))
         d_compos = detection[image_id]
         if image_id not in ground_truth:
@@ -151,58 +160,60 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
         d_compos = compo_filter(d_compos, 'det')
         gt_compos = compo_filter(gt_compos, 'gt')
 
-        d_compos['bboxes'] = resize_label(d_compos['bboxes'], 800, org_height)
+        d_compos['bboxes'] = resize_label(d_compos['bboxes'], 800, 1024)
+        gt_compos['bboxes'] = resize_label(gt_compos['bboxes'], org_height, 1024)
         matched = np.ones(len(gt_compos['bboxes']), dtype=int)
         for d_bbox in d_compos['bboxes']:
-            if match(img, d_bbox, gt_compos['bboxes'], matched):
-                TP += 1
-                TP_this += 1
+            m, size = match(img, d_bbox, gt_compos['bboxes'], matched)
+            if m:
+                TP[size] += 1
             else:
-                FP += 1
-                FP_this += 1
-        FN += sum(matched)
-        FN_this = sum(matched)
+                h = d_bbox[2] - d_bbox[0]
+                if h < 64:
+                    size = 0
+                elif 64 < h < 128:
+                    size = 1
+                elif h > 128:
+                    size = 2
+                FP[size] += 1
 
-        try:
-            pre_this = TP_this / (TP_this + FP_this)
-            recall_this = TP_this / (TP_this + FN_this)
-            f1_this = 2 * (pre_this * recall_this) / (pre_this + recall_this)
-        except:
-            print('empty')
-            continue
+        for i in range(len(matched)):
+            if matched[i] == 1:
+                gt_bboxes = gt_compos['bboxes']
+                h = gt_bboxes[i][2] - gt_bboxes[i][0]
+                if h < 64:
+                    size = 0
+                elif 64 < h < 128:
+                    size = 1
+                elif h > 128:
+                    size = 2
+                FN[size] += 1
 
-        pres.append(pre_this)
-        recalls.append(recall_this)
-        f1s.append(f1_this)
         if show:
             print(image_id + '.jpg')
-            print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f' % (
-                i, amount, TP_this, FP_this, FN_this, pre_this, recall_this))
             # cv2.imshow('org', cv2.resize(img, (500, 1000)))
             broad = draw_bounding_box(img, d_compos['bboxes'], color=(255, 0, 0), line=3)
             draw_bounding_box(broad, gt_compos['bboxes'], color=(0, 0, 255), show=True, line=2)
 
         if i % 200 == 0:
-            precision = TP / (TP + FP)
-            recall = TP / (TP + FN)
-            f1 = 2 * (precision * recall) / (precision + recall)
+            precision = [round(TP[i] / (TP[i] + FP[i]),3) for i in range(len(TP))]
+            recall = [round(TP[i] / (TP[i] + FN[i]),3) for i in range(len(TP))]
+            f1 = [round(2 * (precision[i] * recall[i]) / (precision[i] + recall[i]), 3) for i in range(3)]
             print(
-                '[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f, F1:%.3f' % (i, amount, TP, FP, FN, precision, recall, f1))
+                '[%d/%d] TP:%s, FP:%s, FN:%s, Precesion:%s, Recall:%s, F1:%s' % (
+                i, amount, str(TP), str(FP), str(FN), str(precision), str(recall), str(f1)))
 
-    precision = TP / (TP + FP)
-    recall = TP / (TP + FN)
-    print('[%d/%d] TP:%d, FP:%d, FN:%d, Precesion:%.3f, Recall:%.3f, F1:%.3f' % (i, amount, TP, FP, FN, precision, recall, f1))
+    precision = [round(TP[i] / (TP[i] + FP[i]),3) for i in range(len(TP))]
+    recall = [round(TP[i] / (TP[i] + FN[i]),3) for i in range(len(TP))]
+    f1 = [round(2 * (precision[i] * recall[i]) / (precision[i] + recall[i]), 3) for i in range(3)]
+    print(
+        '[%d/%d] TP:%s, FP:%s, FN:%s, Precesion:%s, Recall:%s, F1:%s' % (
+            i, amount, str(TP), str(FP), str(FN), str(precision), str(recall), str(f1)))
     # print("Average precision:%.4f; Average recall:%.3f" % (sum(pres)/len(pres), sum(recalls)/len(recalls)))
-
-    return pres, recalls, f1s
 
 
 no_text = False
 only_text = False
-
-detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\ip')
-# detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\merge')
-# detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\merge')
-# detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\ocr')
+detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\merge')
 gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_test.json')
 eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False, no_text=no_text, only_text=only_text)

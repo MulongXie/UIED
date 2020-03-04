@@ -5,6 +5,10 @@ from glob import glob
 from os.path import join as pjoin
 from tqdm import tqdm
 
+class_map = {'0':'Button', '1':'CheckBox', '2':'Chronometer', '3':'EditText', '4':'ImageButton', '5':'ImageView',
+               '6':'ProgressBar', '7':'RadioButton', '8':'RatingBar', '9':'SeekBar', '10':'Spinner', '11':'Switch',
+               '12':'ToggleButton', '13':'VideoView', '14':'TextView'}
+
 
 def resize_label(bboxes, d_height, gt_height, bias=0):
     bboxes_new = []
@@ -20,12 +24,12 @@ def draw_bounding_box(org, corners, color=(0, 255, 0), line=2, show=False):
     for i in range(len(corners)):
         board = cv2.rectangle(board, (corners[i][0], corners[i][1]), (corners[i][2], corners[i][3]), color, line)
     if show:
-        cv2.imshow('a', board)
+        cv2.imshow('a', cv2.resize(board, (500, 1000)))
         cv2.waitKey(0)
     return board
 
 
-def load_detect_result_json(reslut_file_root, shrink=0):
+def load_detect_result_json(reslut_file_root, shrink=4):
     def is_bottom_or_top(corner):
         column_min, row_min, column_max, row_max = corner
         if row_max < 36 or row_min > 725:
@@ -74,10 +78,10 @@ def load_ground_truth_json(gt_file):
     for annot in tqdm(annots):
         img_name, size = get_img_by_id(annot['image_id'])
         if img_name not in compos:
-            compos[img_name] = {'bboxes': [cvt_bbox(annot['bbox'])], 'categories': [annot['category_id']], 'size': size}
+            compos[img_name] = {'bboxes': [cvt_bbox(annot['bbox'])], 'categories': [class_map[str(annot['category_id'])]], 'size': size}
         else:
             compos[img_name]['bboxes'].append(cvt_bbox(annot['bbox']))
-            compos[img_name]['categories'].append(annot['category_id'])
+            compos[img_name]['categories'].append(class_map[str(annot['category_id'])])
     return compos
 
 
@@ -90,19 +94,19 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
             if only_text:
                 if flag == 'det' and category != 'TextView':
                     continue
-                if flag == 'gt' and int(category) != 14:
+                if flag == 'gt' and category != 'TextView':
                     continue
             elif no_text:
                 if flag == 'det' and category == 'TextView':
                     continue
-                if flag == 'gt' and int(category) == 14:
+                if flag == 'gt' and category == 'TextView':
                     continue
 
             compos_new['bboxes'].append(compos['bboxes'][k])
             compos_new['categories'].append(category)
         return compos_new
 
-    def match(org, d_bbox, gt_bboxes, matched):
+    def match(org, d_bbox, d_category, gt_compos, matched):
         '''
         :param matched: mark if the ground truth component is matched
         :param d_bbox: [col_min, row_min, col_max, row_max]
@@ -110,6 +114,8 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
         :return: Boolean: if IOU large enough or detected box is contained by ground truth
         '''
         area_d = (d_bbox[2] - d_bbox[0]) * (d_bbox[3] - d_bbox[1])
+        gt_bboxes = gt_compos['bboxes']
+        gt_categories = gt_compos['categories']
         for i, gt_bbox in enumerate(gt_bboxes):
             if matched[i] == 0:
                 continue
@@ -131,8 +137,9 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
             #                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
             if iou > 0.9 or iod == 1:
-                matched[i] = 0
-                return True
+                if d_category == gt_categories[i]:
+                    matched[i] = 0
+                    return True
         return False
 
     amount = len(detection)
@@ -153,8 +160,8 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
 
         d_compos['bboxes'] = resize_label(d_compos['bboxes'], 800, org_height)
         matched = np.ones(len(gt_compos['bboxes']), dtype=int)
-        for d_bbox in d_compos['bboxes']:
-            if match(img, d_bbox, gt_compos['bboxes'], matched):
+        for j, d_bbox in enumerate(d_compos['bboxes']):
+            if match(img, d_bbox, d_compos['categories'][j], gt_compos, matched):
                 TP += 1
                 TP_this += 1
             else:
@@ -197,12 +204,12 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
     return pres, recalls, f1s
 
 
-no_text = False
+no_text = True
 only_text = False
 
-detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\ip')
+# detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\ip')
 # detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\merge')
-# detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\merge')
+detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\merge')
 # detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\ocr')
 gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_test.json')
 eval(detect, gt, 'E:\\Mulong\\Datasets\\rico\\combined', show=False, no_text=no_text, only_text=only_text)

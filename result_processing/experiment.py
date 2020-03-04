@@ -29,7 +29,7 @@ def get_contour(org, binary):
     return board
 
 
-img_file = 'E:\\Mulong\\Datasets\\rico\\combined\\2759.jpg'
+img_file = 'E:\\Mulong\\Datasets\\rico\\combined\\1014.jpg'
 resize_height = 800
 
 cv2.namedWindow('control')
