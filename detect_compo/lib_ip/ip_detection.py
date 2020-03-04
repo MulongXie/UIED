@@ -260,7 +260,7 @@ def component_detection(binary,
                     print('Area:%d' % (len(region)))
                     draw.draw_boundary(compos_all, binary.shape, show=True)
 
-    # draw.draw_boundary(boundary_all, binary.shape, show=True)
+    # draw.draw_boundary(compos_all, binary.shape, show=True)
     if rec_detect:
         return compos_rec, compos_nonrec
     else:

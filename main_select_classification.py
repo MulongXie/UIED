@@ -34,8 +34,8 @@ if __name__ == '__main__':
             classifier['Image'] = CNN('Image')
             classifier['Elements'] = CNN('Elements')
     # set the range of target inputs' indices
-    num = 1092
-    start_index = 2759
+    num = 4202
+    start_index = 65010  # 61728
     end_index = 100000
     for input_path_img in input_paths_img:
         index = input_path_img.split('\\')[-1][:-4]
@@ -46,15 +46,15 @@ if __name__ == '__main__':
 
         if is_ocr:
             import ocr_east as ocr
-            ocr.east(input_path_img, output_root, resize_by_height=None, show=False, write_img=False)
+            ocr.east(input_path_img, output_root, resize_by_height=None, show=False, write_img=True)
 
         if is_ip:
-            ip.compo_detection(input_path_img, output_root, num, resize_by_height=resize_by_height, show=True, classifier=classifier)
+            ip.compo_detection(input_path_img, output_root, num, resize_by_height=resize_by_height, show=False, classifier=classifier)
 
         if is_merge:
             import merge
             compo_path = pjoin(output_root, 'ip', str(index) + '.json')
             ocr_path = pjoin(output_root, 'ocr', str(index) + '.json')
-            merge.incorporate(input_path_img, compo_path, ocr_path, output_root, resize_by_height=resize_by_height, show=True)
+            merge.incorporate(input_path_img, compo_path, ocr_path, output_root, resize_by_height=resize_by_height, show=False, write_img=True)
 
         num += 1
