@@ -166,6 +166,8 @@ class Component:
             print(flat / parameter, '\n')
             draw.draw_boundary([self], self.image_shape, show=True)
         # ignore text and irregular shape
+        if self.height / self.image_shape[0] > 0.3:
+            min_rec_evenness = 0.85
         if (flat / parameter) < min_rec_evenness:
             self.rect_ = False
             return False
