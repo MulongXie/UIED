@@ -1,4 +1,5 @@
 import numpy as np
+import lib_ip.ip_draw as draw
 
 
 class Bbox:
@@ -70,11 +71,18 @@ class Bbox:
         # not intersected with each other
         if iou == 0:
             return 0
+
+        # import lib_ip.ip_preprocessing as pre
+        # org_iou, _ = pre.read_img("E:\\Mulong\\Datasets\\rico\\combined\\472.jpg", 800)
+        # print(iou, ioa, iob)
+        # board = draw.draw_bounding_box(org_iou, [self], color=(255,0,0))
+        # draw.draw_bounding_box(board, [bbox_b], color=(0,255,0), show=True)
+
         # contained by b
-        if ioa > 0.95:
+        if ioa >= 1:
             return -1
         # contains b
-        if iob > 0.95:
+        if iob >= 1:
             return 1
         # intersected
         return 2
