@@ -151,6 +151,15 @@ def rm_line(binary,
         cv2.waitKey()
 
 
+def rm_noise_compos(compos):
+    compos_new = []
+    for compo in compos:
+        if compo.category == 'Noise':
+            continue
+        compos_new.append(compo)
+    return compos_new
+
+
 def rm_noise_in_large_img(compos, org,
                       max_compo_scale=C.THRESHOLD_COMPO_MAX_SCALE):
     row, column = org.shape[:2]

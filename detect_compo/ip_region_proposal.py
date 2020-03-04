@@ -41,7 +41,7 @@ def processing_block(org, binary, blocks, block_pad):
 
 
 def compo_detection(input_img_path, output_root,
-                    num=0, resize_by_height=600, block_pad=4,
+                    num=0, resize_by_height=600, block_pad=0,
                     classifier=None, show=False, write_img=True):
     start = time.clock()
     name = input_img_path.split('\\')[-1][:-4]
@@ -58,7 +58,7 @@ def compo_detection(input_img_path, output_root,
     uicompos_in_blk = processing_block(org, binary, blocks, block_pad)
 
     # *** Step 3 *** non-block part processing: remove lines -> erase blocks from binary -> detect left components
-    det.rm_line(binary)
+    det.rm_line(binary, show=True)
     blk.block_bin_erase_all_blk(binary, blocks, block_pad)
     uicompos_not_in_blk = det.component_detection(binary)
     uicompos = uicompos_in_blk + uicompos_not_in_blk
@@ -80,6 +80,11 @@ def compo_detection(input_img_path, output_root,
         draw.draw_bounding_box_class(org, uicompos, show=show)
         det.detect_compos_in_img(uicompos, binary_org, org)
         draw.draw_bounding_box(org, uicompos, show=show)
+
+    # if classifier is not None:
+    #     classifier['Noise'].predict(seg.clipping(org, uicompos), uicompos)
+    #     draw.draw_bounding_box_class(org, uicompos, show=show)
+    #     uicompos = det.rm_noise_compos(uicompos)
 
     # *** Step 6 *** element classification: all category classification
     if classifier is not None:
