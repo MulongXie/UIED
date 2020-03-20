@@ -95,7 +95,7 @@ def rm_top_or_bottom_corners(components, org_shape, top_bottom_height=C.THRESHOL
 def rm_line(binary,
                  max_line_thickness=C.THRESHOLD_LINE_THICKNESS,
                  min_line_length_ratio=C.THRESHOLD_LINE_MIN_LENGTH,
-                 show=False):
+                 show=True):
     width = binary.shape[1]
     thickness = 0
     gap = 0
@@ -129,7 +129,7 @@ def rm_line(binary,
                 gap += 1
                 if start != -1 and end == -1:
                     end = i
-                if 0 < end - start < max_line_thickness < gap:
+                if 0 < end - start < max_line_thickness and gap >= 1:
                     # print(line_length / width, end - start, (sum(row) / 255) / width,
                     #       (sum(binary[i - thickness]) / 255) / width)
                     # broad[start: end] = binary[start: end]
@@ -138,7 +138,7 @@ def rm_line(binary,
                     binary[start: end] = 0
                     start, end = -1, -1
             else:
-                if 0 < end - start < max_line_thickness < gap:
+                if 0 < end - start < max_line_thickness and gap >= 1:
                     # print(line_length / width, end - start, (sum(row) / 255) / width,
                     #       (sum(binary[i - thickness]) / 255) / width)
                     # broad[start: end] = binary[start: end]
@@ -166,7 +166,7 @@ def rm_noise_in_large_img(compos, org,
     remain = np.full(len(compos), True)
     new_compos = []
     for compo in compos:
-        if compo.category == 'Image' and compo.height / row > max_compo_scale[0]:
+        if compo.category == 'Image':
             for i in compo.contain:
                 remain[i] = False
     for i in range(len(remain)):
@@ -179,7 +179,7 @@ def detect_compos_in_img(compos, binary, org, max_compo_scale=C.THRESHOLD_COMPO_
     compos_new = []
     row, column = binary.shape[:2]
     for compo in compos:
-        if compo.category == 'Image' and compo.height / row > max_compo_scale[0]:
+        if compo.category == 'Image':
             compo.compo_update_bbox_area()
             # org_clip = compo.compo_clipping(org)
             # bin_clip = pre.binarization(org_clip, show=show)
@@ -200,6 +200,17 @@ def detect_compos_in_img(compos, binary, org, max_compo_scale=C.THRESHOLD_COMPO_
             #     if compo_inner.bbox_area / compo.bbox_area < 0.8:
             #         compos_new.append(compo_inner)
     compos += compos_new
+
+
+def compo_filter(compos, org):
+    compos_new = []
+    for compo in compos:
+        if compo.height < 26 and compo.width < 26:
+            continue
+        if compo.category == 'TextView' and compo.height > 100 and compo.width / org.shape[1] < 0.9:
+            compo.category = 'ImageView'
+        compos_new.append(compo)
+    return compos_new
 
 
 # take the binary image as input

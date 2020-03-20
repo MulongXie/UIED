@@ -24,12 +24,25 @@ def draw_bounding_box_class(org, corners, compo_class, color_map=C.COLOR, line=2
     return board
 
 
-def draw_bounding_box(org, corners, color=(0, 255, 0), line=3, show=False):
+def draw_bounding_box(org, corners,  color=(0, 255, 0), line=3, show=False, name='board'):
     board = org.copy()
     for i in range(len(corners)):
         board = cv2.rectangle(board, (corners[i][0], corners[i][1]), (corners[i][2], corners[i][3]), color, line)
     if show:
-        cv2.imshow('a', board)
+        cv2.imshow(name, board)
+        cv2.waitKey(0)
+    return board
+
+
+def draw_bounding_box_non_text(org, corners_compo, compos_class, org_shape=None, color=(0, 255, 0), line=2, show=False, name='non-text'):
+    board = org.copy()
+    for i, corner in enumerate(corners_compo):
+        if compos_class[i] != 'TextView' or (corner[2] - corner[0]) / org_shape[1] > 0.9:
+            board = cv2.rectangle(board, (corner[0], corner[1]), (corner[2], corner[3]), color, line)
+    if show:
+        board_org_size = cv2.resize(board, (org_shape[1], org_shape[0]))
+        board_org_size = board_org_size[100:-110]
+        cv2.imshow(name, cv2.resize(board_org_size, (board.shape[1], board.shape[0])))
         cv2.waitKey(0)
     return board
 
@@ -95,7 +108,7 @@ def nms(org, corners_compo_old, compos_class_old, corner_text):
             if iou > 0.5 or ioa >= 0.9:
                 new_corner = merge_two_corners(a, b)
                 break
-            text_area += inter
+            # text_area += inter
 
         if new_corner is not None:
             corners_compo_refine.append(new_corner)
@@ -201,11 +214,13 @@ def incorporate(img_path, compo_path, text_path, output_root, resize_by_height=N
     bbox_text = resize_label(bbox_text, resize_by_height, org.shape[0])
 
     org_resize = resize_img_by_height(org, resize_by_height)
-    draw_bounding_box_class(org_resize, bbox_compos, class_compos, show=show)
-    draw_bounding_box(org_resize, bbox_text, show=show)
+    draw_bounding_box_class(org_resize, bbox_compos, class_compos, show=show, name='ip')
+    draw_bounding_box(org_resize, bbox_text, show=show, name='ocr')
+
     corners_compo_new, compos_class_new = nms(org_resize, bbox_compos, class_compos, bbox_text)
     corners_compo_new = refine_corner(corners_compo_new, shrink=0)
     board = draw_bounding_box_class(org_resize, corners_compo_new, compos_class_new)
+    draw_bounding_box_non_text(org_resize, corners_compo_new, compos_class_new, org_shape=org.shape, show=True)
 
     save_corners_json(pjoin(output_root, 'merge', name + '.json'), corners_compo_new, compos_class_new)
     if write_img:

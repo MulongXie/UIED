@@ -33,7 +33,7 @@ def draw_bounding_box_class(org, components, color_map=C.COLOR, line=2, show=Fal
     return board
 
 
-def draw_bounding_box(org, components, color=(0, 255, 0), line=1, show=False, write_path=None, name='board'):
+def draw_bounding_box(org, components, color=(0, 255, 0), line=2, show=False, write_path=None, name='board'):
     """
     Draw bounding box of components on the original image
     :param org: original image
@@ -53,6 +53,8 @@ def draw_bounding_box(org, components, color=(0, 255, 0), line=1, show=False, wr
         cv2.imshow(name, board)
         cv2.waitKey(0)
     if write_path is not None:
+        board = cv2.resize(board, (1080, 1920))
+        board = board[100:-110]
         cv2.imwrite(write_path, board)
     return board
 

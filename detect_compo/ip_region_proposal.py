@@ -41,7 +41,7 @@ def processing_block(org, binary, blocks, block_pad):
 
 
 def compo_detection(input_img_path, output_root,
-                    num=0, resize_by_height=600, block_pad=0,
+                    num=0, resize_by_height=600, block_pad=4,
                     classifier=None, show=False, write_img=True):
     start = time.clock()
     name = input_img_path.split('\\')[-1][:-4]
@@ -53,12 +53,12 @@ def compo_detection(input_img_path, output_root,
     binary_org = binary.copy()
 
     # *** Step 2 *** block processing: detect block -> calculate hierarchy -> detect components in block
-    blocks = blk.block_division(grey, show=show, write_path=pjoin(ip_root, name + '_block.png') if write_img else None)
+    blocks = blk.block_division(grey, org, show=show, write_path=pjoin(ip_root, name + '_block.png') if write_img else None)
     blk.block_hierarchy(blocks)
     uicompos_in_blk = processing_block(org, binary, blocks, block_pad)
 
     # *** Step 3 *** non-block part processing: remove lines -> erase blocks from binary -> detect left components
-    det.rm_line(binary, show=True)
+    det.rm_line(binary)
     blk.block_bin_erase_all_blk(binary, blocks, block_pad)
     uicompos_not_in_blk = det.component_detection(binary)
     uicompos = uicompos_in_blk + uicompos_not_in_blk
@@ -68,9 +68,9 @@ def compo_detection(input_img_path, output_root,
     file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos)
     uicompos = det.merge_text(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show)
-    uicompos = det.merge_intersected_corner(uicompos, org.shape)
+    # uicompos = det.merge_intersected_corner(uicompos, org.shape)
     Compo.compos_containment(uicompos)
-    draw.draw_bounding_box(org, uicompos, show=show, write_path=pjoin(ip_root, name + '_ip.png') if write_img else None)
+    # draw.draw_bounding_box(org, uicompos, show=show, write_path=pjoin(ip_root, name + '_ip.png') if write_img else None)
 
     # *** Step 5 *** Image Inspection: recognize image -> remove noise in image -> binarize with larger threshold and reverse -> rectangular compo detection
     if classifier is not None:
@@ -91,6 +91,8 @@ def compo_detection(input_img_path, output_root,
         classifier['Elements'].predict(seg.clipping(org, uicompos), uicompos)
         draw.draw_bounding_box_class(org, uicompos, show=show, write_path=pjoin(ip_root, name + '_cls.png'))
 
+    uicompos = det.compo_filter(uicompos, org)
+    draw.draw_bounding_box(org, uicompos, show=show)
     file.save_corners_json(pjoin(ip_root, name + '.json'), uicompos)
 
     print("[Compo Detection Completed in %.3f s] %d %s" % (time.clock() - start, num, input_img_path))

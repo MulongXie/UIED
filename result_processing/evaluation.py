@@ -20,12 +20,12 @@ def draw_bounding_box(org, corners, color=(0, 255, 0), line=2, show=False):
     for i in range(len(corners)):
         board = cv2.rectangle(board, (corners[i][0], corners[i][1]), (corners[i][2], corners[i][3]), color, line)
     if show:
-        cv2.imshow('a', board)
+        cv2.imshow('a', cv2.resize(board, (500, 1000)))
         cv2.waitKey(0)
     return board
 
 
-def load_detect_result_json(reslut_file_root, shrink=0):
+def load_detect_result_json(reslut_file_root, shrink=4):
     def is_bottom_or_top(corner):
         column_min, row_min, column_max, row_max = corner
         if row_max < 36 or row_min > 725:
@@ -197,11 +197,11 @@ def eval(detection, ground_truth, img_root, show=True, no_text=False, only_text=
     return pres, recalls, f1s
 
 
-no_text = False
+no_text = True
 only_text = False
 
-detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\ip')
-# detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\merge')
+# detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\ip')
+detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_cls\\merge')
 # detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\merge')
 # detect = load_detect_result_json('E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3\\ocr')
 gt = load_ground_truth_json('E:\\Mulong\\Datasets\\rico\\instances_test.json')

@@ -43,7 +43,8 @@ def block_bin_erase_all_blk(binary, blocks, pad=0, show=False):
         cv2.waitKey()
 
 
-def block_division(grey, show=False, write_path=None,
+def block_division(grey, org,
+                   show=False, write_path=None,
                    step_h=10, step_v=10,
                    grad_thresh=C.THRESHOLD_BLOCK_GRADIENT,
                    line_thickness=C.THRESHOLD_LINE_THICKNESS,
@@ -59,7 +60,7 @@ def block_division(grey, show=False, write_path=None,
     blocks = []
     mask = np.zeros((grey.shape[0]+2, grey.shape[1]+2), dtype=np.uint8)
     broad = np.zeros((grey.shape[0], grey.shape[1], 3), dtype=np.uint8)
-    # broad_all = broad.copy()
+    broad_all = broad.copy()
 
     row, column = grey.shape[0], grey.shape[1]
     for x in range(0, row, step_h):
@@ -78,11 +79,15 @@ def block_division(grey, show=False, write_path=None,
                 if len(region) < 500:
                     continue
                 block = Block(region, grey.shape)
+
+                draw.draw_region(region, broad_all)
+                if block.height < 40 and block.width < 40:
+                    continue
+
                 # get the boundary of this region
                 # ignore lines
                 if block.compo_is_line(line_thickness):
                     continue
-                # draw.draw_region(region, broad_all)
                 # ignore non-rectangle as blocks must be rectangular
                 if not block.compo_is_rectangle(min_rec_evenness, max_dent_ratio):
                     continue
@@ -91,7 +96,7 @@ def block_division(grey, show=False, write_path=None,
                 blocks.append(block)
                 draw.draw_region(region, broad)
     if show:
-        # cv2.imshow('flood-fill all', broad_all)
+        cv2.imshow('flood-fill all', broad_all)
         cv2.imshow('block', broad)
         cv2.waitKey()
     if write_path is not None:
