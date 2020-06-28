@@ -95,57 +95,56 @@ def rm_top_or_bottom_corners(components, org_shape, top_bottom_height=C.THRESHOL
 def rm_line(binary,
                  max_line_thickness=C.THRESHOLD_LINE_THICKNESS,
                  min_line_length_ratio=C.THRESHOLD_LINE_MIN_LENGTH,
-                 show=True):
+                 show=False):
     width = binary.shape[1]
-    thickness = 0
-    gap = 0
     broad = np.zeros(binary.shape[:2], dtype=np.uint8)
 
-    line_length = 0
-    start, end = -1, -1
+    start_row, end_row = -1, -1
+    check_line = False
     for i, row in enumerate(binary):
-        # line_cut = 0
-        # for j, point in enumerate(row):
-        #     if point != 0:
-        #         line_cut = 0
-        #         line_length += 1
-        #     else:
-        #         line_cut += 1
-        #         if line_cut >= 5:
-        #             if j > width * (1 - min_line_length_ratio):
-        #                 break
+        # if current row could be a part of line
+        if (sum(row) / 255) / width > 0.9:
+            # new start: if it is checking a new line, mark this row as start
+            if not check_line:
+                start_row = i
+                check_line = True
 
-        if (sum(row) / 255) / width > min_line_length_ratio:
-            # print(gap, start, end)
-            # broad[i] = binary[i]
-            # cv2.imshow('line', broad)
-            # cv2.waitKey()
-            gap = 0
-            if start == -1:
-                start = i
-            line_length = max(line_length, sum(row) / 255)
-        else:
-            if (sum(row) / 255) / width < 0.3:
-                gap += 1
-                if start != -1 and end == -1:
-                    end = i
-                if 0 < end - start < max_line_thickness and gap >= 1:
-                    # print(line_length / width, end - start, (sum(row) / 255) / width,
-                    #       (sum(binary[i - thickness]) / 255) / width)
-                    # broad[start: end] = binary[start: end]
-                    # cv2.imshow('line', broad)
-                    # cv2.waitKey()
-                    binary[start: end] = 0
-                    start, end = -1, -1
-            else:
-                if 0 < end - start < max_line_thickness and gap >= 1:
-                    # print(line_length / width, end - start, (sum(row) / 255) / width,
-                    #       (sum(binary[i - thickness]) / 255) / width)
-                    # broad[start: end] = binary[start: end]
-                    # cv2.imshow('line', broad)
-                    # cv2.waitKey()
-                    binary[start: end] = 0
-                start, end = -1, -1
+            # checking line by gap: if the checked line is ended, then check if the line is valid based on its gap
+            elif end_row != -1:
+                # invalid line: gap is too small
+                if i - end_row < max_line_thickness:
+                    start_row, end_row = -1, -1
+                    check_line = False
+                # valid line
+                else:
+                    start_row = start_row - 1 if start_row > 1 else start_row
+                    binary[start_row: end_row] = 0
+                    start_row, end_row = -1, -1
+                    check_line = False
+
+        # if current row is unlike to be a part of a line
+        elif (sum(row) / 255) / width < 0.3:
+            # end line: if it is checking a new line, mark this row as the end of the possible line and start counting the gap
+            if check_line:
+                if end_row == -1:
+                    end_row = i
+                    # check line: if the thickness of the line is too large, then invalid
+                    if end_row - start_row > max_line_thickness:
+                        start_row, end_row = -1, -1
+                        check_line = False
+
+        if i > len(binary) - max_line_thickness - 1:
+            if check_line:
+                if end_row == -1:
+                    if i - start_row > max_line_thickness:
+                        start_row, end_row = -1, -1
+                        check_line = False
+                    else:
+                        start_row = start_row - 1 if start_row > 1 else start_row
+                        binary[start_row - 1: end_row] = 0
+                        start_row, end_row = -1, -1
+                        check_line = False
+
     if show:
         cv2.imshow('no-line', binary)
         cv2.waitKey()

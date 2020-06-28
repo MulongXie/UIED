@@ -8,9 +8,9 @@ input_path_img = 'data\\input\\11300.jpg'
 output_root = 'data\\output'
 
 is_ip = True
-is_clf = True
-is_ocr = True
-is_merge = True
+is_clf = False
+is_ocr = False
+is_merge = False
 
 if is_ocr:
     import ocr_east as ocr
@@ -27,7 +27,7 @@ if is_ip:
         classifier['Elements'] = CNN('Elements')
         classifier['Noise'] = CNN('Noise')
 
-    ip.compo_detection(input_path_img, output_root, resize_by_height=resize_by_height, show=False,
+    ip.compo_detection(input_path_img, output_root, resize_by_height=resize_by_height, show=True,
                        classifier=classifier)
 
 if is_merge:
