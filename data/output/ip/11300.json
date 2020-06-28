@@ -1,0 +1,166 @@
+{
+    "compos": [
+        {
+            "row_max": 235,
+            "category": "ImageView",
+            "width": 189,
+            "height": 103,
+            "row_min": 132,
+            "column_max": 397,
+            "column_min": 208
+        },
+        {
+            "row_max": 296,
+            "category": "ImageView",
+            "width": 45,
+            "height": 22,
+            "row_min": 274,
+            "column_max": 223,
+            "column_min": 178
+        },
+        {
+            "row_max": 300,
+            "category": "TextView",
+            "width": 88,
+            "height": 26,
+            "row_min": 274,
+            "column_max": 314,
+            "column_min": 226
+        },
+        {
+            "row_max": 498,
+            "category": "ImageView",
+            "width": 238,
+            "height": 176,
+            "row_min": 322,
+            "column_max": 486,
+            "column_min": 248
+        },
+        {
+            "row_max": 538,
+            "category": "TextView",
+            "width": 102,
+            "height": 27,
+            "row_min": 511,
+            "column_max": 241,
+            "column_min": 139
+        },
+        {
+            "row_max": 538,
+            "category": "TextView",
+            "width": 101,
+            "height": 26,
+            "row_min": 512,
+            "column_max": 484,
+            "column_min": 383
+        },
+        {
+            "row_max": 534,
+            "category": "ImageView",
+            "width": 33,
+            "height": 16,
+            "row_min": 518,
+            "column_max": 43,
+            "column_min": 10
+        },
+        {
+            "row_max": 534,
+            "category": "TextView",
+            "width": 32,
+            "height": 17,
+            "row_min": 517,
+            "column_max": 284,
+            "column_min": 252
+        },
+        {
+            "row_max": 729,
+            "category": "ImageView",
+            "width": 238,
+            "height": 176,
+            "row_min": 553,
+            "column_max": 244,
+            "column_min": 6
+        },
+        {
+            "row_max": 729,
+            "category": "ImageView",
+            "width": 238,
+            "height": 176,
+            "row_min": 553,
+            "column_max": 486,
+            "column_min": 248
+        },
+        {
+            "row_max": 492,
+            "category": "ImageView",
+            "width": 230,
+            "height": 169,
+            "row_min": 323,
+            "column_max": 240,
+            "column_min": 10
+        },
+        {
+            "row_max": 769,
+            "category": "ImageView",
+            "width": 28,
+            "height": 23,
+            "row_min": 746,
+            "column_max": 137,
+            "column_min": 109
+        },
+        {
+            "row_max": 235,
+            "category": "ImageView",
+            "width": 241,
+            "height": 184,
+            "row_min": 51,
+            "column_max": 241,
+            "column_min": 0
+        },
+        {
+            "row_max": 62,
+            "category": "TextView",
+            "width": 42,
+            "height": 11,
+            "row_min": 51,
+            "column_max": 303,
+            "column_min": 261
+        },
+        {
+            "row_max": 235,
+            "category": "ImageView",
+            "width": 90,
+            "height": 184,
+            "row_min": 51,
+            "column_max": 492,
+            "column_min": 402
+        },
+        {
+            "row_max": 106,
+            "category": "ImageView",
+            "width": 84,
+            "height": 41,
+            "row_min": 65,
+            "column_max": 346,
+            "column_min": 262
+        },
+        {
+            "row_max": 95,
+            "category": "ImageView",
+            "width": 34,
+            "height": 33,
+            "row_min": 62,
+            "column_max": 406,
+            "column_min": 372
+        },
+        {
+            "row_max": 234,
+            "category": "ImageButton",
+            "width": 37,
+            "height": 102,
+            "row_min": 133,
+            "column_max": 438,
+            "column_min": 402
+        }
+    ]
+}

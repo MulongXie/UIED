@@ -4,13 +4,12 @@ import ip_region_proposal as ip
 resize_by_height = 800
 
 # set input image path
-# PATH_IMG_INPUT = 'E:\\Mulong\\Datasets\\rico\\combined\\23.jpg'
-input_path_img = 'data\\input\\a.png'
+input_path_img = 'data\\input\\11300.jpg'
 output_root = 'data\\output'
 
 is_ip = True
 is_clf = True
-is_ocr = False
+is_ocr = True
 is_merge = True
 
 if is_ocr:
