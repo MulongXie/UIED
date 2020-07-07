@@ -18,6 +18,7 @@ class Config:
         self.THRESHOLD_BLOCK_MIN_HEIGHT = 0.03  # 24/800
 
         # deprecated
+        # self.THRESHOLD_OBJ_MIN_PERIMETER = 0
         # self.THRESHOLD_BLOCK_MAX_BORDER_THICKNESS = 8
         # self.THRESHOLD_BLOCK_MAX_CROSS_POINT = 0.1
         # self.THRESHOLD_UICOMPO_MIN_W_H_RATIO = 0.4
