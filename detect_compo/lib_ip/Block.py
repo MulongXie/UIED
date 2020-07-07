@@ -9,11 +9,12 @@ from lib_ip.Component import Component
 class Block(Component):
     def __init__(self, region, image_shape):
         super().__init__(region, image_shape)
-        self.category = 'block'
+        self.category = 'Block'
         self.parent = None
         self.children = []
         self.uicompo_ = None
         self.top_or_botm = None
+        self.redundant = False
 
     def block_is_uicompo(self, image_shape, max_compo_scale):
         '''

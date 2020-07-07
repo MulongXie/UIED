@@ -10,7 +10,6 @@ def cvt_compos_relative_pos(compos, col_min_base, row_min_base):
 
 
 def compos_containment(compos):
-    compos_update(compos)
     for i in range(len(compos) - 1):
         for j in range(i + 1, len(compos)):
             relation = compos[i].compo_relation(compos[j])
@@ -20,13 +19,15 @@ def compos_containment(compos):
                 compos[i].contain.append(j)
 
 
-def compos_update(compos):
-    for compo in compos:
-        compo.compo_update()
+def compos_update(compos, org_shape):
+    for i, compo in enumerate(compos):
+        # start from 1, id 0 is background
+        compo.compo_update(i + 1, org_shape)
 
 
 class Component:
     def __init__(self, region, image_shape):
+        self.id = None
         self.region = region
         self.boundary = self.compo_get_boundary()
         self.bbox = self.compo_get_bbox()
@@ -38,13 +39,15 @@ class Component:
         self.image_shape = image_shape
         self.area = self.width * self.height
 
-        self.category = None
+        self.category = 'Compo'
         self.contain = []
 
         self.rect_ = None
         self.line_ = None
 
-    def compo_update(self):
+    def compo_update(self, id, org_shape):
+        self.id = id
+        self.image_shape = org_shape
         self.width = self.bbox.width
         self.height = self.bbox.height
         self.bbox_area = self.bbox.box_area

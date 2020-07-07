@@ -11,32 +11,28 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def merge_intersected_corner(compos, org_shape, max_compo_scale=C.THRESHOLD_COMPO_MAX_SCALE):
+def merge_intersected_corner(compos, org):
     changed = False
     new_compos= []
-    row, col = org_shape[:2]
+    Compo.compos_update(compos, org.shape)
     for i in range(len(compos)):
         merged = False
-        # if compos[i].height / row > max_compo_scale[0]:
-        #     new_compos.append(compos[i])
-        #     continue
         for j in range(len(new_compos)):
-            # if compos[j].height / row > max_compo_scale[0]:
-            #     continue
-            relation = compos[i].compo_relation(compos[j])
-            if relation == 2:
+            relation = compos[i].compo_relation(new_compos[j])
+            if relation == 2 or relation == -1:
+                # draw.draw_bounding_box(org, [compos[i], new_compos[j]], name='b-merge', show=True)
                 new_compos[j].compo_merge(compos[i])
+                # draw.draw_bounding_box(org, [new_compos[j]], name='a-merge', show=True)
                 merged = True
                 changed = True
                 break
         if not merged:
             new_compos.append(compos[i])
 
-    Compo.compos_update(compos)
     if not changed:
         return compos
     else:
-        return merge_intersected_corner(new_compos, org_shape)
+        return merge_intersected_corner(new_compos, org)
 
 
 def merge_text(compos, org_shape, max_word_gad=C.THRESHOLD_TEXT_MAX_WORD_GAP, max_word_height_ratio=C.THRESHOLD_TEXT_MAX_HEIGHT):
@@ -59,7 +55,7 @@ def merge_text(compos, org_shape, max_word_gad=C.THRESHOLD_TEXT_MAX_WORD_GAP, ma
         # ignore non-text
         # if height / row > max_word_height_ratio\
         #         or compos[i].category != 'Text':
-        if height > 26:
+        if height > 50:
             new_compos.append(compos[i])
             continue
         for j in range(len(new_compos)):
@@ -90,6 +86,80 @@ def rm_top_or_bottom_corners(components, org_shape, top_bottom_height=C.THRESHOL
         if not (row_max < height * top_bottom_height[0] or row_min > height * top_bottom_height[1]):
             new_compos.append(compo)
     return new_compos
+
+
+def rm_line_v_h(binary, show=False, max_line_thickness=C.THRESHOLD_LINE_THICKNESS):
+    def check_continuous_line(line, edge):
+        continuous_length = 0
+        line_start = -1
+        for j, p in enumerate(line):
+            if p > 0:
+                if line_start == -1:
+                    line_start = j
+                continuous_length += 1
+            elif continuous_length > 0:
+                if continuous_length / edge > 0.6:
+                    return [line_start, j]
+                continuous_length = 0
+                line_start = -1
+
+        if continuous_length / edge > 0.6:
+            return [line_start, len(line)]
+        else:
+            return None
+
+    def extract_line_area(line, start_idx, flag='v'):
+        for e, l in enumerate(line):
+            if flag == 'v':
+                map_line[start_idx + e, l[0]:l[1]] = binary[start_idx + e, l[0]:l[1]]
+
+    map_line = np.zeros(binary.shape[:2], dtype=np.uint8)
+    cv2.imshow('binary', binary)
+
+    width = binary.shape[1]
+    start_row = -1
+    line_area = []
+    for i, row in enumerate(binary):
+        line_v = check_continuous_line(row, width)
+        if line_v is not None:
+            # new line
+            if start_row == -1:
+                start_row = i
+                line_area = []
+            line_area.append(line_v)
+        else:
+            # checking line
+            if start_row != -1:
+                if i - start_row < max_line_thickness:
+                    # binary[start_row: i] = 0
+                    # map_line[start_row: i] = binary[start_row: i]
+                    print(line_area, start_row, i)
+                    extract_line_area(line_area, start_row)
+                start_row = -1
+
+    height = binary.shape[0]
+    start_col = -1
+    for i in range(width):
+        col = binary[:, i]
+        line_h = check_continuous_line(col, height)
+        if line_h is not None:
+            # new line
+            if start_col == -1:
+                start_col = i
+        else:
+            # checking line
+            if start_col != -1:
+                if i - start_col < max_line_thickness:
+                    # binary[:, start_col: i] = 0
+                    map_line[:, start_col: i] = binary[:, start_col: i]
+                start_col = -1
+
+    binary -= map_line
+
+    if show:
+        cv2.imshow('no-line', binary)
+        cv2.imshow('lines', map_line)
+        cv2.waitKey()
 
 
 def rm_line(binary,
@@ -201,13 +271,13 @@ def detect_compos_in_img(compos, binary, org, max_compo_scale=C.THRESHOLD_COMPO_
     compos += compos_new
 
 
-def compo_filter(compos, org):
+def compo_filter(compos, min_area):
     compos_new = []
     for compo in compos:
-        if compo.height < 26 and compo.width < 26:
+        if compo.height * compo.width < min_area:
             continue
-        if compo.category == 'TextView' and compo.height > 100 and compo.width / org.shape[1] < 0.9:
-            compo.category = 'ImageView'
+        if compo.width / compo.height > 25 or compo.height / compo.height > 20:
+            continue
         compos_new.append(compo)
     return compos_new
 

@@ -1,39 +1,57 @@
 from os.path import join as pjoin
 import ip_region_proposal as ip
+import cv2
+import os
 
-resize_by_height = 800
+
+def resize_height_by_longest_edge(img_path, resize_length=800):
+    org = cv2.imread(img_path)
+    height, width = org.shape[:2]
+    if height > width:
+        return resize_length
+    else:
+        return int(resize_length * (height / width))
+
 
 # set input image path
-input_path_img = 'data\\input\\11300.jpg'
-output_root = 'data\\output'
+input_path_img = 'data/input/11300.jpg'
+output_root = 'data/output'
 
-is_ip = True
+resized_height = resize_height_by_longest_edge(input_path_img)
+
+is_ip = False
 is_clf = False
 is_ocr = False
-is_merge = False
+is_merge = True
 
 if is_ocr:
+    os.makedirs(pjoin(output_root, 'ocr'), exist_ok=True)
     import ocr_east as ocr
-    ocr.east(input_path_img, output_root, resize_by_height=None, show=False, write_img=True)
+    import lib_east.eval as eval
+    models = eval.load()
+    ocr.east(input_path_img, output_root, models,
+             resize_by_height=resized_height, show=False)
 
 if is_ip:
+    os.makedirs(pjoin(output_root, 'ip'), exist_ok=True)
     # switch of the classification func
     classifier = None
     if is_clf:
         classifier = {}
-        from CNN import CNN
+        from cnn.CNN import CNN
 
-        classifier['Image'] = CNN('Image')
+        # classifier['Image'] = CNN('Image')
         classifier['Elements'] = CNN('Elements')
-        classifier['Noise'] = CNN('Noise')
+        # classifier['Noise'] = CNN('Noise')
 
-    ip.compo_detection(input_path_img, output_root, resize_by_height=resize_by_height, show=True,
-                       classifier=classifier)
+    ip.compo_detection(input_path_img, output_root, classifier=classifier,
+                       resize_by_height=resized_height, show=False)
+
 
 if is_merge:
     import merge
-    name = input_path_img.split('\\')[-1][:-4]
+    name = input_path_img.split('/')[-1][:-4]
     compo_path = pjoin(output_root, 'ip', str(name) + '.json')
     ocr_path = pjoin(output_root, 'ocr', str(name) + '.json')
-    merge.incorporate(input_path_img, compo_path, ocr_path, output_root, resize_by_height=resize_by_height, show=True,
-                      write_img=True)
+    merge.incorporate(input_path_img, compo_path, ocr_path, output_root,
+                      resize_by_height=resized_height, show=True)

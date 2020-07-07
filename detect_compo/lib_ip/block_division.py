@@ -81,8 +81,16 @@ def block_division(grey, org,
                 block = Block(region, grey.shape)
 
                 draw.draw_region(region, broad_all)
-                if block.height < 40 and block.width < 40:
+                # if block.height < 40 and block.width < 40:
+                #     continue
+                if block.height < 30:
                     continue
+
+                # print(block.area / (row * column))
+                if block.area / (row * column) > 0.9:
+                    continue
+                elif block.area / (row * column) > 0.7:
+                    block.redundant = True
 
                 # get the boundary of this region
                 # ignore lines

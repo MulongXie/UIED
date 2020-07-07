@@ -43,7 +43,7 @@ class Bbox:
         else:
             return 2
 
-    def bbox_relation_nms(self, bbox_b, bias=1):
+    def bbox_relation_nms(self, bbox_b, bias=0):
         '''
         Calculate the relation between two rectangles by nms
        :return: -1 : a in b
@@ -68,12 +68,11 @@ class Bbox:
         ioa = inter / self.box_area
         iob = inter / bbox_b.box_area
 
-        # not intersected with each other
-        if iou == 0:
+        if iou == 0 and ioa == 0 and iob == 0:
             return 0
 
         # import lib_ip.ip_preprocessing as pre
-        # org_iou, _ = pre.read_img("E:\\Mulong\\Datasets\\rico\\combined\\472.jpg", 800)
+        # org_iou, _ = pre.read_img('uied/data/input/7.jpg', 800)
         # print(iou, ioa, iob)
         # board = draw.draw_bounding_box(org_iou, [self], color=(255,0,0))
         # draw.draw_bounding_box(board, [bbox_b], color=(0,255,0), show=True)
@@ -84,6 +83,9 @@ class Bbox:
         # contains b
         if iob >= 1:
             return 1
+        # not intersected with each other
+        if iou <= 0.05:
+            return 0
         # intersected
         return 2
 
