@@ -4,7 +4,6 @@ class Config:
         # Adjustable
         self.THRESHOLD_PRE_GRADIENT = 4             # dribbble:4 rico:4 web:1
         self.THRESHOLD_OBJ_MIN_AREA = 55            # bottom line 55 of small circle
-        self.THRESHOLD_OBJ_MIN_PERIMETER = 0
         self.THRESHOLD_BLOCK_GRADIENT = 5
 
         # *** Frozen ***
@@ -18,19 +17,18 @@ class Config:
         self.THRESHOLD_TOP_BOTTOM_BAR = (0.045, 0.94)  # (36/800, 752/800) height ratio of top and bottom bar
         self.THRESHOLD_BLOCK_MIN_HEIGHT = 0.03  # 24/800
 
-        # obsolete
-        self.THRESHOLD_BLOCK_MAX_BORDER_THICKNESS = 8
-        self.THRESHOLD_BLOCK_MAX_CROSS_POINT = 0.1
-        self.THRESHOLD_UICOMPO_MIN_W_H_RATIO = 0.4
-        self.THRESHOLD_TEXT_MAX_WIDTH = 150
-        self.THRESHOLD_LINE_MIN_LENGTH_H = 50
-        self.THRESHOLD_LINE_MIN_LENGTH_V = 50
-        self.OCR_PADDING = 5
-        self.OCR_MIN_WORD_AREA = 0.45
-
-        self.THRESHOLD_MIN_IOU = 0.1              # dribbble:0.003 rico:0.1 web:0.1
-        self.THRESHOLD_BLOCK_MIN_EDGE_LENGTH = 210   # dribbble:68 rico:210 web:70
-        self.THRESHOLD_UICOMPO_MAX_W_H_RATIO = 10   # dribbble:10 rico:10 web:22
+        # deprecated
+        # self.THRESHOLD_BLOCK_MAX_BORDER_THICKNESS = 8
+        # self.THRESHOLD_BLOCK_MAX_CROSS_POINT = 0.1
+        # self.THRESHOLD_UICOMPO_MIN_W_H_RATIO = 0.4
+        # self.THRESHOLD_TEXT_MAX_WIDTH = 150
+        # self.THRESHOLD_LINE_MIN_LENGTH_H = 50
+        # self.THRESHOLD_LINE_MIN_LENGTH_V = 50
+        # self.OCR_PADDING = 5
+        # self.OCR_MIN_WORD_AREA = 0.45
+        # self.THRESHOLD_MIN_IOU = 0.1              # dribbble:0.003 rico:0.1 web:0.1
+        # self.THRESHOLD_BLOCK_MIN_EDGE_LENGTH = 210   # dribbble:68 rico:210 web:70
+        # self.THRESHOLD_UICOMPO_MAX_W_H_RATIO = 10   # dribbble:10 rico:10 web:22
 
         self.CLASS_MAP = {'0':'Button', '1':'CheckBox', '2':'Chronometer', '3':'EditText', '4':'ImageButton', '5':'ImageView',
                '6':'ProgressBar', '7':'RadioButton', '8':'RatingBar', '9':'SeekBar', '10':'Spinner', '11':'Switch',

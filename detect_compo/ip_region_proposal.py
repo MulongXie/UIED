@@ -9,8 +9,6 @@ import lib_ip.ip_draw as draw
 import lib_ip.ip_detection as det
 import lib_ip.ip_segment as seg
 import lib_ip.file_utils as file
-import lib_ip.ocr_classify_text as ocr
-import lib_ip.ip_detection_utils as util
 import lib_ip.block_division as blk
 import lib_ip.Component as Compo
 from config.CONFIG_UIED import Config

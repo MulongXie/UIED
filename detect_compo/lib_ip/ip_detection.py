@@ -3,8 +3,6 @@ import numpy as np
 
 import lib_ip.ip_draw as draw
 import lib_ip.ip_preprocessing as pre
-import lib_ip.ip_detection_utils as util
-import lib_ip.ocr_classify_text as ocr
 from lib_ip.Component import Component
 import lib_ip.Component as Compo
 from config.CONFIG_UIED import Config

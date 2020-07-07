@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b4069649-920d-465f-ac6b-bac85007c2bb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_select_classification.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_single.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parameter_exp.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/CONFIG_UIED.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/CONFIG_UIED.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ocr_classify_text.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +52,7 @@
       <recent name="D:\git_file\github\doing\UIED\detect_text_east" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main_single">
+  <component name="RunManager" selected="Python.run_single">
     <configuration name="evaluation" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -138,7 +141,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="run_single" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -151,7 +154,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run_single.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -163,17 +166,17 @@
     <list>
       <item itemvalue="Python.main_select_classification" />
       <item itemvalue="Python.evaluation" />
-      <item itemvalue="Python.test" />
       <item itemvalue="Python.merge" />
       <item itemvalue="Python.main_single" />
+      <item itemvalue="Python.run_single" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.run_single" />
         <item itemvalue="Python.main_single" />
         <item itemvalue="Python.main_select_classification" />
         <item itemvalue="Python.merge" />
         <item itemvalue="Python.evaluation" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -190,7 +193,7 @@
       <workItem from="1593326898629" duration="4378000" />
       <workItem from="1594035929667" duration="39000" />
       <workItem from="1594085137817" duration="1275000" />
-      <workItem from="1594100418101" duration="1718000" />
+      <workItem from="1594100418101" duration="3473000" />
     </task>
     <servers />
   </component>
@@ -208,25 +211,25 @@
     </state>
     <state x="493" y="180" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1594087291409" />
     <state x="740" y="275" key="FileChooserDialogImpl/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1593330175457" />
-    <state width="1237" height="184" key="GridCell.Tab.0.bottom" timestamp="1594101742289">
+    <state width="1237" height="184" key="GridCell.Tab.0.bottom" timestamp="1594111779820">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="184" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1594101742289" />
+    <state width="1237" height="184" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1594111779820" />
     <state width="1877" height="315" key="GridCell.Tab.0.bottom/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1593335392505" />
-    <state width="1237" height="184" key="GridCell.Tab.0.center" timestamp="1594101742289">
+    <state width="1237" height="184" key="GridCell.Tab.0.center" timestamp="1594111779819">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="184" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1594101742289" />
+    <state width="1237" height="184" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1594111779819" />
     <state width="1877" height="315" key="GridCell.Tab.0.center/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1593335392505" />
-    <state width="1237" height="184" key="GridCell.Tab.0.left" timestamp="1594101742289">
+    <state width="1237" height="184" key="GridCell.Tab.0.left" timestamp="1594111779819">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="184" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1594101742289" />
+    <state width="1237" height="184" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1594111779819" />
     <state width="1877" height="315" key="GridCell.Tab.0.left/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1593335392505" />
-    <state width="1237" height="184" key="GridCell.Tab.0.right" timestamp="1594101742289">
+    <state width="1237" height="184" key="GridCell.Tab.0.right" timestamp="1594111779819">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="184" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1594101742289" />
+    <state width="1237" height="184" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1594111779819" />
     <state width="1877" height="315" key="GridCell.Tab.0.right/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1593335392505" />
   </component>
   <component name="XDebuggerManager">
@@ -278,7 +281,8 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/UIED$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594100461145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UIED$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594102734340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UIED$run_single.coverage" NAME="run_single Coverage Results" MODIFIED="1594164031764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED_block$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594035942350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
