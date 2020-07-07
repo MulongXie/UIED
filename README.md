@@ -47,8 +47,4 @@ To test the your own image(s):
 ## Demo
 GUI element detection result for web screenshot
  
-<<<<<<< HEAD
 ![UI Components detection result](https://github.com/MulongXie/UI2CODE/blob/master/demo/uied.png)
-=======
-![UI Components detection result](https://github.com/MulongXie/UI2CODE/blob/master/demo/uied.png)
->>>>>>> 44b21e638652df48f779d87e7ae57994bf802a24
