@@ -53,15 +53,16 @@ def merge_by_text(org, corners_compo_old, compos_class_old, corner_text):
             # draw_bounding_box(broad, [b], color=(255,0,0), line=2, show=True)
 
             # text area
-            if ioa >= 0.68 or iou > 0.6:
+            if ioa >= 0.68 or iou > 0.55:
                 new_corner = merge_two_corners(a, b)
                 break
-            # text_area += inter
+            text_area += inter
 
+        # print("Text area ratio:%.3f" % (text_area / area_a))
         if new_corner is not None:
             corners_compo_refine.append(new_corner)
             compos_class_refine.append('TextView')
-        elif text_area / area_a > 0.4:
+        elif text_area / area_a > 0.55:
             corners_compo_refine.append(corners_compo_old[i])
             compos_class_refine.append('TextView')
         else:
@@ -101,15 +102,11 @@ def incorporate(img_path, compo_path, text_path, output_root, resize_by_height=N
     corners_compo_merged, compos_class_merged = merge_redundant_corner(corners_compo_merged, compos_class_merged)
     corners_compo_merged = refine_corner(corners_compo_merged, shrink=0)
 
-    board = draw_bounding_box_class(org_resize, corners_compo_merged, compos_class_merged)
+    board = draw_bounding_box_class(org_resize, corners_compo_merged, compos_class_merged, name='merged', show=show)
     draw_bounding_box_non_text(org_resize, corners_compo_merged, compos_class_merged, org_shape=org.shape, show=show)
     compos_json = save_corners_json(pjoin(output_root, 'compo.json'), background, corners_compo_merged, compos_class_merged)
     dissemble_clip_img_fill(pjoin(output_root, 'clips'), org_resize, compos_json)
     cv2.imwrite(pjoin(output_root, 'result.jpg'), board)
-
-    if show:
-        cv2.imshow('merge', board)
-        cv2.waitKey()
 
     print('Merge Complete and Save to', pjoin(output_root, 'result.jpg'))
     print(time.ctime(), '\n')
