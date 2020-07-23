@@ -83,12 +83,12 @@ def compo_detection(input_img_path, output_root, uied_params=None,
     det.rm_line(binary, show=show)
     # det.rm_line_v_h(binary, show=show)
     uicompos = det.component_detection(binary)
+    file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos)
+    draw.draw_bounding_box(org, uicompos, show=show, name='no-merge')
 
     # *** Step 4 *** results refinement
     # uicompos = det.rm_top_or_bottom_corners(uicompos, org.shape)
-    file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos)
-    # uicompos = det.merge_text(uicompos, org.shape)
-    draw.draw_bounding_box(org, uicompos, show=show, name='no-merge')
+    uicompos = det.merge_text(uicompos, org.shape)
     uicompos = det.merge_intersected_corner(uicompos, org)
     Compo.compos_update(uicompos, org.shape)
     Compo.compos_containment(uicompos)
