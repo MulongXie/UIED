@@ -70,7 +70,7 @@ def compo_detection(input_img_path, output_root, uied_params=None,
         uied_params = {'param-grad':5, 'param-block':5, 'param-minarea':150}
     else:
         uied_params = json.loads(uied_params)
-        print(uied_params)
+        # print(uied_params)
     start = time.clock()
     name = input_img_path.split('/')[-1][:-4]
     ip_root = file.build_directory(pjoin(output_root, "ip"))
@@ -99,6 +99,7 @@ def compo_detection(input_img_path, output_root, uied_params=None,
     uicompos = det.compo_filter(uicompos, min_area=int(uied_params['param-minarea']))
     Compo.compos_update(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show, name='ip-nesting', write_path=pjoin(ip_root, 'result.jpg'))
+    draw.draw_bounding_box(org, uicompos, write_path=pjoin(output_root, 'result.jpg'))
 
     # *** Step 5 *** Image Inspection: recognize image -> remove noise in image -> binarize with larger threshold and reverse -> rectangular compo detection
     # if classifier is not None:
@@ -117,9 +118,9 @@ def compo_detection(input_img_path, output_root, uied_params=None,
     if classifier is not None:
         classifier['Elements'].predict(seg.clipping(org, uicompos), uicompos)
         draw.draw_bounding_box_class(org, uicompos, show=show, name='cls', write_path=pjoin(ip_root, 'result.jpg'))
+        draw.draw_bounding_box_class(org, uicompos, write_path=pjoin(output_root, 'result.jpg'))
 
     Compo.compos_update(uicompos, org.shape)
-    draw.draw_bounding_box(org, uicompos, show=show, name='final', write_path=pjoin(output_root, 'result.jpg'))
     file.save_corners_json(pjoin(ip_root, name + '.json'), uicompos)
     file.save_corners_json(pjoin(output_root, 'compo.json'), uicompos)
     seg.dissemble_clip_img_fill(pjoin(output_root, 'clips'), org, uicompos)

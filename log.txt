@@ -1,6 +1,10 @@
 16:10 8/7/2020
-
 - Synchronized with Webapp.
 - Add image inspection.
 - Used No-line v1.
 - No-line v2 requires bug fix with consideration of gap. 
+
+
+11：00 23/7/2020
+- Synchronized with Webapp.
+
