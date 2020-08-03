@@ -4,10 +4,10 @@
 
 UI Element Detection (UIED) is an old-fashioned computer vision (CV) based element detection approach for graphic user interface. 
 
-The input of UIED could be various UI image, such as mobile app or web page screenshot, UI design drawn by Photoshop or Sketch, and even some hand-drawn UI design. Then the approach detect and classify text and graphic UI elements and export the detection result as JSON file for future application. 
+The input of UIED could be various UI image, such as mobile app or web page screenshot, UI design drawn by Photoshop or Sketch, and even some hand-drawn UI design. Then the approach detects and classifies text and graphic UI elements, and exports the detection result as JSON file for future application. 
 
 UIED comprises two parts to detect UI text and graphic elements, such as button, image and input bar. 
-* For text, it leverages a state-of-the-art scene text detector EAST (https://github.com/argman/EAST) to perfrom detection. 
+* For text, it leverages a state-of-the-art scene text detector [EAST](https://github.com/argman/EAST) to perfrom detection. 
 
 * For graphical elements, it uses old-fashioned CV and image processing algorithms with a set of creative innovations to locate the elements and applies a CNN to achieve classification. 
    
