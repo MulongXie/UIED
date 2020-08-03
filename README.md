@@ -27,7 +27,7 @@ UIED comprises two parts to detect UI text and graphic elements, such as button,
 ### Installation
 Install the mentioned dependencies, and download two pre-trained models from [this link](https://drive.google.com/drive/folders/1MK0Om7Lx0wRXGDfNcyj21B0FL1T461v5?usp=sharing) for EAST text detection and GUI element classification.
 
-Change ``CNN_PATH`` and ``EAST_PATH`` in *config/CONFIG.py* line 19 to your locations.
+Change ``CNN_PATH`` and ``EAST_PATH`` in *config/CONFIG.py* to your locations.
 
 ### Usage
 To test the your own image(s):
