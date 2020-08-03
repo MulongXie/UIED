@@ -12,31 +12,31 @@ UIED comprises two parts to detect UI text and graphic elements, such as button,
 * For graphical elements, it uses old-fashioned CV and image processing algorithms with a set of creative innovations to locate the elements and applies a CNN to achieve classification. 
    
 ## File structure
-*cnn*
+*cnn/*
 * Used to train classifier for graphic UI elements
 * Set path of the CNN classification model
 
-*config*
+*config/*
 * Set data paths 
 * Set parameters for graphic elements detection
 
-*data*
+*data/*
 * Input UI images and output detection results
 
-*detect_compo*
+*detect_compo/*
 * Graphic UI elemnts localization
 * Graphic UI elemnts classification by CNN
 
-*detect_text_east*
+*detect_text_east/*
 * UI text detection by EAST
 
-*result_processing*
+*result_processing/*
 * Result evaluation and visualizition
 
 *merge.py*
 * Merge the results from the graphical UI elements detection and text detection 
 
-*run_batch*
+*run_batch.py*
 * Process a batch of images 
 
 *run_single.py*
