@@ -7,12 +7,16 @@ class Config:
     def __init__(self):
         # setting CNN model
         self.image_shape = (64, 64, 3)
-        self.class_map = ['button', 'input', 'icon', 'img', 'text']
-        self.class_number = len(self.class_map)
-        self.MODEL_PATH = 'E:\\Mulong\\Model\\UI2CODE\\cnn6_icon.h5'
+        # self.MODEL_PATH = 'E:\\Mulong\\Model\\UI2CODE\\cnn6_icon.h5'
+        # self.class_map = ['button', 'input', 'icon', 'img', 'text']
+        self.CNN_PATH = 'E:/Mulong/Model/rico_compos/cnn-rico-1.h5'
+        self.element_class = ['Button', 'CheckBox', 'Chronometer', 'EditText', 'ImageButton', 'ImageView',
+                              'ProgressBar', 'RadioButton', 'RatingBar', 'SeekBar', 'Spinner', 'Switch',
+                              'ToggleButton', 'VideoView', 'TextView']
+        self.class_number = len(self.element_class)
 
-        # setting CTPN (ocr) model
-        self.CTPN_PATH = "E:\\Mulong\\Model\\UI2CODE\\ctpn.pb"
+        # setting EAST (ocr) model
+        self.EAST_PATH = 'E:/Mulong/Model/East/east_icdar2015_resnet_v1_50_rbox'
 
         # setting data flow paths
         self.ROOT_INPUT = "E:\\Mulong\\Datasets\\rico\\combined"

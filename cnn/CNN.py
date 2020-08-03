@@ -6,8 +6,8 @@ from sklearn.metrics import confusion_matrix
 import numpy as np
 import cv2
 
-# from Config import Config
-# cfg = Config()
+from config.CONFIG import Config
+cfg = Config()
 
 
 class CNN:
@@ -60,10 +60,8 @@ class CNN:
             # self.model_path = 'E:/Mulong/Model/rico_compos/resnet-ele14-19.h5'
             # self.model_path = 'E:/Mulong/Model/rico_compos/resnet-ele14-28.h5'
             # self.model_path = 'E:/Mulong/Model/rico_compos/resnet-ele14-45.h5'
-            self.model_path = 'E:/Mulong/Model/rico_compos/cnn-rico-1.h5'
-            self.class_map = ['Button', 'CheckBox', 'Chronometer', 'EditText', 'ImageButton', 'ImageView',
-                              'ProgressBar', 'RadioButton', 'RatingBar', 'SeekBar', 'Spinner', 'Switch',
-                              'ToggleButton', 'VideoView', 'TextView']  # ele-14
+            self.model_path = cfg.CNN_PATH
+            self.class_map = cfg.element_class
             self.image_shape = (64, 64, 3)
         elif classifier_type == 'Image':
             self.model_path = 'E:/Mulong/Model/rico_compos/cnn-image-1.h5'

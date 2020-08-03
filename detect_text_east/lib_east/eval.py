@@ -8,9 +8,11 @@ import json
 
 import lib_east.locality_aware_nms as nms_locality
 import lib_east.lanms as lanms
-
 import lib_east.model as model
 from lib_east.icdar import restore_rectangle
+
+from config.CONFIG import Config
+cfg = Config()
 
 
 def resize_label(bboxes, gt_height, d_height, bias=0):
@@ -106,7 +108,7 @@ class FLAG:
     def __init__(self, input_img_path=None, output_label_path=None):
         self.test_data_path = input_img_path
         self.gpu_list = '0'
-        self.checkpoint_path = 'E:/Mulong/Model/East/east_icdar2015_resnet_v1_50_rbox'
+        self.checkpoint_path = cfg.EAST_PATH
         self.output_dir = output_label_path
         self.no_write_images = True
 

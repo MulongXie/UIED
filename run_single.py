@@ -16,14 +16,14 @@ def resize_height_by_longest_edge(img_path, resize_length=800):
 if __name__ == '__main__':
 
     # set input image path
-    input_path_img = 'data/input/30800.jpg'
+    input_path_img = 'data/input/11300.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img)
 
     is_ip = True
-    is_clf = False
-    is_ocr = False
+    is_clf = True
+    is_ocr = True
     is_merge = False
 
     if is_ocr:
