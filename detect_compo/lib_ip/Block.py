@@ -3,7 +3,7 @@ from os.path import join as pjoin
 import time
 import numpy as np
 
-from lib_ip.Component import Component
+from detect_compo.lib_ip.Component import Component
 
 
 class Block(Component):

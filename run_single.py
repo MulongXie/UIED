@@ -1,7 +1,8 @@
 from os.path import join as pjoin
-import ip_region_proposal as ip
 import cv2
 import os
+
+import detect_compo.ip_region_proposal as ip
 
 
 def resize_height_by_longest_edge(img_path, resize_length=800):
@@ -28,8 +29,8 @@ if __name__ == '__main__':
 
     if is_ocr:
         os.makedirs(pjoin(output_root, 'ocr'), exist_ok=True)
-        import ocr_east as ocr
-        import lib_east.eval as eval
+        import detect_text_east.ocr_east as ocr
+        import detect_text_east.lib_east.eval as eval
         models = eval.load()
         ocr.east(input_path_img, output_root, models,
                  resize_by_height=resized_height, show=False)
@@ -45,7 +46,7 @@ if __name__ == '__main__':
             classifier['Elements'] = CNN('Elements')
             # classifier['Noise'] = CNN('Noise')
         ip.compo_detection(input_path_img, output_root, classifier=classifier,
-                           resize_by_height=resized_height, show=True)
+                           resize_by_height=resized_height, show=False)
 
     if is_merge:
         import merge

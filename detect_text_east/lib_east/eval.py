@@ -6,10 +6,10 @@ import numpy as np
 import tensorflow as tf
 import json
 
-import lib_east.locality_aware_nms as nms_locality
-import lib_east.lanms as lanms
-import lib_east.model as model
-from lib_east.icdar import restore_rectangle
+import detect_text_east.lib_east.locality_aware_nms as nms_locality
+import detect_text_east.lib_east.lanms as lanms
+import detect_text_east.lib_east.model as model
+from detect_text_east.lib_east.icdar import restore_rectangle
 
 from config.CONFIG import Config
 cfg = Config()

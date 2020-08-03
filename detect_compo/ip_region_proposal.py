@@ -4,13 +4,13 @@ import time
 import json
 import numpy as np
 
-import lib_ip.ip_preprocessing as pre
-import lib_ip.ip_draw as draw
-import lib_ip.ip_detection as det
-import lib_ip.ip_segment as seg
-import lib_ip.file_utils as file
-import lib_ip.block_division as blk
-import lib_ip.Component as Compo
+import detect_compo.lib_ip.ip_preprocessing as pre
+import detect_compo.lib_ip.ip_draw as draw
+import detect_compo.lib_ip.ip_detection as det
+import detect_compo.lib_ip.ip_segment as seg
+import detect_compo.lib_ip.file_utils as file
+import detect_compo.lib_ip.block_division as blk
+import detect_compo.lib_ip.Component as Compo
 from config.CONFIG_UIED import Config
 C = Config()
 

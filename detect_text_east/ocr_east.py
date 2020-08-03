@@ -1,6 +1,6 @@
 import time
 from os.path import join as pjoin
-import lib_east.eval as eval
+import detect_text_east.lib_east.eval as eval
 import os
 
 

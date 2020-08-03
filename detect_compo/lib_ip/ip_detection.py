@@ -1,10 +1,10 @@
 import cv2
 import numpy as np
 
-import lib_ip.ip_draw as draw
-import lib_ip.ip_preprocessing as pre
-from lib_ip.Component import Component
-import lib_ip.Component as Compo
+import detect_compo.lib_ip.ip_draw as draw
+import detect_compo.lib_ip.ip_preprocessing as pre
+from detect_compo.lib_ip.Component import Component
+import detect_compo.lib_ip.Component as Compo
 from config.CONFIG_UIED import Config
 C = Config()
 

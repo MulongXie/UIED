@@ -2,42 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4069649-920d-465f-ac6b-bac85007c2bb" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/UIED.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UIED.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cnn/CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/cnn/CNN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/CONFIG.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/CONFIG.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Background/0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Block/20.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Block/21.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Block/22.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/16.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/18.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/19.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/TextView/0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/TextView/15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/TextView/17.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/TextView/17.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/TextView/5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/TextView/7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/bkg.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/bkg.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/output/compo.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/compo.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/output/ip/11300.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/11300.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/output/ip/11300_all.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/11300_all.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/result.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/result.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/output/ocr/11300.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ocr/11300.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/result.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ocr/result.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/result.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/result.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/Bbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/Bbox.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/Block.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/Block.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/Component.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/Component.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/icdar.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/lib_east/icdar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/lib_east/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text_east/ocr_east.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/ocr_east.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_single.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -225,7 +205,7 @@
       <workItem from="1595488240502" duration="74000" />
       <workItem from="1595723287741" duration="773000" />
       <workItem from="1596417993986" duration="2972000" />
-      <workItem from="1596442796733" duration="880000" />
+      <workItem from="1596442796733" duration="1183000" />
     </task>
     <servers />
   </component>
@@ -244,30 +224,30 @@
     <state x="493" y="180" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1594182242885" />
     <state x="740" y="275" key="FileChooserDialogImpl/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1595724444509" />
     <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1595470198476" />
-    <state width="1877" height="314" key="GridCell.Tab.0.bottom" timestamp="1596443027033">
+    <state width="1877" height="314" key="GridCell.Tab.0.bottom" timestamp="1596443939571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="595" height="184" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1594182114640" />
     <state width="1877" height="312" key="GridCell.Tab.0.bottom/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1595724446341" />
-    <state width="1877" height="314" key="GridCell.Tab.0.bottom/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443027033" />
-    <state width="1877" height="314" key="GridCell.Tab.0.center" timestamp="1596443027033">
+    <state width="1877" height="314" key="GridCell.Tab.0.bottom/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443939571" />
+    <state width="1877" height="314" key="GridCell.Tab.0.center" timestamp="1596443939571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="595" height="184" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1594182114640" />
     <state width="1877" height="312" key="GridCell.Tab.0.center/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1595724446341" />
-    <state width="1877" height="314" key="GridCell.Tab.0.center/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443027033" />
-    <state width="1877" height="314" key="GridCell.Tab.0.left" timestamp="1596443027032">
+    <state width="1877" height="314" key="GridCell.Tab.0.center/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443939571" />
+    <state width="1877" height="314" key="GridCell.Tab.0.left" timestamp="1596443939571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="595" height="184" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1594182114640" />
     <state width="1877" height="312" key="GridCell.Tab.0.left/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1595724446340" />
-    <state width="1877" height="314" key="GridCell.Tab.0.left/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443027032" />
-    <state width="1877" height="314" key="GridCell.Tab.0.right" timestamp="1596443027033">
+    <state width="1877" height="314" key="GridCell.Tab.0.left/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443939571" />
+    <state width="1877" height="314" key="GridCell.Tab.0.right" timestamp="1596443939571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="595" height="184" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1594182114640" />
     <state width="1877" height="312" key="GridCell.Tab.0.right/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1595724446341" />
-    <state width="1877" height="314" key="GridCell.Tab.0.right/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443027033" />
+    <state width="1877" height="314" key="GridCell.Tab.0.right/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443939571" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -299,7 +279,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/detect_compo/lib_ip/Bbox.py</url>
-          <line>108</line>
+          <line>107</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -329,7 +309,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/UIED$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594102734340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UIED$run_single.coverage" NAME="run_single Coverage Results" MODIFIED="1596443027016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UIED$run_single.coverage" NAME="run_single Coverage Results" MODIFIED="1596443939559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$view_gt.coverage" NAME="view_gt Coverage Results" MODIFIED="1596418105849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/result_processing" />
     <SUITE FILE_PATH="coverage/UIED_block$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594035942350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
