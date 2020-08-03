@@ -2,17 +2,11 @@
 
 ## What is it?
 
-UI2CODE is a system converting the GUI image into cooresponding front-end code that achieves the same visual effect and expected functionality of the input GUI.
+UI Element Detection (UIED) is an old-fashioned computer vision (CV) based element detection approach for graphic user interface. 
 
-It comprises two major parts: 
-* UI components detection: localize and classify all UI elements on the given image
-  * Graphical components detection
-  * Text recognition through OCR
-* Code generation
-  * DOM tree construction
-  * HTML + CSS generation
-  
-UIED is the first part
+The input of UIED could be various UI image, such as mobile app or web page screenshot, UI design drawn by Photoshop or Sketch, and even some hand-drawn UI design. Then the approach detect and classify text and graphic UI elements and export the detection result as JSON file for future application. 
+
+UIED comprises two parts to detect UI text and graphic elements, such as button, image and input bar. For text, it leverages a state-of-the-art scene text detector EAST (https://github.com/argman/EAST) to perfrom detection. And for graphical elements, it uses old-fashioned CV and image processing algorithms with a set of creative innovations to locate the elements and applies a CNN to achieve classification. 
    
 ## File structure
 *config/*
