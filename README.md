@@ -71,4 +71,4 @@ To test the your own image(s):
 ## Demo
 GUI element detection result for web screenshot
  
-![UI Components detection result](https://github.com/MulongXie/UIED/data/demo/demo.png)
+![UI Components detection result](https://github.com/MulongXie/UIED/blob/master/data/demo/demo.png)
