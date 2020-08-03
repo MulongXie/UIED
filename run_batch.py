@@ -6,8 +6,7 @@ from tqdm import tqdm
 from os.path import join as pjoin, exists
 import cv2
 
-import ip_region_proposal as ip
-from CONFIG import Config
+import detect_compo.ip_region_proposal as ip
 
 
 def resize_height_by_longest_edge(img_path, resize_length=800):
@@ -21,7 +20,6 @@ def resize_height_by_longest_edge(img_path, resize_length=800):
 
 if __name__ == '__main__':
     # initialization
-    C = Config()
     input_img_root = "E:/Mulong/Datasets/rico/combined"
     output_root = "E:/Mulong/Result/rico/rico_uied/rico_new_uied_v3"
     data = json.load(open('E:/Mulong/Datasets/rico/instances_test.json', 'r'))
@@ -38,7 +36,7 @@ if __name__ == '__main__':
     compo_classifier = None
     if is_ip and is_clf:
         compo_classifier = {}
-        from CNN import CNN
+        from cnn.CNN import CNN
         # compo_classifier['Image'] = CNN('Image')
         compo_classifier['Elements'] = CNN('Elements')
         # compo_classifier['Noise'] = CNN('Noise')

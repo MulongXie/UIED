@@ -7,9 +7,7 @@ import time
 from random import randint as rint
 import shutil
 
-import lib_ip.ip_preprocessing as pre
-import lib_ip.file_utils as file
-import lib_ip.ip_detection as det
+import detect_compo.lib_ip.ip_preprocessing as pre
 from config.CONFIG import Config
 C = Config()
 

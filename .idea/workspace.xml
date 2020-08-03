@@ -2,23 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4069649-920d-465f-ac6b-bac85007c2bb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/UIED.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UIED.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/demo/demo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/compo.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/compo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/11300.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/11300.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/11300_all.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/11300_all.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/11300.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ocr/11300.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/Bbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/Bbox.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/Block.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/Block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/Component.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/Component.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/block_division.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/icdar.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/lib_east/icdar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/lib_east/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/ocr_east.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text_east/ocr_east.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_single.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/merge.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_batch.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_batch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/util_merge.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/util_merge.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,17 +36,20 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data/demo" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\git_file\github\doing\UIED\data\demo" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\git_file\github\doing\UIED" />
       <recent name="D:\git_file\github\doing\UIED\result_processing" />
       <recent name="D:\git_file\github\doing\UIED\detect_text_east" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run_single">
+  <component name="RunManager" selected="Python.run_batch">
     <configuration name="main_select_classification" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -101,7 +94,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="merge" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="run_batch" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -114,7 +107,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/merge.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run_batch.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -169,18 +162,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.main_select_classification" />
-      <item itemvalue="Python.merge" />
       <item itemvalue="Python.main_single" />
       <item itemvalue="Python.run_single" />
       <item itemvalue="Python.view_gt" />
+      <item itemvalue="Python.run_batch" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.run_batch" />
         <item itemvalue="Python.run_single" />
         <item itemvalue="Python.view_gt" />
         <item itemvalue="Python.main_single" />
         <item itemvalue="Python.main_select_classification" />
-        <item itemvalue="Python.merge" />
       </list>
     </recent_temporary>
   </component>
@@ -205,7 +198,7 @@
       <workItem from="1595488240502" duration="74000" />
       <workItem from="1595723287741" duration="773000" />
       <workItem from="1596417993986" duration="2972000" />
-      <workItem from="1596442796733" duration="1183000" />
+      <workItem from="1596442796733" duration="5463000" />
     </task>
     <servers />
   </component>
@@ -218,36 +211,40 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1595724444509">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1596446686297">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="493" y="180" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1594182242885" />
     <state x="740" y="275" key="FileChooserDialogImpl/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1595724444509" />
-    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1595470198476" />
-    <state width="1877" height="314" key="GridCell.Tab.0.bottom" timestamp="1596443939571">
+    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596446686297" />
+    <state width="1877" height="314" key="GridCell.Tab.0.bottom" timestamp="1596448499263">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="595" height="184" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1594182114640" />
     <state width="1877" height="312" key="GridCell.Tab.0.bottom/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1595724446341" />
-    <state width="1877" height="314" key="GridCell.Tab.0.bottom/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443939571" />
-    <state width="1877" height="314" key="GridCell.Tab.0.center" timestamp="1596443939571">
+    <state width="1877" height="314" key="GridCell.Tab.0.bottom/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596448499263" />
+    <state width="1877" height="314" key="GridCell.Tab.0.center" timestamp="1596448499263">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="595" height="184" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1594182114640" />
     <state width="1877" height="312" key="GridCell.Tab.0.center/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1595724446341" />
-    <state width="1877" height="314" key="GridCell.Tab.0.center/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443939571" />
-    <state width="1877" height="314" key="GridCell.Tab.0.left" timestamp="1596443939571">
+    <state width="1877" height="314" key="GridCell.Tab.0.center/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596448499263" />
+    <state width="1877" height="314" key="GridCell.Tab.0.left" timestamp="1596448499263">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="595" height="184" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1594182114640" />
     <state width="1877" height="312" key="GridCell.Tab.0.left/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1595724446340" />
-    <state width="1877" height="314" key="GridCell.Tab.0.left/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443939571" />
-    <state width="1877" height="314" key="GridCell.Tab.0.right" timestamp="1596443939571">
+    <state width="1877" height="314" key="GridCell.Tab.0.left/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596448499263" />
+    <state width="1877" height="314" key="GridCell.Tab.0.right" timestamp="1596448499263">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="595" height="184" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1594182114640" />
     <state width="1877" height="312" key="GridCell.Tab.0.right/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1595724446341" />
-    <state width="1877" height="314" key="GridCell.Tab.0.right/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596443939571" />
+    <state width="1877" height="314" key="GridCell.Tab.0.right/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596448499263" />
+    <state x="473" y="175" key="SettingsEditor" timestamp="1596447028064">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="473" y="175" key="SettingsEditor/1920.0.1280.693/3840.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1596447028064" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -311,6 +308,7 @@
     <SUITE FILE_PATH="coverage/UIED$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594102734340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$run_single.coverage" NAME="run_single Coverage Results" MODIFIED="1596443939559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$view_gt.coverage" NAME="view_gt Coverage Results" MODIFIED="1596418105849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/result_processing" />
+    <SUITE FILE_PATH="coverage/UIED$run_batch.coverage" NAME="run_batch Coverage Results" MODIFIED="1596448499254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED_block$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594035942350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

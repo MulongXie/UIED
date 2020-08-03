@@ -1,11 +1,3 @@
-import json
-import cv2
-import numpy as np
-from os.path import join as pjoin
-import os
-import time
-from random import randint as rint
-
 from utils.util_merge import *
 from config.CONFIG import Config
 C = Config()

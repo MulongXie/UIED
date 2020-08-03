@@ -5,7 +5,7 @@ import os
 class Config:
 
     def __init__(self):
-        # setting CNN model
+        # setting CNN (graphic elements) model
         self.image_shape = (64, 64, 3)
         # self.MODEL_PATH = 'E:\\Mulong\\Model\\UI2CODE\\cnn6_icon.h5'
         # self.class_map = ['button', 'input', 'icon', 'img', 'text']
@@ -17,10 +17,6 @@ class Config:
 
         # setting EAST (ocr) model
         self.EAST_PATH = 'E:/Mulong/Model/East/east_icdar2015_resnet_v1_50_rbox'
-
-        # setting data flow paths
-        self.ROOT_INPUT = "E:\\Mulong\\Datasets\\rico\\combined"
-        self.ROOT_OUTPUT = "E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3"
 
         # *** Frozen ***
         self.ROOT_IMG_ORG = pjoin(self.ROOT_INPUT, "org")
@@ -37,6 +33,9 @@ class Config:
                       'TextView': (169, 255, 0), 'NonText': (0,0,255)}
 
     def build_output_folders(self):
+        # setting data flow paths
+        self.ROOT_INPUT = "E:\\Mulong\\Datasets\\rico\\combined"
+        self.ROOT_OUTPUT = "E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3"
         if not os.path.exists(self.ROOT_IP):
             os.mkdir(self.ROOT_IP)
         if not os.path.exists(self.ROOT_OCR):
