@@ -7,33 +7,41 @@ UI Element Detection (UIED) is an old-fashioned computer vision (CV) based eleme
 The input of UIED could be various UI image, such as mobile app or web page screenshot, UI design drawn by Photoshop or Sketch, and even some hand-drawn UI design. Then the approach detects and classifies text and graphic UI elements, and exports the detection result as JSON file for future application. 
 
 UIED comprises two parts to detect UI text and graphic elements, such as button, image and input bar. 
-- For text, it leverages a state-of-the-art scene text detector [EAST](https://github.com/argman/EAST) to perfrom detection. 
+* For text, it leverages a state-of-the-art scene text detector [EAST](https://github.com/argman/EAST) to perfrom detection. 
 
-- For graphical elements, it uses old-fashioned CV and image processing algorithms with a set of creative innovations to locate the elements and applies a CNN to achieve classification. 
+* For graphical elements, it uses old-fashioned CV and image processing algorithms with a set of creative innovations to locate the elements and applies a CNN to achieve classification. 
    
 ## File structure
-*config/*
-* Set path of the CNN training result (UI components classification) and OCR training result (text recognition) 
-* Set parameter for graphical components detection 
+*cnn*
+* Used to train classifier for graphic UI elements
+* Set path of the CNN classification model
 
-*ctpn/*
-* CTPN implementation
+*config*
+* Set data paths 
+* Set parameters for graphic elements detection
 
-*data/*
-* Input image and outputs
+*data*
+* Input UI images and output detection results
 
-*uied/*
-* Graphical UI elemnts localization
-* Graphical UI elemnts classification by CNN
+*detect_compo*
+* Graphic UI elemnts localization
+* Graphic UI elemnts classification by CNN
 
-*main.py*
-* Process a batch of images continuously 
+*detect_text_east*
+* UI text detection by EAST
 
-*main_single.py*
-* Process a signle image
+*result_processing*
+* Result evaluation and visualizition
 
 *merge.py*
-* Merge the results from the graphical UI elements detection and text recognition 
+* Merge the results from the graphical UI elements detection and text detection 
+
+*run_batch*
+* Process a batch of images 
+
+*run_single.py*
+* Process a signle image
+
 
 ## How to use?
 To test the your own image(s):
