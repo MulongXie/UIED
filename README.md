@@ -1,6 +1,6 @@
 # UIED - UI element detection part of UI2CODE, detecting UI elements from UI screenshots or drawnings
 
->This project is still ongoing and this repo may be updated irregularly.
+>This project is still ongoing and this repo may be updated irregularly, I also implement a web app for this project in http://uied.online
 
 ## What is it?
 
@@ -27,7 +27,7 @@ UIED comprises two parts to detect UI text and graphic elements, such as button,
 ### Installation
 Install the mentioned dependencies, and download two pre-trained models from [this link](https://drive.google.com/drive/folders/1MK0Om7Lx0wRXGDfNcyj21B0FL1T461v5?usp=sharing) for EAST text detection and GUI element classification.
 
-Change ``CNN_PATH`` and ``EAST_PATH`` in *config/CONFIG.py* line 19 to your locations.
+Change ``CNN_PATH`` and ``EAST_PATH`` in *config/CONFIG.py* to your locations.
 
 ### Usage
 To test the your own image(s):
@@ -71,4 +71,4 @@ To test the your own image(s):
 ## Demo
 GUI element detection result for web screenshot
  
-![UI Components detection result](https://github.com/MulongXie/UIED/data/demo/demo.png)
+![UI Components detection result](https://github.com/MulongXie/UIED/blob/master/data/demo/demo.png)
