@@ -18,12 +18,6 @@ class Config:
         # setting EAST (ocr) model
         self.EAST_PATH = 'E:/Mulong/Model/East/east_icdar2015_resnet_v1_50_rbox'
 
-        # *** Frozen ***
-        self.ROOT_IMG_ORG = pjoin(self.ROOT_INPUT, "org")
-        self.ROOT_IP = pjoin(self.ROOT_OUTPUT, "ip")
-        self.ROOT_OCR = pjoin(self.ROOT_OUTPUT, "ocr")
-        self.ROOT_MERGE = pjoin(self.ROOT_OUTPUT, "merge")
-        self.ROOT_IMG_COMPONENT = pjoin(self.ROOT_OUTPUT, "components")
         self.COLOR = {'Button': (0, 255, 0), 'CheckBox': (0, 0, 255), 'Chronometer': (255, 166, 166),
                       'EditText': (255, 166, 0),
                       'ImageButton': (77, 77, 255), 'ImageView': (255, 0, 166), 'ProgressBar': (166, 0, 255),
@@ -36,6 +30,12 @@ class Config:
         # setting data flow paths
         self.ROOT_INPUT = "E:\\Mulong\\Datasets\\rico\\combined"
         self.ROOT_OUTPUT = "E:\\Mulong\\Result\\rico\\rico_uied\\rico_new_uied_v3"
+
+        self.ROOT_IMG_ORG = pjoin(self.ROOT_INPUT, "org")
+        self.ROOT_IP = pjoin(self.ROOT_OUTPUT, "ip")
+        self.ROOT_OCR = pjoin(self.ROOT_OUTPUT, "ocr")
+        self.ROOT_MERGE = pjoin(self.ROOT_OUTPUT, "merge")
+        self.ROOT_IMG_COMPONENT = pjoin(self.ROOT_OUTPUT, "components")
         if not os.path.exists(self.ROOT_IP):
             os.mkdir(self.ROOT_IP)
         if not os.path.exists(self.ROOT_OCR):

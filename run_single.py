@@ -25,7 +25,7 @@ if __name__ == '__main__':
     is_ip = True
     is_clf = True
     is_ocr = True
-    is_merge = False
+    is_merge = True
 
     if is_ocr:
         os.makedirs(pjoin(output_root, 'ocr'), exist_ok=True)
