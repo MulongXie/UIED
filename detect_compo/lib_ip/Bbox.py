@@ -1,4 +1,5 @@
 import numpy as np
+import detect_compo.lib_ip.ip_draw as draw
 
 
 class Bbox:
@@ -42,7 +43,7 @@ class Bbox:
         else:
             return 2
 
-    def bbox_relation_nms(self, bbox_b, bias=0):
+    def bbox_relation_nms(self, bbox_b, bias=(0, 0)):
         '''
         Calculate the relation between two rectangles by nms
        :return: -1 : a in b
@@ -53,11 +54,12 @@ class Bbox:
         col_min_a, row_min_a, col_max_a, row_max_a = self.put_bbox()
         col_min_b, row_min_b, col_max_b, row_max_b = bbox_b.put_bbox()
 
+        bias_col, bias_row = bias
         # get the intersected area
-        col_min_s = max(col_min_a - bias, col_min_b - bias)
-        row_min_s = max(row_min_a - bias, row_min_b - bias)
-        col_max_s = min(col_max_a + bias, col_max_b + bias)
-        row_max_s = min(row_max_a + bias, row_max_b + bias)
+        col_min_s = max(col_min_a - bias_col, col_min_b - bias_col)
+        row_min_s = max(row_min_a - bias_row, row_min_b - bias_row)
+        col_max_s = min(col_max_a + bias_col, col_max_b + bias_col)
+        row_max_s = min(row_max_a + bias_row, row_max_b + bias_row)
         w = np.maximum(0, col_max_s - col_min_s)
         h = np.maximum(0, row_max_s - row_min_s)
         inter = w * h
@@ -83,7 +85,8 @@ class Bbox:
         if iob >= 1:
             return 1
         # not intersected with each other
-        if iou <= 0.05:
+        # if iou <= 0.05:
+        if iou == 0:
             return 0
         # intersected
         return 2

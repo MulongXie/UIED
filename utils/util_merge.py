@@ -8,19 +8,22 @@ from random import randint as rint
 import shutil
 
 import detect_compo.lib_ip.ip_preprocessing as pre
+import detect_compo.lib_ip.file_utils as file
+import detect_compo.lib_ip.ip_detection as det
 from config.CONFIG import Config
 C = Config()
 
 
-def draw_bounding_box_class(org, corners, compo_class, color_map=C.COLOR, line=2, show=False, name='img'):
+def draw_bounding_box_class(org, compos, color_map=C.COLOR, line=2, show=False, name='img'):
     board = org.copy()
 
-    class_colors = {}
-    for i in range(len(corners)):
-        if compo_class[i] not in class_colors:
-            class_colors[compo_class[i]] = (rint(0,255), rint(0,255), rint(0,255))
+    class_colors = color_map
+    for compo in compos:
+        if compo.category not in class_colors:
+            class_colors[compo.category] = (rint(0,255), rint(0,255), rint(0,255))
 
-        board = cv2.rectangle(board, (corners[i][0], corners[i][1]), (corners[i][2], corners[i][3]), class_colors[compo_class[i]], line)
+        corner = compo.put_bbox()
+        board = cv2.rectangle(board, (corner[0], corner[1]), (corner[2], corner[3]), class_colors[compo.category], line)
         # board = cv2.putText(board, compo_class[i], (corners[i][0]+5, corners[i][1]+20),
         #                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, class_colors[compo_class[i]], 2)
     if show:
@@ -29,20 +32,22 @@ def draw_bounding_box_class(org, corners, compo_class, color_map=C.COLOR, line=2
     return board
 
 
-def draw_bounding_box(org, corners,  color=(0, 255, 0), line=3, show=False, name='board'):
+def draw_bounding_box(org, compos,  color=(0, 255, 0), line=2, show=False, name='board'):
     board = org.copy()
-    for i in range(len(corners)):
-        board = cv2.rectangle(board, (corners[i][0], corners[i][1]), (corners[i][2], corners[i][3]), color, line)
+    for compo in compos:
+        corner = compo.put_bbox()
+        board = cv2.rectangle(board, (corner[0], corner[1]), (corner[2], corner[3]), color, line)
     if show:
         cv2.imshow(name, board)
         cv2.waitKey(0)
     return board
 
 
-def draw_bounding_box_non_text(org, corners_compo, compos_class, org_shape=None, color=(0, 255, 0), line=2, show=False, name='non-text'):
+def draw_bounding_box_non_text(org, compos, org_shape=None, color=(0, 255, 0), line=2, show=False, name='non-text'):
     board = org.copy()
-    for i, corner in enumerate(corners_compo):
-        if compos_class[i] != 'TextView' or (corner[2] - corner[0]) / org_shape[1] > 0.9:
+    for compo in compos:
+        if compo.category != 'Text' or compo.width / org_shape[1] > 0.9:
+            corner = compo.put_bbox()
             board = cv2.rectangle(board, (corner[0], corner[1]), (corner[2], corner[3]), color, line)
     if show:
         board_org_size = cv2.resize(board, (org_shape[1], org_shape[0]))
@@ -52,12 +57,13 @@ def draw_bounding_box_non_text(org, corners_compo, compos_class, org_shape=None,
     return board
 
 
-def save_corners_json(file_path, background, corners, compo_classes):
-    components = {'compos': []}
+def save_corners_json(file_path, background, compos, img_shape):
+    components = {'compos': [], 'img': {'shape': img_shape}}
     if background is not None: components['compos'].append(background)
 
-    for i, corner in enumerate(corners):
-        c = {'id':i, 'class': compo_classes[i],
+    for i, compo in enumerate(compos):
+        corner = compo.put_bbox()
+        c = {'id':i, 'class': compo.category,
              'height': corner[3] - corner[1], 'width': corner[2] - corner[0],
              'column_min': corner[0], 'row_min': corner[1], 'column_max': corner[2], 'row_max': corner[3]}
         components['compos'].append(c)
@@ -129,63 +135,6 @@ def refine_text(org, corners_text, max_line_gap, min_word_length):
     return corners_text_refine
 
 
-def refine_corner(corners, shrink):
-    corner_new = []
-    for corner in corners:
-        (col_min, row_min, col_max, row_max) = corner
-        corner_new.append((col_min + shrink, row_min + shrink, col_max - shrink, row_max - shrink))
-    return corner_new
-
-
-def is_redundant(a, b):
-    area_a = (a[2] - a[0]) * (a[3] - a[1])
-    area_b = (b[2] - b[0]) * (b[3] - b[1])
-    col_min_s = max(a[0], b[0])
-    row_min_s = max(a[1], b[1])
-    col_max_s = min(a[2], b[2])
-    row_max_s = min(a[3], b[3])
-    w = np.maximum(0, col_max_s - col_min_s)
-    h = np.maximum(0, row_max_s - row_min_s)
-    inter = w * h
-    if inter == 0:
-        return False
-    iou = inter / (area_a + area_b - inter)
-    if iou > 0.8:
-        return True
-
-def merge_two_compos(corner_a, corner_b):
-    (col_min_a, row_min_a, col_max_a, row_max_a) = corner_a
-    (col_min_b, row_min_b, col_max_b, row_max_b) = corner_b
-
-    col_min = min(col_min_a, col_min_b)
-    col_max = max(col_max_a, col_max_b)
-    row_min = min(row_min_a, row_min_b)
-    row_max = max(row_max_a, row_max_b)
-    return [col_min, row_min, col_max, row_max]
-
-
-def merge_redundant_corner(compos, classes):
-    changed = False
-    new_compos = []
-    new_classes = []
-    for i in range(len(compos)):
-        merged = False
-        for j in range(len(new_compos)):
-            if is_redundant(compos[i], compos[j]):
-                new_compos[j] = merge_two_compos(compos[i], compos[j])
-                merged = True
-                changed = True
-                break
-        if not merged:
-            new_compos.append(compos[i])
-            new_classes.append(classes[i])
-
-    if not changed:
-        return compos, classes
-    else:
-        return merge_redundant_corner(new_compos, new_classes)
-
-
 def dissemble_clip_img_fill(clip_root, org, compos, flag='most'):
 
     def average_pix_around(pad=6, offset=3):
@@ -246,3 +195,27 @@ def dissemble_clip_img_fill(clip_root, org, compos, flag='most'):
         cv2.rectangle(bkg, (col_min, row_min), (col_max, row_max), color, -1)
 
     cv2.imwrite(os.path.join(clip_root, 'bkg.png'), bkg)
+
+
+def is_same_alignment(compo_a, compo_b, max_gap, flag='line'):
+    (col_min_a, row_min_a, col_max_a, row_max_a) = compo_a.put_bbox()
+    (col_min_b, row_min_b, col_max_b, row_max_b) = compo_b.put_bbox()
+
+    col_min_s = max(col_min_a, col_min_b)
+    col_max_s = min(col_max_a, col_max_b)
+    row_min_s = max(row_min_a, row_min_b)
+    row_max_s = min(row_max_a, row_max_b)
+
+    if flag == 'line':
+        # on the same line
+        if row_min_s < row_max_s:
+            # close distance
+            if col_min_s < col_max_s or \
+                    (0 <= col_min_b - col_max_a < max_gap) or (0 <= col_min_a - col_max_b < max_gap):
+                return True
+    elif flag == 'paragraph':
+        if col_min_s < col_max_s:
+            if row_min_s < row_max_s or \
+                    (0 <= row_min_b - row_max_a < max_gap) or (0 <= row_min_a - row_max_b < max_gap):
+                return True
+    return False

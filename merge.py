@@ -1,102 +1,203 @@
+import json
+import cv2
+import numpy as np
+from os.path import join as pjoin
+import os
+import time
+from random import randint as rint
+
 from utils.util_merge import *
 from config.CONFIG import Config
+from utils.Element import Element
 C = Config()
 
 
-def merge_by_text(org, corners_compo_old, compos_class_old, corner_text):
-    def merge_two_corners(corner_a, corner_b):
-        (col_min_a, row_min_a, col_max_a, row_max_a) = corner_a
-        (col_min_b, row_min_b, col_max_b, row_max_b) = corner_b
-
-        col_min = min(col_min_a, col_min_b)
-        col_max = max(col_max_a, col_max_b)
-        row_min = min(row_min_a, row_min_b)
-        row_max = max(row_max_a, row_max_b)
-        return [col_min, row_min, col_max, row_max]
-
-    corners_compo_refine = []
-    compos_class_refine = []
-
-    for i in range(len(corners_compo_old)):
-        a = corners_compo_old[i]
-        # broad = draw_bounding_box(org, [a], show=True)
-        area_a = (a[2] - a[0]) * (a[3] - a[1])
-        new_corner = None
+def reclassify_text_by_ocr(org, compos, texts):
+    compos_new = []
+    for i, compo in enumerate(compos):
+        # broad = draw_bounding_box(org, [compo], show=True)
+        new_compo = None
         text_area = 0
-        for b in corner_text:
-            area_b = (b[2] - b[0]) * (b[3] - b[1])
+        for j, text in enumerate(texts):
             # get the intersected area
-            col_min_s = max(a[0], b[0])
-            row_min_s = max(a[1], b[1])
-            col_max_s = min(a[2], b[2])
-            row_max_s = min(a[3], b[3])
-            w = np.maximum(0, col_max_s - col_min_s)
-            h = np.maximum(0, row_max_s - row_min_s)
-            inter = w * h
+            inter = compo.calc_intersection_area(text)
             if inter == 0:
                 continue
 
             # calculate IoU
-            ioa = inter / area_a
-            iob = inter / area_b
-            iou = inter / (area_a + area_b - inter)
+            ioa = inter / compo.area
+            iob = inter / text.area
+            iou = inter / (compo.area + text.area - inter)
 
             # print('ioa:%.3f, iob:%.3f, iou:%.3f' %(ioa, iob, iou))
-            # draw_bounding_box(broad, [b], color=(255,0,0), line=2, show=True)
+            # draw_bounding_box(broad, [text], color=(255,0,0), line=2, show=True)
 
             # text area
             if ioa >= 0.68 or iou > 0.55:
-                new_corner = merge_two_corners(a, b)
+                new_compo = compo.element_merge(text, new_element=True, new_category='Text')
+                texts[j] = new_compo
                 break
             text_area += inter
 
-        # print("Text area ratio:%.3f" % (text_area / area_a))
-        if new_corner is not None:
-            corners_compo_refine.append(new_corner)
-            compos_class_refine.append('TextView')
-        elif text_area / area_a > 0.55:
-            corners_compo_refine.append(corners_compo_old[i])
-            compos_class_refine.append('TextView')
+        # print("Text area ratio:%.3f" % (text_area / compo.area))
+        if new_compo is not None:
+            compos_new.append(new_compo)
+        elif text_area / compo.area > 0.5:
+            compo.category = 'Text'
+            compos_new.append(compo)
         else:
-            corners_compo_refine.append(corners_compo_old[i])
-            compos_class_refine.append(compos_class_old[i])
+            compos_new.append(compo)
+    return compos_new
 
-    return corners_compo_refine, compos_class_refine
+
+def merge_intersected_compos(compos, max_gap=(0, 0)):
+    changed = False
+    new_compos = []
+    for i in range(len(compos)):
+        merged = False
+        cur_compo = compos[i]
+        for j in range(len(new_compos)):
+            relation = cur_compo.element_relation(new_compos[j], max_gap)
+            # draw.draw_bounding_box(org, [cur_compo, new_compos[j]], name='b-merge', show=True)
+            if relation != 0:
+                new_compos[j].element_merge(cur_compo)
+                cur_compo = new_compos[j]
+                # draw.draw_bounding_box(org, [new_compos[j]], name='a-merge', show=True)
+                merged = True
+                changed = True
+                # break
+        if not merged:
+            new_compos.append(compos[i])
+
+    if not changed:
+        return compos
+    else:
+        return merge_intersected_compos(new_compos)
+
+
+# def merge_redundant_corner(org, compos):
+#     changed = False
+#     new_compos = []
+#     for i in range(len(compos)):
+#         # broad = draw_bounding_box(org, [compos[i]], show=True)
+#         merged = False
+#         for j in range(len(new_compos)):
+#             iou = compos[i].calc_iou(new_compos[j])
+#
+#             # if iou > 0:
+#             #     print('iou:%.3f' % iou)
+#             #     draw_bounding_box(broad, [new_compos[j]], color=(255,0,0), line=2, show=True)
+#
+#             if iou > 0.8:
+#                 new_compos[j].element_merge(compos[i], new_element=False)
+#                 merged = True
+#                 changed = True
+#                 break
+#         if not merged:
+#             new_compos.append(compos[i])
+#
+#     if not changed:
+#         return compos
+#     else:
+#         return merge_redundant_corner(org, new_compos)
+#
+#
+# def merge_text_line(compos, max_word_gap=10, max_word_height=30):
+#     changed = False
+#     new_compos = []
+#     for i in range(len(compos)):
+#         if compos[i].category != 'Text':
+#             new_compos.append(compos[i])
+#             continue
+#         merged = False
+#         height = compos[i].height
+#         if height > max_word_height:
+#             new_compos.append(compos[i])
+#             continue
+#         for j in range(len(new_compos)):
+#             # merge text line and paragraph
+#             if is_same_alignment(compos[i], new_compos[j], max_word_gap, flag='line'):
+#                 new_compos[j].element_merge(compos[i])
+#                 new_compos[j].category = 'Text'
+#                 merged = True
+#                 changed = True
+#                 break
+#         if not merged:
+#             new_compos.append(compos[i])
+#
+#     if not changed:
+#         return compos
+#     else:
+#         return merge_text_line(new_compos)
+#
+#
+# def merge_paragraph(org, compos, max_para_gap=20, max_word_height=500):
+#     changed = False
+#     new_compos = []
+#     for i in range(len(compos)):
+#         if compos[i].category != 'Text':
+#             new_compos.append(compos[i])
+#             continue
+#         merged = False
+#         height = compos[i].height
+#         if height > max_word_height:
+#             new_compos.append(compos[i])
+#             continue
+#         for j in range(len(new_compos)):
+#             if is_same_alignment(compos[i], new_compos[j], max_para_gap, flag='paragraph'):
+#                 if new_compos[j].category not in ['Text', 'Paragraph']:
+#                     continue
+#                 new_compos[j].element_merge(compos[i])
+#                 new_compos[j].category = 'Text'
+#                 merged = True
+#                 changed = True
+#                 break
+#         if not merged:
+#             new_compos.append(compos[i])
+#
+#     if not changed:
+#         return compos
+#     else:
+#         return merge_paragraph(org, new_compos)
 
 
 def incorporate(img_path, compo_path, text_path, output_root, resize_by_height=None, show=False):
-    name = img_path.split('/')[-1][:-4]
     org = cv2.imread(img_path)
 
-    compos = json.load(open(compo_path, 'r'))
-    texts = json.load(open(text_path, 'r'))
-    bbox_compos = []
-    class_compos = []
-    bbox_text = []
+    compos = []
+    texts = []
+
     background = None
-    for compo in compos['compos']:
+    for compo in json.load(open(compo_path, 'r'))['compos']:
         if compo['class'] == 'Background':
             background = compo
             continue
-        bbox_compos.append([compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']])
-        class_compos.append(compo['class'])
-    for text in texts['compos']:
-        bbox_text.append([text['column_min'], text['row_min'], text['column_max'], text['row_max']])
+        element = Element((compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']), compo['class'])
+        compos.append(element)
+    for text in json.load(open(text_path, 'r'))['compos']:
+        element = Element((text['column_min'], text['row_min'], text['column_max'], text['row_max']), 'Text')
+        texts.append(element)
 
     # bbox_text = refine_text(org, bbox_text, 20, 10)
     # bbox_text = resize_label(bbox_text, resize_by_height, org.shape[0])
 
     org_resize = resize_img_by_height(org, resize_by_height)
-    draw_bounding_box_class(org_resize, bbox_compos, class_compos, show=show, name='ip')
-    draw_bounding_box(org_resize, bbox_text, show=show, name='ocr')
+    draw_bounding_box_class(org_resize, compos, show=show, name='ip')
+    draw_bounding_box(org_resize, texts, show=show, name='ocr')
 
-    corners_compo_merged, compos_class_merged = merge_by_text(org_resize, bbox_compos, class_compos, bbox_text)
-    corners_compo_merged, compos_class_merged = merge_redundant_corner(corners_compo_merged, compos_class_merged)
-    corners_compo_merged = refine_corner(corners_compo_merged, shrink=0)
+    compos_merged = reclassify_text_by_ocr(org_resize, compos, texts)
+    # compos_merged = merge_redundant_corner(org_resize, compos_merged)
+    draw_bounding_box_class(org_resize, compos_merged, name='text', show=show)
 
-    board = draw_bounding_box_class(org_resize, corners_compo_merged, compos_class_merged, name='merged', show=show)
-    draw_bounding_box_non_text(org_resize, corners_compo_merged, compos_class_merged, org_shape=org.shape, show=show)
-    compos_json = save_corners_json(pjoin(output_root, 'compo.json'), background, corners_compo_merged, compos_class_merged)
+    # compos_merged = merge_text_line(compos_merged)
+    compos_merged = merge_intersected_compos(compos_merged, max_gap=(4, 0))
+    draw_bounding_box_class(org_resize, compos_merged, name='merged line', show=show)
+    # compos_merged = merge_paragraph(org_resize, compos_merged)
+    compos_merged = merge_intersected_compos(compos_merged, max_gap=(0, 1))
+    board = draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', show=show)
+
+    draw_bounding_box_non_text(org_resize, compos_merged, org_shape=org.shape, show=show)
+    compos_json = save_corners_json(pjoin(output_root, 'compo.json'), background, compos_merged, org_resize.shape)
     dissemble_clip_img_fill(pjoin(output_root, 'clips'), org_resize, compos_json)
     cv2.imwrite(pjoin(output_root, 'result.jpg'), board)
 

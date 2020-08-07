@@ -67,7 +67,7 @@ def compo_detection(input_img_path, output_root, uied_params=None,
                     classifier=None, show=False):
 
     if uied_params is None:
-        uied_params = {'param-grad':5, 'param-block':5, 'param-minarea':150}
+        uied_params = {'param-grad':5, 'param-block':5, 'param-minarea':50}
     else:
         uied_params = json.loads(uied_params)
         # print(uied_params)
@@ -82,23 +82,23 @@ def compo_detection(input_img_path, output_root, uied_params=None,
     # *** Step 2 *** element detection
     det.rm_line(binary, show=show)
     # det.rm_line_v_h(binary, show=show)
-    uicompos = det.component_detection(binary)
+    uicompos = det.component_detection(binary, min_obj_area=int(uied_params['param-minarea']))
     file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos)
-    draw.draw_bounding_box(org, uicompos, show=show, name='no-merge')
+    draw.draw_bounding_box(org, uicompos, show=show, name='components')
 
     # *** Step 4 *** results refinement
     # uicompos = det.rm_top_or_bottom_corners(uicompos, org.shape)
-    uicompos = det.merge_text(uicompos, org.shape)
-    uicompos = det.merge_intersected_corner(uicompos, org)
+    # uicompos = det.merge_text(uicompos, org.shape)
+    uicompos = det.merge_intersected_corner(uicompos, org, max_gap=(4, 0))
     Compo.compos_update(uicompos, org.shape)
     Compo.compos_containment(uicompos)
-    draw.draw_bounding_box(org, uicompos, show=show, name='no-nesting')
+    draw.draw_bounding_box(org, uicompos, show=show, name='merged')
 
     # *** Step 5 ** nesting inspection
     uicompos += nesting_inspection(org, grey, uicompos)
     uicompos = det.compo_filter(uicompos, min_area=int(uied_params['param-minarea']))
     Compo.compos_update(uicompos, org.shape)
-    draw.draw_bounding_box(org, uicompos, show=show, name='ip-nesting', write_path=pjoin(ip_root, 'result.jpg'))
+    draw.draw_bounding_box(org, uicompos, show=show, name='nesting compo', write_path=pjoin(ip_root, 'result.jpg'))
     draw.draw_bounding_box(org, uicompos, write_path=pjoin(output_root, 'result.jpg'))
 
     # *** Step 5 *** Image Inspection: recognize image -> remove noise in image -> binarize with larger threshold and reverse -> rectangular compo detection

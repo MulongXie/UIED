@@ -205,14 +205,14 @@ class Component:
         self.line_ = False
         return False
 
-    def compo_relation(self, compo_b):
+    def compo_relation(self, compo_b, bias=(0, 0)):
         """
         :return: -1 : a in b
                  0  : a, b are not intersected
                  1  : b in a
                  2  : a, b are identical or intersected
         """
-        return self.bbox.bbox_relation_nms(compo_b.bbox)
+        return self.bbox.bbox_relation_nms(compo_b.bbox, bias)
 
     def compo_relative_position(self, col_min_base, row_min_base):
         '''

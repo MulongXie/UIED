@@ -9,21 +9,23 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def merge_intersected_corner(compos, org):
+def merge_intersected_corner(compos, org, max_gap=(0, 0)):
     changed = False
-    new_compos= []
+    new_compos = []
     Compo.compos_update(compos, org.shape)
     for i in range(len(compos)):
         merged = False
+        cur_compo = compos[i]
         for j in range(len(new_compos)):
-            relation = compos[i].compo_relation(new_compos[j])
-            if relation == 2 or relation == -1:
-                # draw.draw_bounding_box(org, [compos[i], new_compos[j]], name='b-merge', show=True)
-                new_compos[j].compo_merge(compos[i])
+            relation = cur_compo.compo_relation(new_compos[j], max_gap)
+            # draw.draw_bounding_box(org, [cur_compo, new_compos[j]], name='b-merge', show=True)
+            if relation != 0:
+                new_compos[j].compo_merge(cur_compo)
+                cur_compo = new_compos[j]
                 # draw.draw_bounding_box(org, [new_compos[j]], name='a-merge', show=True)
                 merged = True
                 changed = True
-                break
+                # break
         if not merged:
             new_compos.append(compos[i])
 
@@ -33,14 +35,22 @@ def merge_intersected_corner(compos, org):
         return merge_intersected_corner(new_compos, org)
 
 
-def merge_text(compos, org_shape, max_word_gad=C.THRESHOLD_TEXT_MAX_WORD_GAP, max_word_height_ratio=C.THRESHOLD_TEXT_MAX_HEIGHT):
+def merge_text(compos, org_shape, max_word_gad=4, max_word_height=20):
     def is_text_line(compo_a, compo_b):
         (col_min_a, row_min_a, col_max_a, row_max_a) = compo_a.put_bbox()
         (col_min_b, row_min_b, col_max_b, row_max_b) = compo_b.put_bbox()
+
+        col_min_s = max(col_min_a, col_min_b)
+        col_max_s = min(col_max_a, col_max_b)
+        row_min_s = max(row_min_a, row_min_b)
+        row_max_s = min(row_max_a, row_max_b)
+
         # on the same line
-        if abs(row_min_a - row_min_b) < max_word_gad and abs(row_max_a - row_max_b) < max_word_gad:
+        # if abs(row_min_a - row_min_b) < max_word_gad and abs(row_max_a - row_max_b) < max_word_gad:
+        if row_min_s < row_max_s:
             # close distance
-            if abs(col_min_b - col_max_a) < max_word_gad or abs(col_min_a - col_max_b) < max_word_gad:
+            if col_min_s < col_max_s or \
+                    (0 < col_min_b - col_max_a < max_word_gad) or (0 < col_min_a - col_max_b < max_word_gad):
                 return True
         return False
 
@@ -53,7 +63,7 @@ def merge_text(compos, org_shape, max_word_gad=C.THRESHOLD_TEXT_MAX_WORD_GAP, ma
         # ignore non-text
         # if height / row > max_word_height_ratio\
         #         or compos[i].category != 'Text':
-        if height > 50:
+        if height > max_word_height:
             new_compos.append(compos[i])
             continue
         for j in range(len(new_compos)):
@@ -274,7 +284,7 @@ def compo_filter(compos, min_area):
     for compo in compos:
         if compo.height * compo.width < min_area:
             continue
-        if compo.width / compo.height > 25 or compo.height / compo.height > 20:
+        if compo.width / compo.height > 25 or compo.height / compo.width > 15:
             continue
         compos_new.append(compo)
     return compos_new
@@ -330,8 +340,8 @@ def component_detection(binary,
                     print('Area:%d' % (len(region)))
                     draw.draw_boundary([component], binary.shape, show=True)
                 # check if it is line by checking the length of edges
-                if component.area > min_obj_area * 5 and component.compo_is_line(line_thickness):
-                    continue
+                # if component.area > min_obj_area * 5 and component.compo_is_line(line_thickness):
+                #     continue
                 compos_all.append(component)
 
                 if rec_detect:
