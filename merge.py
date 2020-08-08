@@ -50,13 +50,18 @@ def reclassify_text_by_ocr(org, compos, texts):
     return compos_new
 
 
-def merge_intersected_compos(compos, max_gap=(0, 0)):
+def merge_intersected_compos(compos, max_gap=(0, 0), merge_class=None):
     changed = False
     new_compos = []
     for i in range(len(compos)):
+        if merge_class is not None and compos[i] != merge_class:
+            new_compos.append(compos[i])
+            continue
         merged = False
         cur_compo = compos[i]
         for j in range(len(new_compos)):
+            if merge_class is not None and new_compos[j] != merge_class:
+                continue
             relation = cur_compo.element_relation(new_compos[j], max_gap)
             # draw.draw_bounding_box(org, [cur_compo, new_compos[j]], name='b-merge', show=True)
             if relation != 0:
@@ -190,10 +195,10 @@ def incorporate(img_path, compo_path, text_path, output_root, resize_by_height=N
     draw_bounding_box_class(org_resize, compos_merged, name='text', show=show)
 
     # compos_merged = merge_text_line(compos_merged)
-    compos_merged = merge_intersected_compos(compos_merged, max_gap=(4, 0))
+    compos_merged = merge_intersected_compos(compos_merged, max_gap=(4, 0), merge_class='Text')
     draw_bounding_box_class(org_resize, compos_merged, name='merged line', show=show)
     # compos_merged = merge_paragraph(org_resize, compos_merged)
-    compos_merged = merge_intersected_compos(compos_merged, max_gap=(0, 1))
+    compos_merged = merge_intersected_compos(compos_merged, max_gap=(0, 1), merge_class='Text')
     board = draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', show=show)
 
     draw_bounding_box_non_text(org_resize, compos_merged, org_shape=org.shape, show=show)
