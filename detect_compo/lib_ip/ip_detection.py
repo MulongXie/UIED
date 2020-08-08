@@ -329,6 +329,7 @@ def component_detection(binary,
                 region = np.nonzero(mask_copy[1:-1, 1:-1])
                 region = list(zip(region[0], region[1]))
 
+                # filter out some compos
                 # ignore small area
                 if len(region) < min_obj_area:
                     continue
@@ -337,12 +338,14 @@ def component_detection(binary,
                 # ignore small area
                 if component.width <= 3 or component.height <= 3:
                     continue
-                if test:
-                    print('Area:%d' % (len(region)))
-                    draw.draw_boundary([component], binary.shape, show=True)
                 # check if it is line by checking the length of edges
                 if component.compo_is_line(line_thickness):
                     continue
+
+                if test:
+                    print('Area:%d' % (len(region)))
+                    draw.draw_boundary([component], binary.shape, show=True)
+
                 compos_all.append(component)
 
                 if rec_detect:
