@@ -85,8 +85,8 @@ class Bbox:
         if iob >= 1:
             return 1
         # not intersected with each other
-        # if iou <= 0.05:
-        if iou == 0:
+        # if iou == 0:
+        if iou <= 0.05:
             return 0
         # intersected
         return 2
