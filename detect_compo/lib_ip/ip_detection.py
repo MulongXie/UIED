@@ -9,7 +9,7 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def merge_intersected_corner(compos, org, max_gap=(0, 0)):
+def merge_intersected_corner(compos, org, max_gap=(0, 0), max_ele_height=25):
     changed = False
     new_compos = []
     Compo.compos_update(compos, org.shape)
@@ -19,7 +19,8 @@ def merge_intersected_corner(compos, org, max_gap=(0, 0)):
         for j in range(len(new_compos)):
             relation = cur_compo.compo_relation(new_compos[j], max_gap)
             # draw.draw_bounding_box(org, [cur_compo, new_compos[j]], name='b-merge', show=True)
-            if relation != 0:
+            if relation == 1 or relation == -1 or \
+                    (relation == 2 and new_compos[j].height < max_ele_height and cur_compo.height < max_ele_height):
                 new_compos[j].compo_merge(cur_compo)
                 cur_compo = new_compos[j]
                 # draw.draw_bounding_box(org, [new_compos[j]], name='a-merge', show=True)
