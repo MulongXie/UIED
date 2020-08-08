@@ -85,11 +85,12 @@ class Bbox:
         if iob >= 1:
             return 1
         # not intersected with each other
-        # if iou == 0:
-        if iou <= 0.05:
-            return 0
         # intersected
-        return 2
+        if iou >= 0.02 or iob > 0.2 or ioa > 0.2:
+            return 2
+        # if iou == 0:
+        # print('ioa:%.5f; iob:%.5f; iou:%.5f' % (ioa, iob, iou))
+        return 0
 
     def bbox_cvt_relative_position(self, col_min_base, row_min_base):
         '''

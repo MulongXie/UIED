@@ -18,6 +18,7 @@ def merge_intersected_corner(compos, org, max_gap=(0, 0), max_ele_height=25):
         cur_compo = compos[i]
         for j in range(len(new_compos)):
             relation = cur_compo.compo_relation(new_compos[j], max_gap)
+            # print(relation)
             # draw.draw_bounding_box(org, [cur_compo, new_compos[j]], name='b-merge', show=True)
             if relation == 1 or relation == -1 or \
                     (relation == 2 and new_compos[j].height < max_ele_height and cur_compo.height < max_ele_height):

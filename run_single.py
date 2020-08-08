@@ -15,7 +15,7 @@ def resize_height_by_longest_edge(img_path, resize_length=800):
 if __name__ == '__main__':
 
     # set input image path
-    input_path_img = 'data/input/1565.jpg'
+    input_path_img = 'data/input/11300.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img)
@@ -45,7 +45,7 @@ if __name__ == '__main__':
             classifier['Elements'] = CNN('Elements')
             # classifier['Noise'] = CNN('Noise')
         ip.compo_detection(input_path_img, output_root, classifier=classifier,
-                           resize_by_height=resized_height, show=True)
+                           resize_by_height=resized_height, show=False)
 
     if is_merge:
         import merge

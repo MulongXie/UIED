@@ -24,7 +24,8 @@ class Config:
                       'RadioButton': (166, 166, 166),
                       'RatingBar': (0, 166, 255), 'SeekBar': (0, 166, 10), 'Spinner': (50, 21, 255),
                       'Switch': (80, 166, 66), 'ToggleButton': (0, 66, 80), 'VideoView': (88, 66, 0),
-                      'TextView': (169, 255, 0), 'NonText': (0,0,255)}
+                      'TextView': (169, 255, 0), 'NonText': (0,0,255),
+                      'Compo':(0, 0, 255), 'Text':(169, 255, 0)}
 
     def build_output_folders(self):
         # setting data flow paths
