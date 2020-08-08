@@ -285,7 +285,7 @@ def compo_filter(compos, min_area):
     for compo in compos:
         if compo.height * compo.width < min_area:
             continue
-        if compo.width / compo.height > 25 or compo.height / compo.width > 15:
+        if compo.width / compo.height > 25 or compo.height / compo.width > 20:
             continue
         compos_new.append(compo)
     return compos_new
@@ -341,8 +341,8 @@ def component_detection(binary,
                     print('Area:%d' % (len(region)))
                     draw.draw_boundary([component], binary.shape, show=True)
                 # check if it is line by checking the length of edges
-                # if component.area > min_obj_area * 5 and component.compo_is_line(line_thickness):
-                #     continue
+                if component.compo_is_line(line_thickness):
+                    continue
                 compos_all.append(component)
 
                 if rec_detect:
