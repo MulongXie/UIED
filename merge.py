@@ -164,7 +164,7 @@ def merge_intersected_compos(org, compos, max_gap=(0, 0), merge_class=None):
     if not changed:
         return compos
     else:
-        return merge_intersected_compos(org, new_compos)
+        return merge_intersected_compos(org, new_compos, max_gap, merge_class)
 
 
 def incorporate(img_path, compo_path, text_path, output_root, resize_by_height=None, show=False):

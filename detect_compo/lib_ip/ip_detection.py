@@ -34,7 +34,7 @@ def merge_intersected_corner(compos, org, max_gap=(0, 0), max_ele_height=25):
     if not changed:
         return compos
     else:
-        return merge_intersected_corner(new_compos, org)
+        return merge_intersected_corner(new_compos, org, max_gap, max_ele_height)
 
 
 def merge_text(compos, org_shape, max_word_gad=4, max_word_height=20):
