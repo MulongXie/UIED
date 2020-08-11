@@ -30,9 +30,9 @@ Install the mentioned dependencies, and download two pre-trained models from [th
 Change ``CNN_PATH`` and ``EAST_PATH`` in *config/CONFIG.py* to your locations.
 
 ### Usage
-To test the your own image(s):
+To test your own image(s):
 * For testing single image, change ``input_path_img`` in *run_single.py* to your own input image and the results will be outputted to ``output_root``.
-* For testing single image, change ``input_img_root`` in *run_batch.py* to your own input directory and the results will be outputted to ``output_root``.
+* For testing mutiple images, change ``input_img_root`` in *run_batch.py* to your own input directory and the results will be outputted to ``output_root``.
 
 > Note: The best set of parameters vary for different types of GUI image (Mobile App, Web, PC). Three of critical ones are ``{'param-grad', 'param-block', 'param-minarea'}`` which can be easily adjusted in *detect_compo\ip_region_proposal.py*.
    
