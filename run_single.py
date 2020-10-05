@@ -15,7 +15,7 @@ def resize_height_by_longest_edge(img_path, resize_length=800):
 if __name__ == '__main__':
 
     # set input image path
-    input_path_img = 'data/input/9.jpg'
+    input_path_img = 'data/input/9.png'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img)
