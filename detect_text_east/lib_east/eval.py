@@ -49,7 +49,7 @@ def draw_bounding_box(org, corners, color=(0, 0, 255), line=2, show=False, name=
     return board
 
 
-def merge_text(corners, max_word_gad=10):
+def merge_text(corners, max_word_gad=5):
     def is_text_line(corner_a, corner_b):
         (col_min_a, row_min_a, col_max_a, row_max_a) = corner_a
         (col_min_b, row_min_b, col_max_b, row_max_b) = corner_b

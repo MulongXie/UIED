@@ -67,7 +67,7 @@ def compo_detection(input_img_path, output_root, uied_params=None,
                     classifier=None, show=False):
 
     if uied_params is None:
-        uied_params = {'param-grad':5, 'param-block':5, 'param-minarea':50}
+        uied_params = {'param-grad':5, 'param-block':5, 'param-minarea':25}
     else:
         uied_params = json.loads(uied_params)
         # print(uied_params)
