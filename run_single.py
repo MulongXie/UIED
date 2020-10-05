@@ -18,6 +18,7 @@ if __name__ == '__main__':
         ele:min-grad: gradient threshold to produce binary map         
         ele:ffd-block: fill-flood threshold to segment layout block
         ele:min-ele-area: minimum area for selected elements 
+        ele:merge_contained_ele: if True, merge elements contained in others
         text:max-word-gap: words with smaller distance than the gap are counted as a line
         text:max-line-gap: lines with smaller distance than the gap are counted as a paragraph
     '''
@@ -25,7 +26,7 @@ if __name__ == '__main__':
     mobile: {'min-grad':5, 'ffd-block':5, 'min-ele-area':50, 'max-word-gap':6, 'max-line-gap':1}
     web:    {'min-grad':4, 'ffd-block':5, 'min-ele-area':25, 'max-word-gap':4, 'max-line-gap':4}
     '''
-    key_params = {'min-grad':5, 'ffd-block':5, 'min-ele-area':25,
+    key_params = {'min-grad':5, 'ffd-block':5, 'min-ele-area':25, 'merge_contained_ele':True,
                   'max-word-gap':4, 'max-line-gap':4}
 
     # set input image path

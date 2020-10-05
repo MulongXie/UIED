@@ -84,7 +84,7 @@ def compo_detection(input_img_path, output_root, uied_params,
     # *** Step 4 *** results refinement
     # uicompos = det.rm_top_or_bottom_corners(uicompos, org.shape)
     # uicompos = det.merge_text(uicompos, org.shape)
-    uicompos = det.merge_intersected_corner(uicompos, org, max_gap=(4, 0), max_ele_height=25)
+    uicompos = det.merge_intersected_corner(uicompos, org, is_merge_contained_ele=uied_params['merge_contained_ele'], max_gap=(4, 0), max_ele_height=25)
     Compo.compos_update(uicompos, org.shape)
     Compo.compos_containment(uicompos)
     draw.draw_bounding_box(org, uicompos, show=show, name='merged')

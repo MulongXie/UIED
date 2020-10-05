@@ -9,7 +9,7 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def merge_intersected_corner(compos, org, max_gap=(0, 0), max_ele_height=25):
+def merge_intersected_corner(compos, org, is_merge_contained_ele, max_gap=(0, 0), max_ele_height=25):
     changed = False
     new_compos = []
     Compo.compos_update(compos, org.shape)
@@ -20,8 +20,13 @@ def merge_intersected_corner(compos, org, max_gap=(0, 0), max_ele_height=25):
             relation = cur_compo.compo_relation(new_compos[j], max_gap)
             # print(relation)
             # draw.draw_bounding_box(org, [cur_compo, new_compos[j]], name='b-merge', show=True)
-            if relation == 1 or relation == -1 or \
-                    (relation == 2 and new_compos[j].height < max_ele_height and cur_compo.height < max_ele_height):
+            # merge compo[i] to compo[j] if
+            # 1. compo[j] contains compo[i]
+            # 2. compo[j] intersects with compo[i] with certain iou
+            # 3. is_merge_contained_ele and compo[j] is contained in compo[i]
+            if relation == 1 or \
+                    (relation == 2 and new_compos[j].height < max_ele_height and cur_compo.height < max_ele_height) or\
+                    (is_merge_contained_ele and relation == -1):
                 new_compos[j].compo_merge(cur_compo)
                 cur_compo = new_compos[j]
                 # draw.draw_bounding_box(org, [new_compos[j]], name='a-merge', show=True)
@@ -34,7 +39,7 @@ def merge_intersected_corner(compos, org, max_gap=(0, 0), max_ele_height=25):
     if not changed:
         return compos
     else:
-        return merge_intersected_corner(new_compos, org, max_gap, max_ele_height)
+        return merge_intersected_corner(new_compos, org, is_merge_contained_ele, max_gap, max_ele_height)
 
 
 def merge_text(compos, org_shape, max_word_gad=4, max_word_height=20):
