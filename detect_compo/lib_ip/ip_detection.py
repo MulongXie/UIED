@@ -295,8 +295,7 @@ def compo_filter(compos, min_area):
 # take the binary image as input
 # calculate the connected regions -> get the bounding boundaries of them -> check if those regions are rectangles
 # return all boundaries and boundaries of rectangles
-def component_detection(binary,
-                        min_obj_area=C.THRESHOLD_OBJ_MIN_AREA,
+def component_detection(binary, min_obj_area,
                         line_thickness=C.THRESHOLD_LINE_THICKNESS,
                         min_rec_evenness=C.THRESHOLD_REC_MIN_EVENNESS,
                         max_dent_ratio=C.THRESHOLD_REC_MAX_DENT_RATIO,

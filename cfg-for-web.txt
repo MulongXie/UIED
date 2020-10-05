@@ -1,0 +1,19 @@
+Testing image: data/input/9.png
+
+1. detect_compo/ip_region_proposal.py
+# smaller minarea 50 -> 25
+line 70: uied_params = {'param-grad':5, 'param-block':5, 'param-minarea':25}
+
+2. detect_compo/lib_ip/ip_detection.py
+line 289-290 comment: # remove filter of aspect ratio
+line 342-344 comment: # remove is_line check
+
+3. detect_text_east/lib_east/eval.py
+# smaller max_word_gap 10 -> 5
+line 52: def merge_text(corners, max_word_gad=5) #
+
+4. merge.py
+# smaller horizontal max gap to merge lines (6,0) -> (4,0)
+line 199 max_gap=(4,0)
+# smaller vertical max gap to merge paragraph (0,6) -> (0,4)
+line 202 max_gap=(0,6)

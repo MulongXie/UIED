@@ -2,9 +2,9 @@ class Config:
 
     def __init__(self):
         # Adjustable
-        self.THRESHOLD_PRE_GRADIENT = 4             # dribbble:4 rico:4 web:1
-        self.THRESHOLD_OBJ_MIN_AREA = 55            # bottom line 55 of small circle
-        self.THRESHOLD_BLOCK_GRADIENT = 5
+        # self.THRESHOLD_PRE_GRADIENT = 4             # dribbble:4 rico:4 web:1
+        # self.THRESHOLD_OBJ_MIN_AREA = 55            # bottom line 55 of small circle
+        # self.THRESHOLD_BLOCK_GRADIENT = 5
 
         # *** Frozen ***
         self.THRESHOLD_REC_MIN_EVENNESS = 0.7

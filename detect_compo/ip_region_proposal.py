@@ -15,38 +15,38 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def processing_block(org, binary, blocks, block_pad):
-    image_shape = org.shape
-    uicompos_all = []
-    for block in blocks:
-        # *** Step 2.1 *** check: examine if the block is valid layout block
-        if block.block_is_top_or_bottom_bar(image_shape, C.THRESHOLD_TOP_BOTTOM_BAR):
-            continue
-        if block.block_is_uicompo(image_shape, C.THRESHOLD_COMPO_MAX_SCALE):
-            uicompos_all.append(block)
+# def processing_block(org, binary, blocks, block_pad):
+#     image_shape = org.shape
+#     uicompos_all = []
+#     for block in blocks:
+#         # *** Step 2.1 *** check: examine if the block is valid layout block
+#         if block.block_is_top_or_bottom_bar(image_shape, C.THRESHOLD_TOP_BOTTOM_BAR):
+#             continue
+#         if block.block_is_uicompo(image_shape, C.THRESHOLD_COMPO_MAX_SCALE):
+#             uicompos_all.append(block)
+#
+#         # *** Step 2.2 *** binary map processing: erase children block -> clipping -> remove lines(opt)
+#         binary_copy = binary.copy()
+#         for i in block.children:
+#             blocks[i].block_erase_from_bin(binary_copy, block_pad)
+#         block_clip_bin = block.compo_clipping(binary_copy)
+#         # det.line_removal(block_clip_bin, show=True)
+#
+#         # *** Step 2.3 *** component extraction: detect components in block binmap -> convert position to relative
+#         uicompos = det.component_detection(block_clip_bin)
+#         Compo.cvt_compos_relative_pos(uicompos, block.bbox.col_min, block.bbox.row_min)
+#         uicompos_all += uicompos
+#     return uicompos_all
 
-        # *** Step 2.2 *** binary map processing: erase children block -> clipping -> remove lines(opt)
-        binary_copy = binary.copy()
-        for i in block.children:
-            blocks[i].block_erase_from_bin(binary_copy, block_pad)
-        block_clip_bin = block.compo_clipping(binary_copy)
-        # det.line_removal(block_clip_bin, show=True)
 
-        # *** Step 2.3 *** component extraction: detect components in block binmap -> convert position to relative
-        uicompos = det.component_detection(block_clip_bin)
-        Compo.cvt_compos_relative_pos(uicompos, block.bbox.col_min, block.bbox.row_min)
-        uicompos_all += uicompos
-    return uicompos_all
-
-
-def nesting_inspection(org, grey, compos):
+def nesting_inspection(org, grey, compos, ffd_block):
     nesting_compos = []
     for i, compo in enumerate(compos):
         if compo.height > 50:
             replace = False
             clip_org = compo.compo_clipping(org)
             clip_grey = compo.compo_clipping(grey)
-            n_compos = blk.block_division(clip_grey, org, show=False)
+            n_compos = blk.block_division(clip_grey, org, grad_thresh=ffd_block, show=False)
             Compo.cvt_compos_relative_pos(n_compos, compo.bbox.col_min, compo.bbox.row_min)
 
             for n_compo in n_compos:
@@ -62,27 +62,22 @@ def nesting_inspection(org, grey, compos):
     return nesting_compos
 
 
-def compo_detection(input_img_path, output_root, uied_params=None,
-                    resize_by_height=600, block_pad=4,
+def compo_detection(input_img_path, output_root, uied_params,
+                    resize_by_height=600,
                     classifier=None, show=False):
 
-    if uied_params is None:
-        uied_params = {'param-grad':5, 'param-block':5, 'param-minarea':25}
-    else:
-        uied_params = json.loads(uied_params)
-        # print(uied_params)
     start = time.clock()
     name = input_img_path.split('/')[-1][:-4]
     ip_root = file.build_directory(pjoin(output_root, "ip"))
 
     # *** Step 1 *** pre-processing: read img -> get binary map
     org, grey = pre.read_img(input_img_path, resize_by_height)
-    binary = pre.binarization(org, grad_min=int(uied_params['param-grad']))
+    binary = pre.binarization(org, grad_min=int(uied_params['min-grad']))
 
     # *** Step 2 *** element detection
     det.rm_line(binary, show=show)
     # det.rm_line_v_h(binary, show=show)
-    uicompos = det.component_detection(binary, min_obj_area=int(uied_params['param-minarea']))
+    uicompos = det.component_detection(binary, min_obj_area=int(uied_params['min-ele-area']))
     file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos)
     draw.draw_bounding_box(org, uicompos, show=show, name='components')
 
@@ -95,8 +90,8 @@ def compo_detection(input_img_path, output_root, uied_params=None,
     draw.draw_bounding_box(org, uicompos, show=show, name='merged')
 
     # *** Step 5 ** nesting inspection
-    uicompos += nesting_inspection(org, grey, uicompos)
-    uicompos = det.compo_filter(uicompos, min_area=int(uied_params['param-minarea']))
+    uicompos += nesting_inspection(org, grey, uicompos, ffd_block=uied_params['ffd-block'])
+    uicompos = det.compo_filter(uicompos, min_area=int(uied_params['min-ele-area']))
     Compo.compos_update(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show, name='nesting compo', write_path=pjoin(ip_root, 'result.jpg'))
     draw.draw_bounding_box(org, uicompos, write_path=pjoin(output_root, 'result.jpg'))
