@@ -22,7 +22,7 @@ if __name__ == '__main__':
         text:max-line-gap: lines with smaller distance than the gap are counted as a paragraph
     '''
     '''
-    mobile: {'min-grad':5, 'ffd-block':5, 'min-ele-area':50, 'max-word-gap':4, 'max-line-gap':4}
+    mobile: {'min-grad':5, 'ffd-block':5, 'min-ele-area':50, 'max-word-gap':6, 'max-line-gap':1}
     web:    {'min-grad':4, 'ffd-block':5, 'min-ele-area':25, 'max-word-gap':4, 'max-line-gap':4}
     '''
     key_params = {'min-grad':5, 'ffd-block':5, 'min-ele-area':25,
