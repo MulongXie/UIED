@@ -49,7 +49,7 @@ def draw_bounding_box(org, corners, color=(0, 0, 255), line=2, show=False, name=
     return board
 
 
-def merge_text(corners, max_word_gad=10):
+def merge_text(corners, max_word_gap):
     def is_text_line(corner_a, corner_b):
         (col_min_a, row_min_a, col_max_a, row_max_a) = corner_a
         (col_min_b, row_min_b, col_max_b, row_max_b) = corner_b
@@ -66,9 +66,9 @@ def merge_text(corners, max_word_gad=10):
         iou = inter / (area_a + area_b - inter)
 
         # on the same line
-        if abs(row_min_a - row_min_b) < max_word_gad and abs(row_max_a - row_max_b) < max_word_gad:
+        if abs(row_min_a - row_min_b) < max_word_gap and abs(row_max_a - row_max_b) < max_word_gap:
             # close distance
-            if abs(col_min_b - col_max_a) < max_word_gad or abs(col_min_a - col_max_b) < max_word_gad:
+            if abs(col_min_b - col_max_a) < max_word_gap or abs(col_min_a - col_max_b) < max_word_gap:
                 return True
             # intersected
             if iou > 0.1:
@@ -101,7 +101,7 @@ def merge_text(corners, max_word_gad=10):
     if not changed:
         return corners
     else:
-        return merge_text(new_corners)
+        return merge_text(new_corners, max_word_gap)
 
 
 class FLAG:
@@ -223,7 +223,7 @@ def sort_poly(p):
         return p[[0, 3, 2, 1]]
 
 
-def predict(sess, f_score, f_geometry, input_images, resize_by_height, show=False):
+def predict(sess, f_score, f_geometry, input_images, max_word_gap, resize_by_height, show=False):
     img_path = FLAGS.test_data_path
     # print(img_path)
     # im = cv2.imread(img_path)[:, :, ::-1]
@@ -274,7 +274,7 @@ def predict(sess, f_score, f_geometry, input_images, resize_by_height, show=Fals
         im = cv2.resize(im, (int(resize_by_height / im.shape[0] * im.shape[1]), resize_by_height))
 
     # broad = draw_bounding_box(im[:, :, ::-1], corners, name='before', show=show)
-    corners = merge_text(corners)
+    corners = merge_text(corners, max_word_gap)
     broad = draw_bounding_box(im[:, :, ::-1], corners, name='result', show=show)
     save_corners_json(res_file, corners)
 
@@ -310,7 +310,7 @@ def load():
     return sess, f_score, f_geometry, input_images
 
 
-def run(input_img_path, output_label_path, resize_by_height,
+def run(input_img_path, output_label_path, max_word_gap, resize_by_height,
         sess, f_score, f_geometry, input_images, show=False, write_img=False):
     # tf.app.flags.DEFINE_string('test_data_path', input_img_path, '')
     # tf.app.flags.DEFINE_string('gpu_list', '0', '')
@@ -321,4 +321,4 @@ def run(input_img_path, output_label_path, resize_by_height,
 
     FLAGS.renew_path(input_img_path, output_label_path)
     FLAGS.no_write_images = not write_img
-    predict(sess, f_score, f_geometry, input_images, resize_by_height, show=show)
+    predict(sess, f_score, f_geometry, input_images, max_word_gap, resize_by_height, show=show)

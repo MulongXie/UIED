@@ -167,7 +167,8 @@ def merge_intersected_compos(org, compos, max_gap=(0, 0), merge_class=None):
         return merge_intersected_compos(org, new_compos, max_gap, merge_class)
 
 
-def incorporate(img_path, compo_path, text_path, output_root, resize_by_height=None, show=False):
+def incorporate(img_path, compo_path, text_path, output_root, params,
+                resize_by_height=None, show=False):
     org = cv2.imread(img_path)
 
     compos = []
@@ -196,10 +197,10 @@ def incorporate(img_path, compo_path, text_path, output_root, resize_by_height=N
     draw_bounding_box_class(org_resize, compos_merged, name='text', show=show)
 
     # compos_merged = merge_text_line(compos_merged)
-    compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(6, 0), merge_class='Text')
+    compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(params['max-word-inline-gap'], 0), merge_class='Text')
     draw_bounding_box_class(org_resize, compos_merged, name='merged line', show=show)
     # compos_merged = merge_paragraph(org_resize, compos_merged)
-    compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(0, 1), merge_class='Text')
+    compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(0, params['max-line-gap']), merge_class='Text')
     board = draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', show=show)
 
     draw_bounding_box_non_text(org_resize, compos_merged, org_shape=org.shape, show=show)

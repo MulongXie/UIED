@@ -9,7 +9,13 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-def merge_intersected_corner(compos, org, max_gap=(0, 0), max_ele_height=25):
+def merge_intersected_corner(compos, org, is_merge_contained_ele, max_gap=(0, 0), max_ele_height=25):
+    '''
+    :param is_merge_contained_ele: if true, merge compos nested in others
+    :param max_gap: (horizontal_distance, vertical_distance) to be merge into one line/column
+    :param max_ele_height: if higher than it, recognize the compo as text
+    :return:
+    '''
     changed = False
     new_compos = []
     Compo.compos_update(compos, org.shape)
@@ -20,8 +26,13 @@ def merge_intersected_corner(compos, org, max_gap=(0, 0), max_ele_height=25):
             relation = cur_compo.compo_relation(new_compos[j], max_gap)
             # print(relation)
             # draw.draw_bounding_box(org, [cur_compo, new_compos[j]], name='b-merge', show=True)
-            if relation == 1 or relation == -1 or \
-                    (relation == 2 and new_compos[j].height < max_ele_height and cur_compo.height < max_ele_height):
+            # merge compo[i] to compo[j] if
+            # 1. compo[j] contains compo[i]
+            # 2. compo[j] intersects with compo[i] with certain iou
+            # 3. is_merge_contained_ele and compo[j] is contained in compo[i]
+            if relation == 1 or \
+                    (relation == 2 and new_compos[j].height < max_ele_height and cur_compo.height < max_ele_height) or\
+                    (is_merge_contained_ele and relation == -1):
                 new_compos[j].compo_merge(cur_compo)
                 cur_compo = new_compos[j]
                 # draw.draw_bounding_box(org, [new_compos[j]], name='a-merge', show=True)
@@ -34,7 +45,7 @@ def merge_intersected_corner(compos, org, max_gap=(0, 0), max_ele_height=25):
     if not changed:
         return compos
     else:
-        return merge_intersected_corner(new_compos, org, max_gap, max_ele_height)
+        return merge_intersected_corner(new_compos, org, is_merge_contained_ele, max_gap, max_ele_height)
 
 
 def merge_text(compos, org_shape, max_word_gad=4, max_word_height=20):
@@ -183,7 +194,7 @@ def rm_line(binary,
     check_line = False
     for i, row in enumerate(binary):
         # if current row could be a part of line
-        if (sum(row) / 255) / width > 0.9:
+        if (sum(row) / 255) / width > 0.8:
             # new start: if it is checking a new line, mark this row as start
             if not check_line:
                 start_row = i
@@ -286,7 +297,7 @@ def compo_filter(compos, min_area):
     for compo in compos:
         if compo.height * compo.width < min_area:
             continue
-        if compo.width / compo.height > 25 or compo.height / compo.width > 20:
+        if compo.width / compo.height > 50 or compo.height / compo.width > 40:
             continue
         compos_new.append(compo)
     return compos_new
@@ -295,8 +306,7 @@ def compo_filter(compos, min_area):
 # take the binary image as input
 # calculate the connected regions -> get the bounding boundaries of them -> check if those regions are rectangles
 # return all boundaries and boundaries of rectangles
-def component_detection(binary,
-                        min_obj_area=C.THRESHOLD_OBJ_MIN_AREA,
+def component_detection(binary, min_obj_area,
                         line_thickness=C.THRESHOLD_LINE_THICKNESS,
                         min_rec_evenness=C.THRESHOLD_REC_MIN_EVENNESS,
                         max_dent_ratio=C.THRESHOLD_REC_MAX_DENT_RATIO,
@@ -340,8 +350,8 @@ def component_detection(binary,
                 if component.width <= 3 or component.height <= 3:
                     continue
                 # check if it is line by checking the length of edges
-                if component.compo_is_line(line_thickness):
-                    continue
+                # if component.compo_is_line(line_thickness):
+                #     continue
 
                 if test:
                     print('Area:%d' % (len(region)))

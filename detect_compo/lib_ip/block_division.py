@@ -42,10 +42,9 @@ def block_bin_erase_all_blk(binary, blocks, pad=0, show=False):
         cv2.waitKey()
 
 
-def block_division(grey, org,
+def block_division(grey, org, grad_thresh,
                    show=False, write_path=None,
                    step_h=10, step_v=10,
-                   grad_thresh=C.THRESHOLD_BLOCK_GRADIENT,
                    line_thickness=C.THRESHOLD_LINE_THICKNESS,
                    min_rec_evenness=C.THRESHOLD_REC_MIN_EVENNESS,
                    max_dent_ratio=C.THRESHOLD_REC_MAX_DENT_RATIO,

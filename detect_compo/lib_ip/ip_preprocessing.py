@@ -63,7 +63,7 @@ def reverse_binary(bin, show=False):
     return bin
 
 
-def binarization(org, grad_min=C.THRESHOLD_PRE_GRADIENT, show=False, write_path=None):
+def binarization(org, grad_min, show=False, write_path=None):
     grey = cv2.cvtColor(org, cv2.COLOR_BGR2GRAY)
     grad = gray_to_gradient(grey)        # get RoI with high gradient
     binary = grad_to_binary(grad, grad_min)   # enhance the RoI
