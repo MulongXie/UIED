@@ -10,6 +10,12 @@ C = Config()
 
 
 def merge_intersected_corner(compos, org, is_merge_contained_ele, max_gap=(0, 0), max_ele_height=25):
+    '''
+    :param is_merge_contained_ele: if true, merge compos nested in others
+    :param max_gap: (horizontal_distance, vertical_distance) to be merge into one line/column
+    :param max_ele_height: if higher than it, recognize the compo as text
+    :return:
+    '''
     changed = False
     new_compos = []
     Compo.compos_update(compos, org.shape)
@@ -188,7 +194,7 @@ def rm_line(binary,
     check_line = False
     for i, row in enumerate(binary):
         # if current row could be a part of line
-        if (sum(row) / 255) / width > 0.9:
+        if (sum(row) / 255) / width > 0.8:
             # new start: if it is checking a new line, mark this row as start
             if not check_line:
                 start_row = i
@@ -291,8 +297,8 @@ def compo_filter(compos, min_area):
     for compo in compos:
         if compo.height * compo.width < min_area:
             continue
-        # if compo.width / compo.height > 25 or compo.height / compo.width > 20:
-        #     continue
+        if compo.width / compo.height > 50 or compo.height / compo.width > 40:
+            continue
         compos_new.append(compo)
     return compos_new
 

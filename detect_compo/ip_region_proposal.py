@@ -39,14 +39,19 @@ C = Config()
 #     return uicompos_all
 
 
-def nesting_inspection(org, grey, compos, ffd_block):
+def nesting_inspection(org, grey, compos, ffl_block):
+    '''
+    Inspect all big compos through block division by flood-fill
+    :param ffl_block: gradient threshold for flood-fill
+    :return: nesting compos
+    '''
     nesting_compos = []
     for i, compo in enumerate(compos):
         if compo.height > 50:
             replace = False
             clip_org = compo.compo_clipping(org)
             clip_grey = compo.compo_clipping(grey)
-            n_compos = blk.block_division(clip_grey, org, grad_thresh=ffd_block, show=False)
+            n_compos = blk.block_division(clip_grey, org, grad_thresh=ffl_block, show=False)
             Compo.cvt_compos_relative_pos(n_compos, compo.bbox.col_min, compo.bbox.row_min)
 
             for n_compo in n_compos:
@@ -54,11 +59,8 @@ def nesting_inspection(org, grey, compos, ffd_block):
                     compos[i] = n_compo
                     replace = True
                     break
-
             if not replace:
                 nesting_compos += n_compos
-            # cv2.imshow('clip', clip_org)
-            # cv2.waitKey()
     return nesting_compos
 
 
@@ -72,7 +74,7 @@ def compo_detection(input_img_path, output_root, uied_params,
 
     # *** Step 1 *** pre-processing: read img -> get binary map
     org, grey = pre.read_img(input_img_path, resize_by_height)
-    binary = pre.binarization(org, grad_min=int(uied_params['min-grad']))
+    binary = pre.binarization(org, grad_min=int(uied_params['min-grad']), show=True)
 
     # *** Step 2 *** element detection
     det.rm_line(binary, show=show)
@@ -81,16 +83,17 @@ def compo_detection(input_img_path, output_root, uied_params,
     file.save_corners_json(pjoin(ip_root, name + '_all.json'), uicompos)
     draw.draw_bounding_box(org, uicompos, show=show, name='components')
 
-    # *** Step 4 *** results refinement
+    # *** Step 3 *** results refinement
     # uicompos = det.rm_top_or_bottom_corners(uicompos, org.shape)
     # uicompos = det.merge_text(uicompos, org.shape)
-    uicompos = det.merge_intersected_corner(uicompos, org, is_merge_contained_ele=uied_params['merge_contained_ele'], max_gap=(4, 0), max_ele_height=25)
+    uicompos = det.merge_intersected_corner(uicompos, org, is_merge_contained_ele=uied_params['merge-contained-ele'],
+                                            max_gap=(0, 0), max_ele_height=25)
     Compo.compos_update(uicompos, org.shape)
     Compo.compos_containment(uicompos)
     draw.draw_bounding_box(org, uicompos, show=show, name='merged')
 
-    # *** Step 5 ** nesting inspection
-    uicompos += nesting_inspection(org, grey, uicompos, ffd_block=uied_params['ffd-block'])
+    # *** Step 4 ** nesting inspection: treat the big compos as block and check if they have nesting element
+    uicompos += nesting_inspection(org, grey, uicompos, ffl_block=uied_params['ffl-block'])
     uicompos = det.compo_filter(uicompos, min_area=int(uied_params['min-ele-area']))
     Compo.compos_update(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show, name='nesting compo', write_path=pjoin(ip_root, 'result.jpg'))

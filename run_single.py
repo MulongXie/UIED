@@ -16,21 +16,26 @@ if __name__ == '__main__':
 
     '''
         ele:min-grad: gradient threshold to produce binary map         
-        ele:ffd-block: fill-flood threshold to segment layout block
+        ele:ffl-block: fill-flood threshold
         ele:min-ele-area: minimum area for selected elements 
-        ele:merge_contained_ele: if True, merge elements contained in others
-        text:max-word-gap: words with smaller distance than the gap are counted as a line
+        ele:merge-contained-ele: if True, merge elements contained in others
+        text:max-word-inline-gap: words with smaller distance than the gap are counted as a line
         text:max-line-gap: lines with smaller distance than the gap are counted as a paragraph
+
+        Tips:
+        1. Larger *min-grad* produces fine-grained binary-map while prone to over-segment element to small pieces
+        2. Smaller *min-ele-area* leaves tiny elements while prone to produce noises
+        3. If not *merge-contained-ele*, the elements inside others will be recognized, while prone to produce noises
+        4. The *max-word-inline-gap* and *max-line-gap* should be dependent on the input image size and resolution
+
+        mobile: {'min-grad':4, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':6, 'max-line-gap':1}
+        web   : {'min-grad':3, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':4, 'max-line-gap':4}
     '''
-    '''
-    mobile: {'min-grad':5, 'ffd-block':5, 'min-ele-area':50, 'max-word-gap':6, 'max-line-gap':1}
-    web:    {'min-grad':4, 'ffd-block':5, 'min-ele-area':25, 'max-word-gap':4, 'max-line-gap':4}
-    '''
-    key_params = {'min-grad':5, 'ffd-block':5, 'min-ele-area':25, 'merge_contained_ele':True,
-                  'max-word-gap':4, 'max-line-gap':4}
+    key_params = {'min-grad':4, 'ffl-block':5, 'min-ele-area':25, 'merge-contained-ele':True,
+                  'max-word-inline-gap':6, 'max-line-gap':1}
 
     # set input image path
-    input_path_img = 'data/input/9.png'
+    input_path_img = 'data/input/472.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img)
@@ -45,7 +50,7 @@ if __name__ == '__main__':
         import detect_text_east.lib_east.eval as eval
         os.makedirs(pjoin(output_root, 'ocr'), exist_ok=True)
         models = eval.load()
-        ocr.east(input_path_img, output_root, models, key_params['max-word-gap'],
+        ocr.east(input_path_img, output_root, models, key_params['max-word-inline-gap'],
                  resize_by_height=resized_height, show=False)
 
     if is_ip:

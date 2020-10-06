@@ -197,7 +197,7 @@ def incorporate(img_path, compo_path, text_path, output_root, params,
     draw_bounding_box_class(org_resize, compos_merged, name='text', show=show)
 
     # compos_merged = merge_text_line(compos_merged)
-    compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(params['max-word-gap'], 0), merge_class='Text')
+    compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(params['max-word-inline-gap'], 0), merge_class='Text')
     draw_bounding_box_class(org_resize, compos_merged, name='merged line', show=show)
     # compos_merged = merge_paragraph(org_resize, compos_merged)
     compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(0, params['max-line-gap']), merge_class='Text')
