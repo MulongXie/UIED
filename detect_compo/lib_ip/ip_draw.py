@@ -82,26 +82,36 @@ def draw_line(org, lines, color=(0, 255, 0), show=False):
     return board
 
 
-def draw_boundary(components, shape, show=False):
+def draw_boundary(components, shape, bd_name='boundary', window_name='boundary', show=False):
     """
     Draw boundary of objects on the black withe
     :param components: boundary: [top, bottom, left, right]
                         -> up, bottom: (column_index, min/max row border)
                         -> left, right: (row_index, min/max column border) detect range of each row
+                       boundary_1d: 1-d array of boundary points [column, row]
     :param shape: shape or original image
-    :param show: show or not
+    :param bd_name: which boundary to draw @boundary, @boundary_closed, @boundary_1d
     :return: drawn board
     """
     board = np.zeros(shape[:2], dtype=np.uint8)  # binary board
-    for component in components:
-        # up and bottom: (column_index, min/max row border)
-        for point in component.boundary[0] + component.boundary[1]:
-            board[point[1], point[0]] = 255
-        # left, right: (row_index, min/max column border)
-        for point in component.boundary[2] + component.boundary[3]:
-            board[point[0], point[1]] = 255
+    if bd_name == 'boundary':
+        for component in components:
+            # up and bottom: (column_index, min/max row border)
+            for point in component.boundary[0] + component.boundary[1]:
+                board[point[1], point[0]] = 255
+            # left, right: (row_index, min/max column border)
+            for point in component.boundary[2] + component.boundary[3]:
+                board[point[0], point[1]] = 255
+    elif bd_name == 'boundary_closed':
+        for compo in components:
+            for point in compo.boundary_closed:
+                board[point[1], point[0]] = 255
+    elif bd_name == 'boundary_1d':
+        for compo in components:
+            for point in compo.boundary_1d:
+                board[point[1], point[0]] = 255
     if show:
-        cv2.imshow('rec', board)
+        cv2.imshow(window_name, board)
         cv2.waitKey(0)
     return board
 

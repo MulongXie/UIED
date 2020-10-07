@@ -2,6 +2,7 @@ from detect_compo.lib_ip.Bbox import Bbox
 import detect_compo.lib_ip.ip_draw as draw
 
 import cv2
+import numpy as np
 
 
 def cvt_compos_relative_pos(compos, col_min_base, row_min_base):
@@ -30,6 +31,8 @@ class Component:
         self.id = None
         self.region = region
         self.boundary = self.compo_get_boundary()
+        self.boundary_1d = self.compo_reformat_boundary_1d()
+        self.boundary_closed = self.compo_close_boundary()
         self.bbox = self.compo_get_bbox()
         self.bbox_area = self.bbox.box_area
 
@@ -86,6 +89,46 @@ class Component:
             boundary[i] = [[k, boundary[i][k]] for k in boundary[i].keys()]
             boundary[i] = sorted(boundary[i], key=lambda x: x[0])
         return boundary
+
+    def compo_reformat_boundary_1d(self):
+        '''
+        Reformat boundary as 1-d array
+        :return: [[column, row]]
+        '''
+        new_bd = []
+        new_bd += self.boundary[0]
+        new_bd += [[p[1], p[0]] for p in self.boundary[2]]
+        new_bd += self.boundary[1]
+        new_bd += [[p[1], p[0]] for p in self.boundary[3]]
+        return np.array(new_bd)
+
+    def compo_close_boundary(self):
+        def close_side(bd):
+            '''
+            close one side of boundary
+            :param bd: [[index, border_value]]
+            '''
+            closed_side = []
+            for i in range(1, len(bd)):
+                pt = bd[i]
+                pre_pt = bd[i-1]
+                closed_side.append(pre_pt)
+                # Add points to close the gap
+                if pt[1] > pre_pt[1]:
+                    for k in range(pt[1] - pre_pt[1]):
+                        closed_side.append([pt[0], pre_pt[1] + k])
+                elif pt[1] < pre_pt[1]:
+                    for k in range(0, pt[1] - pre_pt[1], -1):
+                        closed_side.append([pt[0], pre_pt[1] + k])
+            return closed_side
+
+        closed_bd = close_side(self.boundary[0])
+        closed_bd += [[p[1], p[0]] for p in close_side(self.boundary[2])]
+        closed_bd += close_side(self.boundary[1])
+        closed_bd += [[p[1], p[0]] for p in close_side(self.boundary[3])]
+
+        return np.array(closed_bd)
+
 
     def compo_get_bbox(self):
         """
