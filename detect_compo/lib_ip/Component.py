@@ -26,13 +26,28 @@ def compos_update(compos, org_shape):
         compo.compo_update(i + 1, org_shape)
 
 
+def compos_boundary_smooth(compos):
+    for compo in compos:
+        compo.compo_boundary_smooth_line()
+
+
+def compos_boundary_close(compos):
+    for compo in compos:
+        compo.compo_boundary_close()
+
+
+def compos_boundary_flatten(compos):
+    for compo in compos:
+        compo.compo_boundary_flatten_1d()
+
+
 class Component:
     def __init__(self, region, image_shape):
         self.id = None
         self.region = region
         self.boundary = self.compo_get_boundary()
-        self.boundary_1d = self.compo_reformat_boundary_1d()
-        self.boundary_closed = self.compo_close_boundary()
+        self.boundary_1d = None
+        self.boundary_closed = None
         self.bbox = self.compo_get_bbox()
         self.bbox_area = self.bbox.box_area
 
@@ -90,7 +105,7 @@ class Component:
             boundary[i] = sorted(boundary[i], key=lambda x: x[0])
         return boundary
 
-    def compo_reformat_boundary_1d(self):
+    def compo_boundary_flatten_1d(self):
         '''
         Reformat boundary as 1-d array
         :return: [[column, row]]
@@ -100,9 +115,10 @@ class Component:
         new_bd += [[p[1], p[0]] for p in self.boundary[2]]
         new_bd += self.boundary[1]
         new_bd += [[p[1], p[0]] for p in self.boundary[3]]
+        self.boundary_1d = np.array(new_bd)
         return np.array(new_bd)
 
-    def compo_close_boundary(self):
+    def compo_boundary_close(self):
         def close_side(bd):
             '''
             close one side of boundary
@@ -116,19 +132,38 @@ class Component:
                 # Add points to close the gap
                 if pt[1] > pre_pt[1]:
                     for k in range(pt[1] - pre_pt[1]):
-                        closed_side.append([pt[0], pre_pt[1] + k])
+                        closed_side.append([pre_pt[0], pre_pt[1] + k])
                 elif pt[1] < pre_pt[1]:
                     for k in range(0, pt[1] - pre_pt[1], -1):
-                        closed_side.append([pt[0], pre_pt[1] + k])
+                        closed_side.append([pre_pt[0], pre_pt[1] + k])
             return closed_side
 
         closed_bd = close_side(self.boundary[0])
         closed_bd += [[p[1], p[0]] for p in close_side(self.boundary[2])]
         closed_bd += close_side(self.boundary[1])
         closed_bd += [[p[1], p[0]] for p in close_side(self.boundary[3])]
-
+        self.boundary_closed = np.array(closed_bd)
         return np.array(closed_bd)
 
+    def compo_boundary_smooth_line(self):
+        for k, bd in enumerate(self.boundary):
+            evenness = 0
+            even = 0
+            max_even = -1
+            max_index = -1
+            for i in range(1, len(bd)):
+                pnt = bd[i]
+                pre_pnt = bd[i - 1]
+                if pnt[1] == pre_pnt[1]:
+                    even += 1
+                else:
+                    evenness += even
+                    if even > max_even:
+                        max_even = even
+                        max_index = pre_pnt[1]
+                    even = 0
+            if evenness >= len(bd) * 0.9:
+                self.boundary[k] = [[p[0], max_index] for p in bd]
 
     def compo_get_bbox(self):
         """
