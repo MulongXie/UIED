@@ -32,15 +32,15 @@ if __name__ == '__main__':
         web   : {'min-grad':3, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':4, 'max-line-gap':4}
     '''
     key_params = {'min-grad':4, 'ffl-block':5, 'min-ele-area':25, 'merge-contained-ele':True,
-                  'max-word-inline-gap':6, 'max-line-gap':1}
+                  'max-word-inline-gap':4, 'max-line-gap':4}
 
     # set input image path
-    input_path_img = 'data/input/472.jpg'
+    input_path_img = 'data/input/9.png'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img)
 
-    is_ip = True
+    is_ip = False
     is_clf = False
     is_ocr = False
     is_merge = True
