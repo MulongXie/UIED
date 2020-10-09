@@ -3,36 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b4069649-920d-465f-ac6b-bac85007c2bb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/13.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/13.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/14.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/14.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/15.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/15.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/16.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/16.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/17.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/17.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/19.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/20.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/20.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/21.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/21.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/22.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/22.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/23.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/23.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/26.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/28.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/29.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/29.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/30.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/30.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/31.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/31.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/32.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/32.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/33.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/33.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/34.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/34.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/Compo/5.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/bkg.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/clips/bkg.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/compo.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/compo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/9.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/9.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/9_all.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/9_all.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/result.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/result.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/result.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/result.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_single.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,6 +209,7 @@
       <workItem from="1601850762269" duration="6477000" />
       <workItem from="1601933366434" duration="6847000" />
       <workItem from="1602130037944" duration="4303000" />
+      <workItem from="1602199380249" duration="3318000" />
     </task>
     <servers />
   </component>
