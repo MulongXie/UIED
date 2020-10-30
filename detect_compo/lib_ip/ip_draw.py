@@ -33,7 +33,8 @@ def draw_bounding_box_class(org, components, color_map=C.COLOR, line=2, show=Fal
     return board
 
 
-def draw_bounding_box(org, components, color=(0, 255, 0), line=2, show=False, write_path=None, name='board'):
+def draw_bounding_box(org, components, color=(0, 255, 0), line=2,
+                      show=False, write_path=None, name='board', is_return=False):
     """
     Draw bounding box of components on the original image
     :param org: original image
@@ -45,6 +46,7 @@ def draw_bounding_box(org, components, color=(0, 255, 0), line=2, show=False, wr
     :param show: show or not
     :return: labeled image
     """
+    if not show and write_path is None and not is_return: return
     board = org.copy()
     for compo in components:
         bbox = compo.put_bbox()

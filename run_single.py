@@ -40,10 +40,10 @@ if __name__ == '__main__':
 
     resized_height = resize_height_by_longest_edge(input_path_img)
 
-    is_ip = False
+    is_ip = True
     is_clf = False
     is_ocr = False
-    is_merge = True
+    is_merge = False
 
     if is_ocr:
         import detect_text_east.ocr_east as ocr
