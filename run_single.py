@@ -65,7 +65,7 @@ if __name__ == '__main__':
             classifier['Elements'] = CNN('Elements')
             # classifier['Noise'] = CNN('Noise')
         ip.compo_detection(input_path_img, output_root, key_params,
-                           classifier=classifier, resize_by_height=resized_height, show=True)
+                           classifier=classifier, resize_by_height=resized_height, show=False)
 
     if is_merge:
         import merge

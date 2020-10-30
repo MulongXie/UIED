@@ -1,0 +1,12 @@
+Optimization:
+1. ip_preprocessing.py / gray_to_gradient : 0.5s -> 0.02s
+
+2. ip_draw.py / draw_bounding_box : if not show and write_path is None: return : 0.005s -> 0s
+
+3. ip_detection.py / component_detection : if ff[0] < min_obj_area: continue : 2.5s -> 0.3s
+
+4. ip_detection.py / component_detection : cv2.findNonZero : 0.65s -> 0.33s
+
+5. block_division.py / block_division : if ff[0] < 500 : continue: 1.97s -> 1s
+
+6. block_division.py / block_division : Turn off draw : 1s -> 0.65s

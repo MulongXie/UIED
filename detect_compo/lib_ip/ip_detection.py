@@ -335,15 +335,13 @@ def component_detection(binary, min_obj_area,
                 # region = util.boundary_bfs_connected_area(binary, i, j, mask)
 
                 mask_copy = mask.copy()
-                cv2.floodFill(binary, mask, (j, i), None, 0, 0, cv2.FLOODFILL_MASK_ONLY)
+                ff = cv2.floodFill(binary, mask, (j, i), None, 0, 0, cv2.FLOODFILL_MASK_ONLY)
+                if ff[0] < min_obj_area: continue
                 mask_copy = mask - mask_copy
-                region = np.nonzero(mask_copy[1:-1, 1:-1])
-                region = list(zip(region[0], region[1]))
+                region = np.reshape(cv2.findNonZero(mask_copy[1:-1, 1:-1]), (-1, 2))
+                region = [(p[1], p[0]) for p in region]
 
                 # filter out some compos
-                # ignore small area
-                if len(region) < min_obj_area:
-                    continue
                 component = Component(region, binary.shape)
                 # calculate the boundary of the connected area
                 # ignore small area

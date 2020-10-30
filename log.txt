@@ -13,3 +13,6 @@
 
 7/10/2020
 - Extract parameters as configurable
+
+30/10/2020
+- Speed optimization (500% boost)
