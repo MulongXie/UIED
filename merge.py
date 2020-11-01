@@ -11,93 +11,6 @@ from config.CONFIG import Config
 from utils.Element import Element
 C = Config()
 
-
-# def merge_redundant_corner(org, compos):
-#     changed = False
-#     new_compos = []
-#     for i in range(len(compos)):
-#         # broad = draw_bounding_box(org, [compos[i]], show=True)
-#         merged = False
-#         for j in range(len(new_compos)):
-#             iou = compos[i].calc_iou(new_compos[j])
-#
-#             # if iou > 0:
-#             #     print('iou:%.3f' % iou)
-#             #     draw_bounding_box(broad, [new_compos[j]], color=(255,0,0), line=2, show=True)
-#
-#             if iou > 0.8:
-#                 new_compos[j].element_merge(compos[i], new_element=False)
-#                 merged = True
-#                 changed = True
-#                 break
-#         if not merged:
-#             new_compos.append(compos[i])
-#
-#     if not changed:
-#         return compos
-#     else:
-#         return merge_redundant_corner(org, new_compos)
-#
-#
-# def merge_text_line(compos, max_word_gap=10, max_word_height=30):
-#     changed = False
-#     new_compos = []
-#     for i in range(len(compos)):
-#         if compos[i].category != 'Text':
-#             new_compos.append(compos[i])
-#             continue
-#         merged = False
-#         height = compos[i].height
-#         if height > max_word_height:
-#             new_compos.append(compos[i])
-#             continue
-#         for j in range(len(new_compos)):
-#             # merge text line and paragraph
-#             if is_same_alignment(compos[i], new_compos[j], max_word_gap, flag='line'):
-#                 new_compos[j].element_merge(compos[i])
-#                 new_compos[j].category = 'Text'
-#                 merged = True
-#                 changed = True
-#                 break
-#         if not merged:
-#             new_compos.append(compos[i])
-#
-#     if not changed:
-#         return compos
-#     else:
-#         return merge_text_line(new_compos)
-#
-#
-# def merge_paragraph(org, compos, max_para_gap=20, max_word_height=500):
-#     changed = False
-#     new_compos = []
-#     for i in range(len(compos)):
-#         if compos[i].category != 'Text':
-#             new_compos.append(compos[i])
-#             continue
-#         merged = False
-#         height = compos[i].height
-#         if height > max_word_height:
-#             new_compos.append(compos[i])
-#             continue
-#         for j in range(len(new_compos)):
-#             if is_same_alignment(compos[i], new_compos[j], max_para_gap, flag='paragraph'):
-#                 if new_compos[j].category not in ['Text', 'Paragraph']:
-#                     continue
-#                 new_compos[j].element_merge(compos[i])
-#                 new_compos[j].category = 'Text'
-#                 merged = True
-#                 changed = True
-#                 break
-#         if not merged:
-#             new_compos.append(compos[i])
-#
-#     if not changed:
-#         return compos
-#     else:
-#         return merge_paragraph(org, new_compos)
-
-
 def reclassify_text_by_ocr(org, compos, texts):
     compos_new = []
     for i, compo in enumerate(compos):
@@ -167,6 +80,25 @@ def merge_intersected_compos(org, compos, max_gap=(0, 0), merge_class=None):
         return merge_intersected_compos(org, new_compos, max_gap, merge_class)
 
 
+def rm_compos_in_text(compos):
+    mark = np.zeros(len(compos))
+    for i, c1 in enumerate(compos):
+        if c1.category != 'Text':
+            continue
+        for j, c2 in enumerate(compos):
+            if c2.category == 'Text' or mark[j] != 0:
+                continue
+            if c1.element_relation(c2) != 0:
+                c1.element_merge(c2)
+                mark[j] = 1
+
+    new_compos = []
+    for i, m in enumerate(mark):
+        if m == 0:
+            new_compos.append(compos[i])
+    return new_compos
+
+
 def incorporate(img_path, compo_path, text_path, output_root, params,
                 resize_by_height=None, show=False):
     org = cv2.imread(img_path)
@@ -185,9 +117,6 @@ def incorporate(img_path, compo_path, text_path, output_root, params,
         element = Element((text['column_min'], text['row_min'], text['column_max'], text['row_max']), 'Text')
         texts.append(element)
 
-    # bbox_text = refine_text(org, bbox_text, 20, 10)
-    # bbox_text = resize_label(bbox_text, resize_by_height, org.shape[0])
-
     org_resize = resize_img_by_height(org, resize_by_height)
     draw_bounding_box_class(org_resize, compos, show=show, name='ip')
     draw_bounding_box(org_resize, texts, show=show, name='ocr')
@@ -196,12 +125,15 @@ def incorporate(img_path, compo_path, text_path, output_root, params,
     # compos_merged = merge_redundant_corner(org_resize, compos_merged)
     draw_bounding_box_class(org_resize, compos_merged, name='text', show=show)
 
-    # compos_merged = merge_text_line(compos_merged)
+    # merge words as line
     compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(params['max-word-inline-gap'], 0), merge_class='Text')
     draw_bounding_box_class(org_resize, compos_merged, name='merged line', show=show)
-    # compos_merged = merge_paragraph(org_resize, compos_merged)
+    # merge lines as paragraph
     compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(0, params['max-line-gap']), merge_class='Text')
-    board = draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', show=show)
+    draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', show=show)
+    # clean compos intersected with paragraphs
+    compos_merged = rm_compos_in_text(compos_merged)
+    board = draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', is_return=True, show=show)
 
     draw_bounding_box_non_text(org_resize, compos_merged, org_shape=org.shape, show=show)
     compos_json = save_corners_json(pjoin(output_root, 'compo.json'), background, compos_merged, org_resize.shape)

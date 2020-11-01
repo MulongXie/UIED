@@ -14,7 +14,8 @@ from config.CONFIG import Config
 C = Config()
 
 
-def draw_bounding_box_class(org, compos, color_map=C.COLOR, line=2, show=False, name='img'):
+def draw_bounding_box_class(org, compos, color_map=C.COLOR, line=2, show=False, is_return=False, name='img'):
+    if not show and not is_return: return
     board = org.copy()
 
     class_colors = color_map
