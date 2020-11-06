@@ -184,57 +184,42 @@ def rm_line_v_h(binary, show=False, max_line_thickness=C.THRESHOLD_LINE_THICKNES
 
 
 def rm_line(binary,
-                 max_line_thickness=C.THRESHOLD_LINE_THICKNESS,
-                 min_line_length_ratio=C.THRESHOLD_LINE_MIN_LENGTH,
-                 show=False):
-    width = binary.shape[1]
-    broad = np.zeros(binary.shape[:2], dtype=np.uint8)
+            max_line_thickness=C.THRESHOLD_LINE_THICKNESS,
+            min_line_length_ratio=C.THRESHOLD_LINE_MIN_LENGTH,
+            show=False):
+    height, width = binary.shape[:2]
+    board = np.zeros(binary.shape[:2], dtype=np.uint8)
 
     start_row, end_row = -1, -1
     check_line = False
+    check_gap = False
     for i, row in enumerate(binary):
-        # if current row could be a part of line
-        if (sum(row) / 255) / width > 0.8:
+        line_ratio = (sum(row) / 255) / width
+
+        if line_ratio > 0.9:
             # new start: if it is checking a new line, mark this row as start
             if not check_line:
                 start_row = i
                 check_line = True
-
-            # checking line by gap: if the checked line is ended, then check if the line is valid based on its gap
-            elif end_row != -1:
-                # invalid line: gap is too small
-                if i - end_row < max_line_thickness:
-                    start_row, end_row = -1, -1
-                    check_line = False
-                # valid line
-                else:
-                    start_row = start_row - 1 if start_row > 1 else start_row
-                    binary[start_row: end_row] = 0
-                    start_row, end_row = -1, -1
-                    check_line = False
-
-        # if current row is unlike to be a part of a line
-        elif (sum(row) / 255) / width < 0.3:
-            # end line: if it is checking a new line, mark this row as the end of the possible line and start counting the gap
+        else:
+            # end the line
             if check_line:
-                if end_row == -1:
+                # thin enough to be a line, then start checking gap
+                if i - start_row < max_line_thickness:
                     end_row = i
-                    # check line: if the thickness of the line is too large, then invalid
-                    if end_row - start_row > max_line_thickness:
-                        start_row, end_row = -1, -1
-                        check_line = False
+                    check_gap = True
+                else:
+                    start_row, end_row = -1, -1
+                check_line = False
+        # check gap
+        if check_gap and i - end_row > max_line_thickness:
+            binary[start_row: end_row] = 0
+            start_row, end_row = -1, -1
+            check_line = False
+            check_gap = False
 
-        if i > len(binary) - max_line_thickness - 1:
-            if check_line:
-                if end_row == -1:
-                    if i - start_row > max_line_thickness:
-                        start_row, end_row = -1, -1
-                        check_line = False
-                    else:
-                        start_row = start_row - 1 if start_row > 1 else start_row
-                        binary[start_row - 1: end_row] = 0
-                        start_row, end_row = -1, -1
-                        check_line = False
+    if (check_line and (height - start_row) < max_line_thickness) or check_gap:
+        binary[start_row: end_row] = 0
 
     if show:
         cv2.imshow('no-line', binary)
@@ -297,7 +282,10 @@ def compo_filter(compos, min_area):
     for compo in compos:
         if compo.height * compo.width < min_area:
             continue
-        if compo.width / compo.height > 50 or compo.height / compo.width > 40:
+        ratio_h = compo.width / compo.height
+        ratio_w = compo.height / compo.width
+        if ratio_h > 50 or ratio_w > 40 or \
+                (min(compo.height, compo.width) < 8 and max(ratio_h, ratio_w) > 10):
             continue
         compos_new.append(compo)
     return compos_new
