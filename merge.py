@@ -100,7 +100,7 @@ def rm_compos_in_text(compos):
 
 
 def incorporate(img_path, compo_path, text_path, output_root, params,
-                resize_by_height=None, show=False):
+                resize_by_height=None, show=False, wait_key=0):
     org = cv2.imread(img_path)
 
     compos = []
@@ -118,29 +118,30 @@ def incorporate(img_path, compo_path, text_path, output_root, params,
         texts.append(element)
 
     org_resize = resize_img_by_height(org, resize_by_height)
-    draw_bounding_box_class(org_resize, compos, show=show, name='ip')
-    draw_bounding_box(org_resize, texts, show=show, name='ocr')
+    draw_bounding_box_class(org_resize, compos, show=show, name='ip', wait_key=wait_key)
+    draw_bounding_box(org_resize, texts, show=show, name='ocr', wait_key=wait_key)
 
     compos_merged = reclassify_text_by_ocr(org_resize, compos, texts)
     # compos_merged = merge_redundant_corner(org_resize, compos_merged)
-    draw_bounding_box_class(org_resize, compos_merged, name='text', show=show)
+    # draw_bounding_box_class(org_resize, compos_merged, name='text', show=show, wait_key=wait_key)
 
     # merge words as line
     compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(params['max-word-inline-gap'], 0), merge_class='Text')
-    draw_bounding_box_class(org_resize, compos_merged, name='merged line', show=show)
+    draw_bounding_box_class(org_resize, compos_merged, name='merged line', show=show, wait_key=wait_key)
     # merge lines as paragraph
     compos_merged = merge_intersected_compos(org_resize, compos_merged, max_gap=(0, params['max-line-gap']), merge_class='Text')
-    draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', show=show)
+    # draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', show=show)
     # clean compos intersected with paragraphs
     compos_merged = rm_compos_in_text(compos_merged)
-    board = draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', is_return=True, show=show)
+    board = draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', is_return=True, show=show, wait_key=wait_key)
 
-    draw_bounding_box_non_text(org_resize, compos_merged, org_shape=org.shape, show=show)
+    # draw_bounding_box_non_text(org_resize, compos_merged, org_shape=org.shape, show=show)
     compos_json = save_corners_json(output_root, background, compos_merged, org_resize.shape)
     dissemble_clip_img_fill(pjoin(output_root, 'clips'), org_resize, compos_json)
     cv2.imwrite(pjoin(output_root, 'result.jpg'), board)
 
     print('Merge Complete and Save to', pjoin(output_root, 'result.jpg'))
     print(time.ctime(), '\n')
-    if show:
-        cv2.destroyAllWindows()
+    # if show:
+    #     cv2.destroyAllWindows()
+

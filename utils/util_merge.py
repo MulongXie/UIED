@@ -14,7 +14,8 @@ from config.CONFIG import Config
 C = Config()
 
 
-def draw_bounding_box_class(org, compos, color_map=C.COLOR, line=2, show=False, is_return=False, name='img'):
+def draw_bounding_box_class(org, compos, color_map=C.COLOR, line=2,
+                            show=False, is_return=False, name='img', wait_key=0):
     if not show and not is_return: return
     board = org.copy()
 
@@ -29,18 +30,20 @@ def draw_bounding_box_class(org, compos, color_map=C.COLOR, line=2, show=False, 
         #                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, class_colors[compo_class[i]], 2)
     if show:
         cv2.imshow(name, board)
-        cv2.waitKey(0)
+        if wait_key is not None:
+            cv2.waitKey(wait_key)
     return board
 
 
-def draw_bounding_box(org, compos,  color=(0, 255, 0), line=2, show=False, name='board'):
+def draw_bounding_box(org, compos,  color=(0, 255, 0), line=2, show=False, name='board', wait_key=0):
     board = org.copy()
     for compo in compos:
         corner = compo.put_bbox()
         board = cv2.rectangle(board, (corner[0], corner[1]), (corner[2], corner[3]), color, line)
     if show:
         cv2.imshow(name, board)
-        cv2.waitKey(0)
+        if wait_key is not None:
+            cv2.waitKey(wait_key)
     return board
 
 

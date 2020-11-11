@@ -12,6 +12,10 @@ def resize_height_by_longest_edge(img_path, resize_length=800):
         return int(resize_length * (height / width))
 
 
+def nothing(x):
+    pass
+
+
 if __name__ == '__main__':
 
     '''
@@ -35,16 +39,12 @@ if __name__ == '__main__':
                   'max-word-inline-gap':4, 'max-line-gap':4}
 
     # set input image path
-    input_path_img = 'data/input/30800.jpg'
+    input_path_img = 'data/input/472.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img)
-
-    is_ip = True
     is_clf = False
     is_ocr = False
-    is_merge = False
-
     if is_ocr:
         import detect_text_east.ocr_east as ocr
         import detect_text_east.lib_east.eval as eval
@@ -53,18 +53,19 @@ if __name__ == '__main__':
         ocr.east(input_path_img, output_root, models, key_params['max-word-inline-gap'],
                  resize_by_height=resized_height, show=False)
 
+    '''
+    ******** Testing with adjustable parameters ********
+    '''
+    testing_ip = False
+    testing_merge = True
 
-    def nothing(x):
-        pass
     cv2.namedWindow('parameters')
-    cv2.createTrackbar('min-grad', 'parameters', 4, 20, nothing)
-    cv2.createTrackbar('min-ele-area', 'parameters', 20, 200, nothing)
-
-    while(1):
-        key_params['min-grad'] = cv2.getTrackbarPos('min-grad', 'parameters')
-        key_params['min-ele-area'] = cv2.getTrackbarPos('min-ele-area', 'parameters')
-
-        if is_ip:
+    if testing_ip:
+        cv2.createTrackbar('min-grad', 'parameters', 4, 20, nothing)
+        cv2.createTrackbar('min-ele-area', 'parameters', 20, 200, nothing)
+        while(1):
+            key_params['min-grad'] = cv2.getTrackbarPos('min-grad', 'parameters')
+            key_params['min-ele-area'] = cv2.getTrackbarPos('min-ele-area', 'parameters')
             import detect_compo.ip_region_proposal as ip
             os.makedirs(pjoin(output_root, 'ip'), exist_ok=True)
             # switch of the classification func
@@ -72,19 +73,24 @@ if __name__ == '__main__':
             if is_clf:
                 classifier = {}
                 from cnn.CNN import CNN
-
                 # classifier['Image'] = CNN('Image')
                 classifier['Elements'] = CNN('Elements')
                 # classifier['Noise'] = CNN('Noise')
             ip.compo_detection(input_path_img, output_root, key_params,
                                classifier=classifier, resize_by_height=resized_height, show=True, wai_key=None)
+            cv2.waitKey(10)
 
-        if is_merge:
+    if testing_merge:
+        cv2.createTrackbar('max-word-inline-gap', 'parameters', 4, 20, nothing)
+        cv2.createTrackbar('max-line-gap', 'parameters', 20, 200, nothing)
+        while(1):
+            key_params['max-word-inline-gap'] = cv2.getTrackbarPos('max-word-inline-gap', 'parameters')
+            key_params['max-line-gap'] = cv2.getTrackbarPos('max-line-gap', 'parameters')
             import merge
             name = input_path_img.split('/')[-1][:-4]
             compo_path = pjoin(output_root, 'ip', str(name) + '.json')
             ocr_path = pjoin(output_root, 'ocr', str(name) + '.json')
             merge.incorporate(input_path_img, compo_path, ocr_path, output_root, params=key_params,
-                              resize_by_height=resized_height, show=True)
+                              resize_by_height=resized_height, show=True, wait_key=None)
+            cv2.waitKey(10)
 
-        cv2.waitKey(10)
