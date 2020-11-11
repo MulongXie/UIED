@@ -186,7 +186,22 @@ def rm_line_v_h(binary, show=False, max_line_thickness=C.THRESHOLD_LINE_THICKNES
 def rm_line(binary,
             max_line_thickness=C.THRESHOLD_LINE_THICKNESS,
             min_line_length_ratio=C.THRESHOLD_LINE_MIN_LENGTH,
-            show=False):
+            show=False, wait_key=0):
+    def is_valid_line(line):
+        line_length = 0
+        line_gap = 0
+        for j in line:
+            if j > 0:
+                if line_gap > 5:
+                    return False
+                line_length += 1
+                line_gap = 0
+            elif line_length > 0:
+                line_gap += 1
+        if line_length / width > 0.95:
+            return True
+        return False
+
     height, width = binary.shape[:2]
     board = np.zeros(binary.shape[:2], dtype=np.uint8)
 
@@ -194,9 +209,9 @@ def rm_line(binary,
     check_line = False
     check_gap = False
     for i, row in enumerate(binary):
-        line_ratio = (sum(row) / 255) / width
-
-        if line_ratio > 0.9:
+        # line_ratio = (sum(row) / 255) / width
+        # if line_ratio > 0.9:
+        if is_valid_line(row):
             # new start: if it is checking a new line, mark this row as start
             if not check_line:
                 start_row = i
@@ -223,7 +238,8 @@ def rm_line(binary,
 
     if show:
         cv2.imshow('no-line', binary)
-        cv2.waitKey()
+        if wait_key is not None:
+            cv2.waitKey(wait_key)
 
 
 def rm_noise_compos(compos):

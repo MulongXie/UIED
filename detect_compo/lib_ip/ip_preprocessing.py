@@ -60,7 +60,7 @@ def reverse_binary(bin, show=False):
     return bin
 
 
-def binarization(org, grad_min, show=False, write_path=None):
+def binarization(org, grad_min, show=False, write_path=None, wait_key=0):
     grey = cv2.cvtColor(org, cv2.COLOR_BGR2GRAY)
     grad = gray_to_gradient(grey)        # get RoI with high gradient
     binary = grad_to_binary(grad, grad_min)   # enhance the RoI
@@ -69,5 +69,6 @@ def binarization(org, grad_min, show=False, write_path=None):
         cv2.imwrite(write_path, morph)
     if show:
         cv2.imshow('binary', morph)
-        cv2.waitKey()
+        if wait_key is not None:
+            cv2.waitKey(wait_key)
     return morph

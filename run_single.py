@@ -28,22 +28,22 @@ if __name__ == '__main__':
         3. If not *merge-contained-ele*, the elements inside others will be recognized, while prone to produce noises
         4. The *max-word-inline-gap* and *max-line-gap* should be dependent on the input image size and resolution
 
-        mobile: {'min-grad':4, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':6, 'max-line-gap':1}
+        mobile: {'min-grad':4, 'ffl-block':5, 'min-ele-area':50, 'max-word-inline-gap':6, 'max-line-gap':1}
         web   : {'min-grad':3, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':4, 'max-line-gap':4}
     '''
-    key_params = {'min-grad':4, 'ffl-block':5, 'min-ele-area':25, 'merge-contained-ele':True,
+    key_params = {'min-grad':10, 'ffl-block':5, 'min-ele-area':50, 'merge-contained-ele':True,
                   'max-word-inline-gap':4, 'max-line-gap':4}
 
     # set input image path
-    input_path_img = 'data/input/9.png'
+    input_path_img = 'data/input/30800.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img)
 
-    is_ip = False
+    is_ip = True
     is_clf = False
     is_ocr = False
-    is_merge = True
+    is_merge = False
 
     if is_ocr:
         import detect_text_east.ocr_east as ocr
@@ -65,7 +65,7 @@ if __name__ == '__main__':
             classifier['Elements'] = CNN('Elements')
             # classifier['Noise'] = CNN('Noise')
         ip.compo_detection(input_path_img, output_root, key_params,
-                           classifier=classifier, resize_by_height=resized_height, show=False)
+                           classifier=classifier, resize_by_height=resized_height, show=True)
 
     if is_merge:
         import merge

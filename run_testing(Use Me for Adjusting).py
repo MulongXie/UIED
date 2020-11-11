@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     resized_height = resize_height_by_longest_edge(input_path_img)
 
-    is_ip = False
+    is_ip = True
     is_clf = False
     is_ocr = False
     is_merge = False
@@ -53,24 +53,38 @@ if __name__ == '__main__':
         ocr.east(input_path_img, output_root, models, key_params['max-word-inline-gap'],
                  resize_by_height=resized_height, show=False)
 
-    if is_ip:
-        import detect_compo.ip_region_proposal as ip
-        os.makedirs(pjoin(output_root, 'ip'), exist_ok=True)
-        # switch of the classification func
-        classifier = None
-        if is_clf:
-            classifier = {}
-            from cnn.CNN import CNN
-            # classifier['Image'] = CNN('Image')
-            classifier['Elements'] = CNN('Elements')
-            # classifier['Noise'] = CNN('Noise')
-        ip.compo_detection(input_path_img, output_root, key_params,
-                           classifier=classifier, resize_by_height=resized_height, show=True)
 
-    if is_merge:
-        import merge
-        name = input_path_img.split('/')[-1][:-4]
-        compo_path = pjoin(output_root, 'ip', str(name) + '.json')
-        ocr_path = pjoin(output_root, 'ocr', str(name) + '.json')
-        merge.incorporate(input_path_img, compo_path, ocr_path, output_root, params=key_params,
-                          resize_by_height=resized_height, show=True)
+    def nothing(x):
+        pass
+    cv2.namedWindow('parameters')
+    cv2.createTrackbar('min-grad', 'parameters', 4, 20, nothing)
+    cv2.createTrackbar('min-ele-area', 'parameters', 20, 200, nothing)
+
+    while(1):
+        key_params['min-grad'] = cv2.getTrackbarPos('min-grad', 'parameters')
+        key_params['min-ele-area'] = cv2.getTrackbarPos('min-ele-area', 'parameters')
+
+        if is_ip:
+            import detect_compo.ip_region_proposal as ip
+            os.makedirs(pjoin(output_root, 'ip'), exist_ok=True)
+            # switch of the classification func
+            classifier = None
+            if is_clf:
+                classifier = {}
+                from cnn.CNN import CNN
+
+                # classifier['Image'] = CNN('Image')
+                classifier['Elements'] = CNN('Elements')
+                # classifier['Noise'] = CNN('Noise')
+            ip.compo_detection(input_path_img, output_root, key_params,
+                               classifier=classifier, resize_by_height=resized_height, show=True, wai_key=None)
+
+        if is_merge:
+            import merge
+            name = input_path_img.split('/')[-1][:-4]
+            compo_path = pjoin(output_root, 'ip', str(name) + '.json')
+            ocr_path = pjoin(output_root, 'ocr', str(name) + '.json')
+            merge.incorporate(input_path_img, compo_path, ocr_path, output_root, params=key_params,
+                              resize_by_height=resized_height, show=True)
+
+        cv2.waitKey(10)

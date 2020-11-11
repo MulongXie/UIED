@@ -136,7 +136,7 @@ def incorporate(img_path, compo_path, text_path, output_root, params,
     board = draw_bounding_box_class(org_resize, compos_merged, name='merged paragraph', is_return=True, show=show)
 
     draw_bounding_box_non_text(org_resize, compos_merged, org_shape=org.shape, show=show)
-    compos_json = save_corners_json(pjoin(output_root, 'compo.json'), background, compos_merged, org_resize.shape)
+    compos_json = save_corners_json(output_root, background, compos_merged, org_resize.shape)
     dissemble_clip_img_fill(pjoin(output_root, 'clips'), org_resize, compos_json)
     cv2.imwrite(pjoin(output_root, 'result.jpg'), board)
 
