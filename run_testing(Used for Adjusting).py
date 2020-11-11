@@ -39,7 +39,7 @@ if __name__ == '__main__':
                   'max-word-inline-gap':4, 'max-line-gap':4}
 
     # set input image path
-    input_path_img = 'data/input/472.jpg'
+    input_path_img = 'data/input/30800.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img)
@@ -56,8 +56,8 @@ if __name__ == '__main__':
     '''
     ******** Testing with adjustable parameters ********
     '''
-    testing_ip = False
-    testing_merge = True
+    testing_ip = True
+    testing_merge = False
 
     cv2.namedWindow('parameters')
     if testing_ip:

@@ -16,3 +16,7 @@
 
 30/10/2020
 - Speed optimization (500% boost)
+
+11/11/2020
+- Revise rm_line
+- Add adjustable track bar testing

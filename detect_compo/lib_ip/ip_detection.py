@@ -31,8 +31,10 @@ def merge_intersected_corner(compos, org, is_merge_contained_ele, max_gap=(0, 0)
             # 2. compo[j] intersects with compo[i] with certain iou
             # 3. is_merge_contained_ele and compo[j] is contained in compo[i]
             if relation == 1 or \
-                    (relation == 2 and new_compos[j].height < max_ele_height and cur_compo.height < max_ele_height) or\
+                    relation == 2 or \
                     (is_merge_contained_ele and relation == -1):
+                # (relation == 2 and new_compos[j].height < max_ele_height and cur_compo.height < max_ele_height) or\
+
                 new_compos[j].compo_merge(cur_compo)
                 cur_compo = new_compos[j]
                 # draw.draw_bounding_box(org, [new_compos[j]], name='a-merge', show=True)
