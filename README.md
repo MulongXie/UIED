@@ -1,7 +1,10 @@
 # UIED - UI element detection part of UI2CODE, detecting UI elements from UI screenshots or drawnings
 
 >This project is still ongoing and this repo may be updated irregularly, I also implement a web app for this project in http://uied.online
->Paper: https://dl.acm.org/doi/10.1145/3368089.3417940
+
+>Related Publications: 
+>1.UIED: a hybrid tool for GUI element detection [https://dl.acm.org/doi/10.1145/3368089.3417940]
+>2.Object Detection for Graphical User Interface: Old Fashioned or Deep Learning or a Combination?[https://arxiv.org/abs/2008.05132]
 
 ## What is it?
 
