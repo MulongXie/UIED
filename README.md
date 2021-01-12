@@ -1,6 +1,7 @@
 # UIED - UI element detection part of UI2CODE, detecting UI elements from UI screenshots or drawnings
 
 >This project is still ongoing and this repo may be updated irregularly, I also implement a web app for this project in http://uied.online
+>Paper: https://dl.acm.org/doi/10.1145/3368089.3417940
 
 ## What is it?
 
