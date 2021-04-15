@@ -3,3 +3,5 @@ tensorflow~=1.10.0
 keras~=2.2.4
 scikit-learn~=0.22.2
 pandas~=0.23.4
+shapely
+matplotlib
