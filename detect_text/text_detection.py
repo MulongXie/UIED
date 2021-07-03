@@ -17,7 +17,6 @@ def save_detection_json(file_path, texts, img_shape):
         c['width'] = text.width
         c['height'] = text.height
         output['texts'].append(c)
-
     json.dump(output, f_out, indent=4)
 
 
