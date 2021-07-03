@@ -6,7 +6,7 @@ import os
 import time
 import shutil
 
-from utils.Element import Element
+from detect_merge.Element import Element
 
 
 def show_elements(org_img, eles, show=False, win_name='element', wait_key=0, shown_resize=None, line=2):
@@ -59,7 +59,9 @@ def refine_elements(compos, texts):
                     is_valid = False
                     break
                 text_area += inter
-                contained_texts.append(text)
+                # the text is contained in the non-text compo
+                if iob >= 0.8:
+                    contained_texts.append(text)
         if is_valid and text_area / compo.area < 0.8:
             for t in contained_texts:
                 t.is_child = True
@@ -157,4 +159,4 @@ def merge(img_path, compo_path, text_path, output_root, show=False, wait_key=0):
     if show: cv2.destroyAllWindows()
 
 
-# merge('data/input/30800.jpg', 'data/output/ip/30800.json', 'data/output/ocr/30800.json', 'data/output', None, show=True)
+merge('../data/input/2.jpg', '../data/output/ip/2.json', '../data/output/ocr/2.json', '../data/output', show=True)
