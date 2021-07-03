@@ -2,7 +2,9 @@ import detect_text.ocr as ocr
 from detect_text.Text import Text
 import cv2
 import json
+import time
 import os
+from os.path import join as pjoin
 
 
 def save_detection_json(file_path, texts, img_shape):
@@ -19,16 +21,21 @@ def save_detection_json(file_path, texts, img_shape):
     json.dump(output, f_out, indent=4)
 
 
-def show_texts(org_img, texts, shown_resize=None):
+def show_texts(org_img, texts, shown_resize=None, show=False, write_path=None):
     img = org_img.copy()
     for text in texts:
         text.visualize_element(img, line=2)
-    if shown_resize is not None:
-        img = cv2.resize(img, shown_resize)
 
-    cv2.imshow('img', img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    img_resize = img
+    if shown_resize is not None:
+        img_resize = cv2.resize(img, shown_resize)
+
+    if show:
+        cv2.imshow('img', img_resize)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+    if write_path is not None:
+        cv2.imwrite(write_path, img)
 
 
 def text_sentences_recognition(texts, bias_justify, bias_gap):
@@ -73,15 +80,19 @@ def text_cvt_orc_format(ocr_result):
     return texts
 
 
-def text_detection(input_file='../data/input/30800.jpg', output_file='../data/output/ocr/30800'):
+def text_detection(input_file='../data/input/30800.jpg', output_file='../data/output', show=False):
+    start = time.clock()
+    name = input_file.split('/')[-1][:-4]
+    oct_root = pjoin(output_file, 'ocr')
     img = cv2.imread(input_file)
+
     ocr_result = ocr.ocr_detection_google(input_file)
     texts = text_cvt_orc_format(ocr_result)
-    show_texts(img, texts, (600, 900))
     texts = text_sentences_recognition(texts, bias_justify=5, bias_gap=50)
-    show_texts(img, texts, (600, 900))
-    save_detection_json(output_file + '.json', texts, img.shape)
+    show_texts(img, texts, (600, 900), show=show, write_path=pjoin(oct_root, name+'.png'))
+    save_detection_json(pjoin(oct_root, name+'.json'), texts, img.shape)
+    print("[Text Detection Completed in %.3f s] %s" % (time.clock() - start, input_file))
 
 
-text_detection()
+# text_detection()
 

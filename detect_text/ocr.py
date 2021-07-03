@@ -31,7 +31,7 @@ def ocr_detection_google(imgpath):
                              data=imgdata,
                              params={'key': api_key},
                              headers={'Content_Type': 'application/json'})
-    print('*** Text Detection Time Taken:%.3fs ***' % (time.clock() - start))
+    # print('*** Text Detection Time Taken:%.3fs ***' % (time.clock() - start))
     if response.json()['responses'] == [{}]:
         # No Text
         return None
