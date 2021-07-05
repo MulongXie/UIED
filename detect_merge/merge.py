@@ -81,10 +81,9 @@ def refine_elements(compos, texts, intersection_bias=2, containment_ratio=0.8):
 
 
 def remove_top_bar(elements, img_height):
-    height = img_height * 0.05
     new_elements = []
     for ele in elements:
-        if ele.row_min < height and ele.height < height:
+        if ele.row_min < 10 and ele.height < img_height * 0.05:
             continue
         new_elements.append(ele)
     return new_elements
