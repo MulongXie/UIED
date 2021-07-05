@@ -22,6 +22,18 @@ class Element:
     def put_bbox(self):
         return self.col_min, self.row_min, self.col_max, self.row_max
 
+    def wrap_info(self):
+        info = {'class': self.category, 'height': self.height, 'width': self.width,
+                'position': {'column_min': self.col_min, 'row_min': self.row_min, 'column_max': self.col_max,
+                             'row_max': self.row_max}}
+        if self.text_content is not None:
+            info['text_content'] = self.text_content
+        if len(self.children) > 0:
+            info['children'] = []
+            for child in self.children:
+                info['children'].append(child.wrap_info())
+        return info
+
     def resize(self, resize_ratio):
         self.col_min = int(self.col_min * resize_ratio)
         self.row_min = int(self.row_min * resize_ratio)

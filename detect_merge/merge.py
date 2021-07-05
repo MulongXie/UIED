@@ -24,16 +24,13 @@ def show_elements(org_img, eles, show=False, win_name='element', wait_key=0, sho
     return img_resize
 
 
-def save_elements(output_dir, background, elements, img_shape):
+def save_elements(output_dir, elements, img_shape):
     components = {'compos': [], 'img_shape': img_shape}
     clip_dir = pjoin(output_dir, 'clips')
-    if background is not None: components['compos'].append(background)
 
     for i, ele in enumerate(elements):
-        corner = ele.put_bbox()
-        c = {'id': i, 'class': ele.category,
-             'height': ele.height, 'width': ele.width,
-             'column_min': corner[0], 'row_min': corner[1], 'column_max': corner[2], 'row_max': corner[3]}
+        c = ele.wrap_info()
+        c['id'] = i
         c['clip_path'] = pjoin(clip_dir, c['class'], str(i) + '.jpg')
         components['compos'].append(c)
 
@@ -93,7 +90,7 @@ def remove_top_bar(elements, img_height):
     return new_elements
 
 
-def dissemble_clip_img_fill(clip_root, org, compos):
+def compos_clip_and_fill(clip_root, org, compos):
     def most_pix_around(pad=6, offset=2):
         '''
         determine the filled background color according to the most surrounding pixel
@@ -129,7 +126,8 @@ def dissemble_clip_img_fill(clip_root, org, compos):
             os.mkdir(c_root)
             cls_dirs.append(cls)
 
-        col_min, row_min, col_max, row_max = compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']
+        position = compo['position']
+        col_min, row_min, col_max, row_max = position['column_min'], position['row_min'], position['column_max'], position['row_max']
         cv2.imwrite(c_path, org[row_min:row_max, col_min:col_max])
         # Fill up the background area
         cv2.rectangle(bkg, (col_min, row_min), (col_max, row_max), most_pix_around(), -1)
@@ -141,12 +139,8 @@ def merge(img_path, compo_path, text_path, output_root, is_remove_top, show=Fals
     text_json = json.load(open(text_path, 'r'))
 
     # load text and non-text compo
-    background = None
     compos = []
     for compo in compo_json['compos']:
-        if compo['class'] == 'Background':
-            background = compo
-            continue
         element = Element((compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']), compo['class'])
         compos.append(element)
     texts = []
@@ -170,8 +164,8 @@ def merge(img_path, compo_path, text_path, output_root, is_remove_top, show=Fals
     board = show_elements(img_resize, elements, show=show, win_name='valid compos', wait_key=wait_key)
 
     # save all merged elements, clips and blank background
-    compos_json = save_elements(output_root, background, elements, img_resize.shape)
-    dissemble_clip_img_fill(pjoin(output_root, 'clips'), img_resize, compos_json)
+    compos_json = save_elements(output_root, elements, img_resize.shape)
+    compos_clip_and_fill(pjoin(output_root, 'clips'), img_resize, compos_json)
     cv2.imwrite(pjoin(output_root, 'result.jpg'), board)
 
     print('Merge Complete and Save to', pjoin(output_root, 'result.jpg'))
