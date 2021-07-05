@@ -62,6 +62,28 @@ def text_sentences_recognition(texts, bias_justify, bias_gap):
     return texts
 
 
+def merge_intersected_texts(texts):
+    '''
+    Merge intersected texts (sentences or words)
+    '''
+    changed = True
+    while changed:
+        changed = False
+        temp_set = []
+        for text_a in texts:
+            merged = False
+            for text_b in temp_set:
+                if text_a.is_intersected(text_b):
+                    text_b.merge_text(text_a)
+                    merged = True
+                    changed = True
+                    break
+            if not merged:
+                temp_set.append(text_a)
+        texts = temp_set.copy()
+    return texts
+
+
 def text_cvt_orc_format(ocr_result):
     texts = []
     if ocr_result is not None:
@@ -103,6 +125,7 @@ def text_detection(input_file='../data/input/30800.jpg', output_file='../data/ou
     texts = text_cvt_orc_format(ocr_result)
     texts = text_filter_noise(texts)
     texts = text_sentences_recognition(texts, bias_justify=3, bias_gap=word_inline_gap)
+    texts = merge_intersected_texts(texts)
     visualize_texts(img, texts, (600, 900), show=show, write_path=pjoin(oct_root, name+'.png'))
     save_detection_json(pjoin(oct_root, name+'.json'), texts, img.shape)
     print("[Text Detection Completed in %.3f s] %s" % (time.clock() - start, input_file))

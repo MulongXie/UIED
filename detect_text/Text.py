@@ -65,6 +65,20 @@ class Text:
                     return True
             return False
 
+    def is_intersected(self, text_b):
+        l_a = self.location
+        l_b = text_b.location
+        left_in = max(l_a['left'], l_b['left'])
+        top_in = max(l_a['top'], l_b['top'])
+        right_in = min(l_a['right'], l_b['right'])
+        bottom_in = min(l_a['bottom'], l_b['bottom'])
+
+        w_in = max(0, right_in - left_in)
+        h_in = max(0, bottom_in - top_in)
+        area_in = w_in * h_in
+        if area_in > 0:
+            return True
+
     '''
     ***********************
     *** Revise the Text ***
