@@ -84,7 +84,16 @@ def text_cvt_orc_format(ocr_result):
     return texts
 
 
-def text_detection(input_file='../data/input/30800.jpg', output_file='../data/output', show=False):
+def text_filter_noise(texts):
+    valid_texts = []
+    for text in texts:
+        if len(text.content) <= 1 and text.content.lower() not in ['a', ',', '.', '!', '?']:
+            continue
+        valid_texts.append(text)
+    return valid_texts
+
+
+def text_detection(input_file='../data/input/30800.jpg', output_file='../data/output', word_inline_gap=10, show=False):
     start = time.clock()
     name = input_file.split('/')[-1][:-4]
     oct_root = pjoin(output_file, 'ocr')
@@ -92,7 +101,8 @@ def text_detection(input_file='../data/input/30800.jpg', output_file='../data/ou
 
     ocr_result = ocr.ocr_detection_google(input_file)
     texts = text_cvt_orc_format(ocr_result)
-    texts = text_sentences_recognition(texts, bias_justify=5, bias_gap=50)
+    texts = text_filter_noise(texts)
+    texts = text_sentences_recognition(texts, bias_justify=3, bias_gap=word_inline_gap)
     visualize_texts(img, texts, (600, 900), show=show, write_path=pjoin(oct_root, name+'.png'))
     save_detection_json(pjoin(oct_root, name+'.json'), texts, img.shape)
     print("[Text Detection Completed in %.3f s] %s" % (time.clock() - start, input_file))
