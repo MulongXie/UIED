@@ -38,11 +38,11 @@ def save_elements(output_dir, elements, img_shape):
     return components['compos']
 
 
-def refine_texts(texts):
+def refine_texts(texts, img_shape):
     refined_texts = []
     for text in texts:
         # remove potential noise
-        if len(text.text_content) > 1:
+        if len(text.text_content) > 1 and text.height / img_shape[0] < 0.075:
             refined_texts.append(text)
     return refined_texts
 
@@ -158,7 +158,7 @@ def merge(img_path, compo_path, text_path, output_root, is_remove_top, show=Fals
     show_elements(img_resize, texts + compos, show=show, win_name='element', wait_key=wait_key)
 
     # refine elements
-    texts = refine_texts(texts)
+    texts = refine_texts(texts, compo_json['img_shape'])
     elements = refine_elements(compos, texts)
     if is_remove_top: elements = remove_top_bar(elements, img_height=compo_json['img_shape'][0])
     board = show_elements(img_resize, elements, show=show, win_name='valid compos', wait_key=wait_key)
