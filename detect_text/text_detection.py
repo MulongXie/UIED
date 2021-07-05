@@ -20,7 +20,7 @@ def save_detection_json(file_path, texts, img_shape):
     json.dump(output, f_out, indent=4)
 
 
-def show_texts(org_img, texts, shown_resize=None, show=False, write_path=None):
+def visualize_texts(org_img, texts, shown_resize=None, show=False, write_path=None):
     img = org_img.copy()
     for text in texts:
         text.visualize_element(img, line=2)
@@ -66,13 +66,18 @@ def text_cvt_orc_format(ocr_result):
     texts = []
     if ocr_result is not None:
         for i, result in enumerate(ocr_result):
+            error = False
             x_coordinates = []
             y_coordinates = []
             text_location = result['boundingPoly']['vertices']
             content = result['description']
             for loc in text_location:
+                if 'x' not in loc or 'y' not in loc:
+                    error = True
+                    break
                 x_coordinates.append(loc['x'])
                 y_coordinates.append(loc['y'])
+            if error: continue
             location = {'left': min(x_coordinates), 'top': min(y_coordinates),
                         'right': max(x_coordinates), 'bottom': max(y_coordinates)}
             texts.append(Text(i, content, location))
@@ -88,7 +93,7 @@ def text_detection(input_file='../data/input/30800.jpg', output_file='../data/ou
     ocr_result = ocr.ocr_detection_google(input_file)
     texts = text_cvt_orc_format(ocr_result)
     texts = text_sentences_recognition(texts, bias_justify=5, bias_gap=50)
-    show_texts(img, texts, (600, 900), show=show, write_path=pjoin(oct_root, name+'.png'))
+    visualize_texts(img, texts, (600, 900), show=show, write_path=pjoin(oct_root, name+'.png'))
     save_detection_json(pjoin(oct_root, name+'.json'), texts, img.shape)
     print("[Text Detection Completed in %.3f s] %s" % (time.clock() - start, input_file))
 
