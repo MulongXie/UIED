@@ -41,7 +41,16 @@ def save_elements(output_dir, background, elements, img_shape):
     return components['compos']
 
 
-def refine_elements(compos, texts):
+def refine_texts(texts):
+    refined_texts = []
+    for text in texts:
+        # remove potential noise
+        if len(text.text_content) > 1:
+            refined_texts.append(text)
+    return refined_texts
+
+
+def refine_elements(compos, texts, intersection_bias=2, containment_ratio=0.8):
     '''
     1. remove compos contained in text
     2. remove compos containing text area that's too large
@@ -53,16 +62,16 @@ def refine_elements(compos, texts):
         text_area = 0
         contained_texts = []
         for text in texts:
-            inter, iou, ioa, iob = compo.calc_intersection_area(text, bias=2)
+            inter, iou, ioa, iob = compo.calc_intersection_area(text, bias=intersection_bias)
             if inter > 0:
-                if ioa >= 0.8:
+                if ioa >= containment_ratio:
                     is_valid = False
                     break
                 text_area += inter
                 # the text is contained in the non-text compo
-                if iob >= 0.8:
+                if iob >= containment_ratio:
                     contained_texts.append(text)
-        if is_valid and text_area / compo.area < 0.8:
+        if is_valid and text_area / compo.area < containment_ratio:
             for t in contained_texts:
                 t.is_child = True
             compo.children += contained_texts
@@ -72,6 +81,16 @@ def refine_elements(compos, texts):
         if not text.is_child:
             elements.append(text)
     return elements
+
+
+def remove_top_bar(elements, img_height):
+    height = img_height * 0.05
+    new_elements = []
+    for ele in elements:
+        if ele.row_min < height and ele.height < height:
+            continue
+        new_elements.append(ele)
+    return new_elements
 
 
 def dissemble_clip_img_fill(clip_root, org, compos):
@@ -117,7 +136,7 @@ def dissemble_clip_img_fill(clip_root, org, compos):
     cv2.imwrite(pjoin(clip_root, 'bkg.png'), bkg)
 
 
-def merge(img_path, compo_path, text_path, output_root, show=False, wait_key=0):
+def merge(img_path, compo_path, text_path, output_root, is_remove_top, show=False, wait_key=0):
     compo_json = json.load(open(compo_path, 'r'))
     text_json = json.load(open(text_path, 'r'))
 
@@ -128,12 +147,11 @@ def merge(img_path, compo_path, text_path, output_root, show=False, wait_key=0):
         if compo['class'] == 'Background':
             background = compo
             continue
-        element = Element((compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']),
-                          compo['class'])
+        element = Element((compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']), compo['class'])
         compos.append(element)
     texts = []
     for text in text_json['texts']:
-        element = Element((text['column_min'], text['row_min'], text['column_max'], text['row_max']), 'Text')
+        element = Element((text['column_min'], text['row_min'], text['column_max'], text['row_max']), 'Text', text_content=text['content'])
         texts.append(element)
     if compo_json['img_shape'] != text_json['img_shape']:
         resize_ratio = compo_json['img_shape'][0] / text_json['img_shape'][0]
@@ -145,8 +163,10 @@ def merge(img_path, compo_path, text_path, output_root, show=False, wait_key=0):
     img_resize = cv2.resize(img, (compo_json['img_shape'][1], compo_json['img_shape'][0]))
     show_elements(img_resize, texts + compos, show=show, win_name='element', wait_key=wait_key)
 
-    # refine elements by removing some invalid compo and store contained texts as children elements
+    # refine elements
+    texts = refine_texts(texts)
     elements = refine_elements(compos, texts)
+    if is_remove_top: elements = remove_top_bar(elements, img_height=compo_json['img_shape'][0])
     board = show_elements(img_resize, elements, show=show, win_name='valid compos', wait_key=wait_key)
 
     # save all merged elements, clips and blank background
@@ -159,4 +179,4 @@ def merge(img_path, compo_path, text_path, output_root, show=False, wait_key=0):
     if show: cv2.destroyAllWindows()
 
 
-merge('../data/input/2.jpg', '../data/output/ip/2.json', '../data/output/ocr/2.json', '../data/output', show=True)
+# merge('../data/input/2.jpg', '../data/output/ip/2.json', '../data/output/ocr/2.json', '../data/output', show=True)

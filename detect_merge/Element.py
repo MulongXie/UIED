@@ -3,13 +3,14 @@ import cv2
 
 
 class Element:
-    def __init__(self, corner, category):
+    def __init__(self, corner, category, text_content=None):
         self.category = category
         self.col_min, self.row_min, self.col_max, self.row_max = corner
         self.width = self.col_max - self.col_min
         self.height = self.row_max - self.row_min
         self.area = self.width * self.height
 
+        self.text_content = text_content
         self.is_child = False
         self.children = []  # list of elements
 
