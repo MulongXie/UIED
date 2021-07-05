@@ -37,7 +37,7 @@ def visualize_texts(org_img, texts, shown_resize=None, show=False, write_path=No
         cv2.imwrite(write_path, img)
 
 
-def text_sentences_recognition(texts, bias_justify, bias_gap):
+def text_sentences_recognition(texts):
     '''
     Merge separate words detected by Google ocr into a sentence
     '''
@@ -48,7 +48,7 @@ def text_sentences_recognition(texts, bias_justify, bias_gap):
         for text_a in texts:
             merged = False
             for text_b in temp_set:
-                if text_a.is_on_same_line(text_b, 'h', bias_justify=bias_justify, bias_gap=bias_gap):
+                if text_a.is_on_same_line(text_b, 'h', bias_justify=0.2 * min(text_a.height, text_b.height), bias_gap=2 * max(text_a.word_width, text_b.word_width)):
                     text_b.merge_text(text_a)
                     merged = True
                     changed = True
@@ -73,7 +73,7 @@ def merge_intersected_texts(texts):
         for text_a in texts:
             merged = False
             for text_b in temp_set:
-                if text_a.is_intersected(text_b):
+                if text_a.is_intersected(text_b, bias=2):
                     text_b.merge_text(text_a)
                     merged = True
                     changed = True
@@ -109,13 +109,13 @@ def text_cvt_orc_format(ocr_result):
 def text_filter_noise(texts):
     valid_texts = []
     for text in texts:
-        if len(text.content) <= 1 and text.content.lower() not in ['a', ',', '.', '!', '?']:
+        if len(text.content) <= 1 and text.content.lower() not in ['a', ',', '.', '!', '?', '$', '%', ':']:
             continue
         valid_texts.append(text)
     return valid_texts
 
 
-def text_detection(input_file='../data/input/30800.jpg', output_file='../data/output', word_inline_gap=10, show=False):
+def text_detection(input_file='../data/input/30800.jpg', output_file='../data/output', show=False):
     start = time.clock()
     name = input_file.split('/')[-1][:-4]
     oct_root = pjoin(output_file, 'ocr')
@@ -123,9 +123,9 @@ def text_detection(input_file='../data/input/30800.jpg', output_file='../data/ou
 
     ocr_result = ocr.ocr_detection_google(input_file)
     texts = text_cvt_orc_format(ocr_result)
-    texts = text_filter_noise(texts)
-    texts = text_sentences_recognition(texts, bias_justify=3, bias_gap=word_inline_gap)
     texts = merge_intersected_texts(texts)
+    texts = text_filter_noise(texts)
+    texts = text_sentences_recognition(texts)
     visualize_texts(img, texts, (600, 900), show=show, write_path=pjoin(oct_root, name+'.png'))
     save_detection_json(pjoin(oct_root, name+'.json'), texts, img.shape)
     print("[Text Detection Completed in %.3f s] %s" % (time.clock() - start, input_file))

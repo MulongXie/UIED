@@ -11,6 +11,7 @@ class Text:
         self.width = self.location['right'] - self.location['left']
         self.height = self.location['bottom'] - self.location['top']
         self.area = self.width * self.height
+        self.word_width = self.width / len(self.content)
 
     '''
     ********************************
@@ -65,11 +66,11 @@ class Text:
                     return True
             return False
 
-    def is_intersected(self, text_b):
+    def is_intersected(self, text_b, bias):
         l_a = self.location
         l_b = text_b.location
-        left_in = max(l_a['left'], l_b['left'])
-        top_in = max(l_a['top'], l_b['top'])
+        left_in = max(l_a['left'], l_b['left']) + bias
+        top_in = max(l_a['top'], l_b['top']) + bias
         right_in = min(l_a['right'], l_b['right'])
         bottom_in = min(l_a['bottom'], l_b['bottom'])
 
@@ -101,6 +102,7 @@ class Text:
             left_element = text_b
             right_element = text_a
         self.content = left_element.content + ' ' + right_element.content
+        self.word_width = self.width / len(self.content)
 
     def shrink_bound(self, binary_map):
         bin_clip = binary_map[self.location['top']:self.location['bottom'], self.location['left']:self.location['right']]
@@ -162,6 +164,7 @@ class Text:
         self.width = self.location['right'] - self.location['left']
         self.height = self.location['bottom'] - self.location['top']
         self.area = self.width * self.height
+        self.word_width = self.width / len(self.content)
 
     '''
     *********************
