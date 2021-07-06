@@ -20,17 +20,17 @@ def save_detection_json(file_path, texts, img_shape):
     json.dump(output, f_out, indent=4)
 
 
-def visualize_texts(org_img, texts, shown_resize=None, show=False, write_path=None):
+def visualize_texts(org_img, texts, shown_resize_height=None, show=False, write_path=None):
     img = org_img.copy()
     for text in texts:
         text.visualize_element(img, line=2)
 
     img_resize = img
-    if shown_resize is not None:
-        img_resize = cv2.resize(img, shown_resize)
+    if shown_resize_height is not None:
+        img_resize = cv2.resize(img, (int(shown_resize_height * (img.shape[1]/img.shape[0])), shown_resize_height))
 
     if show:
-        cv2.imshow('img', img_resize)
+        cv2.imshow('texts', img_resize)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     if write_path is not None:
@@ -126,7 +126,7 @@ def text_detection(input_file='../data/input/30800.jpg', output_file='../data/ou
     texts = merge_intersected_texts(texts)
     texts = text_filter_noise(texts)
     texts = text_sentences_recognition(texts)
-    visualize_texts(img, texts, (600, 900), show=show, write_path=pjoin(oct_root, name+'.png'))
+    visualize_texts(img, texts, shown_resize_height=800, show=show, write_path=pjoin(oct_root, name+'.png'))
     save_detection_json(pjoin(oct_root, name+'.json'), texts, img.shape)
     print("[Text Detection Completed in %.3f s] %s" % (time.clock() - start, input_file))
 

@@ -171,7 +171,7 @@ class Text:
     *** Visualization ***
     *********************
     '''
-    def visualize_element(self, img, color=(0, 255, 0), line=1, show=False):
+    def visualize_element(self, img, color=(0, 0, 255), line=1, show=False):
         loc = self.location
         cv2.rectangle(img, (loc['left'], loc['top']), (loc['right'], loc['bottom']), color, line)
         if show:
