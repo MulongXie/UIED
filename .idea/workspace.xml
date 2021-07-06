@@ -3,17 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b4069649-920d-465f-ac6b-bac85007c2bb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/compo.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/compo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/30800.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/30800.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/5.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/5.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/result.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/result.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/30800.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ocr/30800.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/30800.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ocr/30800.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_merge/merge.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_merge/merge.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text/text_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text/text_detection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_single.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +223,7 @@
       <workItem from="1625010508533" duration="4541000" />
       <workItem from="1625099073176" duration="49720000" />
       <workItem from="1625443415902" duration="26350000" />
-      <workItem from="1625529598285" duration="23549000" />
+      <workItem from="1625529598285" duration="25670000" />
     </task>
     <servers />
   </component>
