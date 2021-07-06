@@ -32,26 +32,23 @@ if __name__ == '__main__':
         web   : {'min-grad':3, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':4, 'max-line-gap':4}
     '''
     key_params = {'min-grad':10, 'ffl-block':5, 'min-ele-area':50, 'merge-contained-ele':True,
-                  'max-word-inline-gap':4, 'max-line-gap':4}
+                  'max-word-inline-gap':10, 'max-line-ingraph-gap':4, 'remove-top-bar':True}
 
     # set input image path
-    input_path_img = 'data/input/30800.jpg'
+    input_path_img = 'data/input/5.jpg'
     output_root = 'data/output'
 
-    resized_height = resize_height_by_longest_edge(input_path_img)
+    resized_height = resize_height_by_longest_edge(input_path_img, resize_length=800)
 
     is_ip = True
     is_clf = False
-    is_ocr = False
+    is_ocr = True
     is_merge = True
 
     if is_ocr:
-        import detect_text_east.ocr_east as ocr
-        import detect_text_east.lib_east.eval as eval
+        import detect_text.text_detection as text
         os.makedirs(pjoin(output_root, 'ocr'), exist_ok=True)
-        models = eval.load()
-        ocr.east(input_path_img, output_root, models, key_params['max-word-inline-gap'],
-                 resize_by_height=resized_height, show=False)
+        text.text_detection(input_path_img, output_root, show=False)
 
     if is_ip:
         import detect_compo.ip_region_proposal as ip
@@ -65,12 +62,11 @@ if __name__ == '__main__':
             classifier['Elements'] = CNN('Elements')
             # classifier['Noise'] = CNN('Noise')
         ip.compo_detection(input_path_img, output_root, key_params,
-                           classifier=classifier, resize_by_height=resized_height, show=True)
+                           classifier=classifier, resize_by_height=resized_height, show=False)
 
     if is_merge:
-        import merge
+        import detect_merge.merge as merge
         name = input_path_img.split('/')[-1][:-4]
         compo_path = pjoin(output_root, 'ip', str(name) + '.json')
         ocr_path = pjoin(output_root, 'ocr', str(name) + '.json')
-        merge.incorporate(input_path_img, compo_path, ocr_path, output_root, params=key_params,
-                          resize_by_height=resized_height, show=True)
+        merge.merge(input_path_img, compo_path, ocr_path, output_root, is_remove_top=key_params['remove-top-bar'], show=True)
