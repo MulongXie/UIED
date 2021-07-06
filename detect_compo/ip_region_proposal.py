@@ -72,7 +72,7 @@ def compo_detection(input_img_path, output_root, uied_params,
 
     # *** Step 1 *** pre-processing: read img -> get binary map
     org, grey = pre.read_img(input_img_path, resize_by_height)
-    binary = pre.binarization(org, grad_min=int(uied_params['min-grad']), show=show, wait_key=wai_key)
+    binary = pre.binarization(org, grad_min=int(uied_params['min-grad']))
 
     # *** Step 2 *** element detection
     det.rm_line(binary, show=show, wait_key=wai_key)
@@ -115,4 +115,3 @@ def compo_detection(input_img_path, output_root, uied_params,
     file.save_corners_json(pjoin(ip_root, name + '.json'), uicompos)
     file.save_corners_json(pjoin(output_root, 'compo.json'), uicompos)
     print("[Compo Detection Completed in %.3f s] %s" % (time.clock() - start, input_img_path))
-    if show: cv2.destroyAllWindows()

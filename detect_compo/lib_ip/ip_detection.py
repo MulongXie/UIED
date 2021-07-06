@@ -239,7 +239,7 @@ def rm_line(binary,
         binary[start_row: end_row] = 0
 
     if show:
-        cv2.imshow('no-line', binary)
+        cv2.imshow('no-line binary', binary)
         if wait_key is not None:
             cv2.waitKey(wait_key)
 
