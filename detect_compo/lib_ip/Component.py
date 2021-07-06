@@ -44,6 +44,7 @@ class Component:
 
         self.rect_ = None
         self.line_ = None
+        self.redundant = False
 
     def compo_update(self, id, org_shape):
         self.id = id

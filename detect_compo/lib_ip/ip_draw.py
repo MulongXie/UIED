@@ -55,6 +55,8 @@ def draw_bounding_box(org, components, color=(0, 255, 0), line=2,
         cv2.imshow(name, board)
         if wait_key is not None:
             cv2.waitKey(wait_key)
+        if wait_key == 0:
+            cv2.destroyAllWindows()
     if write_path is not None:
         # board = cv2.resize(board, (1080, 1920))
         # board = board[100:-110]

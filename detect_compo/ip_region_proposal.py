@@ -48,9 +48,8 @@ def nesting_inspection(org, grey, compos, ffl_block):
     for i, compo in enumerate(compos):
         if compo.height > 50:
             replace = False
-            clip_org = compo.compo_clipping(org)
             clip_grey = compo.compo_clipping(grey)
-            n_compos = blk.block_division(clip_grey, org, grad_thresh=ffl_block, show=False)
+            n_compos = det.nested_components_detection(clip_grey, org, grad_thresh=ffl_block, show=False)
             Compo.cvt_compos_relative_pos(n_compos, compo.bbox.col_min, compo.bbox.row_min)
 
             for n_compo in n_compos:
