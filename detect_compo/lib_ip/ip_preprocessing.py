@@ -44,11 +44,6 @@ def gray_to_gradient(img):
     return gradient
 
 
-def grad_to_binary(grad, min):
-    rec, bin = cv2.threshold(grad, min, 255, cv2.THRESH_BINARY)
-    return bin
-
-
 def reverse_binary(bin, show=False):
     """
     Reverse the input binary image
@@ -63,7 +58,7 @@ def reverse_binary(bin, show=False):
 def binarization(org, grad_min, show=False, write_path=None, wait_key=0):
     grey = cv2.cvtColor(org, cv2.COLOR_BGR2GRAY)
     grad = gray_to_gradient(grey)        # get RoI with high gradient
-    binary = grad_to_binary(grad, grad_min)   # enhance the RoI
+    rec, binary = cv2.threshold(grad, grad_min, 255, cv2.THRESH_BINARY)    # enhance the RoI
     morph = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, (3, 3))  # remove noises
     if write_path is not None:
         cv2.imwrite(write_path, morph)
