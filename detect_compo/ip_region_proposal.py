@@ -8,7 +8,6 @@ import detect_compo.lib_ip.ip_preprocessing as pre
 import detect_compo.lib_ip.ip_draw as draw
 import detect_compo.lib_ip.ip_detection as det
 import detect_compo.lib_ip.file_utils as file
-import detect_compo.lib_ip.Block as blk
 import detect_compo.lib_ip.Component as Compo
 from config.CONFIG_UIED import Config
 C = Config()
