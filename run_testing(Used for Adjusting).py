@@ -36,7 +36,7 @@ if __name__ == '__main__':
         web   : {'min-grad':3, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':4, 'max-line-gap':4}
     '''
     key_params = {'min-grad':10, 'ffl-block':5, 'min-ele-area':50, 'merge-contained-ele':True,
-                  'max-word-inline-gap':4, 'max-line-gap':4}
+                  'max-word-inline-gap':10, 'max-line-gap':4, 'remove-top-bar':True}
 
     # set input image path
     input_path_img = 'data/input/30800.jpg'
@@ -44,20 +44,17 @@ if __name__ == '__main__':
 
     resized_height = resize_height_by_longest_edge(input_path_img)
     is_clf = False
-    is_ocr = False
+    is_ocr = True
     if is_ocr:
-        import detect_text_east.ocr_east as ocr
-        import detect_text_east.lib_east.eval as eval
+        import detect_text.text_detection as text
         os.makedirs(pjoin(output_root, 'ocr'), exist_ok=True)
-        models = eval.load()
-        ocr.east(input_path_img, output_root, models, key_params['max-word-inline-gap'],
-                 resize_by_height=resized_height, show=False)
+        text.text_detection(input_path_img, output_root, show=False)
 
     '''
     ******** Testing with adjustable parameters ********
     '''
-    testing_ip = True
-    testing_merge = False
+    testing_ip = False
+    testing_merge = True
 
     cv2.namedWindow('parameters')
     if testing_ip:
@@ -77,8 +74,7 @@ if __name__ == '__main__':
                 classifier['Elements'] = CNN('Elements')
                 # classifier['Noise'] = CNN('Noise')
             ip.compo_detection(input_path_img, output_root, key_params,
-                               classifier=classifier, resize_by_height=resized_height, show=True, wai_key=None)
-            cv2.waitKey(10)
+                               classifier=classifier, resize_by_height=resized_height, show=True, wai_key=10)
 
     if testing_merge:
         cv2.createTrackbar('max-word-inline-gap', 'parameters', 4, 20, nothing)
@@ -86,11 +82,8 @@ if __name__ == '__main__':
         while(1):
             key_params['max-word-inline-gap'] = cv2.getTrackbarPos('max-word-inline-gap', 'parameters')
             key_params['max-line-gap'] = cv2.getTrackbarPos('max-line-gap', 'parameters')
-            import merge
+            import detect_merge.merge as merge
             name = input_path_img.split('/')[-1][:-4]
             compo_path = pjoin(output_root, 'ip', str(name) + '.json')
             ocr_path = pjoin(output_root, 'ocr', str(name) + '.json')
-            merge.incorporate(input_path_img, compo_path, ocr_path, output_root, params=key_params,
-                              resize_by_height=resized_height, show=True, wait_key=None)
-            cv2.waitKey(10)
-
+            merge.merge(input_path_img, compo_path, ocr_path, output_root=None, is_remove_top=key_params['remove-top-bar'], show=True, wait_key=10)

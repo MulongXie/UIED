@@ -2,64 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4069649-920d-465f-ac6b-bac85007c2bb" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/ip_region_proposal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/file_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/file_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/data_util.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/deploy.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/eval.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/icdar.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/.ycm_extra_conf.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/__main__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/adaptor.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/adaptor.exp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/adaptor.lib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/adaptor.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/clipper.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/clipper/clipper.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/clipper/clipper.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/attr.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/buffer_info.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/cast.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/chrono.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/class_support.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/common.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/complex.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/descr.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/eigen.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/embed.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/eval.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/functional.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/numpy.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/operators.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/options.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/pybind11.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/pytypes.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/stl.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/stl_bind.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/include/pybind11/typeid.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/lanms/lanms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/locality_aware_nms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/nets/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/nets/resnet_utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/nets/resnet_v1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/lib_east/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/ocr_east.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_text_east/run_east.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_single.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/Element.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/cfg-for-web.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/log.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/speed-improvement.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Untitled.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/13.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/clips/bkg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/compo.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/compo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ip/5.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/5.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ip/result.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/result.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ocr/5.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ocr/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/result.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_merge/merge.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_merge/merge.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_batch.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_batch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_testing(Used for Adjusting).py" beforeDir="false" afterPath="$PROJECT_DIR$/run_testing(Used for Adjusting).py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,23 +58,24 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SmartForm" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../UI2CODE/Element-Detection/merge.py" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\git_file\github\doing\UIED\data\demo" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\git_file\github\doing\UIED\detect_compo" />
+      <recent name="D:\git_file\github\doing\UIED\detect_compo\deprecated" />
       <recent name="D:\git_file\github\doing\UIED\utils" />
       <recent name="D:\git_file\github\doing\UIED" />
       <recent name="D:\git_file\github\doing\UIED\result_processing" />
-      <recent name="D:\git_file\github\doing\UIED\detect_text_east" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\git_file\github\doing\UIED\data\demo" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run_single">
+  <component name="RunManager" selected="Python.run_testing(Used for Adjusting)">
     <configuration name="merge" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -224,11 +195,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.run_testing(Used for Adjusting)" />
         <item itemvalue="Python.run_single" />
         <item itemvalue="Python.merge" />
         <item itemvalue="Python.merge2" />
         <item itemvalue="Python.text_detection" />
-        <item itemvalue="Python.run_testing(Used for Adjusting)" />
       </list>
     </recent_temporary>
   </component>
@@ -278,7 +249,8 @@
       <workItem from="1605086142565" duration="6397000" />
       <workItem from="1625010508533" duration="4541000" />
       <workItem from="1625099073176" duration="49720000" />
-      <workItem from="1625443415902" duration="22079000" />
+      <workItem from="1625443415902" duration="26350000" />
+      <workItem from="1625529598285" duration="9722000" />
     </task>
     <servers />
   </component>
@@ -291,10 +263,11 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1625012063143">
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1625532143308">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625012063143" />
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625532143308" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1625444078276">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -304,26 +277,26 @@
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625303420827" />
     <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625452743709" />
-    <state width="1877" height="270" key="GridCell.Tab.0.bottom" timestamp="1625482311046">
+    <state width="1877" height="270" key="GridCell.Tab.0.bottom" timestamp="1625538872155">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.bottom/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.bottom/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625482311046" />
-    <state width="1877" height="270" key="GridCell.Tab.0.center" timestamp="1625482311046">
+    <state width="1877" height="270" key="GridCell.Tab.0.bottom/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625538872155" />
+    <state width="1877" height="270" key="GridCell.Tab.0.center" timestamp="1625538872154">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.center/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.center/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625482311046" />
-    <state width="1877" height="270" key="GridCell.Tab.0.left" timestamp="1625482311046">
+    <state width="1877" height="270" key="GridCell.Tab.0.center/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625538872154" />
+    <state width="1877" height="270" key="GridCell.Tab.0.left" timestamp="1625538872154">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.left/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.left/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625482311046" />
-    <state width="1877" height="270" key="GridCell.Tab.0.right" timestamp="1625482311046">
+    <state width="1877" height="270" key="GridCell.Tab.0.left/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625538872154" />
+    <state width="1877" height="270" key="GridCell.Tab.0.right" timestamp="1625538872155">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.right/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.right/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625482311046" />
+    <state width="1877" height="270" key="GridCell.Tab.0.right/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625538872155" />
     <state x="143" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1625104324231">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -385,10 +358,10 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/UIED$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594102734340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$text_detection.coverage" NAME="text_detection Coverage Results" MODIFIED="1625107691453" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detect_text" />
-    <SUITE FILE_PATH="coverage/UIED$run_single.coverage" NAME="run_single Coverage Results" MODIFIED="1625482311040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UIED$run_single.coverage" NAME="run_single Coverage Results" MODIFIED="1625538810766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$merge2.coverage" NAME="merge2 Coverage Results" MODIFIED="1625271385465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$merge.coverage" NAME="merge Coverage Results" MODIFIED="1625284362497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detect_merge" />
-    <SUITE FILE_PATH="coverage/UIED$run_testing_Used_for_Adjusting_.coverage" NAME="run_testing(Used for Adjusting) Coverage Results" MODIFIED="1625011895258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UIED$run_testing_Used_for_Adjusting_.coverage" NAME="run_testing(Used for Adjusting) Coverage Results" MODIFIED="1625538872145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$view_gt.coverage" NAME="view_gt Coverage Results" MODIFIED="1596418105849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/result_processing" />
     <SUITE FILE_PATH="coverage/UIED$run_batch.coverage" NAME="run_batch Coverage Results" MODIFIED="1596448499254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED_block$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594035942350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

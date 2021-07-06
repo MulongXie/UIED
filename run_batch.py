@@ -27,6 +27,9 @@ if __name__ == '__main__':
     input_imgs = [pjoin(input_img_root, img['file_name'].split('/')[-1]) for img in data['images']]
     input_imgs = sorted(input_imgs, key=lambda x: int(x.split('/')[-1][:-4]))  # sorted by index
 
+    key_params = {'min-grad': 10, 'ffl-block': 5, 'min-ele-area': 50, 'merge-contained-ele': True,
+                  'max-word-inline-gap': 10, 'max-line-ingraph-gap': 4, 'remove-top-bar': True}
+
     is_ip = False
     is_clf = False
     is_ocr = False
@@ -42,9 +45,7 @@ if __name__ == '__main__':
         # compo_classifier['Noise'] = CNN('Noise')
     ocr_model = None
     if is_ocr:
-        import ocr_east as ocr
-        import lib_east.eval as eval
-        models = eval.load()
+        import detect_text.text_detection as text
 
     # set the range of target inputs' indices
     num = 0
@@ -59,18 +60,15 @@ if __name__ == '__main__':
             break
 
         if is_ocr:
-            ocr.east(input_img, output_root, ocr_model,
-                     resize_by_height=resized_height, show=False)
+            text.text_detection(input_img, output_root, show=False)
 
         if is_ip:
-            ip.compo_detection(input_img, output_root, classifier=compo_classifier,
-                               resize_by_height=resized_height, show=True)
+            ip.compo_detection(input_img, output_root, key_params,  classifier=compo_classifier, resize_by_height=resized_height, show=False)
 
         if is_merge:
             import merge
             compo_path = pjoin(output_root, 'ip', str(index) + '.json')
             ocr_path = pjoin(output_root, 'ocr', str(index) + '.json')
-            merge.incorporate(input_img, compo_path, ocr_path, output_root,
-                              resize_by_height=resized_height, show=True)
+            merge.merge(input_img, compo_path, ocr_path, output_root, is_remove_top=key_params['remove-top-bar'], show=True)
 
         num += 1

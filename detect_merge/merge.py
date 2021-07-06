@@ -133,7 +133,7 @@ def compos_clip_and_fill(clip_root, org, compos):
     cv2.imwrite(pjoin(clip_root, 'bkg.png'), bkg)
 
 
-def merge(img_path, compo_path, text_path, output_root, is_remove_top, show=False, wait_key=0):
+def merge(img_path, compo_path, text_path, output_root=None, is_remove_top=True, show=False, wait_key=0):
     compo_json = json.load(open(compo_path, 'r'))
     text_json = json.load(open(text_path, 'r'))
 
@@ -163,13 +163,12 @@ def merge(img_path, compo_path, text_path, output_root, is_remove_top, show=Fals
     board = show_elements(img_resize, elements, show=show, win_name='valid compos', wait_key=wait_key)
 
     # save all merged elements, clips and blank background
-    compos_json = save_elements(output_root, elements, img_resize.shape)
-    compos_clip_and_fill(pjoin(output_root, 'clips'), img_resize, compos_json)
-    cv2.imwrite(pjoin(output_root, 'result.jpg'), board)
-
-    print('Merge Complete and Save to', pjoin(output_root, 'result.jpg'))
-    print(time.ctime(), '\n')
-    if show: cv2.destroyAllWindows()
-
+    if output_root is not None:
+        compos_json = save_elements(output_root, elements, img_resize.shape)
+        compos_clip_and_fill(pjoin(output_root, 'clips'), img_resize, compos_json)
+        cv2.imwrite(pjoin(output_root, 'result.jpg'), board)
+        print('Merge Complete and Save to', pjoin(output_root, 'result.jpg'), time.ctime(), '\n')
+    else:
+        print('Merge Complete', time.ctime(), '\n')
 
 # merge('../data/input/2.jpg', '../data/output/ip/2.json', '../data/output/ocr/2.json', '../data/output', show=True)
