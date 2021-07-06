@@ -48,7 +48,7 @@ To test your own image(s):
 
 > Note: The best set of parameters vary for different types of GUI image (Mobile App, Web, PC). I highly recommend to first play with the ``run_testing.py`` to pick a good set of parameters for your data.
    
-## File structure
+## Folder structure
 ``cnn/``
 * Used to train classifier for graphic UI elements
 * Set path of the CNN classification model
