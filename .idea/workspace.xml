@@ -2,34 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4069649-920d-465f-ac6b-bac85007c2bb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Untitled.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Compo/7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/Text/9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/clips/bkg.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/output/compo.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/compo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ip/30800.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/30800.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/output/ip/5.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/5.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/output/ip/result.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ip/result.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/5.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/result.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ocr/30800.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ocr/30800.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/output/ocr/30800.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/output/ocr/30800.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_detection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_compo/lib_ip/ip_draw.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/detect_merge/merge.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_merge/merge.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_batch.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_batch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_testing(Used for Adjusting).py" beforeDir="false" afterPath="$PROJECT_DIR$/run_testing(Used for Adjusting).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_text/text_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_text/text_detection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_single.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +59,7 @@
       <recent name="D:\git_file\github\doing\UIED\data\demo" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run_testing(Used for Adjusting)">
+  <component name="RunManager" selected="Python.run_single">
     <configuration name="merge" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UIED" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -195,8 +179,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.run_testing(Used for Adjusting)" />
         <item itemvalue="Python.run_single" />
+        <item itemvalue="Python.run_testing(Used for Adjusting)" />
         <item itemvalue="Python.merge" />
         <item itemvalue="Python.merge2" />
         <item itemvalue="Python.text_detection" />
@@ -250,7 +234,7 @@
       <workItem from="1625010508533" duration="4541000" />
       <workItem from="1625099073176" duration="49720000" />
       <workItem from="1625443415902" duration="26350000" />
-      <workItem from="1625529598285" duration="9722000" />
+      <workItem from="1625529598285" duration="23549000" />
     </task>
     <servers />
   </component>
@@ -263,11 +247,11 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1625532143308">
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1625565620054">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625012063143" />
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625532143308" />
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625565620054" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1625444078276">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -277,26 +261,26 @@
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625303420827" />
     <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625452743709" />
-    <state width="1877" height="270" key="GridCell.Tab.0.bottom" timestamp="1625538872155">
+    <state width="1877" height="270" key="GridCell.Tab.0.bottom" timestamp="1625570113244">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.bottom/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.bottom/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625538872155" />
-    <state width="1877" height="270" key="GridCell.Tab.0.center" timestamp="1625538872154">
+    <state width="1877" height="270" key="GridCell.Tab.0.bottom/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625570113244" />
+    <state width="1877" height="270" key="GridCell.Tab.0.center" timestamp="1625570113244">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.center/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.center/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625538872154" />
-    <state width="1877" height="270" key="GridCell.Tab.0.left" timestamp="1625538872154">
+    <state width="1877" height="270" key="GridCell.Tab.0.center/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625570113244" />
+    <state width="1877" height="270" key="GridCell.Tab.0.left" timestamp="1625570113244">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.left/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.left/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625538872154" />
-    <state width="1877" height="270" key="GridCell.Tab.0.right" timestamp="1625538872155">
+    <state width="1877" height="270" key="GridCell.Tab.0.left/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625570113244" />
+    <state width="1877" height="270" key="GridCell.Tab.0.right" timestamp="1625570113244">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.right/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.right/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625538872155" />
+    <state width="1877" height="270" key="GridCell.Tab.0.right/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625570113244" />
     <state x="143" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1625104324231">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -345,6 +329,11 @@
           <line>62</line>
           <option name="timeStamp" value="94" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_single.py</url>
+          <line>25</line>
+          <option name="timeStamp" value="101" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -358,10 +347,10 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/UIED$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594102734340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$text_detection.coverage" NAME="text_detection Coverage Results" MODIFIED="1625107691453" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detect_text" />
-    <SUITE FILE_PATH="coverage/UIED$run_single.coverage" NAME="run_single Coverage Results" MODIFIED="1625538810766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UIED$run_single.coverage" NAME="run_single Coverage Results" MODIFIED="1625570113236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$merge2.coverage" NAME="merge2 Coverage Results" MODIFIED="1625271385465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$merge.coverage" NAME="merge Coverage Results" MODIFIED="1625284362497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detect_merge" />
-    <SUITE FILE_PATH="coverage/UIED$run_testing_Used_for_Adjusting_.coverage" NAME="run_testing(Used for Adjusting) Coverage Results" MODIFIED="1625538872145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UIED$run_testing_Used_for_Adjusting_.coverage" NAME="run_testing(Used for Adjusting) Coverage Results" MODIFIED="1625568180456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$view_gt.coverage" NAME="view_gt Coverage Results" MODIFIED="1596418105849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/result_processing" />
     <SUITE FILE_PATH="coverage/UIED$run_batch.coverage" NAME="run_batch Coverage Results" MODIFIED="1596448499254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED_block$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594035942350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

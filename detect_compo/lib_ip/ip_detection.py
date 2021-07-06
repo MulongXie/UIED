@@ -242,6 +242,8 @@ def rm_line(binary,
         cv2.imshow('no-line binary', binary)
         if wait_key is not None:
             cv2.waitKey(wait_key)
+        if wait_key == 0:
+            cv2.destroyWindow('no-line binary')
 
 
 def rm_noise_compos(compos):

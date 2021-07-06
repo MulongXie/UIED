@@ -1,6 +1,7 @@
 from os.path import join as pjoin
 import cv2
 import os
+import numpy as np
 
 
 def resize_height_by_longest_edge(img_path, resize_length=800):
@@ -10,6 +11,19 @@ def resize_height_by_longest_edge(img_path, resize_length=800):
         return resize_length
     else:
         return int(resize_length * (height / width))
+
+
+def color_tips():
+    color_map = {'Text':(0, 0, 255), 'Compo':(0, 255, 0), 'Text Content':(255, 0, 255)}
+    board = np.zeros((300, 200, 3), dtype=np.uint8)
+
+    board[:100, :, :] = (0, 0, 255)
+    board[100:200, :, :] = (0, 255, 0)
+    board[200:, :, :] = (255, 0, 255)
+    cv2.putText(board, 'Text', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+    cv2.putText(board, 'Non-text Compo', (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+    cv2.putText(board, "Compo's Text Content", (10, 250), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+    cv2.imshow('colors', board)
 
 
 if __name__ == '__main__':
@@ -35,10 +49,11 @@ if __name__ == '__main__':
                   'max-word-inline-gap':10, 'max-line-ingraph-gap':4, 'remove-top-bar':True}
 
     # set input image path
-    input_path_img = 'data/input/5.jpg'
+    input_path_img = 'data/input/30800.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img, resize_length=800)
+    color_tips()
 
     is_ip = True
     is_clf = False
@@ -48,7 +63,7 @@ if __name__ == '__main__':
     if is_ocr:
         import detect_text.text_detection as text
         os.makedirs(pjoin(output_root, 'ocr'), exist_ok=True)
-        text.text_detection(input_path_img, output_root, show=False)
+        text.text_detection(input_path_img, output_root, show=True)
 
     if is_ip:
         import detect_compo.ip_region_proposal as ip
@@ -62,7 +77,7 @@ if __name__ == '__main__':
             classifier['Elements'] = CNN('Elements')
             # classifier['Noise'] = CNN('Noise')
         ip.compo_detection(input_path_img, output_root, key_params,
-                           classifier=classifier, resize_by_height=resized_height, show=False)
+                           classifier=classifier, resize_by_height=resized_height, show=True)
 
     if is_merge:
         import detect_merge.merge as merge

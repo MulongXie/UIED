@@ -1,0 +1,129 @@
+{
+    "img_shape": [
+        960,
+        540,
+        3
+    ],
+    "texts": [
+        {
+            "column_min": 132,
+            "row_min": 1,
+            "row_max": 34,
+            "content": "fib ibi fb bo",
+            "height": 33,
+            "id": 0,
+            "column_max": 350,
+            "width": 218
+        },
+        {
+            "column_min": 484,
+            "row_min": 5,
+            "row_max": 27,
+            "content": "11:33",
+            "height": 22,
+            "id": 1,
+            "column_max": 527,
+            "width": 43
+        },
+        {
+            "column_min": 157,
+            "row_min": 52,
+            "row_max": 81,
+            "content": "Log in with Facebook",
+            "height": 29,
+            "id": 2,
+            "column_max": 379,
+            "width": 222
+        },
+        {
+            "column_min": 239,
+            "row_min": 272,
+            "row_max": 291,
+            "content": "Straight",
+            "height": 19,
+            "id": 3,
+            "column_max": 302,
+            "width": 63
+        },
+        {
+            "column_min": 272,
+            "row_min": 292,
+            "row_max": 311,
+            "content": "Talk",
+            "height": 19,
+            "id": 4,
+            "column_max": 293,
+            "width": 21
+        },
+        {
+            "column_min": 238,
+            "row_min": 316,
+            "row_max": 335,
+            "content": "MY ACCOUNT",
+            "height": 19,
+            "id": 5,
+            "column_max": 301,
+            "width": 63
+        },
+        {
+            "column_min": 173,
+            "row_min": 384,
+            "row_max": 406,
+            "content": "Continue as Sam",
+            "height": 22,
+            "id": 6,
+            "column_max": 367,
+            "width": 194
+        },
+        {
+            "column_min": 105,
+            "row_min": 440,
+            "row_max": 462,
+            "content": "My Account Straight Talk will receive :",
+            "height": 22,
+            "id": 7,
+            "column_max": 433,
+            "width": 328
+        },
+        {
+            "column_min": 106,
+            "row_min": 461,
+            "row_max": 491,
+            "content": "your public profile and email address .",
+            "height": 30,
+            "id": 8,
+            "column_max": 430,
+            "width": 324
+        },
+        {
+            "column_min": 250,
+            "row_min": 514,
+            "row_max": 537,
+            "content": "Edit This",
+            "height": 23,
+            "id": 9,
+            "column_max": 323,
+            "width": 73
+        },
+        {
+            "column_min": 235,
+            "row_min": 732,
+            "row_max": 754,
+            "content": "Continue",
+            "height": 22,
+            "id": 10,
+            "column_max": 305,
+            "width": 70
+        },
+        {
+            "column_min": 124,
+            "row_min": 814,
+            "row_max": 838,
+            "content": "This doesn't let the app post to Facebook .",
+            "height": 24,
+            "id": 11,
+            "column_max": 438,
+            "width": 314
+        }
+    ]
+}
