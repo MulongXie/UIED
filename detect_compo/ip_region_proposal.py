@@ -91,7 +91,7 @@ def compo_detection(input_img_path, output_root, uied_params,
     Compo.compos_update(uicompos, org.shape)
     draw.draw_bounding_box(org, uicompos, show=show, name='merged compo', write_path=pjoin(ip_root, 'result.jpg'), wait_key=wai_key)
 
-    # *** Step 5 *** Image Inspection: recognize image -> remove noise in image -> binarize with larger threshold and reverse -> rectangular compo detection
+    # *** Step 5 *** image inspection: recognize image -> remove noise in image -> binarize with larger threshold and reverse -> rectangular compo detection
     # if classifier is not None:
     #     classifier['Image'].predict(seg.clipping(org, uicompos), uicompos)
     #     draw.draw_bounding_box_class(org, uicompos, show=show)
@@ -110,10 +110,9 @@ def compo_detection(input_img_path, output_root, uied_params,
         draw.draw_bounding_box_class(org, uicompos, show=show, name='cls', write_path=pjoin(ip_root, 'result.jpg'))
         draw.draw_bounding_box_class(org, uicompos, write_path=pjoin(output_root, 'result.jpg'))
 
+    # *** Step 7 *** save detection result
     Compo.compos_update(uicompos, org.shape)
     file.save_corners_json(pjoin(ip_root, name + '.json'), uicompos)
     file.save_corners_json(pjoin(output_root, 'compo.json'), uicompos)
-    # seg.dissemble_clip_img_fill(pjoin(output_root, 'clips'), org, uicompos)
-
     print("[Compo Detection Completed in %.3f s] %s" % (time.clock() - start, input_img_path))
     if show: cv2.destroyAllWindows()
