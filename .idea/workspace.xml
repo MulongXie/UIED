@@ -31,7 +31,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../UI2CODE" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../UI2CODE/Element-Detection/merge.py" />
@@ -223,7 +223,8 @@
       <workItem from="1625010508533" duration="4541000" />
       <workItem from="1625099073176" duration="49720000" />
       <workItem from="1625443415902" duration="26350000" />
-      <workItem from="1625529598285" duration="25670000" />
+      <workItem from="1625529598285" duration="26479000" />
+      <workItem from="1625613709029" duration="14000" />
     </task>
     <servers />
   </component>
@@ -245,31 +246,31 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625444078276" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1625452743709">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1625613721288">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625303420827" />
-    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625452743709" />
-    <state width="1877" height="270" key="GridCell.Tab.0.bottom" timestamp="1625570113244">
+    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625613721288" />
+    <state width="1877" height="270" key="GridCell.Tab.0.bottom" timestamp="1625573733175">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.bottom/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.bottom/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625570113244" />
-    <state width="1877" height="270" key="GridCell.Tab.0.center" timestamp="1625570113244">
+    <state width="1877" height="270" key="GridCell.Tab.0.bottom/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625573733175" />
+    <state width="1877" height="270" key="GridCell.Tab.0.center" timestamp="1625573733175">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.center/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.center/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625570113244" />
-    <state width="1877" height="270" key="GridCell.Tab.0.left" timestamp="1625570113244">
+    <state width="1877" height="270" key="GridCell.Tab.0.center/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625573733175" />
+    <state width="1877" height="270" key="GridCell.Tab.0.left" timestamp="1625573733175">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.left/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.left/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625570113244" />
-    <state width="1877" height="270" key="GridCell.Tab.0.right" timestamp="1625570113244">
+    <state width="1877" height="270" key="GridCell.Tab.0.left/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625573733175" />
+    <state width="1877" height="270" key="GridCell.Tab.0.right" timestamp="1625573733175">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.right/1920.-64.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1625313396135" />
-    <state width="1877" height="270" key="GridCell.Tab.0.right/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625570113244" />
+    <state width="1877" height="270" key="GridCell.Tab.0.right/1920.0.1280.693/3840.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1625573733175" />
     <state x="143" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1625104324231">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -336,7 +337,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/UIED$main_single.coverage" NAME="main_single Coverage Results" MODIFIED="1594102734340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$text_detection.coverage" NAME="text_detection Coverage Results" MODIFIED="1625107691453" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detect_text" />
-    <SUITE FILE_PATH="coverage/UIED$run_single.coverage" NAME="run_single Coverage Results" MODIFIED="1625570113236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UIED$run_single.coverage" NAME="run_single Coverage Results" MODIFIED="1625730691477" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$merge2.coverage" NAME="merge2 Coverage Results" MODIFIED="1625271385465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UIED$merge.coverage" NAME="merge Coverage Results" MODIFIED="1625284362497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detect_merge" />
     <SUITE FILE_PATH="coverage/UIED$run_testing_Used_for_Adjusting_.coverage" NAME="run_testing(Used for Adjusting) Coverage Results" MODIFIED="1625568180456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
