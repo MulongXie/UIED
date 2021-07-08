@@ -20,7 +20,7 @@ UIED comprises two parts to detect UI text and graphic elements, such as button,
 
 * For graphical elements, it uses old-fashioned CV approaches to locate the elements and a CNN classifier to achieve classification. 
 
-> UIED is highly customizable, you can replace both parts by your choice (e.g. other text detection approaches). Unlike black-box end-to-end deep learning approach, you can revise the algorithms in the non-text detection (partially or entirely) easily to fit your task.
+> UIED is highly customizable, you can replace both parts by your choice (e.g. other text detection approaches). Unlike black-box end-to-end deep learning approach, you can revise the algorithms in the non-text detection and merging (partially or entirely) easily to fit your task.
 
 ![UIED Approach](https://github.com/MulongXie/UIED/blob/master/data/demo/approach.png)
 
