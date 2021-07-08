@@ -20,6 +20,8 @@ UIED comprises two parts to detect UI text and graphic elements, such as button,
 
 * For graphical elements, it uses old-fashioned CV approaches to locate the elements and a CNN classifier to achieve classification. 
 
+> UIED is highly customizable, you can replace both parts by your choice (e.g. other text detection approaches). Unlike black-box end-to-end deep learning approach, you can revise the algorithms in the non-text detection (partially or entirely) easily to fit your task.
+
 ![UIED Approach](https://github.com/MulongXie/UIED/blob/master/data/demo/approach.png)
 
 ## How to use?
@@ -40,7 +42,7 @@ UIED comprises two parts to detect UI text and graphic elements, such as button,
 
 The new version of UIED equipped with Google OCR is easy to deploy and no pre-trained model is needed. Simply donwload the repo along with the dependencies.
 
-> Please replace the Google OCR key at `detect_text/ocr.py line 28` with your own (apply in https://cloud.google.com/vision)
+> Please replace the Google OCR key at `detect_text/ocr.py line 28` with your own (apply in [Google website](https://cloud.google.com/vision))
 
 ### Usage
 To test your own image(s):
