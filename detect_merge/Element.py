@@ -3,7 +3,8 @@ import cv2
 
 
 class Element:
-    def __init__(self, corner, category, text_content=None):
+    def __init__(self, id, corner, category, text_content=None):
+        self.id = id
         self.category = category
         self.col_min, self.row_min, self.col_max, self.row_max = corner
         self.width = self.col_max - self.col_min
@@ -11,7 +12,7 @@ class Element:
         self.area = self.width * self.height
 
         self.text_content = text_content
-        self.is_child = False
+        self.parent_id = None
         self.children = []  # list of elements
 
     def init_bound(self):
@@ -23,7 +24,7 @@ class Element:
         return self.col_min, self.row_min, self.col_max, self.row_max
 
     def wrap_info(self):
-        info = {'class': self.category, 'height': self.height, 'width': self.width,
+        info = {'id':self.id, 'class': self.category, 'height': self.height, 'width': self.width,
                 'position': {'column_min': self.col_min, 'row_min': self.row_min, 'column_max': self.col_max,
                              'row_max': self.row_max}}
         if self.text_content is not None:
@@ -31,7 +32,9 @@ class Element:
         if len(self.children) > 0:
             info['children'] = []
             for child in self.children:
-                info['children'].append(child.wrap_info())
+                info['children'].append(child.id)
+        if self.parent_id is not None:
+            info['parent'] = self.parent_id
         return info
 
     def resize(self, resize_ratio):
@@ -41,12 +44,12 @@ class Element:
         self.row_max = int(self.row_max * resize_ratio)
         self.init_bound()
 
-    def element_merge(self, element_b, new_element=False, new_category=None):
+    def element_merge(self, element_b, new_element=False, new_category=None, new_id=None):
         col_min_a, row_min_a, col_max_a, row_max_a = self.put_bbox()
         col_min_b, row_min_b, col_max_b, row_max_b = element_b.put_bbox()
         new_corner = (min(col_min_a, col_min_b), min(row_min_a, row_min_b), max(col_max_a, col_max_b), max(row_max_a, row_max_b))
         if new_element:
-            return Element(new_corner, new_category)
+            return Element(new_id, new_corner, new_category)
         else:
             self.col_min, self.row_min, self.col_max, self.row_max = new_corner
             self.init_bound()
@@ -81,18 +84,18 @@ class Element:
         if ioa == 0:
             return 0
         # a in b
-        if ioa > 0.6:
+        if ioa >= 1:
             return -1
         # b in a
-        if iob > 0.6:
+        if iob >= 1:
             return 1
         return 2
 
     def visualize_element(self, img, color=(0, 255, 0), line=1, show=False):
         loc = self.put_bbox()
         cv2.rectangle(img, loc[:2], loc[2:], color, line)
-        for child in self.children:
-            child.visualize_element(img, color=(255, 0, 255), line=line)
+        # for child in self.children:
+        #     child.visualize_element(img, color=(255, 0, 255), line=line)
         if show:
             cv2.imshow('element', img)
             cv2.waitKey(0)
