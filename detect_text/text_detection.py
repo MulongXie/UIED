@@ -109,7 +109,7 @@ def text_cvt_orc_format(ocr_result):
 def text_filter_noise(texts):
     valid_texts = []
     for text in texts:
-        if len(text.content) <= 1 and text.content.lower() not in ['a', ',', '.', '!', '?', '$', '%', ':', '&']:
+        if len(text.content) <= 1 and text.content.lower() not in ['a', ',', '.', '!', '?', '$', '%', ':', '&', '+']:
             continue
         valid_texts.append(text)
     return valid_texts
@@ -118,7 +118,7 @@ def text_filter_noise(texts):
 def text_detection(input_file='../data/input/30800.jpg', output_file='../data/output', show=False):
     start = time.clock()
     name = input_file.split('/')[-1][:-4]
-    oct_root = pjoin(output_file, 'ocr')
+    ocr_root = pjoin(output_file, 'ocr')
     img = cv2.imread(input_file)
 
     ocr_result = ocr.ocr_detection_google(input_file)
@@ -126,9 +126,9 @@ def text_detection(input_file='../data/input/30800.jpg', output_file='../data/ou
     texts = merge_intersected_texts(texts)
     texts = text_filter_noise(texts)
     texts = text_sentences_recognition(texts)
-    visualize_texts(img, texts, shown_resize_height=800, show=show, write_path=pjoin(oct_root, name+'.png'))
-    save_detection_json(pjoin(oct_root, name+'.json'), texts, img.shape)
-    print("[Text Detection Completed in %.3f s] %s" % (time.clock() - start, input_file))
+    visualize_texts(img, texts, shown_resize_height=800, show=show, write_path=pjoin(ocr_root, name+'.png'))
+    save_detection_json(pjoin(ocr_root, name+'.json'), texts, img.shape)
+    print("[Text Detection Completed in %.3f s] Input: %s Output: %s" % (time.clock() - start, input_file, pjoin(ocr_root, name+'.json')))
 
 
 # text_detection()
