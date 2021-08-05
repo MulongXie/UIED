@@ -50,6 +50,44 @@ def merge_intersected_corner(compos, org, is_merge_contained_ele, max_gap=(0, 0)
         return merge_intersected_corner(new_compos, org, is_merge_contained_ele, max_gap, max_ele_height)
 
 
+def merge_intersected_compos(compos):
+    changed = True
+    while changed:
+        changed = False
+        temp_set = []
+        for compo_a in compos:
+            merged = False
+            for compo_b in temp_set:
+                if compo_a.compo_relation(compo_b) == 2:
+                    compo_b.compo_merge(compo_a)
+                    merged = True
+                    changed = True
+                    break
+            if not merged:
+                temp_set.append(compo_a)
+        compos = temp_set.copy()
+    return compos
+
+
+def rm_contained_compos_not_in_block(compos):
+    '''
+    remove all components contained by others that are not Block
+    '''
+    marked = np.full(len(compos), False)
+    for i in range(len(compos) - 1):
+        for j in range(i + 1, len(compos)):
+            relation = compos[i].compo_relation(compos[j])
+            if relation == -1 and compos[j].category != 'Block':
+                marked[i] = True
+            if relation == 1 and compos[i].category != 'Block':
+                marked[j] = True
+    new_compos = []
+    for i in range(len(marked)):
+        if not marked[i]:
+            new_compos.append(compos[i])
+    return new_compos
+
+
 def merge_text(compos, org_shape, max_word_gad=4, max_word_height=20):
     def is_text_line(compo_a, compo_b):
         (col_min_a, row_min_a, col_max_a, row_max_a) = compo_a.put_bbox()
@@ -297,10 +335,13 @@ def detect_compos_in_img(compos, binary, org, max_compo_scale=C.THRESHOLD_COMPO_
     compos += compos_new
 
 
-def compo_filter(compos, min_area):
+def compo_filter(compos, min_area, img_shape):
+    max_height = img_shape[0] * 0.8
     compos_new = []
     for compo in compos:
-        if compo.height * compo.width < min_area:
+        if compo.area < min_area:
+            continue
+        if compo.height > max_height:
             continue
         ratio_h = compo.width / compo.height
         ratio_w = compo.height / compo.width
@@ -309,6 +350,50 @@ def compo_filter(compos, min_area):
             continue
         compos_new.append(compo)
     return compos_new
+
+
+def is_block(clip, thread=0.15):
+    '''
+    Block is a rectangle border enclosing a group of compos (consider it as a wireframe)
+    Check if a compo is block by checking if the inner side of its border is blank
+    '''
+    side = 4  # scan 4 lines inner forward each border
+    # top border - scan top down
+    blank_count = 0
+    for i in range(1, 5):
+        if sum(clip[side + i]) / 255 > thread * clip.shape[1]:
+            blank_count += 1
+    if blank_count > 2: return False
+    # left border - scan left to right
+    blank_count = 0
+    for i in range(1, 5):
+        if sum(clip[:, side + i]) / 255 > thread * clip.shape[0]:
+            blank_count += 1
+    if blank_count > 2: return False
+
+    side = -4
+    # bottom border - scan bottom up
+    blank_count = 0
+    for i in range(-1, -5, -1):
+        if sum(clip[side + i]) / 255 > thread * clip.shape[1]:
+            blank_count += 1
+    if blank_count > 2: return False
+    # right border - scan right to left
+    blank_count = 0
+    for i in range(-1, -5, -1):
+        if sum(clip[:, side + i]) / 255 > thread * clip.shape[0]:
+            blank_count += 1
+    if blank_count > 2: return False
+    return True
+
+
+def compo_block_recognition(binary, compos, block_side_length=0.15):
+    height, width = binary.shape
+    for compo in compos:
+        if compo.height / height > block_side_length and compo.width / width > block_side_length:
+            clip = compo.compo_clipping(binary)
+            if is_block(clip):
+                compo.category = 'Block'
 
 
 # take the binary image as input

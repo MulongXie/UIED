@@ -13,30 +13,6 @@ from config.CONFIG_UIED import Config
 C = Config()
 
 
-# def processing_block(org, binary, blocks, block_pad):
-#     image_shape = org.shape
-#     uicompos_all = []
-#     for block in blocks:
-#         # *** Step 2.1 *** check: examine if the block is valid layout block
-#         if block.block_is_top_or_bottom_bar(image_shape, C.THRESHOLD_TOP_BOTTOM_BAR):
-#             continue
-#         if block.block_is_uicompo(image_shape, C.THRESHOLD_COMPO_MAX_SCALE):
-#             uicompos_all.append(block)
-#
-#         # *** Step 2.2 *** binary map processing: erase children block -> clipping -> remove lines(opt)
-#         binary_copy = binary.copy()
-#         for i in block.children:
-#             blocks[i].block_erase_from_bin(binary_copy, block_pad)
-#         block_clip_bin = block.compo_clipping(binary_copy)
-#         # det.line_removal(block_clip_bin, show=True)
-#
-#         # *** Step 2.3 *** component extraction: detect components in block binmap -> convert position to relative
-#         uicompos = det.component_detection(block_clip_bin)
-#         Compo.cvt_compos_relative_pos(uicompos, block.bbox.col_min, block.bbox.row_min)
-#         uicompos_all += uicompos
-#     return uicompos_all
-
-
 def nesting_inspection(org, grey, compos, ffl_block):
     '''
     Inspect all big compos through block division by flood-fill
@@ -65,7 +41,7 @@ def compo_detection(input_img_path, output_root, uied_params,
                     resize_by_height=800, classifier=None, show=False, wai_key=0):
 
     start = time.clock()
-    name = input_img_path.split('/')[-1][:-4]
+    name = input_img_path.split('/')[-1][:-4] if '/' in input_img_path else input_img_path.split('\\')[-1][:-4]
     ip_root = file.build_directory(pjoin(output_root, "ip"))
 
     # *** Step 1 *** pre-processing: read img -> get binary map
@@ -75,19 +51,20 @@ def compo_detection(input_img_path, output_root, uied_params,
     # *** Step 2 *** element detection
     det.rm_line(binary, show=show, wait_key=wai_key)
     uicompos = det.component_detection(binary, min_obj_area=int(uied_params['min-ele-area']))
-    # draw.draw_bounding_box(org, uicompos, show=show, name='components', wait_key=wai_key)
 
     # *** Step 3 *** results refinement
-    uicompos = det.merge_intersected_corner(uicompos, org, is_merge_contained_ele=uied_params['merge-contained-ele'], max_gap=(0, 0), max_ele_height=25)
+    uicompos = det.compo_filter(uicompos, min_area=int(uied_params['min-ele-area']), img_shape=binary.shape)
+    uicompos = det.merge_intersected_compos(uicompos)
+    det.compo_block_recognition(binary, uicompos)
+    if uied_params['merge-contained-ele']:
+        uicompos = det.rm_contained_compos_not_in_block(uicompos)
     Compo.compos_update(uicompos, org.shape)
     Compo.compos_containment(uicompos)
-    # draw.draw_bounding_box(org, uicompos, show=show, name='merged', wait_key=wai_key)
 
-    # *** Step 4 ** nesting inspection: treat the big compos as block and check if they have nesting element
+    # *** Step 4 ** nesting inspection: check if big compos have nesting element
     uicompos += nesting_inspection(org, grey, uicompos, ffl_block=uied_params['ffl-block'])
-    uicompos = det.compo_filter(uicompos, min_area=int(uied_params['min-ele-area']))
     Compo.compos_update(uicompos, org.shape)
-    draw.draw_bounding_box(org, uicompos, show=show, name='merged compo', write_path=pjoin(ip_root, 'result.jpg'), wait_key=wai_key)
+    draw.draw_bounding_box(org, uicompos, show=show, name='merged compo', write_path=pjoin(ip_root, name + '.jpg'), wait_key=wai_key)
 
     # *** Step 5 *** image inspection: recognize image -> remove noise in image -> binarize with larger threshold and reverse -> rectangular compo detection
     # if classifier is not None:
@@ -103,13 +80,12 @@ def compo_detection(input_img_path, output_root, uied_params,
     #     uicompos = det.rm_noise_compos(uicompos)
 
     # *** Step 6 *** element classification: all category classification
-    if classifier is not None:
-        classifier['Elements'].predict([compo.compo_clipping(org) for compo in uicompos], uicompos)
-        draw.draw_bounding_box_class(org, uicompos, show=show, name='cls', write_path=pjoin(ip_root, 'result.jpg'))
-        draw.draw_bounding_box_class(org, uicompos, write_path=pjoin(output_root, 'result.jpg'))
+    # if classifier is not None:
+    #     classifier['Elements'].predict([compo.compo_clipping(org) for compo in uicompos], uicompos)
+    #     draw.draw_bounding_box_class(org, uicompos, show=show, name='cls', write_path=pjoin(ip_root, 'result.jpg'))
+    #     draw.draw_bounding_box_class(org, uicompos, write_path=pjoin(output_root, 'result.jpg'))
 
     # *** Step 7 *** save detection result
     Compo.compos_update(uicompos, org.shape)
     file.save_corners_json(pjoin(ip_root, name + '.json'), uicompos)
-    file.save_corners_json(pjoin(output_root, 'compo.json'), uicompos)
-    print("[Compo Detection Completed in %.3f s] %s" % (time.clock() - start, input_img_path))
+    print("[Compo Detection Completed in %.3f s] Input: %s Output: %s" % (time.clock() - start, input_img_path, pjoin(ip_root, name + '.json')))
