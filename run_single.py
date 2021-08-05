@@ -14,15 +14,17 @@ def resize_height_by_longest_edge(img_path, resize_length=800):
 
 
 def color_tips():
-    color_map = {'Text':(0, 0, 255), 'Compo':(0, 255, 0), 'Text Content':(255, 0, 255)}
-    board = np.zeros((300, 200, 3), dtype=np.uint8)
+    color_map = {'Text': (0, 0, 255), 'Compo': (0, 255, 0), 'Block': (0, 255, 255), 'Text Content': (255, 0, 255)}
+    board = np.zeros((200, 200, 3), dtype=np.uint8)
 
-    board[:100, :, :] = (0, 0, 255)
-    board[100:200, :, :] = (0, 255, 0)
-    board[200:, :, :] = (255, 0, 255)
-    cv2.putText(board, 'Text', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-    cv2.putText(board, 'Non-text Compo', (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-    cv2.putText(board, "Compo's Text Content", (10, 250), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+    board[:50, :, :] = (0, 0, 255)
+    board[50:100, :, :] = (0, 255, 0)
+    board[100:150, :, :] = (255, 0, 255)
+    board[150:200, :, :] = (0, 255, 255)
+    cv2.putText(board, 'Text', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+    cv2.putText(board, 'Non-text Compo', (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+    cv2.putText(board, "Compo's Text Content", (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+    cv2.putText(board, "Block", (10, 170), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
     cv2.imshow('colors', board)
 
 
@@ -49,7 +51,7 @@ if __name__ == '__main__':
                   'max-word-inline-gap':10, 'max-line-ingraph-gap':4, 'remove-top-bar':True}
 
     # set input image path
-    input_path_img = 'data/input/30800.jpg'
+    input_path_img = 'data/input/2.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img, resize_length=800)
