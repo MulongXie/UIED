@@ -6,39 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b4069649-920d-465f-ac6b-bac85007c2bb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/compo.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/10.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/2.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/24.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/24.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/30800.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/30800.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/4.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/5.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/6.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ip/7.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/10.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/2.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/24.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/30800.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/30800.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/4.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/5.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/7.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/ocr/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/output/result.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_merge/Element.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_merge/Element.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_merge/merge.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect_merge/merge.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_single.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_single.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

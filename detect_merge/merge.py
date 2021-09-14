@@ -222,7 +222,7 @@ def merge(img_path, compo_path, text_path, merge_root=None, is_paragraph=False, 
         elements = remove_top_bar(elements, img_height=compo_json['img_shape'][0])
         elements = remove_bottom_bar(elements, img_height=compo_json['img_shape'][0])
     if is_paragraph:
-        elements = merge_text_line_to_paragraph(elements, max_line_gap=10)
+        elements = merge_text_line_to_paragraph(elements, max_line_gap=8)
     reassign_ids(elements)
     check_containment(elements)
     board = show_elements(img_resize, elements, show=show, win_name='elements after merging', wait_key=wait_key)

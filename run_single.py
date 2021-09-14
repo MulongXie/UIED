@@ -51,7 +51,7 @@ if __name__ == '__main__':
                   'merge-contained-ele':True, 'merge-line-to-paragraph':False, 'remove-bar':True}
 
     # set input image path
-    input_path_img = 'data/input/1565.jpg'
+    input_path_img = 'data/input/497.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img, resize_length=800)
