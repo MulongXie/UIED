@@ -10,7 +10,7 @@ from detect_merge.Element import Element
 
 
 def show_elements(org_img, eles, show=False, win_name='element', wait_key=0, shown_resize=None, line=2):
-    color_map = {'Text':(0, 0, 255), 'Compo':(0, 255, 0), 'Block':(0, 255, 255), 'Text Content':(255, 0, 255)}
+    color_map = {'Text':(0, 0, 255), 'Compo':(0, 255, 0), 'Block':(0, 255, 0), 'Text Content':(255, 0, 255)}
     img = org_img.copy()
     for ele in eles:
         color = color_map[ele.category]
@@ -50,7 +50,35 @@ def refine_texts(texts, img_shape):
     return refined_texts
 
 
-def refine_elements(compos, texts, intersection_bias=2, containment_ratio=0.8):
+def merge_text_line_to_paragraph(elements, max_line_gap=5):
+    texts = []
+    non_texts = []
+    for ele in elements:
+        if ele.category == 'Text':
+            texts.append(ele)
+        else:
+            non_texts.append(ele)
+
+    changed = True
+    while changed:
+        changed = False
+        temp_set = []
+        for text_a in texts:
+            merged = False
+            for text_b in temp_set:
+                inter_area, _, _, _ = text_a.calc_intersection_area(text_b, bias=(0, max_line_gap))
+                if inter_area > 0:
+                    text_b.element_merge(text_a)
+                    merged = True
+                    changed = True
+                    break
+            if not merged:
+                temp_set.append(text_a)
+        texts = temp_set.copy()
+    return non_texts + texts
+
+
+def refine_elements(compos, texts, intersection_bias=(2, 2), containment_ratio=0.8):
     '''
     1. remove compos contained in text
     2. remove compos containing text area that's too large
@@ -88,7 +116,7 @@ def refine_elements(compos, texts, intersection_bias=2, containment_ratio=0.8):
 def check_containment(elements):
     for i in range(len(elements) - 1):
         for j in range(i + 1, len(elements)):
-            relation = elements[i].element_relation(elements[j], bias=2)
+            relation = elements[i].element_relation(elements[j], bias=(2, 2))
             if relation == -1:
                 elements[j].children.append(elements[i])
                 elements[i].parent_id = elements[j].id
@@ -99,8 +127,19 @@ def check_containment(elements):
 
 def remove_top_bar(elements, img_height):
     new_elements = []
+    max_height = img_height * 0.04
     for ele in elements:
-        if ele.row_min < 10 and ele.height < img_height * 0.05:
+        if ele.row_min < 10 and ele.height < max_height:
+            continue
+        new_elements.append(ele)
+    return new_elements
+
+
+def remove_bottom_bar(elements, img_height):
+    new_elements = []
+    for ele in elements:
+        # parameters for 800-height GUI
+        if ele.row_min > 750 and 20 <= ele.height <= 30 and 20 <= ele.width <= 30:
             continue
         new_elements.append(ele)
     return new_elements
@@ -150,7 +189,7 @@ def compos_clip_and_fill(clip_root, org, compos):
     cv2.imwrite(pjoin(clip_root, 'bkg.png'), bkg)
 
 
-def merge(img_path, compo_path, text_path, output_root=None, is_remove_top=True, show=False, wait_key=0):
+def merge(img_path, compo_path, text_path, merge_root=None, is_paragraph=False, is_remove_bar=True, show=False, wait_key=0):
     compo_json = json.load(open(compo_path, 'r'))
     text_json = json.load(open(text_path, 'r'))
 
@@ -179,14 +218,18 @@ def merge(img_path, compo_path, text_path, output_root=None, is_remove_top=True,
     # refine elements
     texts = refine_texts(texts, compo_json['img_shape'])
     elements = refine_elements(compos, texts)
-    if is_remove_top: elements = remove_top_bar(elements, img_height=compo_json['img_shape'][0])
+    if is_remove_bar:
+        elements = remove_top_bar(elements, img_height=compo_json['img_shape'][0])
+        elements = remove_bottom_bar(elements, img_height=compo_json['img_shape'][0])
+    if is_paragraph:
+        elements = merge_text_line_to_paragraph(elements, max_line_gap=10)
     reassign_ids(elements)
     check_containment(elements)
     board = show_elements(img_resize, elements, show=show, win_name='elements after merging', wait_key=wait_key)
 
     # save all merged elements, clips and blank background
-    save_elements(pjoin(output_root, 'compo.json'), elements, img_resize.shape)
-    # compos_clip_and_fill(pjoin(output_root, 'clips'), img_resize, compos_json)
-    cv2.imwrite(pjoin(output_root, 'result.jpg'), board)
-    print('[Merge Completed] Input: %s Output: %s' % (img_path, pjoin(output_root, 'compo.jpg')), time.ctime(), '\n')
-
+    name = img_path.replace('\\', '/').split('/')[-1][:-4]
+    components = save_elements(pjoin(merge_root, name + '.json'), elements, img_resize.shape)
+    cv2.imwrite(pjoin(merge_root, name + '.jpg'), board)
+    print('[Merge Completed] Input: %s Output: %s' % (img_path, pjoin(merge_root, name + '.jpg')))
+    return board, components

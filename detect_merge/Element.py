@@ -48,17 +48,19 @@ class Element:
         col_min_a, row_min_a, col_max_a, row_max_a = self.put_bbox()
         col_min_b, row_min_b, col_max_b, row_max_b = element_b.put_bbox()
         new_corner = (min(col_min_a, col_min_b), min(row_min_a, row_min_b), max(col_max_a, col_max_b), max(row_max_a, row_max_b))
+        if element_b.text_content is not None:
+            self.text_content = element_b.text_content if self.text_content is None else self.text_content + '\n' + element_b.text_content
         if new_element:
             return Element(new_id, new_corner, new_category)
         else:
             self.col_min, self.row_min, self.col_max, self.row_max = new_corner
             self.init_bound()
 
-    def calc_intersection_area(self, element_b, bias=0):
+    def calc_intersection_area(self, element_b, bias=(0, 0)):
         a = self.put_bbox()
         b = element_b.put_bbox()
-        col_min_s = max(a[0], b[0]) - bias
-        row_min_s = max(a[1], b[1]) - bias
+        col_min_s = max(a[0], b[0]) - bias[0]
+        row_min_s = max(a[1], b[1]) - bias[1]
         col_max_s = min(a[2], b[2])
         row_max_s = min(a[3], b[3])
         w = np.maximum(0, col_max_s - col_min_s)
@@ -71,8 +73,9 @@ class Element:
 
         return inter, iou, ioa, iob
 
-    def element_relation(self, element_b, bias=0):
+    def element_relation(self, element_b, bias=(0, 0)):
         """
+        @bias: (horizontal bias, vertical bias)
         :return: -1 : a in b
                  0  : a, b are not intersected
                  1  : b in a

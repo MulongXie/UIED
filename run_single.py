@@ -47,11 +47,11 @@ if __name__ == '__main__':
         mobile: {'min-grad':4, 'ffl-block':5, 'min-ele-area':50, 'max-word-inline-gap':6, 'max-line-gap':1}
         web   : {'min-grad':3, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':4, 'max-line-gap':4}
     '''
-    key_params = {'min-grad':10, 'ffl-block':5, 'min-ele-area':50, 'merge-contained-ele':False,
-                  'max-word-inline-gap':10, 'max-line-ingraph-gap':4, 'remove-top-bar':True}
+    key_params = {'min-grad':10, 'ffl-block':5, 'min-ele-area':50,
+                  'merge-contained-ele':True, 'merge-line-to-paragraph':False, 'remove-bar':True}
 
     # set input image path
-    input_path_img = 'data/input/7.jpg'
+    input_path_img = 'data/input/1565.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img, resize_length=800)
@@ -83,7 +83,9 @@ if __name__ == '__main__':
 
     if is_merge:
         import detect_merge.merge as merge
+        os.makedirs(pjoin(output_root, 'merge'), exist_ok=True)
         name = input_path_img.split('/')[-1][:-4]
         compo_path = pjoin(output_root, 'ip', str(name) + '.json')
         ocr_path = pjoin(output_root, 'ocr', str(name) + '.json')
-        merge.merge(input_path_img, compo_path, ocr_path, output_root, is_remove_top=key_params['remove-top-bar'], show=True)
+        merge.merge(input_path_img, compo_path, ocr_path, pjoin(output_root, 'merge'),
+                    is_remove_bar=key_params['remove-bar'], is_paragraph=key_params['merge-line-to-paragraph'], show=True)

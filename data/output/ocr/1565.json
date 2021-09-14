@@ -1,0 +1,239 @@
+{
+    "img_shape": [
+        835,
+        521,
+        3
+    ],
+    "texts": [
+        {
+            "content": "ALL",
+            "column_min": 101,
+            "row_max": 48,
+            "height": 22,
+            "column_max": 130,
+            "width": 29,
+            "id": 0,
+            "row_min": 26
+        },
+        {
+            "content": "ASK AC",
+            "column_min": 19,
+            "row_max": 241,
+            "height": 20,
+            "column_max": 78,
+            "width": 59,
+            "id": 1,
+            "row_min": 221
+        },
+        {
+            "content": "Do really need",
+            "column_min": 19,
+            "row_max": 281,
+            "height": 36,
+            "column_max": 208,
+            "width": 189,
+            "id": 2,
+            "row_min": 245
+        },
+        {
+            "content": "a \u2022 mesh 00000",
+            "column_min": 218,
+            "row_max": 292,
+            "height": 47,
+            "column_max": 306,
+            "width": 88,
+            "id": 3,
+            "row_min": 245
+        },
+        {
+            "content": "network ?",
+            "column_min": 316,
+            "row_max": 280,
+            "height": 37,
+            "column_max": 429,
+            "width": 113,
+            "id": 4,
+            "row_min": 243
+        },
+        {
+            "content": "Microsoft thinks people want",
+            "column_min": 143,
+            "row_max": 344,
+            "height": 26,
+            "column_max": 434,
+            "width": 291,
+            "id": 5,
+            "row_min": 318
+        },
+        {
+            "content": "ultra portable headaches",
+            "column_min": 141,
+            "row_max": 373,
+            "height": 30,
+            "column_max": 390,
+            "width": 249,
+            "id": 6,
+            "row_min": 343
+        },
+        {
+            "content": "Jerry Hildenbrand",
+            "column_min": 144,
+            "row_max": 399,
+            "height": 20,
+            "column_max": 282,
+            "width": 138,
+            "id": 7,
+            "row_min": 379
+        },
+        {
+            "content": "COMMENTS 57m",
+            "column_min": 310,
+            "row_max": 399,
+            "height": 20,
+            "column_max": 455,
+            "width": 145,
+            "id": 8,
+            "row_min": 379
+        },
+        {
+            "content": "My Disney Experience is a",
+            "column_min": 143,
+            "row_max": 491,
+            "height": 28,
+            "column_max": 400,
+            "width": 257,
+            "id": 9,
+            "row_min": 463
+        },
+        {
+            "content": "whole new experience in new",
+            "column_min": 142,
+            "row_max": 515,
+            "height": 25,
+            "column_max": 434,
+            "width": 292,
+            "id": 10,
+            "row_min": 490
+        },
+        {
+            "content": "update",
+            "column_min": 142,
+            "row_max": 541,
+            "height": 25,
+            "column_max": 210,
+            "width": 68,
+            "id": 11,
+            "row_min": 516
+        },
+        {
+            "content": "Ara Wagoner",
+            "column_min": 142,
+            "row_max": 571,
+            "height": 23,
+            "column_max": 242,
+            "width": 100,
+            "id": 12,
+            "row_min": 548
+        },
+        {
+            "content": "COMMENTS 3h",
+            "column_min": 271,
+            "row_max": 571,
+            "height": 23,
+            "column_max": 400,
+            "width": 129,
+            "id": 13,
+            "row_min": 548
+        },
+        {
+            "content": "The best",
+            "column_min": 142,
+            "row_max": 632,
+            "height": 28,
+            "column_max": 228,
+            "width": 86,
+            "id": 14,
+            "row_min": 604
+        },
+        {
+            "content": "games VR for Gear",
+            "column_min": 236,
+            "row_max": 658,
+            "height": 53,
+            "column_max": 337,
+            "width": 101,
+            "id": 15,
+            "row_min": 605
+        },
+        {
+            "content": "your",
+            "column_min": 344,
+            "row_max": 634,
+            "height": 28,
+            "column_max": 387,
+            "width": 43,
+            "id": 16,
+            "row_min": 606
+        },
+        {
+            "content": "Samsung",
+            "column_min": 141,
+            "row_max": 660,
+            "height": 28,
+            "column_max": 234,
+            "width": 93,
+            "id": 17,
+            "row_min": 632
+        },
+        {
+            "content": "Russell Holly",
+            "column_min": 142,
+            "row_max": 689,
+            "height": 24,
+            "column_max": 241,
+            "width": 99,
+            "id": 18,
+            "row_min": 665
+        },
+        {
+            "content": "COMMENTS 4h",
+            "column_min": 271,
+            "row_max": 689,
+            "height": 24,
+            "column_max": 399,
+            "width": 128,
+            "id": 19,
+            "row_min": 665
+        },
+        {
+            "content": "Here's how to get a little more",
+            "column_min": 143,
+            "row_max": 775,
+            "height": 26,
+            "column_max": 440,
+            "width": 297,
+            "id": 20,
+            "row_min": 749
+        },
+        {
+            "content": "Android Central in your life !",
+            "column_min": 142,
+            "row_max": 802,
+            "height": 26,
+            "column_max": 413,
+            "width": 271,
+            "id": 21,
+            "row_min": 776
+        },
+        {
+            "content": "Florence lon5 COMMENTS 5h",
+            "column_min": 142,
+            "row_max": 831,
+            "height": 21,
+            "column_max": 396,
+            "width": 254,
+            "id": 22,
+            "row_min": 810
+        }
+    ]
+}
