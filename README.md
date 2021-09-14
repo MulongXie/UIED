@@ -28,12 +28,11 @@ UIED comprises two parts to detect UI text and graphic elements, such as button,
 
 ### Dependency
 * **Python 3.5**
-* **Numpy 1.15.2**
 * **Opencv 3.4.2**
-* **Tensorflow 1.10.0**
+* **Pandas**
+<!-- * **Tensorflow 1.10.0**
 * **Keras 2.2.4**
-* **Sklearn 0.22.2**
-* **Pandas 0.23.4**
+* **Sklearn 0.22.2** -->
 
 ### Installation
 <!-- Install the mentioned dependencies, and download two pre-trained models from [this link](https://drive.google.com/drive/folders/1MK0Om7Lx0wRXGDfNcyj21B0FL1T461v5?usp=sharing) for EAST text detection and GUI element classification. -->
