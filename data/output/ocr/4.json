@@ -1,0 +1,109 @@
+{
+    "img_shape": [
+        889,
+        520,
+        3
+    ],
+    "texts": [
+        {
+            "row_max": 85,
+            "row_min": -1,
+            "column_min": -8,
+            "height": 86,
+            "id": 0,
+            "width": 325,
+            "column_max": 317,
+            "content": "KARIE PROFILE"
+        },
+        {
+            "row_max": 48,
+            "row_min": 30,
+            "column_min": 384,
+            "height": 18,
+            "id": 1,
+            "width": 71,
+            "column_max": 455,
+            "content": "newsbeast"
+        },
+        {
+            "row_max": 156,
+            "row_min": 140,
+            "column_min": 78,
+            "height": 16,
+            "id": 2,
+            "width": 16,
+            "column_max": 94,
+            "content": "15"
+        },
+        {
+            "row_max": 152,
+            "row_min": 137,
+            "column_min": 311,
+            "height": 15,
+            "id": 3,
+            "width": 47,
+            "column_max": 358,
+            "content": "newsb"
+        },
+        {
+            "row_max": 180,
+            "row_min": 157,
+            "column_min": 435,
+            "height": 23,
+            "id": 4,
+            "width": 29,
+            "column_max": 464,
+            "content": "04"
+        },
+        {
+            "row_max": 401,
+            "row_min": 381,
+            "column_min": 156,
+            "height": 20,
+            "id": 5,
+            "width": 212,
+            "column_max": 368,
+            "content": "DALIA MONTERO ."
+        },
+        {
+            "row_max": 445,
+            "row_min": 422,
+            "column_min": 214,
+            "height": 23,
+            "id": 6,
+            "width": 119,
+            "column_max": 333,
+            "content": "+91 912 512 368"
+        },
+        {
+            "row_max": 700,
+            "row_min": 681,
+            "column_min": 104,
+            "height": 19,
+            "id": 7,
+            "width": 75,
+            "column_max": 179,
+            "content": "PHOTOS"
+        },
+        {
+            "row_max": 817,
+            "row_min": 797,
+            "column_min": 105,
+            "height": 20,
+            "id": 8,
+            "width": 70,
+            "column_max": 175,
+            "content": "VIDEOS"
+        },
+        {
+            "row_max": 838,
+            "row_min": 763,
+            "column_min": 203,
+            "height": 75,
+            "id": 9,
+            "width": 308,
+            "column_max": 511,
+            "content": "100"
+        }
+    ]
+}

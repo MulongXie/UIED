@@ -35,16 +35,16 @@ if __name__ == '__main__':
         mobile: {'min-grad':4, 'ffl-block':5, 'min-ele-area':50, 'max-word-inline-gap':6, 'max-line-gap':1}
         web   : {'min-grad':3, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':4, 'max-line-gap':4}
     '''
-    key_params = {'min-grad':10, 'ffl-block':5, 'min-ele-area':50, 'merge-contained-ele':True,
+    key_params = {'min-grad':10, 'ffl-block':5, 'min-ele-area':50, 'merge-contained-ele':False,
                   'max-word-inline-gap':10, 'max-line-gap':4, 'remove-top-bar':True}
 
     # set input image path
-    input_path_img = 'data/input/30800.jpg'
+    input_path_img = 'data/input/4.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img)
     is_clf = False
-    is_ocr = True
+    is_ocr = False
     if is_ocr:
         import detect_text.text_detection as text
         os.makedirs(pjoin(output_root, 'ocr'), exist_ok=True)
@@ -53,8 +53,8 @@ if __name__ == '__main__':
     '''
     ******** Testing with adjustable parameters ********
     '''
-    testing_ip = False
-    testing_merge = True
+    testing_ip = True
+    testing_merge = False
 
     cv2.namedWindow('parameters')
     if testing_ip:

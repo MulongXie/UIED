@@ -51,7 +51,7 @@ if __name__ == '__main__':
                   'max-word-inline-gap':10, 'max-line-ingraph-gap':4, 'remove-top-bar':True}
 
     # set input image path
-    input_path_img = 'data/input/2.jpg'
+    input_path_img = 'data/input/7.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img, resize_length=800)

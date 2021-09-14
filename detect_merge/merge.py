@@ -57,19 +57,20 @@ def refine_elements(compos, texts, intersection_bias=2, containment_ratio=0.8):
     3. store text in a compo if it's contained by the compo as the compo's text child element
     '''
     elements = []
+    contained_texts = []
     for compo in compos:
         is_valid = True
         text_area = 0
-        contained_texts = []
         for text in texts:
             inter, iou, ioa, iob = compo.calc_intersection_area(text, bias=intersection_bias)
             if inter > 0:
+                # the non-text is contained in the text compo
                 if ioa >= containment_ratio:
                     is_valid = False
                     break
                 text_area += inter
                 # the text is contained in the non-text compo
-                if iob >= containment_ratio:
+                if iob >= containment_ratio and compo.category != 'Block':
                     contained_texts.append(text)
         if is_valid and text_area / compo.area < containment_ratio:
             # for t in contained_texts:
@@ -77,10 +78,10 @@ def refine_elements(compos, texts, intersection_bias=2, containment_ratio=0.8):
             # compo.children += contained_texts
             elements.append(compo)
 
-    elements += texts
-    # for text in texts:
-    #     if not text.is_child:
-    #         elements.append(text)
+    # elements += texts
+    for text in texts:
+        if text not in contained_texts:
+            elements.append(text)
     return elements
 
 

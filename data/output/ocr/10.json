@@ -1,0 +1,209 @@
+{
+    "img_shape": [
+        1920,
+        1080,
+        3
+    ],
+    "texts": [
+        {
+            "height": 14,
+            "width": 26,
+            "column_max": 241,
+            "content": "FAK",
+            "row_max": 23,
+            "id": 0,
+            "column_min": 215,
+            "row_min": 9
+        },
+        {
+            "height": 38,
+            "width": 79,
+            "column_max": 1057,
+            "content": "5:04",
+            "row_max": 48,
+            "id": 1,
+            "column_min": 978,
+            "row_min": 10
+        },
+        {
+            "height": 44,
+            "width": 125,
+            "column_max": 170,
+            "content": "Learn",
+            "row_max": 159,
+            "id": 2,
+            "column_min": 45,
+            "row_min": 115
+        },
+        {
+            "height": 109,
+            "width": 898,
+            "column_max": 988,
+            "content": "Every Challenge second you month unlock you a new stay random in the 7 workout Month",
+            "row_max": 389,
+            "id": 3,
+            "column_min": 90,
+            "row_min": 280
+        },
+        {
+            "height": 61,
+            "width": 9,
+            "column_max": 995,
+            "content": ".",
+            "row_max": 389,
+            "id": 4,
+            "column_min": 986,
+            "row_min": 328
+        },
+        {
+            "height": 51,
+            "width": 143,
+            "column_max": 188,
+            "content": "Plans",
+            "row_max": 558,
+            "id": 5,
+            "column_min": 45,
+            "row_min": 507
+        },
+        {
+            "height": 48,
+            "width": 147,
+            "column_max": 268,
+            "content": "Healthy",
+            "row_max": 838,
+            "id": 6,
+            "column_min": 121,
+            "row_min": 790
+        },
+        {
+            "height": 45,
+            "width": 127,
+            "column_max": 603,
+            "content": "Sporty",
+            "row_max": 838,
+            "id": 7,
+            "column_min": 476,
+            "row_min": 793
+        },
+        {
+            "height": 50,
+            "width": 218,
+            "column_max": 993,
+            "content": "Weightloss",
+            "row_max": 839,
+            "id": 8,
+            "column_min": 775,
+            "row_min": 789
+        },
+        {
+            "height": 59,
+            "width": 297,
+            "column_max": 338,
+            "content": "Get Started",
+            "row_max": 1053,
+            "id": 9,
+            "column_min": 41,
+            "row_min": 994
+        },
+        {
+            "height": 40,
+            "width": 20,
+            "column_max": 672,
+            "content": "Cla",
+            "row_max": 1138,
+            "id": 10,
+            "column_min": 652,
+            "row_min": 1098
+        },
+        {
+            "height": 53,
+            "width": 179,
+            "column_max": 284,
+            "content": "Full Body",
+            "row_max": 1329,
+            "id": 11,
+            "column_min": 105,
+            "row_min": 1276
+        },
+        {
+            "height": 48,
+            "width": 226,
+            "column_max": 652,
+            "content": "Upper Body",
+            "row_max": 1328,
+            "id": 12,
+            "column_min": 426,
+            "row_min": 1280
+        },
+        {
+            "height": 52,
+            "width": 230,
+            "column_max": 1001,
+            "content": "Lower Body",
+            "row_max": 1329,
+            "id": 13,
+            "column_min": 771,
+            "row_min": 1277
+        },
+        {
+            "height": 22,
+            "width": 145,
+            "column_max": 264,
+            "content": "\u0637\u0645\u0627\u0645\u0647",
+            "row_max": 1649,
+            "id": 14,
+            "column_min": 119,
+            "row_min": 1627
+        },
+        {
+            "height": 19,
+            "width": 212,
+            "column_max": 641,
+            "content": "Deateeman",
+            "row_max": 1648,
+            "id": 15,
+            "column_min": 429,
+            "row_min": 1629
+        },
+        {
+            "height": 32,
+            "width": 132,
+            "column_max": 204,
+            "content": "Workout",
+            "row_max": 1776,
+            "id": 16,
+            "column_min": 72,
+            "row_min": 1744
+        },
+        {
+            "height": 33,
+            "width": 97,
+            "column_max": 454,
+            "content": "Learn",
+            "row_max": 1769,
+            "id": 17,
+            "column_min": 357,
+            "row_min": 1736
+        },
+        {
+            "height": 23,
+            "width": 220,
+            "column_max": 785,
+            "content": "Achievemente",
+            "row_max": 1767,
+            "id": 18,
+            "column_min": 565,
+            "row_min": 1744
+        },
+        {
+            "height": 22,
+            "width": 85,
+            "column_max": 983,
+            "content": "Track",
+            "row_max": 1765,
+            "id": 19,
+            "column_min": 898,
+            "row_min": 1743
+        }
+    ]
+}
