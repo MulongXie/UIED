@@ -223,6 +223,7 @@ class Component:
 
     def compo_merge(self, compo_b):
         self.bbox = self.bbox.bbox_merge(compo_b.bbox)
+        self.compo_update(self.id, self.image_shape)
 
     def compo_clipping(self, img, pad=0, show=False):
         (column_min, row_min, column_max, row_max) = self.put_bbox()
