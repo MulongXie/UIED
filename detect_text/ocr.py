@@ -1,40 +1,31 @@
 import cv2
 import os
-import requests
+import io
+from google.cloud import vision
 import json
 from base64 import b64encode
 import time
 
 
-def Google_OCR_makeImageData(imgpath):
-    with open(imgpath, 'rb') as f:
-        ctxt = b64encode(f.read()).decode()
-        img_req = {
-            'image': {
-                'content': ctxt
-            },
-            'features': [{
-                'type': 'DOCUMENT_TEXT_DETECTION',
-                # 'type': 'TEXT_DETECTION',
-                'maxResults': 1
-            }]
-        }
-    return json.dumps({"requests": img_req}).encode()
-
-
 def ocr_detection_google(imgpath):
     start = time.clock()
-    url = 'https://vision.googleapis.com/v1/images:annotate'
-    api_key = 'AIzaSyDUc4iOUASJQYkVwSomIArTKhE2C6bHK8U'             # *** Replace with your own Key ***
-    imgdata = Google_OCR_makeImageData(imgpath)
-    response = requests.post(url,
-                             data=imgdata,
-                             params={'key': api_key},
-                             headers={'Content_Type': 'application/json'})
-    # print('*** Text Detection Time Taken:%.3fs ***' % (time.clock() - start))
-    print("*** Please replace the Google OCR key at detect_text/ocr.py line 28 with your own (apply in https://cloud.google.com/vision) ***")
-    if response.json()['responses'] == [{}]:
+    if os.getenv('GOOGLE_APPLICATION_CREDENTIALS') is None:
+        KEY_PATH = "" # Set the path to the private key file created in https://cloud.google.com/vision/docs/setup#sa-create
+        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = KEY_PATH
+    try:
+        client = vision.ImageAnnotatorClient()
+    except Exception as e:
+        print("*** Please export GOOGLE_APPLICATION_CREDENTIALS to the environment (apply in https://cloud.google.com/vision) ***")
+        print(f"Exception {e}")
+        return None
+    with io.open(imgpath, 'rb') as image_file:
+        content = image_file.read()
+    image = vision.Image(content=content)
+    response = client.document_text_detection(image=image)
+    print('*** Text Detection Time Taken:%.3fs ***' % (time.clock() - start))
+
+    if not response.text_annotations:
         # No Text
         return None
     else:
-        return response.json()['responses'][0]['textAnnotations'][1:]
+        return response.text_annotations[1:]
