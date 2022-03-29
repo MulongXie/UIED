@@ -30,6 +30,7 @@ UIED comprises two parts to detect UI text and graphic elements, such as button,
 * **Python 3.5**
 * **Opencv 3.4.2**
 * **Pandas**
+* **Google Cloud Vision** ([link](https://cloud.google.com/vision/docs/libraries))
 <!-- * **Tensorflow 1.10.0**
 * **Keras 2.2.4**
 * **Sklearn 0.22.2** -->
@@ -41,7 +42,7 @@ UIED comprises two parts to detect UI text and graphic elements, such as button,
 
 The new version of UIED equipped with Google OCR is easy to deploy and no pre-trained model is needed. Simply donwload the repo along with the dependencies.
 
-> Please replace the Google OCR key at `detect_text/ocr.py line 28` with your own (apply in [Google website](https://cloud.google.com/vision)).
+> Please either export GOOGLE_APPLICATION_CREDENTIALS in your environment or provide the path to the private key file for Google Cloud Vision at `detect_text/ocr.py line 13` (apply in [Google website](https://cloud.google.com/vision), then follow the [Setup](https://cloud.google.com/vision/docs/setup#auth-env)).
 
 ### Usage
 To test your own image(s):

@@ -93,14 +93,11 @@ def text_cvt_orc_format(ocr_result):
             error = False
             x_coordinates = []
             y_coordinates = []
-            text_location = result['boundingPoly']['vertices']
-            content = result['description']
+            text_location = result.bounding_poly.vertices
+            content = result.description
             for loc in text_location:
-                if 'x' not in loc or 'y' not in loc:
-                    error = True
-                    break
-                x_coordinates.append(loc['x'])
-                y_coordinates.append(loc['y'])
+                x_coordinates.append(loc.x)
+                y_coordinates.append(loc.y)
             if error: continue
             location = {'left': min(x_coordinates), 'top': min(y_coordinates),
                         'right': max(x_coordinates), 'bottom': max(y_coordinates)}
