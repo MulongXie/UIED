@@ -2,6 +2,7 @@ from os.path import join as pjoin
 import cv2
 import os
 import numpy as np
+import argparse
 
 
 def resize_height_by_longest_edge(img_path, resize_length=800):
@@ -47,15 +48,23 @@ if __name__ == '__main__':
         mobile: {'min-grad':4, 'ffl-block':5, 'min-ele-area':50, 'max-word-inline-gap':6, 'max-line-gap':1}
         web   : {'min-grad':3, 'ffl-block':5, 'min-ele-area':25, 'max-word-inline-gap':4, 'max-line-gap':4}
     '''
-    key_params = {'min-grad':10, 'ffl-block':5, 'min-ele-area':50,
-                  'merge-contained-ele':True, 'merge-line-to-paragraph':False, 'remove-bar':True}
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input', type=str, required=True, help="The input path of the screenshot")
+    parser.add_argument('--show', action='store_true', help="Show the annotation stages")
+    args = parser.parse_args()
+
+    key_params = {'min-grad': 4, 'ffl-block': 5, 'min-ele-area': 50,
+                  'merge-contained-ele': True, 'merge-line-to-paragraph': True, 'remove-bar': True}
 
     # set input image path
-    input_path_img = 'data/input/497.jpg'
+    # input_path_img = 'data/input/497.jpg'
+    show = args.show
+    input_path_img = args.input
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img, resize_length=800)
-    color_tips()
+    if show:
+        color_tips()
 
     is_ip = True
     is_clf = False
@@ -64,28 +73,33 @@ if __name__ == '__main__':
 
     if is_ocr:
         import detect_text.text_detection as text
+
         os.makedirs(pjoin(output_root, 'ocr'), exist_ok=True)
-        text.text_detection(input_path_img, output_root, show=True, method='google')
+        text.text_detection(input_path_img, output_root, show=show, method='google')
 
     if is_ip:
         import detect_compo.ip_region_proposal as ip
+
         os.makedirs(pjoin(output_root, 'ip'), exist_ok=True)
         # switch of the classification func
         classifier = None
         if is_clf:
             classifier = {}
             from cnn.CNN import CNN
+
             # classifier['Image'] = CNN('Image')
             classifier['Elements'] = CNN('Elements')
             # classifier['Noise'] = CNN('Noise')
         ip.compo_detection(input_path_img, output_root, key_params,
-                           classifier=classifier, resize_by_height=resized_height, show=False)
+                           classifier=classifier, resize_by_height=resized_height, show=show)
 
     if is_merge:
         import detect_merge.merge as merge
+
         os.makedirs(pjoin(output_root, 'merge'), exist_ok=True)
         name = input_path_img.split('/')[-1][:-4]
         compo_path = pjoin(output_root, 'ip', str(name) + '.json')
         ocr_path = pjoin(output_root, 'ocr', str(name) + '.json')
         merge.merge(input_path_img, compo_path, ocr_path, pjoin(output_root, 'merge'),
-                    is_remove_bar=key_params['remove-bar'], is_paragraph=key_params['merge-line-to-paragraph'], show=True)
+                    is_remove_bar=key_params['remove-bar'], is_paragraph=key_params['merge-line-to-paragraph'],
+                    show=show)
