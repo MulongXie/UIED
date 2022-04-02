@@ -6,7 +6,6 @@ import json
 import time
 import os
 from os.path import join as pjoin
-from paddleocr import PaddleOCR
 
 
 def save_detection_json(file_path, texts, img_shape):
@@ -146,6 +145,8 @@ def text_detection(input_file='../data/input/30800.jpg', output_file='../data/ou
         texts = text_filter_noise(texts)
         texts = text_sentences_recognition(texts)
     elif method == 'paddle':
+        # The import of the paddle ocr can be separate to the beginning of the program if you decide to use this method
+        from paddleocr import PaddleOCR
         print('*** Detect Text through Paddle OCR ***')
         if paddle_model is None:
             paddle_model = PaddleOCR(use_angle_cls=True, lang="ch")
