@@ -191,7 +191,7 @@ def compos_clip_and_fill(clip_root, org, compos):
 
 def merge(img_path, compo_path, text_path, merge_root=None, is_paragraph=False, is_remove_bar=True, show=False, wait_key=0):
     compo_json = json.load(open(compo_path, 'r'))
-    text_json = json.load(open(text_path, 'r'))
+    text_json = json.load(open(text_path, 'r',encoding='utf-8'))
 
     # load text and non-text compo
     ele_id = 0

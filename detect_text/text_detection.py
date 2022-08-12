@@ -9,7 +9,7 @@ from os.path import join as pjoin
 
 
 def save_detection_json(file_path, texts, img_shape):
-    f_out = open(file_path, 'w')
+    f_out = open(file_path, 'w',encoding='utf-8')
     output = {'img_shape': img_shape, 'texts': []}
     for text in texts:
         c = {'id': text.id, 'content': text.content}
@@ -18,7 +18,7 @@ def save_detection_json(file_path, texts, img_shape):
         c['width'] = text.width
         c['height'] = text.height
         output['texts'].append(c)
-    json.dump(output, f_out, indent=4)
+    json.dump(output, f_out, indent=4,ensure_ascii=False)
 
 
 def visualize_texts(org_img, texts, shown_resize_height=None, show=False, write_path=None):
