@@ -40,7 +40,7 @@ def nesting_inspection(org, grey, compos, ffl_block):
 def compo_detection(input_img_path, output_root, uied_params,
                     resize_by_height=800, classifier=None, show=False, wai_key=0):
 
-    start = time.clock()
+    start = time.perf_counter()
     name = input_img_path.split('/')[-1][:-4] if '/' in input_img_path else input_img_path.split('\\')[-1][:-4]
     ip_root = file.build_directory(pjoin(output_root, "ip"))
 
@@ -88,4 +88,4 @@ def compo_detection(input_img_path, output_root, uied_params,
     # *** Step 7 *** save detection result
     Compo.compos_update(uicompos, org.shape)
     file.save_corners_json(pjoin(ip_root, name + '.json'), uicompos)
-    print("[Compo Detection Completed in %.3f s] Input: %s Output: %s" % (time.clock() - start, input_img_path, pjoin(ip_root, name + '.json')))
+    print("[Compo Detection Completed in %.3f s] Input: %s Output: %s" % (time.perf_counter() - start, input_img_path, pjoin(ip_root, name + '.json')))
