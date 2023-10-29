@@ -7,10 +7,14 @@ import time
 import shutil
 
 from detect_merge.Element import Element
+from config.CONFIG import Config
+
+cfg = Config()
 
 
 def show_elements(org_img, eles, show=False, win_name='element', wait_key=0, shown_resize=None, line=2):
-    color_map = {'Text':(0, 0, 255), 'Compo':(0, 255, 0), 'Block':(0, 255, 0), 'Text Content':(255, 0, 255)}
+    # color_map = {'Text':(0, 0, 255), 'Compo':(0, 255, 0), 'Block':(0, 255, 0), 'Text Content':(255, 0, 255)}
+    color_map = cfg.COLOR
     img = org_img.copy()
     for ele in eles:
         color = color_map[ele.category]
@@ -231,5 +235,5 @@ def merge(img_path, compo_path, text_path, merge_root=None, is_paragraph=False, 
     name = img_path.replace('\\', '/').split('/')[-1][:-4]
     components = save_elements(pjoin(merge_root, name + '.json'), elements, img_resize.shape)
     cv2.imwrite(pjoin(merge_root, name + '.jpg'), board)
-    print('[Merge Completed] Input: %s Output: %s' % (img_path, pjoin(merge_root, name + '.jpg')))
+    # print('[Merge Completed] Input: %s Output: %s' % (img_path, pjoin(merge_root, name + '.jpg')))
     return board, components

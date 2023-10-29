@@ -51,21 +51,21 @@ if __name__ == '__main__':
                   'merge-contained-ele':True, 'merge-line-to-paragraph':False, 'remove-bar':True}
 
     # set input image path
-    input_path_img = 'data/input/497.jpg'
+    input_path_img = 'data/input/30800.jpg'
     output_root = 'data/output'
 
     resized_height = resize_height_by_longest_edge(input_path_img, resize_length=800)
-    color_tips()
+    # color_tips()
 
     is_ip = True
-    is_clf = False
-    is_ocr = True
+    is_clf = True
+    is_ocr = False
     is_merge = True
 
     if is_ocr:
         import detect_text.text_detection as text
         os.makedirs(pjoin(output_root, 'ocr'), exist_ok=True)
-        text.text_detection(input_path_img, output_root, show=True, method='google')
+        text.text_detection(input_path_img, output_root, show=False, method='google')
 
     if is_ip:
         import detect_compo.ip_region_proposal as ip
@@ -88,4 +88,4 @@ if __name__ == '__main__':
         compo_path = pjoin(output_root, 'ip', str(name) + '.json')
         ocr_path = pjoin(output_root, 'ocr', str(name) + '.json')
         merge.merge(input_path_img, compo_path, ocr_path, pjoin(output_root, 'merge'),
-                    is_remove_bar=key_params['remove-bar'], is_paragraph=key_params['merge-line-to-paragraph'], show=True)
+                    is_remove_bar=key_params['remove-bar'], is_paragraph=key_params['merge-line-to-paragraph'], show=False)

@@ -1,8 +1,5 @@
-import cv2
 from os.path import join as pjoin
 import time
-import json
-import numpy as np
 
 import detect_compo.lib_ip.ip_preprocessing as pre
 import detect_compo.lib_ip.ip_draw as draw
@@ -80,12 +77,12 @@ def compo_detection(input_img_path, output_root, uied_params,
     #     uicompos = det.rm_noise_compos(uicompos)
 
     # *** Step 6 *** element classification: all category classification
-    # if classifier is not None:
-    #     classifier['Elements'].predict([compo.compo_clipping(org) for compo in uicompos], uicompos)
-    #     draw.draw_bounding_box_class(org, uicompos, show=show, name='cls', write_path=pjoin(ip_root, 'result.jpg'))
-    #     draw.draw_bounding_box_class(org, uicompos, write_path=pjoin(output_root, 'result.jpg'))
+    if classifier is not None:
+        classifier['Elements'].predict([compo.compo_clipping(org) for compo in uicompos], uicompos)
+        draw.draw_bounding_box_class(org, uicompos, show=show, name='cls', write_path=pjoin(ip_root, 'result.jpg'))
+        draw.draw_bounding_box_class(org, uicompos, write_path=pjoin(output_root, 'result.jpg'))
 
     # *** Step 7 *** save detection result
     Compo.compos_update(uicompos, org.shape)
     file.save_corners_json(pjoin(ip_root, name + '.json'), uicompos)
-    print("[Compo Detection Completed in %.3f s] Input: %s Output: %s" % (time.clock() - start, input_img_path, pjoin(ip_root, name + '.json')))
+    # print("[Compo Detection Completed in %.3f s] Input: %s Output: %s" % (time.clock() - start, input_img_path, pjoin(ip_root, name + '.json')))
