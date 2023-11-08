@@ -109,12 +109,13 @@ def text_cvt_orc_format(ocr_result):
 
 def text_cvt_orc_format_paddle(paddle_result):
     texts = []
-    for i, line in enumerate(paddle_result):
-        points = np.array(line[0])
-        location = {'left': int(min(points[:, 0])), 'top': int(min(points[:, 1])), 'right': int(max(points[:, 0])),
-                    'bottom': int(max(points[:, 1]))}
-        content = line[1][0]
-        texts.append(Text(i, content, location))
+    if paddle_result[0] is not None:
+        for i, line in enumerate(paddle_result[0]):
+            points = np.array(line[0])
+            location = {'left': int(min(points[:, 0])), 'top': int(min(points[:, 1])), 'right': int(max(points[:, 0])),
+                        'bottom': int(max(points[:, 1]))}
+            content = line[1][0]
+            texts.append(Text(i, content, location))
     return texts
 
 
@@ -132,9 +133,10 @@ def text_detection(input_file='../data/input/30800.jpg', output_file='../data/ou
     :param method: google or paddle
     :param paddle_model: the preload paddle model for paddle ocr
     '''
-    start = time.clock()
+    # start = time.clock()
     name = input_file.split('/')[-1][:-4]
     ocr_root = pjoin(output_file, 'ocr')
+    os.makedirs(ocr_root,exist_ok=True)
     img = cv2.imread(input_file)
 
     if method == 'google':
@@ -147,7 +149,7 @@ def text_detection(input_file='../data/input/30800.jpg', output_file='../data/ou
     elif method == 'paddle':
         # The import of the paddle ocr can be separate to the beginning of the program if you decide to use this method
         from paddleocr import PaddleOCR
-        print('*** Detect Text through Paddle OCR ***')
+        # print('*** Detect Text through Paddle OCR ***')
         if paddle_model is None:
             paddle_model = PaddleOCR(use_angle_cls=True, lang="ch")
         result = paddle_model.ocr(input_file, cls=True)

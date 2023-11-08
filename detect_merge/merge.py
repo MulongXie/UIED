@@ -49,7 +49,8 @@ def refine_texts(texts, img_shape):
     refined_texts = []
     for text in texts:
         # remove potential noise
-        if len(text.text_content) > 1 and text.height / img_shape[0] < 0.075:
+        # if len(text.text_content) > 1 and text.height / img_shape[0] < 0.075:
+        if len(text.text_content) > 1:
             refined_texts.append(text)
     return refined_texts
 
@@ -200,6 +201,8 @@ def merge(img_path, compo_path, text_path, merge_root=None, is_paragraph=False, 
     # load text and non-text compo
     ele_id = 0
     compos = []
+    if len(compo_json) == 0:
+        return None, None
     for compo in compo_json['compos']:
         element = Element(ele_id, (compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']), compo['class'])
         compos.append(element)

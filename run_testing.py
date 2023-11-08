@@ -39,8 +39,8 @@ if __name__ == '__main__':
                   'max-word-inline-gap':10, 'max-line-gap':4, 'remove-top-bar':True}
 
     # set input image path
-    input_path_img = 'data/input/4.jpg'
-    output_root = 'data/output'
+    input_path_img = '/public/dataset/UEyes/UEyes_dataset/images/1b4c8d.png'
+    output_root = './output'
 
     resized_height = resize_height_by_longest_edge(input_path_img)
     is_clf = False
@@ -56,10 +56,10 @@ if __name__ == '__main__':
     testing_ip = True
     testing_merge = False
 
-    cv2.namedWindow('parameters')
+    # cv2.namedWindow('parameters')
     if testing_ip:
-        cv2.createTrackbar('min-grad', 'parameters', 4, 20, nothing)
-        cv2.createTrackbar('min-ele-area', 'parameters', 20, 200, nothing)
+        # cv2.createTrackbar('min-grad', 'parameters', 4, 20, nothing)
+        # cv2.createTrackbar('min-ele-area', 'parameters', 20, 200, nothing)
         while(1):
             key_params['min-grad'] = cv2.getTrackbarPos('min-grad', 'parameters')
             key_params['min-ele-area'] = cv2.getTrackbarPos('min-ele-area', 'parameters')
@@ -77,8 +77,8 @@ if __name__ == '__main__':
                                classifier=classifier, resize_by_height=resized_height, show=True, wai_key=10)
 
     if testing_merge:
-        cv2.createTrackbar('max-word-inline-gap', 'parameters', 4, 20, nothing)
-        cv2.createTrackbar('max-line-gap', 'parameters', 20, 200, nothing)
+        # cv2.createTrackbar('max-word-inline-gap', 'parameters', 4, 20, nothing)
+        # cv2.createTrackbar('max-line-gap', 'parameters', 20, 200, nothing)
         while(1):
             key_params['max-word-inline-gap'] = cv2.getTrackbarPos('max-word-inline-gap', 'parameters')
             key_params['max-line-gap'] = cv2.getTrackbarPos('max-line-gap', 'parameters')

@@ -11,6 +11,24 @@
             "program": "run_single.py",
             "console": "integratedTerminal",
             "justMyCode": false
+        },
+        {
+            "name": "Python: Tune Test",
+            "type": "python",
+            "request": "launch",
+            "program": "run_testing.py",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Python: Batch Test",
+            "type": "python",
+            "request": "launch",
+            "program": "run_batch.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "--cat","poster"]
         }
     ]
 }
