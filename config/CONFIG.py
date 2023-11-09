@@ -1,7 +1,7 @@
 from os.path import join as pjoin
 import os
 
-
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 class Config:
 
     def __init__(self):
@@ -9,14 +9,14 @@ class Config:
         self.image_shape = (64, 64, 3)
         # self.MODEL_PATH = 'E:\\Mulong\\Model\\UI2CODE\\cnn6_icon.h5'
         # self.class_map = ['button', 'input', 'icon', 'img', 'text']
-        self.CNN_PATH = 'E:/Mulong/Model/rico_compos/cnn-rico-1.h5'
+        self.CNN_PATH = ROOT + '/weights/cnn-rico-1.h5'
         self.element_class = ['Button', 'CheckBox', 'Chronometer', 'EditText', 'ImageButton', 'ImageView',
                               'ProgressBar', 'RadioButton', 'RatingBar', 'SeekBar', 'Spinner', 'Switch',
                               'ToggleButton', 'VideoView', 'TextView']
         self.class_number = len(self.element_class)
 
         # setting EAST (ocr) model
-        self.EAST_PATH = 'E:/Mulong/Model/East/east_icdar2015_resnet_v1_50_rbox'
+        self.EAST_PATH = ROOT + '/weights/east_icdar2015_resnet_v1_50_rbox'
 
         self.COLOR = {'Button': (0, 255, 0), 'CheckBox': (0, 0, 255), 'Chronometer': (255, 166, 166),
                       'EditText': (255, 166, 0),
@@ -25,7 +25,7 @@ class Config:
                       'RatingBar': (0, 166, 255), 'SeekBar': (0, 166, 10), 'Spinner': (50, 21, 255),
                       'Switch': (80, 166, 66), 'ToggleButton': (0, 66, 80), 'VideoView': (88, 66, 0),
                       'TextView': (169, 255, 0), 'NonText': (0,0,255),
-                      'Compo':(0, 0, 255), 'Text':(169, 255, 0), 'Block':(80, 166, 66)}
+                      'Compo':(0, 0, 255), 'Text':(169, 140, 0), 'Block':(80, 166, 66)}
 
     def build_output_folders(self):
         # setting data flow paths

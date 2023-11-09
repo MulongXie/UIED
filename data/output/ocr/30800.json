@@ -1,0 +1,89 @@
+{
+    "img_shape": [
+        1747,
+        1080,
+        3
+    ],
+    "texts": [
+        {
+            "row_max": 108,
+            "column_min": 44,
+            "content": "Relax Night",
+            "height": 52,
+            "width": 269,
+            "row_min": 56,
+            "column_max": 313,
+            "id": 0
+        },
+        {
+            "row_max": 234,
+            "column_min": 217,
+            "content": "Brahms Lullaby and crickets",
+            "height": 42,
+            "width": 647,
+            "row_min": 192,
+            "column_max": 864,
+            "id": 1
+        },
+        {
+            "row_max": 1670,
+            "column_min": 31,
+            "content": "Dog House On",
+            "height": 45,
+            "width": 302,
+            "row_min": 1625,
+            "column_max": 333,
+            "id": 2
+        },
+        {
+            "row_max": 1710,
+            "column_min": 63,
+            "content": "The Prairie .",
+            "height": 31,
+            "width": 241,
+            "row_min": 1679,
+            "column_max": 304,
+            "id": 3
+        },
+        {
+            "row_max": 106,
+            "column_min": 882,
+            "content": "+ :",
+            "height": 56,
+            "width": 148,
+            "row_min": 50,
+            "column_max": 1030,
+            "id": 4
+        },
+        {
+            "row_max": 1653,
+            "column_min": 499,
+            "content": "Dog boarding and Dog training . YX",
+            "height": 42,
+            "width": 577,
+            "row_min": 1611,
+            "column_max": 1076,
+            "id": 5
+        },
+        {
+            "row_max": 1686,
+            "column_min": 557,
+            "content": "dog's home away from home .",
+            "height": 33,
+            "width": 426,
+            "row_min": 1653,
+            "column_max": 983,
+            "id": 6
+        },
+        {
+            "row_max": 1711,
+            "column_min": 683,
+            "content": "facebook.com",
+            "height": 20,
+            "width": 171,
+            "row_min": 1691,
+            "column_max": 854,
+            "id": 7
+        }
+    ]
+}

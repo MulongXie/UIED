@@ -1,5 +1,6 @@
 import keras
-from keras.applications.resnet50 import ResNet50
+# from keras.applications.resnet50 import ResNet50
+from tensorflow.keras.applications.resnet50 import ResNet50
 from keras.models import Model,load_model
 from keras.layers import Dense, Activation, Flatten, Dropout
 from sklearn.metrics import confusion_matrix
@@ -87,7 +88,8 @@ class CNN:
             return
         for i in range(len(imgs)):
             X = self.preprocess_img(imgs[i])
-            Y = self.class_map[np.argmax(self.model.predict(X))]
+            # verbose=0: for no log output for keras model.
+            Y = self.class_map[np.argmax(self.model.predict(X,verbose=0))]
             compos[i].category = Y
             if show:
                 print(Y)

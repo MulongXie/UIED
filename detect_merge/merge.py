@@ -7,10 +7,14 @@ import time
 import shutil
 
 from detect_merge.Element import Element
+from config.CONFIG import Config
+
+cfg = Config()
 
 
 def show_elements(org_img, eles, show=False, win_name='element', wait_key=0, shown_resize=None, line=2):
-    color_map = {'Text':(0, 0, 255), 'Compo':(0, 255, 0), 'Block':(0, 255, 0), 'Text Content':(255, 0, 255)}
+    # color_map = {'Text':(0, 0, 255), 'Compo':(0, 255, 0), 'Block':(0, 255, 0), 'Text Content':(255, 0, 255)}
+    color_map = cfg.COLOR
     img = org_img.copy()
     for ele in eles:
         color = color_map[ele.category]
@@ -45,7 +49,8 @@ def refine_texts(texts, img_shape):
     refined_texts = []
     for text in texts:
         # remove potential noise
-        if len(text.text_content) > 1 and text.height / img_shape[0] < 0.075:
+        # if len(text.text_content) > 1 and text.height / img_shape[0] < 0.075:
+        if len(text.text_content) > 1:
             refined_texts.append(text)
     return refined_texts
 
@@ -196,6 +201,8 @@ def merge(img_path, compo_path, text_path, merge_root=None, is_paragraph=False, 
     # load text and non-text compo
     ele_id = 0
     compos = []
+    if len(compo_json) == 0:
+        return None, None
     for compo in compo_json['compos']:
         element = Element(ele_id, (compo['column_min'], compo['row_min'], compo['column_max'], compo['row_max']), compo['class'])
         compos.append(element)
@@ -231,5 +238,5 @@ def merge(img_path, compo_path, text_path, merge_root=None, is_paragraph=False, 
     name = img_path.replace('\\', '/').split('/')[-1][:-4]
     components = save_elements(pjoin(merge_root, name + '.json'), elements, img_resize.shape)
     cv2.imwrite(pjoin(merge_root, name + '.jpg'), board)
-    print('[Merge Completed] Input: %s Output: %s' % (img_path, pjoin(merge_root, name + '.jpg')))
+    # print('[Merge Completed] Input: %s Output: %s' % (img_path, pjoin(merge_root, name + '.jpg')))
     return board, components

@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Single Test",
+            "type": "python",
+            "request": "launch",
+            "program": "run_single.py",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Python: Tune Test",
+            "type": "python",
+            "request": "launch",
+            "program": "run_testing.py",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Python: Batch Test",
+            "type": "python",
+            "request": "launch",
+            "program": "run_batch.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "--cat","poster"]
+        }
+    ]
+}
